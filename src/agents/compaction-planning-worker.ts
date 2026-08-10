@@ -22,12 +22,13 @@ import type {
   CompactionPlanningWorkerResult,
   CompactionPlanningWorkerValue,
 } from "./compaction-planning.worker.js";
+import { resolveCompactionStrategy } from "./embedded-agent-runner/compaction-scheduler.js";
 import type { AgentMessage } from "./runtime/index.js";
 
 const COMPACTION_PLANNING_WORKER_TIMEOUT_MS = 60_000;
-// Worker startup is more expensive than local planning for tiny histories.
-// Keep small compactions synchronous; move only starvation-sized plans off-thread.
-const COMPACTION_PLANNING_WORKER_MIN_MESSAGES = 64;
+// The inline-vs-worker threshold lives in compaction-scheduler.ts
+// (DEFAULT_MIN_MESSAGES_FOR_COMPACTION_WORKER = 64). Small compactions run
+// inline (worker startup not worth it); starvation-sized plans offload.
 
 class CompactionPlanningWorkerError extends Error {
   constructor(
@@ -163,7 +164,14 @@ async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, T
   ) => TResult;
 }): Promise<TResult> {
   const messages = sanitizeCompactionMessages(params.input.messages);
-  if (messages.length < COMPACTION_PLANNING_WORKER_MIN_MESSAGES) {
+  // ── Core mod #3: async compaction scheduler ─────────────────────────
+  // The inline-vs-worker decision is extracted to compaction-scheduler.ts
+  // (foundry-gateable). Below the threshold, inline planning is faster than
+  // worker startup; at/above the threshold, offload CPU-bound planning to
+  // keep the main event loop responsive.
+  // See src/agents/embedded-agent-runner/compaction-scheduler.ts.
+  const strategy = resolveCompactionStrategy({ messageCount: messages.length });
+  if (strategy.mode === "inline") {
     return params.fallback(params.input.messages);
   }
 
