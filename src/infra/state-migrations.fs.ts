@@ -1,5 +1,6 @@
 // Filesystem primitives used by legacy state migration code.
 import fs from "node:fs";
+import { deserializeSessionStore } from "../config/sessions/serialization-format-policy.js";
 import { parseJsonWithJson5Fallback } from "../utils/parse-json-compat.js";
 
 /** Minimal session-store entry shape needed by state migration ordering and repair logic. */
@@ -46,8 +47,17 @@ export function readSessionStoreJson5(storePath: string): {
   ok: boolean;
 } {
   try {
-    const raw = fs.readFileSync(storePath, "utf-8");
-    return parseSessionStoreJson5(raw);
+    // ── Core mod #4: structured serialization ─────────────────────────
+    // Read raw bytes and let the format policy detect v8 vs JSON. Legacy
+    // JSON files (no magic prefix) fall through to the JSON5 text path.
+    // See src/config/sessions/serialization-format-policy.ts.
+    const raw = fs.readFileSync(storePath);
+    const detected = deserializeSessionStore(raw);
+    if (detected.ok) {
+      return { store: detected.store as Record<string, SessionEntryLike>, ok: true };
+    }
+    // Not v8 and not strict JSON — try JSON5 text compatibility.
+    return parseSessionStoreJson5(raw.toString("utf-8"));
   } catch {
     // ignore
   }
