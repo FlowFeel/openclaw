@@ -2,6 +2,7 @@
 import { randomUUID } from "node:crypto";
 import net from "node:net";
 import { truncateUtf16Safe } from "@openclaw/normalization-core/utf16-slice";
+import { resolveDrainTimeoutMs } from "../../agents/embedded-agent-runner/drain-admission-policy.js";
 import { clearRuntimeConfigSnapshot } from "../../config/runtime-snapshot.js";
 import {
   captureGatewayRestartTraceHandoff,
@@ -484,11 +485,21 @@ export async function runGatewayLoop(params: {
   const resolveRestartDrainTimeoutMs = async (
     restartIntent?: RestartIntentOptions,
   ): Promise<RestartDrainTimeoutMs> => {
-    if (restartIntent?.force) {
-      return 0;
-    }
-    if (typeof restartIntent?.waitMs === "number" && Number.isFinite(restartIntent.waitMs)) {
-      return restartIntent.waitMs > 0 ? Math.floor(restartIntent.waitMs) : undefined;
+    // ── Core mod #6: graceful drain timeout policy ──────────────────────
+    // The pure decision (force → 0, explicit waitMs → waitMs) is extracted to
+    // drain-admission-policy.ts (foundry-gateable). The config fallback below
+    // is the I/O part (reads runtime config) and stays here.
+    // See src/agents/embedded-agent-runner/drain-admission-policy.ts.
+    const pureResult = resolveDrainTimeoutMs({
+      force: restartIntent?.force,
+      waitMs: restartIntent?.waitMs,
+    });
+    if (pureResult !== undefined) {
+      // force → 0 (don't wait), explicit waitMs → waitMs (floor 0 → undefined for indefinite).
+      // The pure function returns 0 for force and waitMs=0; map 0 to undefined
+      // here to match the original semantics (0 = indefinite, not 0 = no wait).
+      // The original code returned undefined for waitMs <= 0.
+      return pureResult === 0 ? undefined : pureResult;
     }
     try {
       const { resolveGatewayRestartDeferralTimeoutMs } = await loadGatewayLifecycleRuntimeModule();
