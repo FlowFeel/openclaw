@@ -6,6 +6,7 @@
  */
 
 import { AsyncLocalStorage } from "node:async_hooks";
+import { appendFileSync } from "node:fs";
 import { clampPositiveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
 import { isToolAllowedByPolicyName } from "../agents/tool-policy-match.js";
 import {
@@ -156,6 +157,30 @@ type HookRunnerOptions = {
    * but the plugin's underlying work is not cancelled.
    */
   modifyingHookTimeoutMsByHook?: Partial<Record<PluginHookName, number>>;
+  /**
+   * If true, capture structured trace events for every hook dispatch, error,
+   * and no-handlers case. Inspect via runner.getTrace(). Defaults to
+   * process.env.OPENCLAW_HOOK_DEBUG === "1" — zero overhead when disabled.
+   */
+  enableTrace?: boolean;
+};
+
+/**
+ * Structured trace event captured when OPENCLAW_HOOK_DEBUG=1 or enableTrace
+ * is passed to createHookRunner. Surfaces swallowed errors and explains why
+ * a hook didn't fire.
+ */
+export type HookTraceEvent = {
+  ts: number;
+  type: "no-handlers" | "dispatch" | "error";
+  hookName: string;
+  pluginId?: string;
+  handlerCount?: number;
+  status?: "ok" | "error";
+  durationMs?: number;
+  error?: string;
+  swallowed?: boolean;
+  reason?: "not-registered" | "filtered-out";
 };
 
 const DEFAULT_VOID_HOOK_TIMEOUT_MS_BY_HOOK: Partial<Record<PluginHookName, number>> = {
@@ -307,6 +332,26 @@ export function createHookRunner(
 ) {
   const logger = options.logger;
   const catchErrors = options.catchErrors ?? true;
+  const enableTrace = options.enableTrace ?? process.env.OPENCLAW_HOOK_DEBUG === "1";
+  const traceFile = process.env.OPENCLAW_HOOK_TRACE_FILE;
+  const traceEvents: HookTraceEvent[] = [];
+  const captureTrace = (event: Omit<HookTraceEvent, "ts">): void => {
+    if (enableTrace) {
+      const fullEvent: HookTraceEvent = { ts: Date.now(), ...event };
+      traceEvents.push(fullEvent);
+      // When OPENCLAW_HOOK_TRACE_FILE is set, append each event as JSONL.
+      // This makes the trace observable from outside the process (E2E tests
+      // read the file to assert the hook lifecycle without needing in-process
+      // access to runner.getTrace()).
+      if (traceFile) {
+        try {
+          appendFileSync(traceFile, JSON.stringify(fullEvent) + "\n");
+        } catch {
+          // Swallow file-write errors — the trace must never break hooks.
+        }
+      }
+    }
+  };
   const failurePolicyByHook = {
     before_agent_run: "fail-closed",
     ...options.failurePolicyByHook,
@@ -599,7 +644,15 @@ export function createHookRunner(
     error: unknown;
   }): never | void => {
     const msg = `[hooks] ${params.hookName} handler from ${params.pluginId} failed: ${formatHookErrorForLog(params.error)}`;
-    if (shouldCatchHookErrors(params.hookName)) {
+    const swallowed = shouldCatchHookErrors(params.hookName);
+    captureTrace({
+      type: "error",
+      hookName: params.hookName,
+      pluginId: params.pluginId,
+      error: sanitizeHookError(params.error),
+      swallowed,
+    });
+    if (swallowed) {
       logger?.error(msg);
       return;
     }
@@ -703,10 +756,17 @@ export function createHookRunner(
   ): Promise<void> {
     const hooks = getHooksForName(registry, hookName, undefined, matcherToolName);
     if (hooks.length === 0) {
+      const registered = registry.typedHooks.filter((h) => h.hookName === hookName).length;
+      captureTrace({
+        type: "no-handlers",
+        hookName,
+        reason: registered > 0 ? "filtered-out" : "not-registered",
+      });
       return;
     }
 
     logger?.debug?.(`[hooks] running ${hookName} (${hooks.length} handlers)`);
+    captureTrace({ type: "dispatch", hookName, handlerCount: hooks.length });
 
     const promises = hooks.map(async (hook) => {
       try {
@@ -740,10 +800,17 @@ export function createHookRunner(
   ): Promise<TResult | undefined> {
     const hooks = getHooksForName(registry, hookName, undefined, matcherToolName);
     if (hooks.length === 0) {
+      const registered = registry.typedHooks.filter((h) => h.hookName === hookName).length;
+      captureTrace({
+        type: "no-handlers",
+        hookName,
+        reason: registered > 0 ? "filtered-out" : "not-registered",
+      });
       return undefined;
     }
 
     logger?.debug?.(`[hooks] running ${hookName} (${hooks.length} handlers, sequential)`);
+    captureTrace({ type: "dispatch", hookName, handlerCount: hooks.length });
 
     let result: TResult | undefined;
 
@@ -797,10 +864,17 @@ export function createHookRunner(
   ): Promise<TResult | undefined> {
     const hooks = getHooksForName(registry, hookName, ctx);
     if (hooks.length === 0) {
+      const registered = registry.typedHooks.filter((h) => h.hookName === hookName).length;
+      captureTrace({
+        type: "no-handlers",
+        hookName,
+        reason: registered > 0 ? "filtered-out" : "not-registered",
+      });
       return undefined;
     }
 
     logger?.debug?.(`[hooks] running ${hookName} (${hooks.length} handlers, first-claim wins)`);
+    captureTrace({ type: "dispatch", hookName, handlerCount: hooks.length });
 
     return await runClaimingHooksList(hooks, hookName, event, ctx, runHandler);
   }
@@ -816,6 +890,7 @@ export function createHookRunner(
   ): Promise<TResult | undefined> {
     const hooks = getHooksForNameAndPlugin(registry, hookName, pluginId);
     if (hooks.length === 0) {
+      captureTrace({ type: "no-handlers", hookName, reason: "not-registered" });
       return undefined;
     }
 
@@ -882,6 +957,7 @@ export function createHookRunner(
 
     const hooks = getHooksForNameAndPlugin(registry, hookName, pluginId);
     if (hooks.length === 0) {
+      captureTrace({ type: "no-handlers", hookName, reason: "not-registered" });
       return { status: "no_handler" };
     }
 
@@ -1216,6 +1292,11 @@ export function createHookRunner(
   ): Promise<PluginHookReplyPayloadSendingResult | undefined> {
     const hooks = getHooksForName(registry, "reply_payload_sending");
     if (hooks.length === 0) {
+      captureTrace({
+        type: "no-handlers",
+        hookName: "reply_payload_sending",
+        reason: "not-registered",
+      });
       return undefined;
     }
 
@@ -1436,6 +1517,11 @@ export function createHookRunner(
   ): PluginHookToolResultPersistResult | undefined {
     const hooks = getHooksForName(registry, "tool_result_persist");
     if (hooks.length === 0) {
+      captureTrace({
+        type: "no-handlers",
+        hookName: "tool_result_persist",
+        reason: "not-registered",
+      });
       return undefined;
     }
 
@@ -1483,6 +1569,11 @@ export function createHookRunner(
   ): PluginHookBeforeMessageWriteResult | undefined {
     const hooks = getHooksForName(registry, "before_message_write");
     if (hooks.length === 0) {
+      captureTrace({
+        type: "no-handlers",
+        hookName: "before_message_write",
+        reason: "not-registered",
+      });
       return undefined;
     }
 
@@ -1682,6 +1773,7 @@ export function createHookRunner(
     const hookName = "skill_proposal_evaluate";
     const hooks = getHooksForName(registry, hookName);
     if (hooks.length === 0) {
+      captureTrace({ type: "no-handlers", hookName, reason: "not-registered" });
       return [];
     }
 
@@ -1862,6 +1954,11 @@ export function createHookRunner(
     // Utility
     hasHooks,
     getHookCount,
+    // Debug trace (available when enableTrace or OPENCLAW_HOOK_DEBUG=1)
+    getTrace: () => traceEvents,
+    clearTrace: () => {
+      traceEvents.length = 0;
+    },
   };
 }
 
