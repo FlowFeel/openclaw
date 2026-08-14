@@ -27,6 +27,7 @@
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { MessageChannel, type MessagePort } from "node:worker_threads";
+import { streamSimple } from "../../llm/stream.js";
 import type {
   AssistantMessage,
   AssistantMessageEvent,
@@ -108,9 +109,19 @@ export class WorkerModelExecutionPort implements ModelExecutionPort {
     context: Context,
     options?: SimpleStreamOptions,
   ): AssistantMessageEventStreamContract {
-    const { port1, port2 } = new MessageChannel();
     const stream = createAssistantMessageEventStream();
     let settled = false;
+
+    // 3a-4: Pre-aborted signal — immediately end the stream without dispatching.
+    // The model call never starts, so no cleanup is needed.
+    if (options?.signal?.aborted) {
+      stream.push(this.makeErrorEvent(model, "aborted", "model execution aborted before dispatch"));
+      return stream;
+    }
+
+    const { port1, port2 } = new MessageChannel();
+    // 3a-4: unref port1 so it doesn't keep the process alive.
+    port1.unref();
 
     // Strip the signal — it can't cross the IPC boundary. Abort is propagated
     // via a control message on the MessagePort (see below).
@@ -126,86 +137,157 @@ export class WorkerModelExecutionPort implements ModelExecutionPort {
     // Dispatch to the pool, transferring port2 to the worker.
     const dispatchPromise = this.pool.dispatch(this.topicKey, input, [port2]);
 
+    // 3a-4: Abort listener cleanup — store the listener so we can remove it
+    // when the stream ends (prevents memory leak if the signal outlives the stream).
+    let abortListener: (() => void) | undefined;
+    if (options?.signal) {
+      const signal = options.signal;
+      abortListener = () => {
+        // Send abort control message. postMessage buffers until the worker
+        // attaches its listener, so this is safe even if the worker hasn't
+        // started yet.
+        try {
+          port1.postMessage({ type: "abort" });
+        } catch {
+          // port may be closed already
+        }
+      };
+      signal.addEventListener("abort", abortListener, { once: true });
+    }
+
+    // Helper: clean up the port + abort listener. Idempotent via `settled`.
+    const cleanup = () => {
+      if (settled) {
+        return;
+      }
+      settled = true;
+      if (abortListener && options?.signal) {
+        options.signal.removeEventListener("abort", abortListener);
+      }
+      try {
+        port1.close();
+      } catch {
+        // already closed
+      }
+    };
+
     // Forward events from port1 to the AssistantMessageEventStream.
     port1.on("message", (event: AssistantMessageEvent) => {
       stream.push(event);
       if (event.type === "done" || event.type === "error") {
-        settled = true;
-        port1.close();
+        cleanup();
       }
     });
 
-    // Abort propagation: when the caller's signal aborts, tell the worker.
-    if (options?.signal) {
-      const signal = options.signal;
-      if (signal.aborted) {
-        port1.postMessage({ type: "abort" });
-      } else {
-        signal.addEventListener(
-          "abort",
-          () => {
-            port1.postMessage({ type: "abort" });
-          },
-          { once: true },
-        );
-      }
-    }
-
-    // Crash recovery: if the pool rejects (worker crash, timeout), end the
-    // stream with an error event.
+    // Crash recovery + graceful degradation (3a-4/3a-5):
+    // - "busy" (3a-5): the request was never dispatched (fast-reject before
+    //   the worker saw it). Fall back to streamSimple() on main — graceful
+    //   degradation. Port2 was never transferred, so we own it and close it.
+    // - "timeout" / "unavailable" / "failed" (3a-4): the request may have
+    //   been dispatched (the model call may be in-flight in the worker).
+    //   Falling back would risk a duplicate model call. End with an error.
     dispatchPromise.catch((error: unknown) => {
       if (settled) {
         return; // stream already completed via events
       }
-      settled = true;
+
+      // 3a-5: graceful degradation on "busy" — fall back to direct execution.
+      if (error instanceof WorkerPoolError && error.code === "busy") {
+        // Close the unused channel (port2 was never transferred).
+        try {
+          port1.close();
+        } catch {
+          // already closed
+        }
+        try {
+          port2.close();
+        } catch {
+          // already closed
+        }
+        if (abortListener && options?.signal) {
+          options.signal.removeEventListener("abort", abortListener);
+        }
+
+        // Fall back to streamSimple on main. Pipe events into the existing stream.
+        try {
+          const directStream = streamSimple(model, context, options);
+          void (async () => {
+            for await (const event of directStream) {
+              if (settled) {
+                return;
+              }
+              stream.push(event);
+              if (event.type === "done" || event.type === "error") {
+                settled = true;
+                return;
+              }
+            }
+          })().catch(() => {
+            if (!settled) {
+              settled = true;
+              stream.push(this.makeErrorEvent(model, "error", "direct fallback stream failed"));
+            }
+          });
+        } catch (directError) {
+          settled = true;
+          stream.push(
+            this.makeErrorEvent(
+              model,
+              "error",
+              directError instanceof Error ? directError.message : String(directError),
+            ),
+          );
+        }
+        return;
+      }
+
+      // 3a-4: hard error on timeout/unavailable/failed.
       const message =
         error instanceof WorkerPoolError
           ? `model execution worker ${error.code}: ${error.message}`
           : error instanceof Error
             ? error.message
             : String(error);
-      const errorEvent: AssistantMessageEvent = {
-        type: "error",
-        reason: "error",
-        error: {
-          role: "assistant",
-          content: [],
-          api: model.api,
-          provider: model.provider,
-          model: model.id,
-          usage: {
-            input: 0,
-            output: 0,
-            cacheRead: 0,
-            cacheWrite: 0,
-            totalTokens: 0,
-            cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0, total: 0 },
-          } satisfies Usage,
-          stopReason: "error" as const,
-          timestamp: Date.now(),
-          errorMessage: message,
-        },
-      };
-      stream.push(errorEvent);
-      try {
-        port1.close();
-      } catch {
-        // already closed
-      }
-    });
-
-    // Clean up the port when the stream is done.
-    // (port1.close() is called in the message handler on terminal events,
-    // and in the catch handler on crashes.)
-    port1.on("close", () => {
-      // Drain: the dispatch promise resolves after the worker sends the ack.
-      // Swallow the ack — the real result already flowed via events.
-      void dispatchPromise.catch(() => {
-        // Error already handled above.
-      });
+      stream.push(this.makeErrorEvent(model, "error", message));
+      cleanup();
     });
 
     return stream;
+  }
+
+  /**
+   * Construct a synthetic error AssistantMessageEvent.
+   *
+   * Used for crash recovery (3a-4) and pre-abort (3a-4) and graceful
+   * degradation failure (3a-5).
+   */
+  private makeErrorEvent(
+    model: Model,
+    reason: "error" | "aborted",
+    message: string,
+  ): AssistantMessageEvent {
+    return {
+      type: "error",
+      reason,
+      error: {
+        role: "assistant",
+        content: [],
+        api: model.api,
+        provider: model.provider,
+        model: model.id,
+        usage: {
+          input: 0,
+          output: 0,
+          cacheRead: 0,
+          cacheWrite: 0,
+          totalTokens: 0,
+          cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0, total: 0 },
+        } satisfies Usage,
+        stopReason: reason === "aborted" ? ("aborted" as const) : ("error" as const),
+        timestamp: Date.now(),
+        errorMessage: message,
+      },
+    };
   }
 
   /** Terminate the worker pool. */

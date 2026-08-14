@@ -108,6 +108,9 @@ async function executeModelRequest(
       }
     }
   } catch (error) {
+    // 3a-4: distinguish abort from other errors. When the signal is aborted,
+    // the reason is "aborted"; otherwise it's "error".
+    const isAborted = signal.aborted;
     const assistantMessage: AssistantMessage = {
       role: "assistant",
       content: [],
@@ -122,13 +125,17 @@ async function executeModelRequest(
         totalTokens: 0,
         cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0, total: 0 },
       },
-      stopReason: "error" as const,
+      stopReason: isAborted ? ("aborted" as const) : ("error" as const),
       timestamp: Date.now(),
-      ...(error instanceof Error ? { errorMessage: error.message } : {}),
+      errorMessage: isAborted
+        ? "model execution aborted"
+        : error instanceof Error
+          ? error.message
+          : String(error),
     };
     const errorEvent: AssistantMessageEvent = {
       type: "error",
-      reason: "error",
+      reason: isAborted ? ("aborted" as const) : ("error" as const),
       error: assistantMessage,
     };
     streamPort.postMessage(errorEvent);
