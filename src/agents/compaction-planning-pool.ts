@@ -40,7 +40,7 @@ const POOL_REQUEST_TIMEOUT_MS = 60_000;
 
 type PendingRequest = {
   resolve: (value: CompactionPlanningWorkerValue) => void;
-  reject: (error: PoolError) => void;
+  reject: (error: CompactionPlanningPoolError) => void;
   timer: ReturnType<typeof setTimeout>;
 };
 
@@ -125,9 +125,16 @@ export class CompactionPlanningWorkerPool {
   private createWorker(): Promise<Worker> {
     return new Promise<Worker>((resolve, reject) => {
       let worker: Worker;
+      // Match the legacy harness: .ts worker URLs need tsx for on-the-fly
+      // transpilation in dev/test mode.  Without this, the worker fails to
+      // load .ts files and exits before 'online' fires.
+      const sourceWorkerExecArgv = this.workerUrl.pathname.endsWith(".ts")
+        ? ["--import", "tsx"]
+        : undefined;
       try {
         worker = new Worker(this.workerUrl, {
           workerData: { mode: "persistent" },
+          execArgv: sourceWorkerExecArgv,
         });
       } catch (error) {
         reject(
@@ -151,6 +158,16 @@ export class CompactionPlanningWorkerPool {
         reject(
           new CompactionPlanningPoolError(
             error instanceof Error ? error.message : String(error),
+            "unavailable",
+          ),
+        );
+      });
+      // If the worker exits before 'online' (e.g. syntax error, missing tsx),
+      // reject so the caller falls back instead of hanging forever.
+      worker.once("exit", (code) => {
+        reject(
+          new CompactionPlanningPoolError(
+            `worker exited with code ${code} before coming online`,
             "unavailable",
           ),
         );

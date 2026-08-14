@@ -129,7 +129,12 @@ export class TopicAffineWorkerPool<TValue> {
       return entry;
     }
 
-    const worker = new Worker(this.workerUrl);
+    // Match the legacy harness: .ts worker URLs need tsx for on-the-fly
+    // transpilation in dev/test mode.
+    const sourceWorkerExecArgv = this.workerUrl.pathname.endsWith(".ts")
+      ? ["--import", "tsx"]
+      : undefined;
+    const worker = new Worker(this.workerUrl, { execArgv: sourceWorkerExecArgv });
     worker.unref?.();
     entry = { worker, pending: new Map(), queueDepth: 0 };
     this.workers.set(index, entry);

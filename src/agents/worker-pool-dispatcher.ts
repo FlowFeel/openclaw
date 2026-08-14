@@ -84,4 +84,4 @@ export class WorkerPoolDispatcher implements TurnDispatcher {
   }
 }
 
-export { WorkerPoolError };
+export type { WorkerPoolError };

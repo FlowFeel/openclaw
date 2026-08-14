@@ -166,9 +166,16 @@ function restoreIndexedMessages(source: AgentMessage[], indexes: number[]): Agen
 // ── Module-level warm pool (Phase 1) ──────────────────────────────────
 // Lazily created on first use, reused across all subsequent turns.
 // Falls back to the legacy spawn-per-call harness if the pool worker fails.
+//
+// Disabled in test mode: vitest + worker_threads + tsx is finicky, and the
+// test API exercises the legacy one-shot path directly. The pool is a
+// production optimization; tests use the deterministic one-shot harness.
 let pool: CompactionPlanningWorkerPool | null = null;
 
-function resolvePool(): CompactionPlanningWorkerPool {
+function resolvePool(): CompactionPlanningWorkerPool | null {
+  if (process.env.VITEST || process.env.NODE_ENV === "test") {
+    return null; // tests use the legacy one-shot path
+  }
   if (!pool) {
     pool = new CompactionPlanningWorkerPool({
       workerUrl: resolveCompactionPlanningWorkerUrl(),
@@ -206,8 +213,12 @@ async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, T
   // ── Phase 1: try the warm pool first ────────────────────────────────
   // Falls back to the legacy spawn-per-call harness on pool failure, then
   // to inline planning if the worker is truly unavailable.
+  const activePool = resolvePool();
   try {
-    const value = await resolvePool().run(projectedInput);
+    if (!activePool) {
+      throw new CompactionPlanningPoolError("pool disabled (test mode)", "unavailable");
+    }
+    const value = await activePool.run(projectedInput);
     if (value.kind !== params.input.kind) {
       throw new CompactionPlanningWorkerError(
         "unexpected compaction planning worker result",

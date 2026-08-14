@@ -55,12 +55,12 @@ describe("TopicAffineWorkerPool", () => {
   });
 
   it("applies backpressure when queue is full", async () => {
-    // poolSize=1, queueDepth=1: one in-flight + one queued = 2 max.
+    // poolSize=1, queueDepth=2: two pending max (1 in-flight + 1 queued).
     // The third should be rejected with "busy".
     const small = new TopicAffineWorkerPool<string>({
       workerUrl,
       poolSize: 1,
-      queueDepth: 1,
+      queueDepth: 2,
       timeoutMs: 5_000,
     });
     try {
