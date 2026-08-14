@@ -24,6 +24,8 @@
  * - A1 (pure-io-separation): worker IPC is I/O; the stream adapter is state.
  * - A4 (dft-docs): this file is documented.
  */
+import path from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { MessageChannel, type MessagePort } from "node:worker_threads";
 import type {
   AssistantMessage,
@@ -41,6 +43,30 @@ import type {
   ModelExecutionWorkerInput,
   ModelExecutionWorkerResult,
 } from "./model-execution.worker.js";
+
+/**
+ * Resolves the model execution worker URL from the current module URL.
+ *
+ * In dev/test (`.ts`): resolves to `./model-execution.worker.ts` relative to
+ * this module.  In production (`/dist/`): resolves to
+ * `dist/agents/embedded-agent-runner/model-execution.worker.js`.
+ *
+ * Matches the pattern in `compaction-planning-worker.ts`.
+ */
+export function resolveModelExecutionWorkerUrl(currentModuleUrl = import.meta.url): URL {
+  const currentPath = fileURLToPath(currentModuleUrl);
+  const normalized = currentPath.replaceAll(path.sep, "/");
+  const distMarker = "/dist/";
+  const distIndex = normalized.lastIndexOf(distMarker);
+  if (distIndex >= 0) {
+    const distRoot = currentPath.slice(0, distIndex + distMarker.length);
+    return pathToFileURL(
+      path.join(distRoot, "agents", "embedded-agent-runner", "model-execution.worker.js"),
+    );
+  }
+  const extension = path.extname(currentPath) || ".js";
+  return new URL(`./model-execution.worker${extension}`, currentModuleUrl);
+}
 
 export type WorkerModelExecutionPortOptions = {
   /** The worker script URL. */

@@ -1,22 +1,30 @@
 /**
- * Runtime setup — wires the TurnDispatcher based on config + host capabilities.
+ * Runtime setup — wires the TurnDispatcher + ModelExecutionPort based on
+ * config + host capabilities.
  *
  * Called at gateway startup.  Reads `agents.defaults.runtime` from config,
  * resolves the scale via the pure `runtime-scale-policy`, and installs the
- * appropriate dispatcher as the session placement admission provider.
+ * appropriate dispatchers.
  *
- * Scale 0 (auto on 1-CPU, or disabled): no provider installed (default
- *   behavior — turns run inline on the main loop).
- * Scale 1 (in-process, or auto on >1-CPU): installs `WorkerPoolDispatcher`.
- *   No workerUrl is passed yet (Scale 1 partial — turn execution stays on
- *   main, the pool is not created).  When the agent runner is worker-safe
- *   (Phase 3a), the real worker URL is wired in and the pool activates.
+ * Scale 0 (auto on 1-CPU, or disabled):
+ *   - No TurnDispatcher installed (default — turns run inline on main loop).
+ *   - DirectModelExecutionPort (default — model calls run on main).
+ *   - Per-session admission only.
+ *
+ * Scale 1 (in-process, or auto on >1-CPU):
+ *   - WorkerPoolDispatcher installed (for the turn admission provider
+ *     interface).  Turn execution still delegates to MainThreadDispatcher
+ *     (full turn dispatch requires serializing ~200 params — deferred).
+ *   - WorkerModelExecutionPort installed (3a-3): model API calls offloaded
+ *     to a TopicAffineWorkerPool.  This is the real Scale 1 parallelism —
+ *     model fetch + SSE parse runs in a worker, main loop stays I/O-free.
+ *
  * Scale 2 (remote): the existing `worker-environments` layer handles
  *   installation; this module does not override it.
  *
- * Cleanup (1b): returns a `cleanup()` function that uninstalls the provider
- * and terminates the dispatcher's pool.  The caller registers this as a
- * gateway lifetime sidecar so it runs on shutdown.
+ * Cleanup (1b): returns a `cleanup()` function that uninstalls providers
+ * and terminates pools.  The caller registers this as a gateway lifetime
+ * sidecar so it runs on shutdown.
  *
  * @dft
  * - A1 (pure-io-separation): the scale decision is pure (runtime-scale-policy);
@@ -25,6 +33,11 @@
  */
 import os from "node:os";
 import { terminateCompactionPlanningPool } from "../agents/compaction-planning-worker.js";
+import { installModelExecutionPort } from "../agents/embedded-agent-runner/model-execution-port.js";
+import {
+  WorkerModelExecutionPort,
+  resolveModelExecutionWorkerUrl,
+} from "../agents/embedded-agent-runner/model-execution-worker.js";
 import { installSessionPlacementAdmissionProvider } from "../agents/session-placement-admission.js";
 import type { TurnDispatcher } from "../agents/turn-dispatcher.js";
 import { WorkerPoolDispatcher } from "../agents/worker-pool-dispatcher.js";
@@ -35,7 +48,9 @@ export type RuntimeSetupResult = {
   scale: RuntimeScale;
   /** The installed dispatcher (null for Scale 0 / Scale 2). */
   dispatcher: TurnDispatcher | null;
-  /** Cleanup function — uninstalls the provider + terminates the pool. */
+  /** The installed model execution port (null for Scale 0 / Scale 2). */
+  modelExecutionPort: WorkerModelExecutionPort | null;
+  /** Cleanup function — uninstalls providers + terminates pools. */
   cleanup: () => Promise<void>;
 };
 
@@ -54,29 +69,44 @@ export function setupRuntime(config: OpenClawConfig): RuntimeSetupResult {
   const scale = resolveRuntimeScale(runtimeConfig, host);
 
   if (scale.scale === 1) {
-    // Scale 1: install the worker pool dispatcher.
+    // Scale 1: install the worker pool dispatcher (turn admission provider).
     //
-    // No workerUrl yet (Scale 1 partial): the dispatcher creates no pool —
-    // it wraps MainThreadDispatcher for turn execution.  When the agent
-    // runner is worker-safe (Phase 3a), pass the real worker URL here and
-    // the pool activates for topic-affine turn dispatch.
+    // Turn execution still delegates to MainThreadDispatcher (full turn
+    // dispatch requires serializing ~200 params — deferred).  The dispatcher
+    // is installed for interface completeness; its pool is null.
     const dispatcher = new WorkerPoolDispatcher({
       poolSize: scale.poolSize,
     });
-    // 1c: install the TurnDispatcher directly — it structurally satisfies
-    // SessionPlacementAdmissionProvider (same interface).
-    const uninstall = installSessionPlacementAdmissionProvider(dispatcher);
+    const uninstallDispatcher = installSessionPlacementAdmissionProvider(dispatcher);
+
+    // 3a-3: install the WorkerModelExecutionPort — the real Scale 1 offload.
+    // Model API calls (streamSimple) are dispatched to a TopicAffineWorkerPool.
+    // The worker does HTTP fetch + SSE parse; main keeps all prompt/tool/wrapper
+    // logic.  This is the same pattern as Scale 2's WorkerInferenceExecutor.
+    const modelExecutionPort = new WorkerModelExecutionPort({
+      workerUrl: resolveModelExecutionWorkerUrl(),
+      poolSize: scale.poolSize,
+    });
+    const uninstallModelPort = installModelExecutionPort(modelExecutionPort);
+
     const cleanup = async () => {
-      uninstall();
+      uninstallDispatcher();
+      uninstallModelPort();
       await dispatcher.terminate();
+      await modelExecutionPort.terminate();
       await terminateCompactionPlanningPool();
     };
-    return { scale, dispatcher, cleanup };
+    return { scale, dispatcher, modelExecutionPort: modelExecutionPort, cleanup };
   }
 
   // Scale 0 or Scale 2: no dispatcher installed here.
   // Scale 0 = default inline behavior (no provider).
   // Scale 2 = remote worker layer installs its own provider.
   // Still clean up the compaction pool (lazy singleton, scale-independent).
-  return { scale, dispatcher: null, cleanup: () => terminateCompactionPlanningPool() };
+  return {
+    scale,
+    dispatcher: null,
+    modelExecutionPort: null,
+    cleanup: () => terminateCompactionPlanningPool(),
+  };
 }

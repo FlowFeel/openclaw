@@ -107,13 +107,13 @@ export async function prepareGatewayRuntimeState(params: {
     baseGatewayMethods: pluginBootstrap.baseGatewayMethods,
   };
   // ── Phase 4: wire the multithreaded runtime dispatcher ──────────────
-  // Resolve the scale from config + host, install the WorkerPoolDispatcher
-  // if Scale 1. Scale 0 = no provider (default inline). Scale 2 = remote
-  // worker layer (below) installs its own provider.
+  // Resolve the scale from config + host, install dispatchers if Scale 1.
+  // Scale 0 = no provider (default inline). Scale 2 = remote worker layer
+  // (below) installs its own provider.
   const runtimeSetup = setupRuntime(cfgAtStart);
   if (runtimeSetup.scale.scale === 1) {
     log.info(
-      `multithreaded runtime: ${runtimeSetup.scale.reason} (poolSize=${runtimeSetup.scale.poolSize})`,
+      `multithreaded runtime: ${runtimeSetup.scale.reason} (poolSize=${runtimeSetup.scale.poolSize}, model-execution=worker-pool)`,
     );
   } else {
     log.info(`multithreaded runtime: ${runtimeSetup.scale.reason}`);
