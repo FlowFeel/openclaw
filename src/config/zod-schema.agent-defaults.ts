@@ -208,6 +208,26 @@ export const AgentDefaultsSchema = z
       .strict()
       .optional(),
     maxConcurrent: z.number().int().positive().optional(),
+    runtime: z
+      .object({
+        isolation: z
+          .enum(["auto", "disabled", "in-process", "remote"])
+          .optional()
+          .describe(
+            "Multithreaded runtime isolation mode. auto (default): Scale 0 on 1-CPU, Scale 1 on >1-CPU. disabled: always inline. in-process: worker_threads pool. remote: SSH workers.",
+          ),
+        workerCount: z
+          .number()
+          .int()
+          .positive()
+          .max(64)
+          .optional()
+          .describe(
+            "Worker pool size for in-process isolation (default: availableParallelism, capped 1–64).",
+          ),
+      })
+      .strict()
+      .optional(),
     subagents: z
       .object({
         delegationMode: z.enum(["suggest", "prefer"]).optional(),

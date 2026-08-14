@@ -324,8 +324,20 @@ export type AgentDefaultsConfig = {
   systemAgent?: {
     agentId?: string;
   };
-  /** Max concurrent agent runs across all conversations. Default: min(16, max(8, available CPU parallelism)). */
+  /** Max concurrent agent runs across all conversations. Default: min(16, max(1, available CPU parallelism)). */
   maxConcurrent?: number;
+  /**
+   * Multithreaded runtime isolation mode (Phase 2, multithreaded-runtime-design.md).
+   * Controls how turns are dispatched: inline on the main loop, in-process
+   * worker pool, or remote SSH workers. Default: "auto" (Scale 0 on 1-CPU,
+   * Scale 1 on >1-CPU).
+   */
+  runtime?: {
+    /** Isolation mode: "auto" (default), "disabled", "in-process", "remote". */
+    isolation?: "auto" | "disabled" | "in-process" | "remote";
+    /** Worker pool size for in-process isolation (default: availableParallelism, capped 1–64). */
+    workerCount?: number;
+  };
   /** Sub-agent defaults (spawned via sessions_spawn). */
   subagents?: {
     /** Prompt-only guidance for how strongly the main agent should delegate work. Default: "suggest". */
