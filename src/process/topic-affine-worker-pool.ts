@@ -57,6 +57,14 @@ export type TopicAffineWorkerPoolOptions = {
   queueDepth?: number;
   /** Per-request timeout in ms (default 60s). */
   timeoutMs?: number;
+  /**
+   * Optional workerData passed to each worker at spawn time.
+   *
+   * Workers that support a persistent mode (e.g. compaction-planning.worker.ts)
+   * use this to switch from one-shot to RPC mode.  When omitted, workerData
+   * is undefined in the worker.
+   */
+  workerData?: unknown;
 };
 
 /**
@@ -70,6 +78,7 @@ export class TopicAffineWorkerPool<TValue> {
   private readonly poolSize: number;
   private readonly queueDepth: number;
   private readonly timeoutMs: number;
+  private readonly workerData: unknown;
   private seq = 0;
 
   constructor(options: TopicAffineWorkerPoolOptions) {
@@ -77,6 +86,7 @@ export class TopicAffineWorkerPool<TValue> {
     this.poolSize = Math.max(1, Math.floor(options.poolSize) || 1);
     this.queueDepth = options.queueDepth ?? DEFAULT_QUEUE_DEPTH;
     this.timeoutMs = options.timeoutMs ?? 60_000;
+    this.workerData = options.workerData;
   }
 
   /**
@@ -134,7 +144,10 @@ export class TopicAffineWorkerPool<TValue> {
     const sourceWorkerExecArgv = this.workerUrl.pathname.endsWith(".ts")
       ? ["--import", "tsx"]
       : undefined;
-    const worker = new Worker(this.workerUrl, { execArgv: sourceWorkerExecArgv });
+    const worker = new Worker(this.workerUrl, {
+      ...(this.workerData !== undefined ? { workerData: this.workerData } : {}),
+      execArgv: sourceWorkerExecArgv,
+    });
     worker.unref?.();
     entry = { worker, pending: new Map(), queueDepth: 0 };
     this.workers.set(index, entry);

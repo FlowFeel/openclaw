@@ -3,19 +3,21 @@
  * large enough to risk starving the main event loop.
  *
  * Phase 1 (multithreaded-runtime-design.md): uses a warm worker pool
- * (`CompactionPlanningWorkerPool`) instead of spawning a fresh worker per call.
+ * (`TopicAffineWorkerPool`) instead of spawning a fresh worker per call.
  * The legacy `runCompactionPlanningWorker` (spawn-per-call) is retained as a
  * fallback and for the test API.
+ *
+ * 2a reconciliation: the former `CompactionPlanningWorkerPool` (a dedicated
+ * single-worker pool) has been retired.  `TopicAffineWorkerPool<CompactionPlanningWorkerValue>`
+ * with `poolSize: 1` and `workerData: { mode: "persistent" }` replaces it —
+ * one pool abstraction for all request-response workers.
  */
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { Worker } from "node:worker_threads";
 import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
 import { toErrorObject } from "../infra/errors.js";
-import {
-  CompactionPlanningWorkerPool,
-  CompactionPlanningPoolError,
-} from "./compaction-planning-pool.js";
+import { TopicAffineWorkerPool, WorkerPoolError } from "../process/topic-affine-worker-pool.js";
 import {
   buildOversizedFallbackPlan,
   buildStageSplitPlan,
@@ -163,25 +165,45 @@ function restoreIndexedMessages(source: AgentMessage[], indexes: number[]): Agen
   });
 }
 
-// ── Module-level warm pool (Phase 1) ──────────────────────────────────
+// ── Module-level warm pool (Phase 1, 2a reconciled) ──────────────────
 // Lazily created on first use, reused across all subsequent turns.
-// Falls back to the legacy spawn-per-call harness if the pool worker fails.
+// Uses the generic TopicAffineWorkerPool with poolSize: 1 (single worker,
+// no sharding).  workerData: { mode: "persistent" } puts the compaction
+// worker into RPC mode (listen on parentPort for { seq, input } requests).
+//
+// Falls back to the legacy spawn-per-call harness if the pool worker fails,
+// then to inline planning if the worker is truly unavailable.
 //
 // Disabled in test mode: vitest + worker_threads + tsx is finicky, and the
 // test API exercises the legacy one-shot path directly. The pool is a
 // production optimization; tests use the deterministic one-shot harness.
-let pool: CompactionPlanningWorkerPool | null = null;
+let pool: TopicAffineWorkerPool<CompactionPlanningWorkerValue> | null = null;
 
-function resolvePool(): CompactionPlanningWorkerPool | null {
+function resolvePool(): TopicAffineWorkerPool<CompactionPlanningWorkerValue> | null {
   if (process.env.VITEST || process.env.NODE_ENV === "test") {
     return null; // tests use the legacy one-shot path
   }
   if (!pool) {
-    pool = new CompactionPlanningWorkerPool({
+    pool = new TopicAffineWorkerPool<CompactionPlanningWorkerValue>({
       workerUrl: resolveCompactionPlanningWorkerUrl(),
+      poolSize: 1,
+      workerData: { mode: "persistent" },
+      // High queue depth: compaction is per-session and sessions are serialized
+      // by the lane controller, so concurrent compaction requests are rare.
+      // A high depth prevents "busy" rejections while still bounding memory.
+      queueDepth: 32,
+      timeoutMs: 60_000,
     });
   }
   return pool;
+}
+
+/** Terminate the warm compaction pool (called on shutdown). */
+export async function terminateCompactionPlanningPool(): Promise<void> {
+  if (pool) {
+    await pool.terminateAll();
+    pool = null;
+  }
 }
 
 async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, TResult>(params: {
@@ -213,12 +235,16 @@ async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, T
   // ── Phase 1: try the warm pool first ────────────────────────────────
   // Falls back to the legacy spawn-per-call harness on pool failure, then
   // to inline planning if the worker is truly unavailable.
+  //
+  // 2a: the pool is now a TopicAffineWorkerPool (generic).  Error codes:
+  //   "unavailable" / "busy" → try the legacy one-shot harness
+  //   "timeout" / "failed"   → fall back to inline planning
   const activePool = resolvePool();
   try {
     if (!activePool) {
-      throw new CompactionPlanningPoolError("pool disabled (test mode)", "unavailable");
+      throw new WorkerPoolError("pool disabled (test mode)", "unavailable");
     }
-    const value = await activePool.run(projectedInput);
+    const value = await activePool.dispatch("compaction", projectedInput);
     if (value.kind !== params.input.kind) {
       throw new CompactionPlanningWorkerError(
         "unexpected compaction planning worker result",
@@ -230,8 +256,11 @@ async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, T
       messages,
     );
   } catch (error) {
-    // Pool unavailable — try the legacy one-shot harness.
-    if (error instanceof CompactionPlanningPoolError && error.code === "unavailable") {
+    // Pool unavailable or busy — try the legacy one-shot harness.
+    if (
+      error instanceof WorkerPoolError &&
+      (error.code === "unavailable" || error.code === "busy")
+    ) {
       try {
         const value = await runCompactionPlanningWorker({
           input: projectedInput,
@@ -258,7 +287,7 @@ async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, T
       }
     }
     // Pool timeout/failed — fall back to inline.
-    if (error instanceof CompactionPlanningPoolError) {
+    if (error instanceof WorkerPoolError) {
       return params.fallback(messages);
     }
     throw error;

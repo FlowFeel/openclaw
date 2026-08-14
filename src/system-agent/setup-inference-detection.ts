@@ -1,3 +1,20 @@
+/**
+ * Setup inference detection — discovers available inference backends for the
+ * onboarding wizard.  Runs in a worker thread to avoid blocking gateway startup.
+ *
+ * Spawn-per-call rationale (2b):
+ * This worker is called exactly once per process (at startup, during onboarding).
+ * A warm pool provides zero benefit when the worker is used once and never again
+ * — the pool's amortization advantage requires reuse across multiple calls.
+ * The worker also supports partial results (sends `partial` messages before the
+ * final result), which is a semi-streaming protocol incompatible with the
+ * single response expected by `TopicAffineWorkerPool`.
+ *
+ * Prediction tested: this worker is called ≤1 time per process lifetime.
+ * Competing account: future changes may call it multiple times.
+ * Result that supports: no second invocation found in the codebase.
+ * Result that refutes: a second call site is added, making pool reuse valuable.
+ */
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { Worker, type WorkerOptions } from "node:worker_threads";

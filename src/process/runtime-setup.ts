@@ -24,6 +24,7 @@
  * - A4 (dft-docs): this file is documented.
  */
 import os from "node:os";
+import { terminateCompactionPlanningPool } from "../agents/compaction-planning-worker.js";
 import { installSessionPlacementAdmissionProvider } from "../agents/session-placement-admission.js";
 import type { TurnDispatcher } from "../agents/turn-dispatcher.js";
 import { WorkerPoolDispatcher } from "../agents/worker-pool-dispatcher.js";
@@ -68,6 +69,7 @@ export function setupRuntime(config: OpenClawConfig): RuntimeSetupResult {
     const cleanup = async () => {
       uninstall();
       await dispatcher.terminate();
+      await terminateCompactionPlanningPool();
     };
     return { scale, dispatcher, cleanup };
   }
@@ -75,5 +77,6 @@ export function setupRuntime(config: OpenClawConfig): RuntimeSetupResult {
   // Scale 0 or Scale 2: no dispatcher installed here.
   // Scale 0 = default inline behavior (no provider).
   // Scale 2 = remote worker layer installs its own provider.
-  return { scale, dispatcher: null, cleanup: async () => {} };
+  // Still clean up the compaction pool (lazy singleton, scale-independent).
+  return { scale, dispatcher: null, cleanup: () => terminateCompactionPlanningPool() };
 }

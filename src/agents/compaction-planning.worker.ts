@@ -139,7 +139,7 @@ export function runCompactionPlanningWorkerInput(input: unknown): CompactionPlan
 //
 // 2. Persistent (warm pool): workerData is { mode: "persistent" }.  The worker
 //    stays alive and listens on parentPort for { seq, input } requests, posting
-//    { seq, ...result } responses.  Used by CompactionPlanningWorkerPool so the
+//    { seq, ...result } responses.  Used by the TopicAffineWorkerPool so the
 //    worker is reused across turns instead of spawned per call.
 
 type PersistentRequest = { seq: number; input: unknown };

@@ -1,3 +1,19 @@
+/**
+ * macOS CA certificate warmup — pre-loads the system trust store in a worker
+ * thread so that the first TLS handshake on the main thread is not delayed by
+ * lazy CA loading.
+ *
+ * Spawn-per-call rationale (2b):
+ * This worker is called exactly once per process (at startup, macOS only).  It
+ * uses `eval: true` with inline source code (not a file URL), which is
+ * incompatible with `TopicAffineWorkerPool` (which requires a `workerUrl: URL`).
+ * A warm pool provides zero benefit for a once-per-process worker.
+ *
+ * Prediction tested: this worker is called ≤1 time per process lifetime.
+ * Competing account: future changes may call it multiple times.
+ * Result that supports: no second invocation found in the codebase.
+ * Result that refutes: a second call site is added, making pool reuse valuable.
+ */
 import type { EventEmitter } from "node:events";
 import { Worker, type WorkerOptions } from "node:worker_threads";
 import { isVitestRuntimeEnv } from "../infra/env.js";
