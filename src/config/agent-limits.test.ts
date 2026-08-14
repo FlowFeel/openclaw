@@ -13,7 +13,8 @@ describe("resolveAgentMaxConcurrent", () => {
   });
 
   it.each([
-    { availableParallelism: 2, expected: 8 },
+    { availableParallelism: 1, expected: 1 },
+    { availableParallelism: 2, expected: 2 },
     { availableParallelism: 12, expected: 12 },
     { availableParallelism: 48, expected: 16 },
   ])(
@@ -51,7 +52,7 @@ describe("resolveAgentMaxConcurrent", () => {
 
     try {
       const runtime = await importFreshAgentLimits("cpus-fallback");
-      expect(runtime.resolveAgentMaxConcurrent()).toBe(8);
+      expect(runtime.resolveAgentMaxConcurrent()).toBe(6);
       expect(cpusSpy).toHaveBeenCalledOnce();
     } finally {
       Object.defineProperty(os, "availableParallelism", availableParallelismDescriptor);

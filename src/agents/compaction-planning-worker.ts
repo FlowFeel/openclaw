@@ -1,12 +1,21 @@
 /**
  * Runs CPU-heavy compaction planning in a worker thread when histories are
  * large enough to risk starving the main event loop.
+ *
+ * Phase 1 (multithreaded-runtime-design.md): uses a warm worker pool
+ * (`CompactionPlanningWorkerPool`) instead of spawning a fresh worker per call.
+ * The legacy `runCompactionPlanningWorker` (spawn-per-call) is retained as a
+ * fallback and for the test API.
  */
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { Worker } from "node:worker_threads";
 import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
 import { toErrorObject } from "../infra/errors.js";
+import {
+  CompactionPlanningWorkerPool,
+  CompactionPlanningPoolError,
+} from "./compaction-planning-pool.js";
 import {
   buildOversizedFallbackPlan,
   buildStageSplitPlan,
@@ -154,6 +163,20 @@ function restoreIndexedMessages(source: AgentMessage[], indexes: number[]): Agen
   });
 }
 
+// ── Module-level warm pool (Phase 1) ──────────────────────────────────
+// Lazily created on first use, reused across all subsequent turns.
+// Falls back to the legacy spawn-per-call harness if the pool worker fails.
+let pool: CompactionPlanningWorkerPool | null = null;
+
+function resolvePool(): CompactionPlanningWorkerPool {
+  if (!pool) {
+    pool = new CompactionPlanningWorkerPool({
+      workerUrl: resolveCompactionPlanningWorkerUrl(),
+    });
+  }
+  return pool;
+}
+
 async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, TResult>(params: {
   input: TInput;
   signal?: AbortSignal;
@@ -175,14 +198,16 @@ async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, T
     return params.fallback(params.input.messages);
   }
 
+  const projectedInput = {
+    ...params.input,
+    messages: projectCompactionMessagesForPlanning(messages),
+  };
+
+  // ── Phase 1: try the warm pool first ────────────────────────────────
+  // Falls back to the legacy spawn-per-call harness on pool failure, then
+  // to inline planning if the worker is truly unavailable.
   try {
-    const value = await runCompactionPlanningWorker({
-      input: {
-        ...params.input,
-        messages: projectCompactionMessagesForPlanning(messages),
-      },
-      signal: params.signal,
-    });
+    const value = await resolvePool().run(projectedInput);
     if (value.kind !== params.input.kind) {
       throw new CompactionPlanningWorkerError(
         "unexpected compaction planning worker result",
@@ -194,7 +219,35 @@ async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, T
       messages,
     );
   } catch (error) {
-    if (error instanceof CompactionPlanningWorkerError && error.code === "unavailable") {
+    // Pool unavailable — try the legacy one-shot harness.
+    if (error instanceof CompactionPlanningPoolError && error.code === "unavailable") {
+      try {
+        const value = await runCompactionPlanningWorker({
+          input: projectedInput,
+          signal: params.signal,
+        });
+        if (value.kind !== params.input.kind) {
+          throw new CompactionPlanningWorkerError(
+            "unexpected compaction planning worker result",
+            "failed",
+          );
+        }
+        return params.restore(
+          value as Extract<CompactionPlanningWorkerValue, { kind: TInput["kind"] }>,
+          messages,
+        );
+      } catch (fallbackError) {
+        if (
+          fallbackError instanceof CompactionPlanningWorkerError &&
+          fallbackError.code === "unavailable"
+        ) {
+          return params.fallback(messages);
+        }
+        throw fallbackError;
+      }
+    }
+    // Pool timeout/failed — fall back to inline.
+    if (error instanceof CompactionPlanningPoolError) {
       return params.fallback(messages);
     }
     throw error;

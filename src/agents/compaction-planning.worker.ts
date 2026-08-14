@@ -130,9 +130,41 @@ export function runCompactionPlanningWorkerInput(input: unknown): CompactionPlan
   }
 }
 
+// ── Worker mode selection ──────────────────────────────────────────────
+// Two modes, selected by workerData at spawn time:
+//
+// 1. One-shot (backward-compatible): workerData is a CompactionPlanningWorkerInput.
+//    The worker processes it, posts one result, and exits.  Used by the legacy
+//    spawn-per-call harness and by tests.
+//
+// 2. Persistent (warm pool): workerData is { mode: "persistent" }.  The worker
+//    stays alive and listens on parentPort for { seq, input } requests, posting
+//    { seq, ...result } responses.  Used by CompactionPlanningWorkerPool so the
+//    worker is reused across turns instead of spawned per call.
+
+type PersistentRequest = { seq: number; input: unknown };
+type PersistentResponse = { seq: number } & CompactionPlanningWorkerResult;
+
+function isPersistentMode(data: unknown): data is { mode: "persistent" } {
+  return (
+    typeof data === "object" &&
+    data !== null &&
+    (data as Record<string, unknown>).mode === "persistent"
+  );
+}
+
 if (parentPort) {
-  // Worker-thread mode: process the single workerData payload and post one result.
-  const sendToParent: (message: CompactionPlanningWorkerResult) => void =
-    parentPort.postMessage.bind(parentPort);
-  sendToParent(runCompactionPlanningWorkerInput(workerData));
+  if (isPersistentMode(workerData)) {
+    // Persistent RPC mode: stay alive, handle requests via parentPort.
+    parentPort.on("message", (request: PersistentRequest) => {
+      const result = runCompactionPlanningWorkerInput(request.input);
+      const response: PersistentResponse = { seq: request.seq, ...result };
+      parentPort!.postMessage(response);
+    });
+  } else {
+    // One-shot mode (backward-compatible): process workerData and exit.
+    const sendToParent: (message: CompactionPlanningWorkerResult) => void =
+      parentPort.postMessage.bind(parentPort);
+    sendToParent(runCompactionPlanningWorkerInput(workerData));
+  }
 }

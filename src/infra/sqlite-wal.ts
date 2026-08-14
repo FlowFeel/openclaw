@@ -26,6 +26,17 @@ const PROC_MOUNTINFO_PATH = "/proc/self/mountinfo";
 const MOUNT_COMMAND_TIMEOUT_MS = 1_000;
 const NETWORK_FILESYSTEM_TYPES = new Set(["cifs", "smbfs", "smb2", "smb3"]);
 const JOURNAL_MODE_RETRY_INTERVAL_MS = 10;
+// Module-level SAB reused across all retry sleeps (avoids per-call allocation).
+//
+// Atomics.wait exception (multithreaded-runtime-design.md §6):
+// This code path is inherently synchronous — it uses Node's `node:sqlite`
+// `DatabaseSync` API, which has no async variant.  The `Atomics.wait` here is
+// a bounded (≤10ms) nanosleep used only during SQLite BUSY retries in DB open.
+// It fires exclusively at startup or during restart-contention races, never on
+// the hot turn path.  The long-term fix is to move DB open into a worker
+// (Phase 3 topic-affine pool); until then, this is the only sync-sleep option
+// that doesn't burn CPU (the busy-wait fallback is strictly worse).
+// lint-ignore: atomics-wait-on-main — sync API constraint, bounded, startup-only
 const JOURNAL_MODE_RETRY_SLEEP = new Int32Array(new SharedArrayBuffer(4));
 
 type IntervalHandle = ReturnType<typeof setInterval> & {
