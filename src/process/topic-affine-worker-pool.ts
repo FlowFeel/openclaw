@@ -20,7 +20,7 @@
  * - A1 (pure-io-separation): worker spawn/IPC is I/O; pool routing is state.
  * - A4 (dft-docs): this file is documented.
  */
-import { Worker } from "node:worker_threads";
+import { Worker, type Transferable } from "node:worker_threads";
 import { hashTopicKey } from "./topic-isolation-policy.js";
 
 /** Default bounded queue depth per worker (backpressure). */
@@ -96,8 +96,15 @@ export class TopicAffineWorkerPool<TValue> {
    * topic always lands on the same worker (session affinity).
    *
    * @throws WorkerPoolError with code "busy" if the worker's queue is full.
+   *
+   * @param transferList Optional transfer list for `postMessage` (e.g. MessagePort).
+   *   Transferable objects are moved (not cloned) to the worker.
    */
-  async dispatch(topicKey: string, input: unknown): Promise<TValue> {
+  async dispatch(
+    topicKey: string,
+    input: unknown,
+    transferList?: readonly Transferable[],
+  ): Promise<TValue> {
     const workerIndex = hashTopicKey(topicKey) % this.poolSize;
     const entry = this.getOrCreateWorker(workerIndex);
 
@@ -119,7 +126,7 @@ export class TopicAffineWorkerPool<TValue> {
       }, this.timeoutMs);
 
       entry.pending.set(seq, { resolve, reject, timer });
-      entry.worker.postMessage({ seq, input });
+      entry.worker.postMessage({ seq, input }, transferList ?? []);
     });
   }
 
