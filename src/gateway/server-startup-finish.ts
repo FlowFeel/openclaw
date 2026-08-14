@@ -189,6 +189,11 @@ export async function finishGatewayStartup(params: {
     stopRegisteredPostReadySidecars,
     clearFallbackGatewayContextForServer,
   } = runtime;
+  // 1b: Register the multithreaded runtime cleanup as a gateway lifetime sidecar.
+  // This terminates the worker pool + uninstalls the admission provider on shutdown.
+  if (runtime.runtimeCleanup) {
+    runtimeState.gatewayLifetimeSidecars.push({ stop: runtime.runtimeCleanup });
+  }
   const unavailableGatewayMethods = new Set<string>(
     minimalTestGateway ? [] : STARTUP_UNAVAILABLE_GATEWAY_METHODS,
   );

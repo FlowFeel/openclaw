@@ -32,8 +32,15 @@ import type { TurnDispatcher } from "./turn-dispatcher.js";
 import { MainThreadDispatcher } from "./turn-dispatcher.js";
 
 export type WorkerPoolDispatcherOptions = {
-  /** The worker script URL for the pool. */
-  workerUrl: URL;
+  /**
+   * The worker script URL for the pool.
+   *
+   * When omitted (Scale 1 partial), no pool is created — the dispatcher is
+   * purely a MainThreadDispatcher wrapper. Turn execution stays on main.
+   * When Scale 1 is completed (agent runner worker-safe), pass the real
+   * worker URL and the pool becomes active.
+   */
+  workerUrl?: URL;
   /** Number of workers in the pool. */
   poolSize: number;
   /** Bounded queue depth per worker (default 4). */
@@ -48,14 +55,17 @@ export type WorkerPoolDispatcherOptions = {
  */
 export class WorkerPoolDispatcher implements TurnDispatcher {
   private readonly mainThread: MainThreadDispatcher = new MainThreadDispatcher();
-  readonly pool: TopicAffineWorkerPool<unknown>;
+  /** The pool, or null when no workerUrl is configured (Scale 1 partial). */
+  readonly pool: TopicAffineWorkerPool<unknown> | null;
 
   constructor(options: WorkerPoolDispatcherOptions) {
-    this.pool = new TopicAffineWorkerPool<unknown>({
-      workerUrl: options.workerUrl,
-      poolSize: options.poolSize,
-      queueDepth: options.queueDepth,
-    });
+    this.pool = options.workerUrl
+      ? new TopicAffineWorkerPool<unknown>({
+          workerUrl: options.workerUrl,
+          poolSize: options.poolSize,
+          queueDepth: options.queueDepth,
+        })
+      : null;
   }
 
   async executeLocalTurn<T>(
@@ -78,9 +88,9 @@ export class WorkerPoolDispatcher implements TurnDispatcher {
     return this.mainThread.executeTurn(claim, params, runLocal, onAdmitted);
   }
 
-  /** Terminate the worker pool. */
+  /** Terminate the worker pool (no-op when no pool is configured). */
   async terminate(): Promise<void> {
-    await this.pool.terminateAll();
+    await this.pool?.terminateAll();
   }
 }
 

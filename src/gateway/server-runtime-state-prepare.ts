@@ -504,5 +504,7 @@ export async function prepareGatewayRuntimeState(params: {
     getMcpAppSandboxPort,
     ensureSandboxHostPort,
     workerGatewayEndpoint,
+    /** Runtime cleanup — terminates the worker pool + uninstalls the admission provider. */
+    runtimeCleanup: runtimeSetup.cleanup,
   };
 }

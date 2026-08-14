@@ -11,6 +11,15 @@ export type LocalTurnPlacementClaim = {
 
 export type SessionPlacementTurnParams = RunEmbeddedAgentParams & { sessionFile: string };
 
+/**
+ * The session placement admission provider — the runtime interface for turn
+ * dispatch.
+ *
+ * This is structurally identical to {@link TurnDispatcher} (turn-dispatcher.ts).
+ * `TurnDispatcher` is the canonical hexagonal port name (§3.1); this alias
+ * preserves the existing import surface. A `TurnDispatcher` instance
+ * (MainThreadDispatcher, WorkerPoolDispatcher) satisfies this type directly.
+ */
 export type SessionPlacementAdmissionProvider = {
   executeLocalTurn: <T>(claim: LocalTurnPlacementClaim, runLocal: () => Promise<T>) => Promise<T>;
   executeTurn: (
