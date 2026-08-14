@@ -14,6 +14,7 @@ import { createSessionEntryWithTranscript } from "../../config/sessions/session-
 import { bindStreamLlmRuntime } from "../../llm/model-runtime-binding.js";
 import type { Message, Model } from "../../llm/types.js";
 import { getAgentDir } from "../config.js";
+import { resolveModelExecutionPort } from "../embedded-agent-runner/model-execution-port.js";
 import {
   Agent,
   type AgentMessage,
@@ -475,7 +476,10 @@ async function createAgentSessionImpl(
       }
       const providerRetrySettings = settingsManager.getProviderRetrySettings();
       const attributionHeaders = getAttributionHeaders(modelResult, settingsManager);
-      return modelRegistryRuntime.llmRuntime.streamSimple(modelResult, context, {
+      // Phase 3a-1: route through the model execution port. At Scale 0 this
+      // calls streamSimple directly (identical to previous behavior). At Scale 1
+      // (Phase 3a-3) this dispatches to the worker pool.
+      return resolveModelExecutionPort().stream(modelResult, context, {
         ...optionsLocal,
         apiKey: auth.apiKey,
         timeoutMs: optionsLocal?.timeoutMs ?? providerRetrySettings.timeoutMs,
