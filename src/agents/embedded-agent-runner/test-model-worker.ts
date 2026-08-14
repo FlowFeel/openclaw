@@ -13,7 +13,7 @@ interface TestRequest {
   seq: number;
   input: {
     streamPort: MessagePort;
-    options?: { timeoutMs?: number };
+    options?: { timeoutMs?: number; crash?: boolean };
     model?: { api?: string; provider?: string; id?: string };
   };
 }
@@ -72,6 +72,13 @@ if (parentPort && isPersistentMode(workerData)) {
     const sendEvents = async () => {
       const model = input.model;
       const assistantMessage = makeAssistantMessage(model);
+
+      // Crash mid-stream — simulates a worker dying during a model API call.
+      // The pool's 'exit' handler rejects the pending dispatch promise,
+      // and the WorkerModelExecutionPort ends the stream with an error event.
+      if (input.options?.crash) {
+        process.exit(1);
+      }
 
       // If a delay is requested, wait (for abort testing)
       if (input.options?.timeoutMs && input.options.timeoutMs > 0) {
