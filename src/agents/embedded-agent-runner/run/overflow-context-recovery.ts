@@ -4,6 +4,7 @@ import type { ContextEngine } from "../../../context-engine/types.js";
 import { formatErrorMessage } from "../../../infra/errors.js";
 import type { AssistantMessage } from "../../../llm/types.js";
 import { projectAgentRunAttemptTerminal } from "../../agent-run-terminal-outcome.js";
+import { resolveAgentContextLimits } from "../../agent-scope.js";
 import {
   extractObservedOverflowTokenCount,
   isCompactionFailureError,
@@ -236,6 +237,14 @@ export async function recoverEmbeddedRunOverflow(
           contextWindowTokens: input.contextTokenBudget,
           maxCharsOverride: resolveLiveToolResultMaxChars({
             contextWindowTokens: input.contextTokenBudget,
+            ...(resolveAgentContextLimits(runParams.config, input.sessionAgentId)?.maxResultChars
+              ? {
+                  maxResultCharsOverride: resolveAgentContextLimits(
+                    runParams.config,
+                    input.sessionAgentId,
+                  )?.maxResultChars,
+                }
+              : {}),
           }),
           protectTrailingToolResults: true,
           projectionState: input.toolResultPromptProjectionState,
@@ -268,6 +277,14 @@ export async function recoverEmbeddedRunOverflow(
   if (!input.state.toolResultTruncationAttempted) {
     const toolResultMaxChars = resolveLiveToolResultMaxChars({
       contextWindowTokens: input.contextTokenBudget,
+      ...(resolveAgentContextLimits(runParams.config, input.sessionAgentId)?.maxResultChars
+        ? {
+            maxResultCharsOverride: resolveAgentContextLimits(
+              runParams.config,
+              input.sessionAgentId,
+            )?.maxResultChars,
+          }
+        : {}),
     });
     const hasOversized = input.attempt.messagesSnapshot
       ? sessionLikelyHasOversizedToolResults({

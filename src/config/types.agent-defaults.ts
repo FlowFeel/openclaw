@@ -102,6 +102,8 @@ export type AgentContextLimitsConfig = {
   memoryGetMaxChars?: number;
   /** Max chars retained from post-compaction AGENTS.md context injection (default: 1800). */
   postCompactionMaxChars?: number;
+  /** Override the auto-derived max chars per live tool result (default: auto-derived from context window). */
+  maxResultChars?: number;
 };
 
 export type AgentDefaultsConfig = {
