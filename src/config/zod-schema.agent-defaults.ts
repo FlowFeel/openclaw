@@ -144,6 +144,7 @@ export const AgentDefaultsSchema = z
         provider: z.string().optional(),
         thinkingLevel: AgentThinkingLevelSchema.optional(),
         keepRecentTokens: z.number().int().positive().optional(),
+        compactAtRatio: z.number().positive().max(1).optional(),
         identifierPolicy: z.union([z.literal("strict"), z.literal("off")]).optional(),
         recentTurnsPreserve: z.number().int().min(0).max(12).optional(),
         qualityGuard: z

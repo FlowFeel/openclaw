@@ -95,7 +95,7 @@ const createOverflowAssistant = (activeModel: Model) => ({
 
 const createAutoCompactionSettings = () =>
   SettingsManager.inMemory({
-    compaction: { enabled: true, reserveTokens: 0, keepRecentTokens: 1 },
+    compaction: { enabled: true, reserveTokens: 0, keepRecentTokens: 1, compactAtRatio: 1.0 },
     retry: { enabled: false },
   });
 
@@ -313,7 +313,12 @@ describe("AgentSession loop correctness", () => {
       createAssistant(testModel, [{ type: "text", text: "short answer" }]),
     );
     const settingsManager = SettingsManager.inMemory({
-      compaction: { enabled: true, reserveTokens: 0, keepRecentTokens: 10_000 },
+      compaction: {
+        enabled: true,
+        reserveTokens: 0,
+        keepRecentTokens: 10_000,
+        compactAtRatio: 1.0,
+      },
       retry: { enabled: false },
     });
     const { session } = await createTestSession({
@@ -763,7 +768,7 @@ describe("AgentSession loop correctness", () => {
       createAssistant(testModel, [{ type: "text", text: "old answer" }], "stop", 100),
     );
     const settingsManager = SettingsManager.inMemory({
-      compaction: { enabled: true, reserveTokens: 0, keepRecentTokens: 1 },
+      compaction: { enabled: true, reserveTokens: 0, keepRecentTokens: 1, compactAtRatio: 1.0 },
       retry: { enabled: false },
     });
     const requests: Context[] = [];

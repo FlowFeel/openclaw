@@ -394,6 +394,12 @@ export type AgentCompactionConfig = {
   thinkingLevel?: AgentThinkingLevel;
   /** Embedded OpenClaw keepRecentTokens budget used for cut-point selection. */
   keepRecentTokens?: number;
+  /**
+   * Proactive compaction ratio: fire when context usage reaches this fraction
+   * of the context window (default: 0.70). At 0.70 on a 242K window,
+   * compaction fires at ~169K instead of the reactive edge (~226K).
+   */
+  compactAtRatio?: number;
   /** Preserve this many most-recent user/assistant turns verbatim in compaction summary context. */
   recentTurnsPreserve?: number;
   /** Identifier-preservation instruction policy for compaction summaries. */

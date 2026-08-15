@@ -18,6 +18,7 @@ interface CompactionSettings {
   enabled?: boolean; // default: true
   reserveTokens?: number; // default: 16384
   keepRecentTokens?: number; // default: 20000
+  compactAtRatio?: number; // default: 0.70 (proactive compaction ratio)
 }
 
 export interface BranchSummarySettings {
@@ -565,11 +566,21 @@ export class SettingsManager {
     return this.settings.compaction?.keepRecentTokens ?? 20000;
   }
 
-  getCompactionSettings(): { enabled: boolean; reserveTokens: number; keepRecentTokens: number } {
+  getCompactionCompactAtRatio(): number {
+    return this.settings.compaction?.compactAtRatio ?? 0.7;
+  }
+
+  getCompactionSettings(): {
+    enabled: boolean;
+    reserveTokens: number;
+    keepRecentTokens: number;
+    compactAtRatio: number;
+  } {
     return {
       enabled: this.getCompactionEnabled(),
       reserveTokens: this.getCompactionReserveTokens(),
       keepRecentTokens: this.getCompactionKeepRecentTokens(),
+      compactAtRatio: this.getCompactionCompactAtRatio(),
     };
   }
 

@@ -150,13 +150,24 @@ export interface CompactionSettings {
   reserveTokens: number;
   /** Approximate recent-context tokens to keep after compaction. */
   keepRecentTokens: number;
+  /**
+   * Proactive compaction ratio: fire when context usage reaches this fraction
+   * of the context window (default 0.70). At 0.70 on a 242K window, compaction
+   * fires at ~169K instead of the reactive edge (~226K), giving the model a
+   * smaller, more summarizable context.
+   */
+  compactAtRatio?: number;
 }
+
+/** Default proactive compaction ratio (fire at 70% of context window). */
+export const DEFAULT_COMPACT_AT_RATIO = 0.7;
 
 /** Default compaction settings used by the harness. */
 export const DEFAULT_COMPACTION_SETTINGS: CompactionSettings = {
   enabled: true,
   reserveTokens: 16384,
   keepRecentTokens: 20000,
+  compactAtRatio: DEFAULT_COMPACT_AT_RATIO,
 };
 
 /** Calculate total context tokens from provider usage. */
@@ -253,7 +264,25 @@ export function estimateContextTokens(messages: AgentMessage[]): ContextUsageEst
   };
 }
 
-/** Return whether context usage exceeds the configured compaction threshold. */
+/**
+ * Return whether context usage exceeds the configured compaction threshold.
+ *
+ * R1 (proactive compaction): fires at `compactAtRatio` of the context window
+ * (default 0.70) — well before the reactive edge (`contextWindow - reserveTokens`,
+ * ~93%). The `min` ensures we never fire later than the reactive threshold,
+ * so a high `compactAtRatio` (e.g. 0.95) falls back to reactive behavior.
+ *
+ * Prediction: firing at 70% gives the model a smaller, more summarizable
+ * context, producing higher-quality summaries that fit the budget on the
+ * first pass.
+ *
+ * Competing account: firing at 93% is fine if the model can summarize a
+ * near-full context window effectively.
+ *
+ * Support: on 2026-08-15, topic 53 reached 275K tokens (114% over the 242K
+ * budget) because compaction at ~93% left the model with too much context to
+ * summarize. At 70% (~169K), the model would have had a manageable input.
+ */
 export function shouldCompact(
   contextTokens: number,
   contextWindow: number,
@@ -262,7 +291,10 @@ export function shouldCompact(
   if (!settings.enabled) {
     return false;
   }
-  return contextTokens > contextWindow - settings.reserveTokens;
+  const reactiveThreshold = contextWindow - settings.reserveTokens;
+  const compactAtRatio = settings.compactAtRatio ?? DEFAULT_COMPACT_AT_RATIO;
+  const proactiveThreshold = Math.floor(contextWindow * compactAtRatio);
+  return contextTokens > Math.min(proactiveThreshold, reactiveThreshold);
 }
 
 const IMAGE_BLOCK_CHARS = 4800;
