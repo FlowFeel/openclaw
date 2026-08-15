@@ -880,56 +880,6 @@ export function buildAgentSystemPrompt(params: {
   const promptSurface = params.promptSurface ?? "openclaw_main";
   const sandboxedRuntime = params.sandboxInfo?.enabled === true;
   const acpSpawnRuntimeEnabled = acpEnabled && !sandboxedRuntime;
-  const coreToolSummaries: Record<string, string> = {
-    read: "Read files",
-    write: "Write files",
-    edit: "Exact file edits",
-    apply_patch: "Patch files",
-    grep: "Search file contents",
-    find: "Find files by glob",
-    ls: "List directories",
-    exec: params.codeModeActive
-      ? "Run JavaScript/TypeScript Code Mode; call exact catalog tools from code, never shell/Python/imports"
-      : promptSurface === "cli_backend"
-        ? "Run shell on connected node; sync; host=node"
-        : "Run shell; pty for TTY CLIs",
-    wait: "Resume a suspended Code Mode exec",
-    process: "Control background exec",
-    web_search: "Web search",
-    web_fetch: "Fetch/extract URL",
-    // Channel docking: add login tools here when a channel needs interactive linking.
-    browser: "Control browser",
-    screen: "Drive operator web UI",
-    terminal:
-      "Own visible shell. Use for long/interactive jobs user should watch. exec for quiet work",
-    canvas: "Present/eval/snapshot Canvas",
-    nodes: "Paired node status/control/media",
-    [AUTOMATIONS_TOOL_NAME]:
-      "Schedule/wake. Reminder text must read as reminder when fired; mention reminder for delayed gaps; include useful recent context. This feature is called automations; never call it cron.",
-    message: "Message/channel actions",
-    conversations_list: "List exact external conversation addresses",
-    conversations_send: "Send directly to an external conversation",
-    conversations_turn: "Send and wait for one correlated external reply",
-    openclaw: "Gateway restart/system setup/config; changes need human approval",
-    gateway: "Read gateway config/schema",
-    agents_list: acpSpawnRuntimeEnabled
-      ? "List allowed OpenClaw subagent ids; not ACP ids"
-      : "List allowed subagent ids",
-    sessions_list: "List visible sessions; filters/last",
-    sessions_history: "Read visible session/subagent history",
-    sessions_search: "Search past sessions; use sessionKey with sessions_history",
-    sessions_send: "Message other session/subagent",
-    sessions_spawn: acpSpawnRuntimeEnabled
-      ? 'Spawn isolated subagent/ACP. Transcript needed: context="fork". ACP needs agentId unless default; ids from acp.allowedAgents, not agents_list.'
-      : 'Spawn isolated subagent; transcript needed: context="fork"',
-    sessions_yield: "End turn; await subagent events",
-    subagents: "Subagent status; never wait-loop",
-    session_status: "Session/model/usage/time/status; model override",
-    skill_workshop: "Manage reusable-skill proposals",
-    image: "Analyze images",
-    image_generate: "Generate/edit images",
-  };
-
   const toolOrder = [
     "read",
     "write",
@@ -992,27 +942,16 @@ export function buildAgentSystemPrompt(params: {
   const nativeCommandGuidanceLines = normalizeUniqueStringEntries(
     params.nativeCommandGuidanceLines,
   );
-  const externalToolSummaries = new Map<string, string>();
-  for (const [key, value] of Object.entries(params.toolSummaries ?? {})) {
-    const normalized = key.trim().toLowerCase();
-    if (!normalized || !value?.trim()) {
-      continue;
-    }
-    externalToolSummaries.set(normalized, value.trim());
-  }
   const extraTools = Array.from(
     new Set(normalizedTools.filter((tool) => !toolOrder.includes(tool))),
   );
   const enabledTools = toolOrder.filter((tool) => visibleTools.has(tool));
-  const toolLines = enabledTools.map((tool) => {
-    const summary = coreToolSummaries[tool] ?? externalToolSummaries.get(tool);
-    const name = resolveToolName(tool);
-    return summary ? `- ${name}: ${summary}` : `- ${name}`;
-  });
+  // SL-6: Tool schemas sent to the model already include full descriptions.
+  // The one-line summaries here were redundant with schema descriptions.
+  // List names only to save ~500 tokens per turn.
+  const toolLines = enabledTools.map((tool) => `- ${resolveToolName(tool)}`);
   for (const tool of extraTools.toSorted()) {
-    const summary = coreToolSummaries[tool] ?? externalToolSummaries.get(tool);
-    const name = resolveToolName(tool);
-    toolLines.push(summary ? `- ${name}: ${summary}` : `- ${name}`);
+    toolLines.push(`- ${resolveToolName(tool)}`);
   }
   const toolSchemaDirectoryPrompt = params.toolSchemaDirectoryPrompt?.trim();
   const renderOpenClawToolWorkflowHints =
@@ -1224,10 +1163,20 @@ export function buildAgentSystemPrompt(params: {
       "The AGENTS.md Tools section guides usage; it never grants availability.",
       ...(renderOpenClawToolWorkflowHints
         ? [
-            `Long wait: no rapid poll. Use ${execToolName} yieldMs or ${processToolName}(poll, timeout=<ms>).`,
-            "Large work: `sessions_spawn`; completion push-based.",
-            '`sessions_spawn`: omit `context`; transcript needed => `context:"fork"`.',
-            ...(hasSessionsSpawn ? ["`visible:true` only web/app user or asked."] : []),
+            // SL-5: Only include workflow hints for tools that are actually available.
+            // Previously these were always emitted, referencing denied tools.
+            ...(availableTools.has("exec") || availableTools.has("process")
+              ? [
+                  `Long wait: no rapid poll. Use ${execToolName} yieldMs or ${processToolName}(poll, timeout=<ms>).`,
+                ]
+              : []),
+            ...(hasSessionsSpawn
+              ? [
+                  "Large work: `sessions_spawn`; completion push-based.",
+                  '`sessions_spawn`: omit `context`; transcript needed => `context:"fork"`.',
+                  "`visible:true` only web/app user or asked.",
+                ]
+              : []),
             ...(availableTools.has("screen")
               ? ["`screen` present: web/app turn may drive UI; messaging turn: don't."]
               : []),
@@ -1251,7 +1200,11 @@ export function buildAgentSystemPrompt(params: {
               : []),
           ]
         : []),
-      ...(renderOpenClawToolWorkflowHints
+      // SL-5: Only include loop-poll guidance when session/subagent tools are available.
+      ...(renderOpenClawToolWorkflowHints &&
+      (availableTools.has("subagents") ||
+        availableTools.has("sessions_list") ||
+        availableTools.has("sessions_yield"))
         ? [
             availableTools.has("sessions_yield")
               ? "Never loop-poll `subagents list`/`sessions_list`; wait with `sessions_yield`. Status only on-demand/intervention/debug/request."
@@ -1305,16 +1258,23 @@ export function buildAgentSystemPrompt(params: {
         fallback: [],
       }),
       ...safetySection,
-      "## OpenClaw Control",
-      "Do not invent commands.",
-      ...(hasOpenClaw
+      // SL-5: Only include OpenClaw Control section when at least one control
+      // tool is available. When both `openclaw` and `gateway` are denied,
+      // the section references unavailable tools and wastes tokens.
+      ...(hasOpenClaw || hasGateway
         ? [
-            "Gateway restart, config, channels, plugins, agents, models/providers, updates: ask `openclaw`. Never restart the Gateway through shell commands or write your own config.",
+            "## OpenClaw Control",
+            "Do not invent commands.",
+            ...(hasOpenClaw
+              ? [
+                  "Gateway restart, config, channels, plugins, agents, models/providers, updates: ask `openclaw`. Never restart the Gateway through shell commands or write your own config.",
+                ]
+              : [
+                  "Config read: `gateway` (`config.get|config.schema.lookup`). Write/restart unavailable; ask human.",
+                ]),
+            "",
           ]
-        : [
-            "Config read: `gateway` (`config.get|config.schema.lookup`). Write/restart unavailable; ask human.",
-          ]),
-      "",
+        : []),
       ...skillsSection,
       ...skillWorkshopSection,
       ...memorySection,
