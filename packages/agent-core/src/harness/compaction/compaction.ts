@@ -702,9 +702,22 @@ export async function generateSummary(
   thinkingLevel?: ThinkingLevel,
   streamFn?: StreamFn,
   runtime?: AgentCoreCompletionRuntimeDeps,
+  contextTokenBudget?: number,
+  keepRecentTokens?: number,
 ): Promise<Result<string, CompactionError>> {
+  // SL-4: Budget-aware maxTokens sizing. When contextTokenBudget and
+  // keepRecentTokens are provided, size the summary to fit the available
+  // budget after keeping recent context. Cap at 25% of the context window
+  // so summary + recent + system prompt fits comfortably.
+  const budgetForSummary =
+    contextTokenBudget && keepRecentTokens != null
+      ? Math.max(2048, contextTokenBudget - keepRecentTokens - reserveTokens)
+      : reserveTokens;
+  const summaryCap = contextTokenBudget
+    ? Math.floor(0.25 * contextTokenBudget)
+    : Number.POSITIVE_INFINITY;
   const maxTokens = Math.min(
-    Math.floor(0.8 * reserveTokens),
+    Math.floor(0.8 * Math.min(budgetForSummary, summaryCap)),
     model.maxTokens > 0 ? model.maxTokens : Number.POSITIVE_INFINITY,
   );
   let basePrompt = previousSummary ? UPDATE_SUMMARIZATION_PROMPT : SUMMARIZATION_PROMPT;
@@ -915,6 +928,7 @@ export async function compact(
   thinkingLevel?: ThinkingLevel,
   streamFn?: StreamFn,
   runtime?: AgentCoreCompletionRuntimeDeps,
+  contextTokenBudget?: number,
 ): Promise<Result<CompactionResult, CompactionError>> {
   const {
     firstKeptEntryId,
@@ -953,6 +967,8 @@ export async function compact(
             thinkingLevel,
             streamFn,
             runtime,
+            contextTokenBudget,
+            settings.keepRecentTokens,
           )
         : ok<string, CompactionError>("No prior history.");
     if (!historyResult.ok) {
@@ -986,11 +1002,52 @@ export async function compact(
       thinkingLevel,
       streamFn,
       runtime,
+      contextTokenBudget,
+      settings.keepRecentTokens,
     );
     if (!summaryResult.ok) {
       return err(summaryResult.error);
     }
     summary = summaryResult.value;
+  }
+
+  // SL-3: Convergence check. After the first pass, estimate whether the
+  // summary + keepRecent fits the context budget. If not, re-summarize with
+  // halved keepRecentTokens to force a smaller post-compaction context.
+  // This prevents the failure mode where compaction runs but the result
+  // still exceeds budget, causing repeated overflow retries.
+  if (
+    contextTokenBudget &&
+    contextTokenBudget > 0 &&
+    !isSplitTurn &&
+    messagesToSummarize.length > 0
+  ) {
+    const summaryTokens = Math.ceil(estimateStringChars(summary) / CHARS_PER_TOKEN_ESTIMATE);
+    const projectedTotal = summaryTokens + settings.keepRecentTokens;
+    const convergenceThreshold = Math.floor(contextTokenBudget * 0.85);
+    if (projectedTotal > convergenceThreshold) {
+      const halvedKeepRecent = Math.max(2048, Math.floor(settings.keepRecentTokens / 2));
+      const secondPass = await generateSummary(
+        messagesToSummarize,
+        model,
+        settings.reserveTokens,
+        apiKey,
+        headers,
+        signal,
+        customInstructions,
+        summary,
+        thinkingLevel,
+        streamFn,
+        runtime,
+        contextTokenBudget,
+        halvedKeepRecent,
+      );
+      if (secondPass.ok) {
+        summary = secondPass.value;
+      }
+      // If second pass fails, keep the first pass summary — the caller's
+      // overflow recovery will handle the remaining pressure.
+    }
   }
 
   const { readFiles, modifiedFiles } = computeFileLists(fileOps);

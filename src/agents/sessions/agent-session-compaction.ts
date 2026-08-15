@@ -203,6 +203,7 @@ export abstract class AgentSessionCompaction extends AgentSessionInspection {
     }
 
     if (!compactionResult) {
+      const contextTokenBudget = this.model?.contextWindow ?? 0;
       const runCoreCompaction = () =>
         compact(
           preparation,
@@ -213,6 +214,8 @@ export abstract class AgentSessionCompaction extends AgentSessionInspection {
           options.signal,
           this.thinkingLevel,
           this.agent.streamFn,
+          undefined,
+          contextTokenBudget > 0 ? contextTokenBudget : undefined,
         );
       let result = await runCoreCompaction();
       // Automatic core compaction owns one retry for invalid summary output.
