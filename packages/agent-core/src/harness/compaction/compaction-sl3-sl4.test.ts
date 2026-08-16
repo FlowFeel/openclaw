@@ -287,3 +287,192 @@ describe("SL-3: compact convergence check", () => {
     expect(streamFn).toHaveBeenCalledTimes(2);
   });
 });
+
+describe("R4: compaction convergence metadata", () => {
+  it("returns convergence metadata when contextTokenBudget is provided", async () => {
+    const streamFn = createSummaryStreamFn("short summary");
+    const messages = makeMessages(10);
+
+    const result = await compact(
+      {
+        firstKeptEntryId: "kept-entry",
+        messagesToSummarize: messages,
+        turnPrefixMessages: [],
+        isSplitTurn: false,
+        tokensBefore: 100,
+        fileOps: createFileOps(),
+        settings: { enabled: true, reserveTokens: 10_000, keepRecentTokens: 5_000 },
+      },
+      model,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      streamFn,
+      undefined,
+      100_000,
+    );
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.convergence).toBeDefined();
+    expect(result.value.convergence?.passes).toBe(1);
+    expect(result.value.convergence?.converged).toBe(true);
+    expect(result.value.convergence?.keepRecentTokens).toBe(5_000);
+    expect(result.value.convergence?.contextTokenBudget).toBe(100_000);
+    expect(result.value.convergence?.summaryTokens).toBeGreaterThan(0);
+  });
+
+  it("returns undefined convergence when no contextTokenBudget", async () => {
+    const streamFn = createSummaryStreamFn("short summary");
+    const messages = makeMessages(10);
+
+    const result = await compact(
+      {
+        firstKeptEntryId: "kept-entry",
+        messagesToSummarize: messages,
+        turnPrefixMessages: [],
+        isSplitTurn: false,
+        tokensBefore: 100,
+        fileOps: createFileOps(),
+        settings: { enabled: true, reserveTokens: 10_000, keepRecentTokens: 5_000 },
+      },
+      model,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      streamFn,
+      // No contextTokenBudget
+    );
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.convergence).toBeUndefined();
+  });
+
+  it("returns passes=2 and converged after second pass succeeds", async () => {
+    // First pass: large summary that exceeds budget, triggering second pass.
+    // Second pass: smaller summary that fits budget.
+    let callCount = 0;
+    const streamFn = vi.fn<StreamFn>(() => {
+      callCount++;
+      const stream = createAssistantMessageEventStream();
+      const text = callCount === 1 ? "x".repeat(200_000) : "small";
+      const summaryMessage = {
+        role: "assistant" as const,
+        content: [{ type: "text" as const, text }],
+        api: "test-api" as const,
+        provider: "test-provider" as const,
+        model: "test-model",
+        usage: {
+          input: 0,
+          output: 0,
+          cacheRead: 0,
+          cacheWrite: 0,
+          totalTokens: 0,
+          cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0, total: 0 },
+        },
+        stopReason: "stop" as const,
+        timestamp: 1,
+      };
+      stream.push({ type: "done", reason: "stop", message: summaryMessage });
+      stream.end();
+      return stream;
+    });
+    const messages = makeMessages(10);
+
+    const result = await compact(
+      {
+        firstKeptEntryId: "kept-entry",
+        messagesToSummarize: messages,
+        turnPrefixMessages: [],
+        isSplitTurn: false,
+        tokensBefore: 100,
+        fileOps: createFileOps(),
+        settings: { enabled: true, reserveTokens: 10_000, keepRecentTokens: 50_000 },
+      },
+      model,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      streamFn,
+      undefined,
+      100_000,
+    );
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.convergence?.passes).toBe(2);
+    expect(result.value.convergence?.converged).toBe(true);
+    expect(result.value.convergence?.keepRecentTokens).toBe(25_000); // halved
+  });
+
+  it("returns converged=false when second pass still exceeds budget", async () => {
+    // Both passes return large summaries that exceed budget even with halved keepRecent.
+    // summaryTokens = ceil(300000 / 4) = 75000; 75000 + 25000 = 100000 > 85000 threshold.
+    const largeSummary = "x".repeat(300_000);
+    const streamFn = createSummaryStreamFn(largeSummary);
+    const messages = makeMessages(10);
+
+    const result = await compact(
+      {
+        firstKeptEntryId: "kept-entry",
+        messagesToSummarize: messages,
+        turnPrefixMessages: [],
+        isSplitTurn: false,
+        tokensBefore: 100,
+        fileOps: createFileOps(),
+        settings: { enabled: true, reserveTokens: 10_000, keepRecentTokens: 50_000 },
+      },
+      model,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      streamFn,
+      undefined,
+      100_000,
+    );
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.convergence?.passes).toBe(2);
+    expect(result.value.convergence?.converged).toBe(false);
+  });
+
+  it("returns undefined convergence for split turns", async () => {
+    const streamFn = createSummaryStreamFn("summary");
+    const messages = makeMessages(10);
+
+    const result = await compact(
+      {
+        firstKeptEntryId: "kept-entry",
+        messagesToSummarize: messages,
+        turnPrefixMessages: [{ role: "user", content: "prefix", timestamp: 2 }],
+        isSplitTurn: true,
+        tokensBefore: 100,
+        fileOps: createFileOps(),
+        settings: { enabled: true, reserveTokens: 10_000, keepRecentTokens: 5_000 },
+      },
+      model,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      streamFn,
+      undefined,
+      100_000,
+    );
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.value.convergence).toBeUndefined();
+  });
+});

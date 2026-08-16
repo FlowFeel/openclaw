@@ -66,6 +66,7 @@ export type {
   BranchPreparation,
   BranchSummaryDetails,
   BranchSummaryResult,
+  CompactionConvergence,
   CompactionDetails,
   CompactionPreparation,
   CompactionResult,

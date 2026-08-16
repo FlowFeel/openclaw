@@ -54,6 +54,20 @@ export interface CompactionDetails {
   /** Files modified in the compacted history. */
   modifiedFiles: string[];
 }
+
+/** Convergence metadata for R4 post-compaction logging. */
+export interface CompactionConvergence {
+  /** Number of summarization passes run (1 = first pass only, 2 = convergence re-summarized). */
+  passes: number;
+  /** Whether the post-compaction context fits within 85% of the context budget. */
+  converged: boolean;
+  /** Estimated token count of the final summary. */
+  summaryTokens: number;
+  /** keepRecentTokens used for the final pass. */
+  keepRecentTokens: number;
+  /** Context token budget (model context window), if known. */
+  contextTokenBudget: number | undefined;
+}
 function safeJsonStringify(value: unknown): string {
   try {
     return JSON.stringify(value) ?? "undefined";
@@ -140,6 +154,8 @@ export interface CompactionResult<T = unknown> {
   tokensBefore: number;
   /** Optional implementation-specific details stored with the compaction entry. */
   details?: T;
+  /** R4: Convergence metadata for post-compaction logging. Undefined when no budget was provided. */
+  convergence?: CompactionConvergence;
 }
 
 /** Compaction thresholds and retention settings. */
@@ -1022,6 +1038,10 @@ export async function compact(
   // halved keepRecentTokens to force a smaller post-compaction context.
   // This prevents the failure mode where compaction runs but the result
   // still exceeds budget, causing repeated overflow retries.
+  // R4: Track convergence metadata for post-compaction logging.
+  let convergencePasses = 1;
+  let convergenceKeepRecent = settings.keepRecentTokens;
+  let convergenceConverged = true;
   if (
     contextTokenBudget &&
     contextTokenBudget > 0 &&
@@ -1032,6 +1052,7 @@ export async function compact(
     const projectedTotal = summaryTokens + settings.keepRecentTokens;
     const convergenceThreshold = Math.floor(contextTokenBudget * 0.85);
     if (projectedTotal > convergenceThreshold) {
+      convergenceConverged = false;
       const halvedKeepRecent = Math.max(2048, Math.floor(settings.keepRecentTokens / 2));
       const secondPass = await generateSummary(
         messagesToSummarize,
@@ -1050,6 +1071,11 @@ export async function compact(
       );
       if (secondPass.ok) {
         summary = secondPass.value;
+        convergencePasses = 2;
+        convergenceKeepRecent = halvedKeepRecent;
+        // Re-check convergence after second pass
+        const secondPassTokens = Math.ceil(estimateStringChars(summary) / CHARS_PER_TOKEN_ESTIMATE);
+        convergenceConverged = secondPassTokens + halvedKeepRecent <= convergenceThreshold;
       }
       // If second pass fails, keep the first pass summary — the caller's
       // overflow recovery will handle the remaining pressure.
@@ -1059,11 +1085,24 @@ export async function compact(
   const { readFiles, modifiedFiles } = computeFileLists(fileOps);
   summary += formatFileOperations(readFiles, modifiedFiles);
 
+  // R4: Build convergence metadata for the caller to log.
+  const convergence: CompactionConvergence | undefined =
+    contextTokenBudget && contextTokenBudget > 0 && !isSplitTurn && messagesToSummarize.length > 0
+      ? {
+          passes: convergencePasses,
+          converged: convergenceConverged,
+          summaryTokens: Math.ceil(estimateStringChars(summary) / CHARS_PER_TOKEN_ESTIMATE),
+          keepRecentTokens: convergenceKeepRecent,
+          contextTokenBudget,
+        }
+      : undefined;
+
   return ok({
     summary,
     firstKeptEntryId,
     tokensBefore,
     details: { readFiles, modifiedFiles } as CompactionDetails,
+    convergence,
   });
 }
 async function generateTurnPrefixSummary(
