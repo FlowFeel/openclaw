@@ -526,7 +526,9 @@ export function findCutPoint(
 
 export const SUMMARIZATION_SYSTEM_PROMPT = `You are a context summarization assistant. Your task is to read a conversation between a user and an AI assistant, then produce a structured summary following the exact format specified.
 
-Do NOT continue the conversation. Do NOT respond to any questions in the conversation. ONLY output the structured summary.`;
+Do NOT continue the conversation. Do NOT respond to any questions in the conversation. ONLY output the structured summary.
+
+If the workspace defines stable axiom IDs (e.g., S-xxx, C-xxx, E-xxx, M-xxx, T-xxx in AGENTS.md), preserve and reference them by ID when summarizing constraints, decisions, and context. Do not paraphrase axiom IDs away — they are stable cross-references that survive compaction.`;
 
 const SUMMARIZATION_PROMPT = `The messages above are a conversation to summarize. Create a structured context checkpoint summary that another LLM will use to continue the work.
 
@@ -537,6 +539,7 @@ Use this EXACT format:
 
 ## Constraints & Preferences
 - [Any constraints, preferences, or requirements mentioned by user]
+- [Reference workspace axiom IDs where applicable, e.g., "Must follow T-102 (Exec Hygiene)"]
 - [Or "(none)" if none were mentioned]
 
 ## Progress
@@ -550,16 +553,17 @@ Use this EXACT format:
 - [Issues preventing progress, if any]
 
 ## Key Decisions
-- **[Decision]**: [Brief rationale]
+- **[Decision]**: [Brief rationale, referencing axiom IDs where relevant]
 
 ## Next Steps
 1. [Ordered list of what should happen next]
 
 ## Critical Context
 - [Any data, examples, or references needed to continue]
+- [Preserve exact file paths, function names, axiom IDs, and error messages]
 - [Or "(none)" if not applicable]
 
-Keep each section concise. Preserve exact file paths, function names, and error messages.`;
+Keep each section concise. Preserve exact file paths, function names, axiom IDs, and error messages.`;
 
 const UPDATE_SUMMARIZATION_PROMPT = `The messages above are NEW conversation messages to incorporate into the existing summary provided in <previous-summary> tags.
 
@@ -568,7 +572,7 @@ Update the existing structured summary with new information. RULES:
 - ADD new progress, decisions, and context from the new messages
 - UPDATE the Progress section: move items from "In Progress" to "Done" when completed
 - UPDATE "Next Steps" based on what was accomplished
-- PRESERVE exact file paths, function names, and error messages
+- PRESERVE exact file paths, function names, axiom IDs, and error messages
 - If something is no longer relevant, you may remove it
 
 Use this EXACT format:
@@ -578,6 +582,7 @@ Use this EXACT format:
 
 ## Constraints & Preferences
 - [Preserve existing, add new ones discovered]
+- [Reference workspace axiom IDs where applicable]
 
 ## Progress
 ### Done
@@ -597,8 +602,9 @@ Use this EXACT format:
 
 ## Critical Context
 - [Preserve important context, add new if needed]
+- [Preserve axiom ID references]
 
-Keep each section concise. Preserve exact file paths, function names, and error messages.`;
+Keep each section concise. Preserve exact file paths, function names, axiom IDs, and error messages.`;
 
 function createSummarizationOptions(
   model: Model,
