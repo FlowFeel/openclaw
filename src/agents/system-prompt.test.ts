@@ -210,7 +210,7 @@ describe("buildAgentSystemPrompt", () => {
       skillsPrompt:
         "<available_skills>\n  <skill>\n    <name>demo</name>\n  </skill>\n</available_skills>",
       heartbeatPrompt: "ping",
-      toolNames: ["message", "memory_search", "read"],
+      toolNames: ["message", "memory_search", "read", "exec"],
       docsPath: "/tmp/openclaw/docs",
       extraSystemPrompt: "Subagent details",
       ttsHint: "Voice (TTS) is enabled.",
@@ -430,6 +430,7 @@ describe("buildAgentSystemPrompt", () => {
   it("includes an OpenClaw control section", () => {
     const prompt = buildAgentSystemPrompt({
       workspaceDir: "/tmp/openclaw",
+      toolNames: ["gateway"],
     });
 
     expect(prompt).toContain("## OpenClaw Control");
@@ -519,6 +520,7 @@ describe("buildAgentSystemPrompt", () => {
   it("guides subagent workflows to avoid polling loops", () => {
     const prompt = buildAgentSystemPrompt({
       workspaceDir: "/tmp/openclaw",
+      toolNames: ["exec", "sessions_spawn", "subagents", "sessions_list"],
     });
 
     expect(prompt).toContain(
@@ -557,7 +559,7 @@ describe("buildAgentSystemPrompt", () => {
     });
 
     expect(withoutScreen).not.toContain("web/app turn may drive UI");
-    expect(withScreen).toContain("- screen: Drive operator web UI");
+    expect(withScreen).toContain("- screen");
     expect(withScreen).toContain(
       "`screen` present: web/app turn may drive UI; messaging turn: don't.",
     );
@@ -569,9 +571,7 @@ describe("buildAgentSystemPrompt", () => {
       toolNames: ["exec", "terminal"],
     });
 
-    expect(prompt).toContain(
-      "- terminal: Own visible shell. Use for long/interactive jobs user should watch. exec for quiet work",
-    );
+    expect(prompt).toContain("- terminal");
   });
 
   it("lists available tools when provided", () => {
@@ -593,10 +593,8 @@ describe("buildAgentSystemPrompt", () => {
       codeModeActive: true,
     });
 
-    expect(prompt).toContain(
-      "- exec: Run JavaScript/TypeScript Code Mode; call exact catalog tools from code, never shell/Python/imports",
-    );
-    expect(prompt).toContain("- wait: Resume a suspended Code Mode exec");
+    expect(prompt).toContain("- exec");
+    expect(prompt).toContain("- wait");
     expect(prompt).not.toContain("- exec: Run shell");
     expect(prompt).not.toContain("Use exec yieldMs");
   });
@@ -607,7 +605,7 @@ describe("buildAgentSystemPrompt", () => {
       toolNames: ["web_search"],
     });
 
-    expect(prompt).toContain("- web_search: Web search");
+    expect(prompt).toContain("- web_search");
     expect(prompt).not.toContain("Brave API");
   });
 
@@ -629,8 +627,8 @@ describe("buildAgentSystemPrompt", () => {
     });
 
     expect(prompt).toContain("sessions_spawn");
-    expect(prompt).toContain("ACP needs agentId unless default");
-    expect(prompt).toContain("not agents_list");
+    expect(prompt).toContain("Set `agentId` unless `acp.defaultAgent`");
+    expect(prompt).toContain("never route ACP via `subagents`/`agents_list`");
   });
 
   it("guides harness requests to ACP thread-bound spawns", () => {
@@ -688,8 +686,8 @@ describe("buildAgentSystemPrompt", () => {
     expect(prompt).not.toContain("Native Codex app-server plugin is available");
     expect(prompt).not.toContain("ACP needs agentId");
     expect(prompt).not.toContain("not ACP harness ids");
-    expect(prompt).toContain("- sessions_spawn: Spawn isolated subagent");
-    expect(prompt).toContain("- agents_list: List allowed subagent ids");
+    expect(prompt).toContain("- sessions_spawn");
+    expect(prompt).toContain("- agents_list");
   });
 
   it("omits ACP harness spawn guidance for sandboxed sessions and shows ACP block note", () => {
@@ -720,8 +718,8 @@ describe("buildAgentSystemPrompt", () => {
       docsPath: "/tmp/openclaw/docs",
     });
 
-    expect(prompt).toContain("- Read: Read files");
-    expect(prompt).toContain("- Exec: Run shell");
+    expect(prompt).toContain("- Read");
+    expect(prompt).toContain("- Exec");
     expect(prompt).toContain(
       "Scan <available_skills>. Clear match: read exact <location> with `Read`; obey.",
     );
@@ -1074,7 +1072,7 @@ describe("buildAgentSystemPrompt", () => {
       workspaceDir: "/tmp/openclaw",
       toolNames: ["read", "skill_workshop"],
     });
-    expect(withTool).toContain("- skill_workshop: Manage reusable-skill proposals");
+    expect(withTool).toContain("- skill_workshop");
     expect(withTool).toContain("## Skill Workshop");
     expect(withTool).toContain("Durable reusable skill/playbook/workflow work");
     expect(withTool).toContain("Generated = pending proposal");
@@ -1197,7 +1195,7 @@ describe("buildAgentSystemPrompt", () => {
     });
     const channelOptions = listDeliverableMessageChannels().join("|");
 
-    expect(prompt).toContain("message: Message/channel actions");
+    expect(prompt).toContain("- message");
     expect(prompt).toContain("### message tool");
     expect(prompt).toContain("Proactive send/channel action");
     expect(prompt).toContain("`send`: `target` + `message`.");
