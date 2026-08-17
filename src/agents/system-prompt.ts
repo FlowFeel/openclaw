@@ -748,6 +748,247 @@ function formatFullAccessBlockedReason(reason?: EmbeddedFullAccessBlockedReason)
   return "runtime constraints";
 }
 
+function buildToolingSection(params: {
+  toolLines: string[];
+  promptSurface: AgentPromptSurfaceKind;
+  execToolName: string;
+  processToolName: string;
+  toolSchemaDirectoryPrompt?: string;
+  renderOpenClawToolWorkflowHints: boolean;
+  availableTools: Set<string>;
+  hasSessionsSpawn: boolean;
+  nativeCommandGuidanceLines: string[];
+  acpHarnessSpawnAllowed: boolean;
+  runtimeChannel?: string;
+  threadBoundAcpSpawnEnabled: boolean;
+}): string[] {
+  return [
+    "## Tooling",
+    "Tools policy-filtered. Names case-sensitive; call exact.",
+    params.toolLines.length > 0
+      ? params.toolLines.join("\n")
+      : buildOpenClawToolFallbackText({
+          surface: params.promptSurface,
+          execToolName: params.execToolName,
+          processToolName: params.processToolName,
+        }),
+    ...(params.toolSchemaDirectoryPrompt
+      ? ["", "### Deferred Tool Schemas", params.toolSchemaDirectoryPrompt]
+      : []),
+    "The AGENTS.md Tools section guides usage; it never grants availability.",
+    ...(params.renderOpenClawToolWorkflowHints
+      ? [
+          // SL-5: Only include workflow hints for tools that are actually available.
+          ...(params.availableTools.has("exec") || params.availableTools.has("process")
+            ? [
+                `Long wait: no rapid poll. Use ${params.execToolName} yieldMs or ${params.processToolName}(poll, timeout=<ms>).`,
+              ]
+            : []),
+          ...(params.hasSessionsSpawn
+            ? [
+                "Large work: `sessions_spawn`; completion push-based.",
+                '`sessions_spawn`: omit `context`; transcript needed => `context:"fork"`.',
+                "`visible:true` only web/app user or asked.",
+              ]
+            : []),
+          ...(params.availableTools.has("screen")
+            ? ["`screen` present: web/app turn may drive UI; messaging turn: don't."]
+            : []),
+        ]
+      : []),
+    ...params.nativeCommandGuidanceLines,
+    ...(params.acpHarnessSpawnAllowed
+      ? [
+          '"Do in claude code/cursor/gemini/opencode" = ACP intent: `sessions_spawn(runtime:"acp")`.',
+          ...(params.runtimeChannel === "discord" && params.threadBoundAcpSpawnEnabled
+            ? [
+                'Discord ACP default: persistent thread (`thread:true`, `mode:"session"`) unless user says otherwise.',
+              ]
+            : []),
+          'No thread-capable channel: one-shot `mode:"run"`; never claim binding.',
+          "Set `agentId` unless `acp.defaultAgent`; never route ACP via `subagents`/`agents_list`/local PTY.",
+          ...(params.threadBoundAcpSpawnEnabled
+            ? [
+                'ACP thread: only `sessions_spawn(runtime:"acp", thread:true)`; never `message(thread-create)`.',
+              ]
+            : []),
+        ]
+      : []),
+    // SL-5: Only include loop-poll guidance when session/subagent tools are available.
+    ...(params.renderOpenClawToolWorkflowHints &&
+    (params.availableTools.has("subagents") ||
+      params.availableTools.has("sessions_list") ||
+      params.availableTools.has("sessions_yield"))
+      ? [
+          params.availableTools.has("sessions_yield")
+            ? "Never loop-poll `subagents list`/`sessions_list`; wait with `sessions_yield`. Status only on-demand/intervention/debug/request."
+            : "Never loop-poll `subagents list`/`sessions_list`; status only on-demand/intervention/debug/request.",
+        ]
+      : []),
+    ...(params.renderOpenClawToolWorkflowHints &&
+    (params.availableTools.has("sessions_search") || params.availableTools.has("sessions_list"))
+      ? [
+          "Asked about another chat/group/session not in context: check `sessions_list`/`sessions_search` before claiming no access.",
+        ]
+      : []),
+    "",
+  ];
+}
+
+function buildSandboxSection(params: {
+  sandboxInfo?: EmbeddedSandboxInfo;
+  hasSessionsSpawn: boolean;
+  acpEnabled: boolean;
+  elevated?: EmbeddedSandboxInfo["elevated"];
+  fullAccessBlockedReasonLabel?: string;
+}): string[] {
+  if (!params.sandboxInfo?.enabled) {
+    return [];
+  }
+  const sandbox = params.sandboxInfo;
+  return [
+    "## Sandbox",
+    "Sandbox runtime; tools execute in Docker. Policy may hide tools.",
+    "Subagents remain sandboxed; no elevated/host access. Need host read/write: do not spawn; ask.",
+    params.hasSessionsSpawn && params.acpEnabled
+      ? 'Sandbox blocks ACP spawn. Use `sessions_spawn(runtime:"subagent")`.'
+      : "",
+    sandbox.containerWorkspaceDir
+      ? `Sandbox container workdir: ${sanitizeForPromptLiteral(sandbox.containerWorkspaceDir)}`
+      : "",
+    sandbox.workspaceDir
+      ? `Sandbox host mount source (file tools bridge only; not valid inside sandbox exec): ${sanitizeForPromptLiteral(sandbox.workspaceDir)}`
+      : "",
+    sandbox.workspaceAccess
+      ? `Agent workspace access: ${sandbox.workspaceAccess}${
+          sandbox.agentWorkspaceMount
+            ? ` (mounted at ${sanitizeForPromptLiteral(sandbox.agentWorkspaceMount)})`
+            : ""
+        }`
+      : "",
+    sandbox.browserBridgeUrl ? "Sandbox browser: enabled." : "",
+    sandbox.hostBrowserAllowed === true
+      ? "Host browser control: allowed."
+      : sandbox.hostBrowserAllowed === false
+        ? "Host browser control: blocked."
+        : "",
+    ...buildElevatedSection(params.elevated, params.fullAccessBlockedReasonLabel),
+  ];
+}
+
+function buildElevatedSection(
+  elevated: EmbeddedSandboxInfo["elevated"],
+  fullAccessBlockedReasonLabel?: string,
+): string[] {
+  if (!elevated) {
+    return [];
+  }
+  const allowed = elevated.allowed;
+  const fullAccess = elevated.fullAccessAvailable;
+  return [
+    allowed
+      ? "Elevated exec is available for this session."
+      : "Elevated exec is unavailable for this session.",
+    allowed && fullAccess ? "User can toggle with /elevated on|off|ask|full." : "",
+    allowed && !fullAccess ? "User can toggle with /elevated on|off|ask." : "",
+    allowed && fullAccess ? "You may also send /elevated on|off|ask|full when needed." : "",
+    allowed && !fullAccess ? "You may also send /elevated on|off|ask when needed." : "",
+    fullAccess === false
+      ? `Auto-approved /elevated full is unavailable here (${fullAccessBlockedReasonLabel}).`
+      : "",
+    allowed && fullAccess
+      ? `Current elevated level: ${elevated.defaultLevel} (ask runs exec on host with approvals; full auto-approves).`
+      : allowed
+        ? `Current elevated level: ${elevated.defaultLevel} (full auto-approval unavailable here; use ask/on instead).`
+        : "Current elevated level: off (elevated exec unavailable).",
+    !allowed ? "Do not tell the user to switch to /elevated full in this session." : "",
+  ];
+}
+
+function buildOpenClawControlSection(params: {
+  hasOpenClaw: boolean;
+  hasGateway: boolean;
+}): string[] {
+  if (!params.hasOpenClaw && !params.hasGateway) {
+    return [];
+  }
+  return [
+    "## OpenClaw Control",
+    "Do not invent commands.",
+    params.hasOpenClaw
+      ? "Gateway restart, config, channels, plugins, agents, models/providers, updates: ask `openclaw`. Never restart the Gateway through shell commands or write your own config."
+      : "Config read: `gateway` (`config.get|config.schema.lookup`). Write/restart unavailable; ask human.",
+    "",
+  ];
+}
+
+function buildModelAliasesSection(params: {
+  modelAliasLines?: string[];
+  isMinimal: boolean;
+}): string[] {
+  if (params.isMinimal || !params.modelAliasLines || params.modelAliasLines.length === 0) {
+    return [];
+  }
+  return [
+    "## Model Aliases",
+    "Model override: aliases are shortcuts for unqualified model requests. Use explicit provider/model references verbatim; do not substitute an alias or another provider.",
+    params.modelAliasLines.join("\n"),
+    "",
+  ];
+}
+
+function buildWorkspaceSection(params: {
+  displayWorkspaceDir: string;
+  workspaceGuidance: string;
+  workspaceOnlyGuidance: string;
+  workspaceNotes: string[];
+}): string[] {
+  return [
+    "## Workspace",
+    `Working directory: ${params.displayWorkspaceDir}`,
+    params.workspaceGuidance,
+    params.workspaceOnlyGuidance,
+    ...params.workspaceNotes,
+    "",
+  ];
+}
+
+function buildSilentRepliesSection(params: {
+  isMinimal: boolean;
+  silentReplyPromptMode: SilentReplyPromptMode;
+}): string[] {
+  if (params.isMinimal || params.silentReplyPromptMode === "none") {
+    return [];
+  }
+  return [
+    "## Silent Replies",
+    `Nothing to say: entire reply exactly ${SILENT_REPLY_TOKEN}`,
+    `Never append to real response or wrap in Markdown/code.`,
+    "",
+  ];
+}
+
+function buildReactionsSection(params: {
+  reactionGuidance?: { level: "minimal" | "extensive"; channel: string };
+}): string[] {
+  if (!params.reactionGuidance) {
+    return [];
+  }
+  const { level, channel } = params.reactionGuidance;
+  const guidanceText =
+    level === "minimal"
+      ? [
+          `${channel} reactions: MINIMAL.`,
+          "Only important request/confirmation or sparse genuine sentiment.",
+          "Never routine messages/own replies. Max ~1 per 5-10 exchanges.",
+        ].join("\n")
+      : [
+          `${channel} reactions: EXTENSIVE.`,
+          "React naturally for acknowledgment, sentiment, interesting/humorous/notable content, understanding/agreement.",
+        ].join("\n");
+  return ["## Reactions", guidanceText, ""];
+}
+
 const MODEL_IDENTITY_PREFIX = "Current model identity:";
 
 export function buildModelIdentityPromptLine(model?: string): string | undefined {
@@ -1148,75 +1389,20 @@ export function buildAgentSystemPrompt(params: {
     const lines = [
       "You are a personal assistant running inside OpenClaw.",
       "",
-      "## Tooling",
-      "Tools policy-filtered. Names case-sensitive; call exact.",
-      toolLines.length > 0
-        ? toolLines.join("\n")
-        : buildOpenClawToolFallbackText({
-            surface: promptSurface,
-            execToolName,
-            processToolName,
-          }),
-      ...(toolSchemaDirectoryPrompt
-        ? ["", "### Deferred Tool Schemas", toolSchemaDirectoryPrompt]
-        : []),
-      "The AGENTS.md Tools section guides usage; it never grants availability.",
-      ...(renderOpenClawToolWorkflowHints
-        ? [
-            // SL-5: Only include workflow hints for tools that are actually available.
-            // Previously these were always emitted, referencing denied tools.
-            ...(availableTools.has("exec") || availableTools.has("process")
-              ? [
-                  `Long wait: no rapid poll. Use ${execToolName} yieldMs or ${processToolName}(poll, timeout=<ms>).`,
-                ]
-              : []),
-            ...(hasSessionsSpawn
-              ? [
-                  "Large work: `sessions_spawn`; completion push-based.",
-                  '`sessions_spawn`: omit `context`; transcript needed => `context:"fork"`.',
-                  "`visible:true` only web/app user or asked.",
-                ]
-              : []),
-            ...(availableTools.has("screen")
-              ? ["`screen` present: web/app turn may drive UI; messaging turn: don't."]
-              : []),
-          ]
-        : []),
-      ...nativeCommandGuidanceLines,
-      ...(acpHarnessSpawnAllowed
-        ? [
-            '"Do in claude code/cursor/gemini/opencode" = ACP intent: `sessions_spawn(runtime:"acp")`.',
-            ...(runtimeChannel === "discord" && threadBoundAcpSpawnEnabled
-              ? [
-                  'Discord ACP default: persistent thread (`thread:true`, `mode:"session"`) unless user says otherwise.',
-                ]
-              : []),
-            'No thread-capable channel: one-shot `mode:"run"`; never claim binding.',
-            "Set `agentId` unless `acp.defaultAgent`; never route ACP via `subagents`/`agents_list`/local PTY.",
-            ...(threadBoundAcpSpawnEnabled
-              ? [
-                  'ACP thread: only `sessions_spawn(runtime:"acp", thread:true)`; never `message(thread-create)`.',
-                ]
-              : []),
-          ]
-        : []),
-      // SL-5: Only include loop-poll guidance when session/subagent tools are available.
-      ...(renderOpenClawToolWorkflowHints &&
-      (availableTools.has("subagents") ||
-        availableTools.has("sessions_list") ||
-        availableTools.has("sessions_yield"))
-        ? [
-            availableTools.has("sessions_yield")
-              ? "Never loop-poll `subagents list`/`sessions_list`; wait with `sessions_yield`. Status only on-demand/intervention/debug/request."
-              : "Never loop-poll `subagents list`/`sessions_list`; status only on-demand/intervention/debug/request.",
-          ]
-        : []),
-      ...(renderOpenClawToolWorkflowHints &&
-      (availableTools.has("sessions_search") || availableTools.has("sessions_list"))
-        ? [
-            "Asked about another chat/group/session not in context: check `sessions_list`/`sessions_search` before claiming no access.",
-          ]
-        : []),
+      ...buildToolingSection({
+        toolLines,
+        promptSurface,
+        execToolName,
+        processToolName,
+        toolSchemaDirectoryPrompt,
+        renderOpenClawToolWorkflowHints,
+        availableTools,
+        hasSessionsSpawn,
+        nativeCommandGuidanceLines,
+        acpHarnessSpawnAllowed,
+        runtimeChannel,
+        threadBoundAcpSpawnEnabled,
+      }),
       "",
       ...buildProactiveSubagentOrchestrationSection({
         enabled: proactiveSubagentOrchestration,
@@ -1258,105 +1444,28 @@ export function buildAgentSystemPrompt(params: {
         fallback: [],
       }),
       ...safetySection,
-      // SL-5: Only include OpenClaw Control section when at least one control
-      // tool is available. When both `openclaw` and `gateway` are denied,
-      // the section references unavailable tools and wastes tokens.
-      ...(hasOpenClaw || hasGateway
-        ? [
-            "## OpenClaw Control",
-            "Do not invent commands.",
-            ...(hasOpenClaw
-              ? [
-                  "Gateway restart, config, channels, plugins, agents, models/providers, updates: ask `openclaw`. Never restart the Gateway through shell commands or write your own config.",
-                ]
-              : [
-                  "Config read: `gateway` (`config.get|config.schema.lookup`). Write/restart unavailable; ask human.",
-                ]),
-            "",
-          ]
-        : []),
+      ...buildOpenClawControlSection({ hasOpenClaw, hasGateway }),
       ...skillsSection,
       ...skillWorkshopSection,
       ...memorySection,
-      params.modelAliasLines && params.modelAliasLines.length > 0 && !isMinimal
-        ? "## Model Aliases"
-        : "",
-      params.modelAliasLines && params.modelAliasLines.length > 0 && !isMinimal
-        ? "Model override: aliases are shortcuts for unqualified model requests. Use explicit provider/model references verbatim; do not substitute an alias or another provider."
-        : "",
-      params.modelAliasLines && params.modelAliasLines.length > 0 && !isMinimal
-        ? params.modelAliasLines.join("\n")
-        : "",
-      params.modelAliasLines && params.modelAliasLines.length > 0 && !isMinimal ? "" : "",
-      "## Workspace",
-      `Working directory: ${displayWorkspaceDir}`,
-      workspaceGuidance,
-      workspaceOnlyGuidance,
-      ...workspaceNotes,
-      "",
+      ...buildModelAliasesSection({
+        modelAliasLines: params.modelAliasLines,
+        isMinimal,
+      }),
+      ...buildWorkspaceSection({
+        displayWorkspaceDir,
+        workspaceGuidance,
+        workspaceOnlyGuidance,
+        workspaceNotes,
+      }),
       ...docsSection,
-      params.sandboxInfo?.enabled ? "## Sandbox" : "",
-      params.sandboxInfo?.enabled
-        ? [
-            "Sandbox runtime; tools execute in Docker. Policy may hide tools.",
-            "Subagents remain sandboxed; no elevated/host access. Need host read/write: do not spawn; ask.",
-            hasSessionsSpawn && acpEnabled
-              ? 'Sandbox blocks ACP spawn. Use `sessions_spawn(runtime:"subagent")`.'
-              : "",
-            params.sandboxInfo.containerWorkspaceDir
-              ? `Sandbox container workdir: ${sanitizeForPromptLiteral(params.sandboxInfo.containerWorkspaceDir)}`
-              : "",
-            params.sandboxInfo.workspaceDir
-              ? `Sandbox host mount source (file tools bridge only; not valid inside sandbox exec): ${sanitizeForPromptLiteral(params.sandboxInfo.workspaceDir)}`
-              : "",
-            params.sandboxInfo.workspaceAccess
-              ? `Agent workspace access: ${params.sandboxInfo.workspaceAccess}${
-                  params.sandboxInfo.agentWorkspaceMount
-                    ? ` (mounted at ${sanitizeForPromptLiteral(params.sandboxInfo.agentWorkspaceMount)})`
-                    : ""
-                }`
-              : "",
-            params.sandboxInfo.browserBridgeUrl ? "Sandbox browser: enabled." : "",
-            params.sandboxInfo.hostBrowserAllowed === true
-              ? "Host browser control: allowed."
-              : params.sandboxInfo.hostBrowserAllowed === false
-                ? "Host browser control: blocked."
-                : "",
-            elevated?.allowed
-              ? "Elevated exec is available for this session."
-              : elevated
-                ? "Elevated exec is unavailable for this session."
-                : "",
-            elevated?.allowed && elevated.fullAccessAvailable
-              ? "User can toggle with /elevated on|off|ask|full."
-              : "",
-            elevated?.allowed && !elevated.fullAccessAvailable
-              ? "User can toggle with /elevated on|off|ask."
-              : "",
-            elevated?.allowed && elevated.fullAccessAvailable
-              ? "You may also send /elevated on|off|ask|full when needed."
-              : "",
-            elevated?.allowed && !elevated.fullAccessAvailable
-              ? "You may also send /elevated on|off|ask when needed."
-              : "",
-            elevated?.fullAccessAvailable === false
-              ? `Auto-approved /elevated full is unavailable here (${fullAccessBlockedReasonLabel}).`
-              : "",
-            elevated?.allowed && elevated.fullAccessAvailable
-              ? `Current elevated level: ${elevated.defaultLevel} (ask runs exec on host with approvals; full auto-approves).`
-              : elevated?.allowed
-                ? `Current elevated level: ${elevated.defaultLevel} (full auto-approval unavailable here; use ask/on instead).`
-                : elevated
-                  ? "Current elevated level: off (elevated exec unavailable)."
-                  : "",
-            elevated && !elevated.allowed
-              ? "Do not tell the user to switch to /elevated full in this session."
-              : "",
-          ]
-            .filter(Boolean)
-            .join("\n")
-        : "",
-      params.sandboxInfo?.enabled ? "" : "",
+      ...buildSandboxSection({
+        sandboxInfo: params.sandboxInfo,
+        hasSessionsSpawn,
+        acpEnabled,
+        elevated,
+        fullAccessBlockedReasonLabel,
+      }),
       ...bootstrapSystemPromptSections,
       "## Workspace Files (injected)",
       "User-editable; OpenClaw loads below as Project Context.",
@@ -1376,14 +1485,7 @@ export function buildAgentSystemPrompt(params: {
       }),
     );
 
-    if (!isMinimal && silentReplyPromptMode !== "none") {
-      lines.push(
-        "## Silent Replies",
-        `Nothing to say: entire reply exactly ${SILENT_REPLY_TOKEN}`,
-        `Never append to real response or wrap in Markdown/code.`,
-        "",
-      );
-    }
+    lines.push(...buildSilentRepliesSection({ isMinimal, silentReplyPromptMode }));
 
     lines.push(SYSTEM_PROMPT_CACHE_BOUNDARY);
     return lines.filter(Boolean).join("\n");
@@ -1456,21 +1558,7 @@ export function buildAgentSystemPrompt(params: {
       promptMode === "minimal" ? "## Subagent Context" : "## Conversation Context";
     lines.push(contextHeader, extraSystemPrompt, "");
   }
-  if (params.reactionGuidance) {
-    const { level, channel } = params.reactionGuidance;
-    const guidanceText =
-      level === "minimal"
-        ? [
-            `${channel} reactions: MINIMAL.`,
-            "Only important request/confirmation or sparse genuine sentiment.",
-            "Never routine messages/own replies. Max ~1 per 5-10 exchanges.",
-          ].join("\n")
-        : [
-            `${channel} reactions: EXTENSIVE.`,
-            "React naturally for acknowledgment, sentiment, interesting/humorous/notable content, understanding/agreement.",
-          ].join("\n");
-    lines.push("## Reactions", guidanceText, "");
-  }
+  lines.push(...buildReactionsSection({ reactionGuidance: params.reactionGuidance }));
   if (providerDynamicSuffix) {
     lines.push(providerDynamicSuffix, "");
   }
