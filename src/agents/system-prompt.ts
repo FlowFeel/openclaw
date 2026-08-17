@@ -1220,6 +1220,7 @@ export function buildAgentSystemPrompt(params: {
   ) as Partial<Record<ProviderSystemPromptSectionId, string>>;
   const promptMode = params.promptMode ?? "full";
   const isMinimal = promptMode === "minimal" || promptMode === "none";
+  const isScaffold = promptMode === "scaffold";
   const ownerDisplay = params.ownerDisplay === "hash" ? "hash" : "raw";
   const ownerLine = isMinimal
     ? undefined
@@ -1329,6 +1330,67 @@ export function buildAgentSystemPrompt(params: {
     return ["You are a personal assistant running inside OpenClaw.", modelIdentityLine]
       .filter(Boolean)
       .join("\n");
+  }
+
+  // For "scaffold" mode, return only the irreducible dynamic state.
+  // All static guidance (safety, conduct, execution, messaging, tool policy,
+  // protocol formats) lives in AGENTS.md, which is loaded as project context
+  // every turn. The system prompt provides only what changes per-turn or
+  // per-session: tool list, runtime state, sandbox state, skills manifest,
+  // temporal context, and the cache boundary.
+  if (isScaffold) {
+    const scaffoldContextFiles = prepareContextFilesForPrompt(
+      filterProjectScopedCuratedContextFiles({
+        contextFiles: params.contextFiles,
+        activeProjectKeys: params.activeProjectKeys,
+      }),
+    );
+    const scaffoldStableLines = [
+      ...(toolLines.length > 0
+        ? ["## Tools", ...toolLines]
+        : [
+            "## Tools",
+            buildOpenClawToolFallbackText({
+              surface: promptSurface,
+              execToolName,
+              processToolName,
+            }),
+          ]),
+      ...(toolSchemaDirectoryPrompt
+        ? ["", "### Deferred Tool Schemas", toolSchemaDirectoryPrompt]
+        : []),
+      ...(params.sandboxInfo?.enabled
+        ? [
+            "",
+            "## Sandbox",
+            `Container workdir: ${displayWorkspaceDir}`,
+            ...(elevated?.allowed
+              ? [`Elevated: ${elevated.defaultLevel} (full=${elevated.fullAccessAvailable})`]
+              : []),
+          ]
+        : []),
+      ...(skillsPrompt ? ["", "## Skills", skillsPrompt] : []),
+      "",
+      SYSTEM_PROMPT_CACHE_BOUNDARY,
+    ];
+    const scaffoldDynamicLines = [
+      ...buildTemporalContextSection({
+        userDate,
+        userTimezone,
+        sessionStatusAvailable: availableTools.has("session_status"),
+      }),
+      "## Runtime",
+      buildRuntimeLine(runtimeInfo, runtimeChannel, runtimeCapabilities, params.defaultThinkLevel),
+      ...(modelIdentityLine ? [modelIdentityLine] : []),
+      `Reasoning=${reasoningLevel}; hidden unless on/stream.`,
+      "",
+      ...buildProjectContextSection({
+        files: scaffoldContextFiles.ordered,
+        heading: "# Project Context",
+        dynamic: false,
+      }),
+    ];
+    return [...scaffoldStableLines, ...scaffoldDynamicLines].filter(Boolean).join("\n");
   }
 
   const contextFiles = prepareContextFilesForPrompt(
