@@ -1,5 +1,6 @@
 // Defines agent default configuration types shared by runtime schemas.
 import type { FastMode } from "@openclaw/normalization-core/string-coerce";
+import type { PromptMode } from "../agents/system-prompt.types.js";
 import type { SilentReplyPolicyShape } from "../shared/silent-reply-policy.js";
 import type {
   AgentModelConfig,
@@ -367,6 +368,8 @@ export type AgentDefaultsConfig = {
   };
   /** Optional sandbox settings for non-main sessions. */
   sandbox?: AgentSandboxConfig;
+  /** Default prompt rendering mode for agent system prompts. */
+  promptMode?: PromptMode;
 };
 
 export type AgentCompactionMode = "default" | "safeguard";

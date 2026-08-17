@@ -197,9 +197,12 @@ export async function prepareEmbeddedAttemptSystemPrompt(params: {
     },
   });
   const isDefaultAgent = params.sessionAgentId === params.defaultAgentId;
+  const configPromptMode = attempt.config?.agents?.defaults?.promptMode;
   const promptMode =
     attempt.promptMode ??
-    (params.isRawModelRun ? "none" : resolvePromptModeForSession(attempt.sessionKey));
+    (params.isRawModelRun
+      ? "none"
+      : (configPromptMode ?? resolvePromptModeForSession(attempt.sessionKey)));
   const promptSurface = resolveAgentPromptSurfaceForSessionKey(attempt.sessionKey);
   const effectivePromptMode = attempt.toolsAllow?.length ? ("minimal" as const) : promptMode;
   const effectiveSkillsPrompt = attempt.toolsAllow?.length ? undefined : params.skillsPrompt;
