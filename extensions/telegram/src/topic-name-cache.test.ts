@@ -6,7 +6,7 @@ import {
   resetTelegramTopicNameCacheForTest,
 } from "./runtime.test-support.js";
 import type { TelegramRuntime } from "./runtime.types.js";
-import { getTopicName, updateTopicName } from "./topic-name-cache.js";
+import { getTopicName, listTopicNames, updateTopicName } from "./topic-name-cache.js";
 
 type TopicEntry = {
   name: string;
@@ -178,5 +178,48 @@ describe("topic-name-cache", () => {
 
     await expect(getTopicName(-100123, 42, "first")).resolves.toBe("Deployments");
     await expect(getTopicName(-200456, 84, "second")).resolves.toBe("Incidents");
+  });
+
+  it("listTopicNames returns empty array when no topics exist", async () => {
+    await expect(listTopicNames(-100123)).resolves.toEqual([]);
+  });
+
+  it("listTopicNames returns all topics for a chat sorted by name", async () => {
+    await updateTopicName(-100123, 42, { name: "Zebras" });
+    await updateTopicName(-100123, 10, { name: "Alpha" });
+    await updateTopicName(-100123, 99, { name: "Middle" });
+
+    await expect(listTopicNames(-100123)).resolves.toEqual([
+      { threadId: "10", name: "Alpha", updatedAt: expect.any(Number) },
+      { threadId: "99", name: "Middle", updatedAt: expect.any(Number) },
+      { threadId: "42", name: "Zebras", updatedAt: expect.any(Number) },
+    ]);
+  });
+
+  it("listTopicNames only returns topics for the specified chat", async () => {
+    await updateTopicName(-100123, 42, { name: "Ours" });
+    await updateTopicName(-200456, 84, { name: "Theirs" });
+
+    const result = await listTopicNames(-100123);
+    expect(result).toHaveLength(1);
+    expect(result[0]).toEqual({ threadId: "42", name: "Ours", updatedAt: expect.any(Number) });
+  });
+
+  it("listTopicNames includes closed status", async () => {
+    await updateTopicName(-100123, 42, { name: "Open" });
+    await updateTopicName(-100123, 43, { name: "Closed", closed: true });
+
+    const result = await listTopicNames(-100123);
+    const closedTopic = result.find((t) => t.name === "Closed");
+    const openTopic = result.find((t) => t.name === "Open");
+    expect(closedTopic?.closed).toBe(true);
+    expect(openTopic?.closed).toBeUndefined();
+  });
+
+  it("listTopicNames works with string chatId", async () => {
+    await updateTopicName("-100123", "42", { name: "StringChat" });
+    const result = await listTopicNames("-100123");
+    expect(result).toHaveLength(1);
+    expect(result[0].name).toBe("StringChat");
   });
 });

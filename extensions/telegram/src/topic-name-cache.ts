@@ -8,7 +8,7 @@ const STORE_NAMESPACE_PREFIX = "telegram.topic-name-cache";
 const TOPIC_NAME_CACHE_STATE_KEY = Symbol.for("openclaw.telegramTopicNameCacheState");
 const DEFAULT_TOPIC_NAME_CACHE_SCOPE = "default";
 
-type TopicEntry = {
+export type TopicNameEntry = {
   name: string;
   iconColor?: number;
   iconCustomEmojiId?: string;
@@ -16,7 +16,15 @@ type TopicEntry = {
   updatedAt: number;
 };
 
-type TopicNameStore = Map<string, TopicEntry>;
+/** A topic listing entry returned by {@link listTopicNames}. */
+export type TopicListing = {
+  threadId: string;
+  name: string;
+  closed?: boolean;
+  updatedAt: number;
+};
+
+type TopicNameStore = Map<string, TopicNameEntry>;
 
 type TopicNameStoreState = {
   lastUpdatedAt: number;
@@ -31,14 +39,14 @@ type TopicNameCacheState = {
 };
 
 type TopicNamePersistentStore = {
-  register(key: string, value: TopicEntry): Promise<void>;
-  entries(): Promise<Array<{ key: string; value: TopicEntry }>>;
+  register(key: string, value: TopicNameEntry): Promise<void>;
+  entries(): Promise<Array<{ key: string; value: TopicNameEntry }>>;
   delete(key: string): Promise<boolean>;
   clear(): Promise<void>;
 };
 
 function createTopicNameStore(): TopicNameStore {
-  return new Map<string, TopicEntry>();
+  return new Map<string, TopicNameEntry>();
 }
 
 function createTopicNameStoreState(namespace: string): TopicNameStoreState {
@@ -83,7 +91,7 @@ export function resolveTopicNameCacheNamespace(scope: string): string {
 }
 
 function openTopicNamePersistentStore(namespace: string): TopicNamePersistentStore {
-  return getTelegramRuntime().state.openKeyedStore<TopicEntry>({
+  return getTelegramRuntime().state.openKeyedStore<TopicNameEntry>({
     namespace,
     maxEntries: TELEGRAM_TOPIC_NAME_CACHE_MAX_ENTRIES,
   });
@@ -107,11 +115,11 @@ function evictOldest(store: TopicNameStore): string | undefined {
   return oldestKey;
 }
 
-function isTopicEntry(value: unknown): value is TopicEntry {
+function isTopicNameEntry(value: unknown): value is TopicNameEntry {
   if (!value || typeof value !== "object") {
     return false;
   }
-  const entry = value as Partial<TopicEntry>;
+  const entry = value as Partial<TopicNameEntry>;
   return (
     typeof entry.name === "string" &&
     entry.name.length > 0 &&
@@ -143,7 +151,7 @@ async function hydrateTopicStoreState(state: TopicNameStoreState): Promise<void>
   state.hydratePromise = (async () => {
     const entries = await state.persistentStore.entries();
     for (const { key, value } of entries) {
-      if (isTopicEntry(value)) {
+      if (isTopicNameEntry(value)) {
         state.store.set(key, value);
       }
     }
@@ -168,7 +176,7 @@ function nextUpdatedAt(scope?: string): number {
 export async function updateTopicName(
   chatId: number | string,
   threadId: number | string,
-  patch: Partial<Omit<TopicEntry, "updatedAt">>,
+  patch: Partial<Omit<TopicNameEntry, "updatedAt">>,
   scope?: string,
 ): Promise<void> {
   const state = getTopicStoreState(scope);
@@ -178,7 +186,7 @@ export async function updateTopicName(
   const iconColor = patch.iconColor ?? existing?.iconColor;
   const iconCustomEmojiId = patch.iconCustomEmojiId ?? existing?.iconCustomEmojiId;
   const closed = patch.closed ?? existing?.closed;
-  const merged: TopicEntry = {
+  const merged: TopicNameEntry = {
     name: patch.name ?? existing?.name ?? "",
     updatedAt: nextUpdatedAt(scope),
     ...(iconColor !== undefined ? { iconColor } : {}),
@@ -212,16 +220,35 @@ export async function getTopicName(
   return entry?.name;
 }
 
+/** Lists all known topics for a forum (chat). Returns entries sorted by name. */
+export async function listTopicNames(
+  chatId: number | string,
+  scope?: string,
+): Promise<TopicListing[]> {
+  const state = getTopicStoreState(scope);
+  await hydrateTopicStoreState(state);
+  const prefix = `${chatId}:`;
+  return Array.from(state.store.entries())
+    .filter(([key]) => key.startsWith(prefix))
+    .map(([key, entry]) => ({
+      threadId: key.slice(prefix.length),
+      name: entry.name,
+      ...(entry.closed !== undefined ? { closed: entry.closed } : {}),
+      updatedAt: entry.updatedAt,
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
 export async function listTelegramLegacyTopicNameCacheEntries(params: {
   persistedPath: string;
   maxEntries?: number;
-}): Promise<Array<{ key: string; value: TopicEntry }>> {
+}): Promise<Array<{ key: string; value: TopicNameEntry }>> {
   const { value } = await readJsonFileWithFallback<Record<string, unknown>>(
     params.persistedPath,
     {},
   );
   return Object.entries(value)
-    .filter((entry): entry is [string, TopicEntry] => isTopicEntry(entry[1]))
+    .filter((entry): entry is [string, TopicNameEntry] => isTopicNameEntry(entry[1]))
     .toSorted(([, left], [, right]) => right.updatedAt - left.updatedAt)
     .slice(0, params.maxEntries ?? TELEGRAM_TOPIC_NAME_CACHE_MAX_ENTRIES)
     .map(([key, entry]) => ({ key, value: entry }));
