@@ -98,11 +98,13 @@ type StablePromptPrefixCacheEntry = {
   value: string;
 };
 
-function normalizeSubagentDelegationMode(mode?: SubagentDelegationMode): SubagentDelegationMode {
+export function normalizeSubagentDelegationMode(
+  mode?: SubagentDelegationMode,
+): SubagentDelegationMode {
   return mode === "prefer" ? "prefer" : "suggest";
 }
 
-function buildSubagentDelegationPreferenceSection(params: {
+export function buildSubagentDelegationPreferenceSection(params: {
   mode: SubagentDelegationMode;
   isMinimal: boolean;
   hasSessionsSpawn: boolean;
@@ -131,7 +133,7 @@ function buildSubagentDelegationPreferenceSection(params: {
   ].filter(Boolean);
 }
 
-function buildProactiveSubagentOrchestrationSection(params: {
+export function buildProactiveSubagentOrchestrationSection(params: {
   enabled: boolean;
   hasSessionsSpawn: boolean;
 }): string[] {
@@ -150,7 +152,7 @@ function buildProactiveSubagentOrchestrationSection(params: {
 
 const stablePromptPrefixCache = new Map<string, StablePromptPrefixCacheEntry>();
 
-function cacheStablePromptPrefix(key: string, build: () => string): string {
+export function cacheStablePromptPrefix(key: string, build: () => string): string {
   const cached = stablePromptPrefixCache.get(key);
   if (cached) {
     stablePromptPrefixCache.delete(key);
@@ -164,37 +166,39 @@ function cacheStablePromptPrefix(key: string, build: () => string): string {
   return value;
 }
 
-function hashStablePromptInput(value: unknown): string {
+export function hashStablePromptInput(value: unknown): string {
   const hash = createHash("sha256");
   hash.update(JSON.stringify(value));
   return hash.digest("hex");
 }
 
-function normalizeContextFilePath(pathValue: string): string {
+export function normalizeContextFilePath(pathValue: string): string {
   return pathValue.trim().replace(/\\/g, "/");
 }
 
-function getContextFileBasename(pathValue: string): string {
+export function getContextFileBasename(pathValue: string): string {
   const normalizedPath = normalizeContextFilePath(pathValue);
   return normalizeLowercaseStringOrEmpty(normalizedPath.split("/").pop() ?? normalizedPath);
 }
 
-function isDynamicContextFile(pathValue: string): boolean {
+export function isDynamicContextFile(pathValue: string): boolean {
   return DYNAMIC_CONTEXT_FILE_BASENAMES.has(getContextFileBasename(pathValue));
 }
 
-function isBootstrapContextFile(pathValue: string): boolean {
+export function isBootstrapContextFile(pathValue: string): boolean {
   return /(^|[\\/])BOOTSTRAP\.md$/iu.test(pathValue.trim());
 }
 
-function sanitizeContextFileContentForPrompt(content: string): string {
+export function sanitizeContextFileContentForPrompt(content: string): string {
   // Claude Code subscription mode rejects this exact prompt-policy quote when it
   // appears in system context. The live heartbeat user turn still carries the
   // actual instruction, and the generated heartbeat section below covers behavior.
   return content.replaceAll(DEFAULT_HEARTBEAT_PROMPT_CONTEXT_BLOCK, "").replace(/\n{3,}/g, "\n\n");
 }
 
-function sortContextFilesForPrompt(contextFiles: EmbeddedContextFile[]): EmbeddedContextFile[] {
+export function sortContextFilesForPrompt(
+  contextFiles: EmbeddedContextFile[],
+): EmbeddedContextFile[] {
   return contextFiles.toSorted((a, b) => {
     const aPath = normalizeContextFilePath(a.path);
     const bPath = normalizeContextFilePath(b.path);
@@ -212,7 +216,7 @@ function sortContextFilesForPrompt(contextFiles: EmbeddedContextFile[]): Embedde
   });
 }
 
-function prepareContextFilesForPrompt(contextFiles: EmbeddedContextFile[] = []) {
+export function prepareContextFilesForPrompt(contextFiles: EmbeddedContextFile[] = []) {
   const ordered = sortContextFilesForPrompt(
     contextFiles.filter((file) => typeof file.path === "string" && file.path.trim().length > 0),
   );
@@ -223,7 +227,7 @@ function prepareContextFilesForPrompt(contextFiles: EmbeddedContextFile[] = []) 
   };
 }
 
-function buildProjectContextSection(params: {
+export function buildProjectContextSection(params: {
   files: EmbeddedContextFile[];
   heading: string;
   dynamic: boolean;
@@ -266,7 +270,7 @@ function buildProjectContextSection(params: {
   return lines;
 }
 
-function buildHeartbeatSection(params: { isMinimal: boolean; heartbeatPrompt?: string }) {
+export function buildHeartbeatSection(params: { isMinimal: boolean; heartbeatPrompt?: string }) {
   if (params.isMinimal || !params.heartbeatPrompt) {
     return [];
   }
@@ -279,7 +283,7 @@ function buildHeartbeatSection(params: { isMinimal: boolean; heartbeatPrompt?: s
   ];
 }
 
-function buildExecApprovalPromptGuidance(params: {
+export function buildExecApprovalPromptGuidance(params: {
   runtimeChannel?: string;
   inlineButtonsEnabled?: boolean;
   runtimeCapabilities?: readonly string[];
@@ -295,7 +299,7 @@ function buildExecApprovalPromptGuidance(params: {
   return 'exec approval-pending: send exact /approve from "Reply with:"; never ask for another code.';
 }
 
-function buildSkillsSection(params: {
+export function buildSkillsSection(params: {
   skillsPrompt?: string;
   readToolName: string;
   codeModeActive?: boolean;
@@ -317,7 +321,7 @@ function buildSkillsSection(params: {
   ];
 }
 
-function buildMemorySection(params: {
+export function buildMemorySection(params: {
   isMinimal: boolean;
   includeMemorySection?: boolean;
   availableTools: Set<string>;
@@ -342,7 +346,7 @@ function buildMemorySection(params: {
   );
 }
 
-function buildAgentBootstrapSystemContext(params: {
+export function buildAgentBootstrapSystemContext(params: {
   bootstrapMode?: BootstrapMode;
   hasBootstrapFileInProjectContext?: boolean;
 }): string[] {
@@ -372,7 +376,7 @@ function buildAgentBootstrapSystemContext(params: {
   ];
 }
 
-function buildAgentBootstrapSystemPromptSections(params: {
+export function buildAgentBootstrapSystemPromptSections(params: {
   bootstrapMode?: BootstrapMode;
   bootstrapTruncationNotice?: string;
   contextFiles?: EmbeddedContextFile[];
@@ -396,14 +400,14 @@ function buildAgentBootstrapSystemPromptSections(params: {
   return lines;
 }
 
-function buildUserIdentitySection(ownerLine: string | undefined, isMinimal: boolean) {
+export function buildUserIdentitySection(ownerLine: string | undefined, isMinimal: boolean) {
   if (!ownerLine || isMinimal) {
     return [];
   }
   return ["## Authorized Senders", ownerLine, ""];
 }
 
-function formatOwnerDisplayId(ownerId: string, ownerDisplaySecret?: string) {
+export function formatOwnerDisplayId(ownerId: string, ownerDisplaySecret?: string) {
   const hasSecret = ownerDisplaySecret?.trim();
   const digest = hasSecret
     ? createHmac("sha256", hasSecret).update(ownerId).digest("hex")
@@ -415,7 +419,7 @@ const MAX_OWNER_PROMPT_LINE_BYTES = 1_024;
 const OWNER_PROMPT_PREFIX = "Allowlisted senders: ";
 const OWNER_PROMPT_SUFFIX = ". Allowlisted != owner.";
 
-function formatRawOwnerDisplayId(ownerId: string, maxBytes: number): string {
+export function formatRawOwnerDisplayId(ownerId: string, maxBytes: number): string {
   const sanitized = sanitizeForPromptLiteral(ownerId);
   if (Buffer.byteLength(sanitized, "utf8") <= maxBytes) {
     return sanitized;
@@ -426,7 +430,7 @@ function formatRawOwnerDisplayId(ownerId: string, maxBytes: number): string {
   return `${truncateUtf8Prefix(sanitized, maxBytes - 3)}...`;
 }
 
-function buildOwnerIdentityLine(
+export function buildOwnerIdentityLine(
   ownerNumbers: string[],
   ownerDisplay: OwnerIdDisplay,
   ownerDisplaySecret?: string,
@@ -466,7 +470,7 @@ function buildOwnerIdentityLine(
   return `${OWNER_PROMPT_PREFIX}${displayOwnerNumbers.join(", ")}${OWNER_PROMPT_SUFFIX}`;
 }
 
-function buildTemporalContextSection(params: {
+export function buildTemporalContextSection(params: {
   userDate?: string;
   userTimezone?: string;
   sessionStatusAvailable: boolean;
@@ -485,7 +489,7 @@ function buildTemporalContextSection(params: {
   ];
 }
 
-function buildAssistantOutputDirectivesSection(params: {
+export function buildAssistantOutputDirectivesSection(params: {
   isMinimal: boolean;
   sourceMessageToolOnly: boolean;
 }) {
@@ -512,7 +516,7 @@ function buildAssistantOutputDirectivesSection(params: {
   ];
 }
 
-function buildWebchatCanvasSection(params: {
+export function buildWebchatCanvasSection(params: {
   isMinimal: boolean;
   runtimeChannel?: string;
   sourceMessageToolOnly: boolean;
@@ -534,7 +538,7 @@ function buildWebchatCanvasSection(params: {
   ];
 }
 
-function buildControlUiSessionCompanionSection(params: {
+export function buildControlUiSessionCompanionSection(params: {
   isMinimal: boolean;
   runtimeChannel?: string;
 }) {
@@ -550,7 +554,7 @@ function buildControlUiSessionCompanionSection(params: {
   ];
 }
 
-function buildExecutionBiasSection(params: { isMinimal: boolean }) {
+export function buildExecutionBiasSection(params: { isMinimal: boolean }) {
   if (params.isMinimal) {
     return [];
   }
@@ -567,7 +571,7 @@ function buildExecutionBiasSection(params: { isMinimal: boolean }) {
   ];
 }
 
-function normalizeProviderPromptBlock(value?: string): string | undefined {
+export function normalizeProviderPromptBlock(value?: string): string | undefined {
   if (typeof value !== "string") {
     return undefined;
   }
@@ -575,7 +579,7 @@ function normalizeProviderPromptBlock(value?: string): string | undefined {
   return normalized || undefined;
 }
 
-function buildOverridablePromptSection(params: {
+export function buildOverridablePromptSection(params: {
   override?: string;
   fallback: string[];
 }): string[] {
@@ -586,7 +590,7 @@ function buildOverridablePromptSection(params: {
   return params.fallback;
 }
 
-function buildMessagingSection(params: {
+export function buildMessagingSection(params: {
   isMinimal: boolean;
   availableTools: Set<string>;
   inlineButtonsEnabled: boolean;
@@ -669,7 +673,7 @@ function buildMessagingSection(params: {
   ];
 }
 
-function buildCollapsibleDetailsSection(params: {
+export function buildCollapsibleDetailsSection(params: {
   isMinimal: boolean;
   collapsibleDetailsSupported: boolean;
 }) {
@@ -684,7 +688,7 @@ function buildCollapsibleDetailsSection(params: {
   ];
 }
 
-function buildMessageChannelOptions(runtimeChannel?: string): string | undefined {
+export function buildMessageChannelOptions(runtimeChannel?: string): string | undefined {
   const deliverableChannels: readonly string[] = listDeliverableMessageChannels();
   if (deliverableChannels.length <= 1) {
     return undefined;
@@ -695,7 +699,7 @@ function buildMessageChannelOptions(runtimeChannel?: string): string | undefined
   return deliverableChannels.join("|");
 }
 
-function buildVoiceSection(params: { isMinimal: boolean; ttsHint?: string }) {
+export function buildVoiceSection(params: { isMinimal: boolean; ttsHint?: string }) {
   if (params.isMinimal) {
     return [];
   }
@@ -706,7 +710,7 @@ function buildVoiceSection(params: { isMinimal: boolean; ttsHint?: string }) {
   return ["## Voice (TTS)", hint, ""];
 }
 
-function buildDocsSection(params: {
+export function buildDocsSection(params: {
   docsPath?: string;
   sourcePath?: string;
   isMinimal: boolean;
@@ -735,7 +739,7 @@ function buildDocsSection(params: {
   return lines.filter((line): line is string => line !== undefined);
 }
 
-function formatFullAccessBlockedReason(reason?: EmbeddedFullAccessBlockedReason): string {
+export function formatFullAccessBlockedReason(reason?: EmbeddedFullAccessBlockedReason): string {
   if (reason === "host-policy") {
     return "host policy";
   }
@@ -748,7 +752,7 @@ function formatFullAccessBlockedReason(reason?: EmbeddedFullAccessBlockedReason)
   return "runtime constraints";
 }
 
-function buildToolingSection(params: {
+export function buildToolingSection(params: {
   toolLines: string[];
   promptSurface: AgentPromptSurfaceKind;
   execToolName: string;
@@ -835,7 +839,7 @@ function buildToolingSection(params: {
   ];
 }
 
-function buildSandboxSection(params: {
+export function buildSandboxSection(params: {
   sandboxInfo?: EmbeddedSandboxInfo;
   hasSessionsSpawn: boolean;
   acpEnabled: boolean;
@@ -876,7 +880,7 @@ function buildSandboxSection(params: {
   ];
 }
 
-function buildElevatedSection(
+export function buildElevatedSection(
   elevated: EmbeddedSandboxInfo["elevated"],
   fullAccessBlockedReasonLabel?: string,
 ): string[] {
@@ -905,7 +909,7 @@ function buildElevatedSection(
   ];
 }
 
-function buildOpenClawControlSection(params: {
+export function buildOpenClawControlSection(params: {
   hasOpenClaw: boolean;
   hasGateway: boolean;
 }): string[] {
@@ -922,7 +926,7 @@ function buildOpenClawControlSection(params: {
   ];
 }
 
-function buildModelAliasesSection(params: {
+export function buildModelAliasesSection(params: {
   modelAliasLines?: string[];
   isMinimal: boolean;
 }): string[] {
@@ -937,7 +941,7 @@ function buildModelAliasesSection(params: {
   ];
 }
 
-function buildWorkspaceSection(params: {
+export function buildWorkspaceSection(params: {
   displayWorkspaceDir: string;
   workspaceGuidance: string;
   workspaceOnlyGuidance: string;
@@ -953,7 +957,7 @@ function buildWorkspaceSection(params: {
   ];
 }
 
-function buildSilentRepliesSection(params: {
+export function buildSilentRepliesSection(params: {
   isMinimal: boolean;
   silentReplyPromptMode: SilentReplyPromptMode;
 }): string[] {
@@ -968,7 +972,7 @@ function buildSilentRepliesSection(params: {
   ];
 }
 
-function buildReactionsSection(params: {
+export function buildReactionsSection(params: {
   reactionGuidance?: { level: "minimal" | "extensive"; channel: string };
 }): string[] {
   if (!params.reactionGuidance) {
@@ -1033,7 +1037,9 @@ export function appendModelIdentitySystemPrompt(params: {
   return base ? `${base}\n\n${line}` : line;
 }
 
-export function buildAgentSystemPrompt(params: {
+/** Parameters for {@link buildAgentSystemPrompt}. Extracted from the inline
+ * god-params literal so callers and tests can reference the type by name. */
+export type BuildAgentSystemPromptParams = {
   workspaceDir: string;
   defaultThinkLevel?: ThinkLevel;
   reasoningLevel?: ReasoningLevel;
@@ -1116,7 +1122,9 @@ export function buildAgentSystemPrompt(params: {
   /** Prepared repository identities used to filter curated raw context fail-closed. */
   activeProjectKeys?: readonly string[];
   promptContribution?: ProviderSystemPromptContribution;
-}) {
+};
+
+export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
   const acpEnabled = params.acpEnabled === true;
   const promptSurface = params.promptSurface ?? "openclaw_main";
   const sandboxedRuntime = params.sandboxInfo?.enabled === true;
@@ -1642,7 +1650,7 @@ export function buildAgentSystemPrompt(params: {
   return lines.filter(Boolean).join("\n");
 }
 
-function buildActiveProcessSessionReferenceLines(
+export function buildActiveProcessSessionReferenceLines(
   sessions: ActiveProcessSessionReference[] | undefined,
 ): string[] {
   if (!sessions?.length) {
@@ -1659,7 +1667,7 @@ function buildActiveProcessSessionReferenceLines(
   ];
 }
 
-function buildRuntimeLine(
+export function buildRuntimeLine(
   runtimeInfo?: {
     agentId?: string;
     sessionKey?: string;
