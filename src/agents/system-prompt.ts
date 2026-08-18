@@ -64,7 +64,7 @@ import type {
   ProviderSystemPromptContribution,
   ProviderSystemPromptSectionId,
 } from "./system-prompt-contribution.js";
-import type { PromptMode, SilentReplyPromptMode } from "./system-prompt.types.js";
+import type { PromptMode, PromptSection, SilentReplyPromptMode } from "./system-prompt.types.js";
 import { AUTOMATIONS_TOOL_NAME } from "./tools/automations-tool-name.js";
 import {
   buildWatchedSessionsPromptLines,
@@ -1335,6 +1335,16 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
 
   // For "none" mode, return just the basic identity line
   if (promptMode === "none") {
+    lastResolvedPromptSections = [
+      {
+        id: "identity",
+        cacheStable: true,
+        lines: [
+          "You are a personal assistant running inside OpenClaw.",
+          ...(modelIdentityLine ? [modelIdentityLine] : []),
+        ],
+      },
+    ];
     return ["You are a personal assistant running inside OpenClaw.", modelIdentityLine]
       .filter(Boolean)
       .join("\n");
@@ -1398,6 +1408,75 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
         dynamic: false,
       }),
     ];
+
+    lastResolvedPromptSections = [
+      {
+        id: "tools",
+        cacheStable: true,
+        lines: [
+          ...(toolLines.length > 0
+            ? ["## Tools", ...toolLines]
+            : [
+                "## Tools",
+                buildOpenClawToolFallbackText({
+                  surface: promptSurface,
+                  execToolName,
+                  processToolName,
+                }),
+              ]),
+          ...(toolSchemaDirectoryPrompt
+            ? ["", "### Deferred Tool Schemas", toolSchemaDirectoryPrompt]
+            : []),
+          ...(params.sandboxInfo?.enabled
+            ? [
+                "",
+                "## Sandbox",
+                `Container workdir: ${displayWorkspaceDir}`,
+                ...(elevated?.allowed
+                  ? [`Elevated: ${elevated.defaultLevel} (full=${elevated.fullAccessAvailable})`]
+                  : []),
+              ]
+            : []),
+          ...(skillsPrompt ? ["", "## Skills", skillsPrompt] : []),
+        ],
+      },
+      { id: "cache-boundary", cacheStable: true, lines: ["", SYSTEM_PROMPT_CACHE_BOUNDARY] },
+      {
+        id: "temporal",
+        cacheStable: false,
+        lines: buildTemporalContextSection({
+          userDate,
+          userTimezone,
+          sessionStatusAvailable: availableTools.has("session_status"),
+        }),
+      },
+      {
+        id: "runtime",
+        cacheStable: false,
+        lines: [
+          "## Runtime",
+          buildRuntimeLine(
+            runtimeInfo,
+            runtimeChannel,
+            runtimeCapabilities,
+            params.defaultThinkLevel,
+          ),
+          ...(modelIdentityLine ? [modelIdentityLine] : []),
+          `Reasoning=${reasoningLevel}; hidden unless on/stream.`,
+          "",
+        ],
+      },
+      {
+        id: "project-context",
+        cacheStable: false,
+        lines: buildProjectContextSection({
+          files: scaffoldContextFiles.ordered,
+          heading: "# Project Context",
+          dynamic: false,
+        }),
+      },
+    ];
+
     return [...scaffoldStableLines, ...scaffoldDynamicLines].filter(Boolean).join("\n");
   }
 
@@ -1455,41 +1534,64 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
     acpEnabled,
     stableContextFiles: contextFiles.stable,
   });
-  const stablePrefix = cacheStablePromptPrefix(stablePrefixCacheKey, () => {
-    const lines = [
-      "You are a personal assistant running inside OpenClaw.",
-      "",
-      ...buildToolingSection({
-        toolLines,
-        promptSurface,
-        execToolName,
-        processToolName,
-        toolSchemaDirectoryPrompt,
-        renderOpenClawToolWorkflowHints,
-        availableTools,
-        hasSessionsSpawn,
-        nativeCommandGuidanceLines,
-        acpHarnessSpawnAllowed,
-        runtimeChannel,
-        threadBoundAcpSpawnEnabled,
-      }),
-      "",
-      ...buildProactiveSubagentOrchestrationSection({
+  const stableSections: PromptSection[] = [
+    {
+      id: "identity",
+      cacheStable: true,
+      lines: ["You are a personal assistant running inside OpenClaw.", ""],
+    },
+    {
+      id: "tooling",
+      cacheStable: true,
+      lines: [
+        ...buildToolingSection({
+          toolLines,
+          promptSurface,
+          execToolName,
+          processToolName,
+          toolSchemaDirectoryPrompt,
+          renderOpenClawToolWorkflowHints,
+          availableTools,
+          hasSessionsSpawn,
+          nativeCommandGuidanceLines,
+          acpHarnessSpawnAllowed,
+          runtimeChannel,
+          threadBoundAcpSpawnEnabled,
+        }),
+        "",
+      ],
+    },
+    {
+      id: "subagent-orchestration",
+      cacheStable: true,
+      lines: buildProactiveSubagentOrchestrationSection({
         enabled: proactiveSubagentOrchestration,
         hasSessionsSpawn,
       }),
-      ...buildSubagentDelegationPreferenceSection({
+    },
+    {
+      id: "subagent-delegation",
+      cacheStable: true,
+      lines: buildSubagentDelegationPreferenceSection({
         mode: proactiveSubagentOrchestration ? "suggest" : subagentDelegationMode,
         isMinimal,
         hasSessionsSpawn,
         hasSubagents: availableTools.has("subagents"),
         hasSessionsYield: availableTools.has("sessions_yield"),
       }),
-      ...buildOverridablePromptSection({
+    },
+    {
+      id: "interaction-style",
+      cacheStable: true,
+      lines: buildOverridablePromptSection({
         override: providerSectionOverrides.interaction_style,
         fallback: [],
       }),
-      ...buildOverridablePromptSection({
+    },
+    {
+      id: "tool-call-style",
+      cacheStable: true,
+      lines: buildOverridablePromptSection({
         override: providerSectionOverrides.tool_call_style,
         fallback: [
           "## Tool Call Style",
@@ -1502,152 +1604,281 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
           "",
         ],
       }),
-      ...buildOverridablePromptSection({
+    },
+    {
+      id: "execution-bias",
+      cacheStable: true,
+      lines: buildOverridablePromptSection({
         override: providerSectionOverrides.execution_bias,
-        fallback: buildExecutionBiasSection({
-          isMinimal,
-        }),
+        fallback: buildExecutionBiasSection({ isMinimal }),
       }),
-      ...buildPromisedWorkPromptSection(),
-      ...buildOverridablePromptSection({
+    },
+    { id: "promised-work", cacheStable: true, lines: buildPromisedWorkPromptSection() },
+    {
+      id: "provider-stable-prefix",
+      cacheStable: true,
+      lines: buildOverridablePromptSection({
         override: providerStablePrefix,
         fallback: [],
       }),
-      ...safetySection,
-      ...buildOpenClawControlSection({ hasOpenClaw, hasGateway }),
-      ...skillsSection,
-      ...skillWorkshopSection,
-      ...memorySection,
-      ...buildModelAliasesSection({
+    },
+    { id: "safety", cacheStable: true, lines: safetySection },
+    {
+      id: "openclaw-control",
+      cacheStable: true,
+      lines: buildOpenClawControlSection({ hasOpenClaw, hasGateway }),
+    },
+    { id: "skills", cacheStable: true, lines: skillsSection },
+    { id: "skill-workshop", cacheStable: true, lines: skillWorkshopSection },
+    { id: "memory", cacheStable: true, lines: memorySection },
+    {
+      id: "model-aliases",
+      cacheStable: true,
+      lines: buildModelAliasesSection({
         modelAliasLines: params.modelAliasLines,
         isMinimal,
       }),
-      ...buildWorkspaceSection({
+    },
+    {
+      id: "workspace",
+      cacheStable: true,
+      lines: buildWorkspaceSection({
         displayWorkspaceDir,
         workspaceGuidance,
         workspaceOnlyGuidance,
         workspaceNotes,
       }),
-      ...docsSection,
-      ...buildSandboxSection({
+    },
+    { id: "docs", cacheStable: true, lines: docsSection },
+    {
+      id: "sandbox",
+      cacheStable: true,
+      lines: buildSandboxSection({
         sandboxInfo: params.sandboxInfo,
         hasSessionsSpawn,
         acpEnabled,
         elevated,
         fullAccessBlockedReasonLabel,
       }),
-      ...bootstrapSystemPromptSections,
-      "## Workspace Files (injected)",
-      "User-editable; OpenClaw loads below as Project Context.",
-      "",
-      ...buildAssistantOutputDirectivesSection({ isMinimal, sourceMessageToolOnly }),
-    ];
+    },
+    { id: "bootstrap", cacheStable: true, lines: bootstrapSystemPromptSections },
+    {
+      id: "workspace-files-header",
+      cacheStable: true,
+      lines: [
+        "## Workspace Files (injected)",
+        "User-editable; OpenClaw loads below as Project Context.",
+        "",
+      ],
+    },
+    {
+      id: "assistant-output-directives",
+      cacheStable: true,
+      lines: buildAssistantOutputDirectivesSection({ isMinimal, sourceMessageToolOnly }),
+    },
+  ];
 
-    if (reasoningHint) {
-      lines.push("## Reasoning Format", reasoningHint, "");
-    }
+  if (reasoningHint) {
+    stableSections.push({
+      id: "reasoning-format",
+      cacheStable: true,
+      lines: ["## Reasoning Format", reasoningHint, ""],
+    });
+  }
 
-    lines.push(
-      ...buildProjectContextSection({
-        files: contextFiles.stable,
-        heading: "# Project Context",
-        dynamic: false,
-      }),
-    );
-
-    lines.push(...buildSilentRepliesSection({ isMinimal, silentReplyPromptMode }));
-
-    lines.push(SYSTEM_PROMPT_CACHE_BOUNDARY);
-    return lines.filter(Boolean).join("\n");
+  stableSections.push({
+    id: "project-context-stable",
+    cacheStable: true,
+    lines: buildProjectContextSection({
+      files: contextFiles.stable,
+      heading: "# Project Context",
+      dynamic: false,
+    }),
   });
 
-  const lines = [stablePrefix];
+  stableSections.push({
+    id: "silent-replies",
+    cacheStable: true,
+    lines: buildSilentRepliesSection({ isMinimal, silentReplyPromptMode }),
+  });
 
-  // Local date and timezone can change between turns. Keep them at the front of
-  // the volatile suffix so rollover is visible without invalidating the stable prefix.
-  lines.push(
-    ...buildTemporalContextSection({
-      userDate,
-      userTimezone,
-      sessionStatusAvailable: availableTools.has("session_status"),
-    }),
+  stableSections.push({
+    id: "cache-boundary",
+    cacheStable: true,
+    lines: [SYSTEM_PROMPT_CACHE_BOUNDARY],
+  });
+
+  const stablePrefix = cacheStablePromptPrefix(stablePrefixCacheKey, () =>
+    stableSections
+      .flatMap((s) => s.lines)
+      .filter(Boolean)
+      .join("\n"),
   );
 
-  lines.push(
-    ...buildProjectContextSection({
-      files: contextFiles.dynamic,
-      heading: contextFiles.stable.length > 0 ? "# Dynamic Project Context" : "# Project Context",
-      dynamic: true,
-    }),
-  );
+  const dynamicSections: PromptSection[] = [
+    {
+      id: "temporal",
+      cacheStable: false,
+      lines: buildTemporalContextSection({
+        userDate,
+        userTimezone,
+        sessionStatusAvailable: availableTools.has("session_status"),
+      }),
+    },
+    {
+      id: "project-context-dynamic",
+      cacheStable: false,
+      lines: buildProjectContextSection({
+        files: contextFiles.dynamic,
+        heading: contextFiles.stable.length > 0 ? "# Dynamic Project Context" : "# Project Context",
+        dynamic: true,
+      }),
+    },
+  ];
 
-  // Channel/session-specific guidance lives below the cache boundary so large
-  // stable workspace context can remain a byte-identical prefix across turns.
-  lines.push(
-    // Approval UI and owner identity vary by turn, so keep both below the stable prefix.
-    // A tool_call_style override owns the complete section and suppresses default guidance.
-    ...(providerSectionOverrides.tool_call_style
-      ? []
-      : [
-          buildExecApprovalPromptGuidance({
-            runtimeChannel: params.runtimeInfo?.channel,
-            inlineButtonsEnabled,
-            runtimeCapabilities,
-          }),
-        ]),
-    ...buildUserIdentitySection(ownerLine, isMinimal),
-    ...buildWebchatCanvasSection({
-      isMinimal,
-      runtimeChannel,
-      sourceMessageToolOnly,
-    }),
-    ...buildControlUiSessionCompanionSection({
-      isMinimal,
-      runtimeChannel,
-    }),
-    ...buildMessagingSection({
-      isMinimal,
-      availableTools,
-      inlineButtonsEnabled,
-      runtimeChannel,
-      runtimeChatType,
-      messageChannelOptions,
-      messageToolHints: params.messageToolHints,
-      sourceReplyDeliveryMode: params.sourceReplyDeliveryMode,
-      requireExplicitMessageTarget: params.requireExplicitMessageTarget,
-      silentReplyPromptMode,
-    }),
+  // Approval UI and owner identity vary by turn, so keep both below the stable prefix.
+  // A tool_call_style override owns the complete section and suppresses default guidance.
+  if (!providerSectionOverrides.tool_call_style) {
+    dynamicSections.push({
+      id: "exec-approval",
+      cacheStable: false,
+      lines: [
+        buildExecApprovalPromptGuidance({
+          runtimeChannel: params.runtimeInfo?.channel,
+          inlineButtonsEnabled,
+          runtimeCapabilities,
+        }),
+      ],
+    });
+  }
+
+  dynamicSections.push(
+    {
+      id: "user-identity",
+      cacheStable: false,
+      lines: buildUserIdentitySection(ownerLine, isMinimal),
+    },
+    {
+      id: "webchat-canvas",
+      cacheStable: false,
+      lines: buildWebchatCanvasSection({
+        isMinimal,
+        runtimeChannel,
+        sourceMessageToolOnly,
+      }),
+    },
+    {
+      id: "control-ui-session",
+      cacheStable: false,
+      lines: buildControlUiSessionCompanionSection({
+        isMinimal,
+        runtimeChannel,
+      }),
+    },
+    {
+      id: "messaging",
+      cacheStable: false,
+      lines: buildMessagingSection({
+        isMinimal,
+        availableTools,
+        inlineButtonsEnabled,
+        runtimeChannel,
+        runtimeChatType,
+        messageChannelOptions,
+        messageToolHints: params.messageToolHints,
+        sourceReplyDeliveryMode: params.sourceReplyDeliveryMode,
+        requireExplicitMessageTarget: params.requireExplicitMessageTarget,
+        silentReplyPromptMode,
+      }),
+    },
     // Capability-gated reply guidance stays below the cache boundary so channel changes
     // cannot alter the byte-identical stable prefix shared across sessions.
-    ...buildCollapsibleDetailsSection({ isMinimal, collapsibleDetailsSupported }),
-    ...buildVoiceSection({ isMinimal, ttsHint: params.ttsHint }),
+    {
+      id: "collapsible-details",
+      cacheStable: false,
+      lines: buildCollapsibleDetailsSection({ isMinimal, collapsibleDetailsSupported }),
+    },
+    {
+      id: "voice",
+      cacheStable: false,
+      lines: buildVoiceSection({ isMinimal, ttsHint: params.ttsHint }),
+    },
   );
 
   if (extraSystemPrompt) {
     const contextHeader =
       promptMode === "minimal" ? "## Subagent Context" : "## Conversation Context";
-    lines.push(contextHeader, extraSystemPrompt, "");
+    dynamicSections.push({
+      id: "conversation-context",
+      cacheStable: false,
+      lines: [contextHeader, extraSystemPrompt, ""],
+    });
   }
-  lines.push(...buildReactionsSection({ reactionGuidance: params.reactionGuidance }));
+  dynamicSections.push({
+    id: "reactions",
+    cacheStable: false,
+    lines: buildReactionsSection({ reactionGuidance: params.reactionGuidance }),
+  });
   if (providerDynamicSuffix) {
-    lines.push(providerDynamicSuffix, "");
+    dynamicSections.push({
+      id: "provider-dynamic-suffix",
+      cacheStable: false,
+      lines: [providerDynamicSuffix, ""],
+    });
   }
 
   // Watched sessions change rarely but per-session; keep them below the cache
   // boundary so the shared stable prefix stays byte-identical across sessions.
-  lines.push(...buildWatchedSessionsPromptLines(params.preparedWatchedSessions));
+  dynamicSections.push({
+    id: "watched-sessions",
+    cacheStable: false,
+    lines: buildWatchedSessionsPromptLines(params.preparedWatchedSessions),
+  });
 
-  lines.push(...buildHeartbeatSection({ isMinimal, heartbeatPrompt }));
+  dynamicSections.push({
+    id: "heartbeats",
+    cacheStable: false,
+    lines: buildHeartbeatSection({ isMinimal, heartbeatPrompt }),
+  });
 
-  lines.push(
-    "## Runtime",
-    buildRuntimeLine(runtimeInfo, runtimeChannel, runtimeCapabilities, params.defaultThinkLevel),
-    ...(modelIdentityLine ? [modelIdentityLine] : []),
-    ...buildActiveProcessSessionReferenceLines(runtimeInfo?.activeProcessSessions),
-    `Reasoning=${reasoningLevel}; hidden unless on/stream. Toggle /reasoning; /status shows when enabled.`,
-  );
+  dynamicSections.push({
+    id: "runtime",
+    cacheStable: false,
+    lines: [
+      "## Runtime",
+      buildRuntimeLine(runtimeInfo, runtimeChannel, runtimeCapabilities, params.defaultThinkLevel),
+      ...(modelIdentityLine ? [modelIdentityLine] : []),
+      ...buildActiveProcessSessionReferenceLines(runtimeInfo?.activeProcessSessions),
+      `Reasoning=${reasoningLevel}; hidden unless on/stream. Toggle /reasoning; /status shows when enabled.`,
+    ],
+  });
 
+  const lines = [stablePrefix, ...dynamicSections.flatMap((s) => s.lines)];
+
+  lastResolvedPromptSections = [...stableSections, ...dynamicSections];
   return lines.filter(Boolean).join("\n");
+}
+
+let lastResolvedPromptSections: PromptSection[] = [];
+
+/** Returns the sections from the most recent {@link buildAgentSystemPrompt} call.
+ *
+ * Each section has `{ id, lines, cacheStable }`. Use this to assert on section
+ * IDs, ordering, and cache-stable/dynamic split in tests.
+ */
+export function getLastResolvedPromptSections(): PromptSection[] {
+  return lastResolvedPromptSections;
+}
+
+/** Resolves the system prompt as a list of named sections for structural testing.
+ *
+ * Calls {@link buildAgentSystemPrompt} and returns the captured section list.
+ * Each section has `{ id, lines, cacheStable }`. Sections with `cacheStable: true`
+ * belong to the cache-stable prefix (before the cache boundary).
+ */
+export function resolvePromptSections(params: BuildAgentSystemPromptParams): PromptSection[] {
+  buildAgentSystemPrompt(params);
+  return lastResolvedPromptSections;
 }
 
 export function buildActiveProcessSessionReferenceLines(
