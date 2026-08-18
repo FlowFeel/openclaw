@@ -85,6 +85,7 @@ const sessionRuntimeMethods = [
   "readSessionUpdatedAt",
   "recordInboundSession",
   "resolveAmbientTranscriptWatermarkKey",
+  "resolveAmbientTranscriptWatermarkLegacyKey",
   "resolveInboundLastRouteSessionKey",
   "resolvePinnedMainDmOwnerFromAllowlist",
   "resolveStorePath",
@@ -466,11 +467,21 @@ export async function buildTelegramInboundContextPayload(params: {
           ...(resolvedThreadId !== undefined ? { threadId: resolvedThreadId } : {}),
         })
       : undefined;
+  const ambientTranscriptWatermarkLegacyKey =
+    isGroup && historyKey
+      ? sessionRuntime.resolveAmbientTranscriptWatermarkLegacyKey({
+          channel: "telegram",
+          accountId: route.accountId,
+          conversationId: String(chatId),
+          ...(resolvedThreadId !== undefined ? { threadId: resolvedThreadId } : {}),
+        })
+      : undefined;
   const ambientTranscriptWatermark = ambientTranscriptWatermarkKey
     ? sessionRuntime.readAmbientTranscriptWatermark({
         storePath,
         sessionKey: route.sessionKey,
         key: ambientTranscriptWatermarkKey,
+        legacyKey: ambientTranscriptWatermarkLegacyKey,
       })
     : undefined;
   const shouldSuppressPersistedDmChatWindowContext =

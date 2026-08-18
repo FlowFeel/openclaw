@@ -7,6 +7,7 @@ import {
   listSessionEntries,
   readAmbientTranscriptWatermark,
   resolveAmbientTranscriptWatermarkKey,
+  resolveAmbientTranscriptWatermarkLegacyKey,
 } from "openclaw/plugin-sdk/session-store-runtime";
 import { resolveDefaultModelForAgent } from "./bot-handlers.agent.runtime.js";
 import type { TelegramAmbientTranscriptWatermark } from "./bot-message-context.types.js";
@@ -144,10 +145,20 @@ export function createTelegramMessageSessionRuntime({
       conversationId: String(params.chatId),
       ...(params.resolvedThreadId !== undefined ? { threadId: params.resolvedThreadId } : {}),
     });
+    const legacyKey = (
+      telegramDeps.resolveAmbientTranscriptWatermarkLegacyKey ??
+      resolveAmbientTranscriptWatermarkLegacyKey
+    )({
+      channel: "telegram",
+      accountId,
+      conversationId: String(params.chatId),
+      ...(params.resolvedThreadId !== undefined ? { threadId: params.resolvedThreadId } : {}),
+    });
     return (telegramDeps.readAmbientTranscriptWatermark ?? readAmbientTranscriptWatermark)({
       storePath: params.storePath,
       sessionKey: params.sessionKey,
       key,
+      legacyKey,
     });
   };
 

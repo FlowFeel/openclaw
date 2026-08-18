@@ -5,6 +5,7 @@ import path from "node:path";
 import {
   readAmbientTranscriptWatermark as readAmbientTranscriptWatermarkFromEntry,
   resolveAmbientTranscriptWatermarkKey,
+  resolveAmbientTranscriptWatermarkLegacyKey,
   updateAmbientTranscriptWatermark,
   type AmbientTranscriptWatermarkScope,
 } from "../config/sessions/ambient-transcript-watermark.js";
@@ -120,6 +121,8 @@ type UpsertSessionEntryParams = SessionStoreReadParams & { entry: SessionEntry }
 
 type ReadAmbientTranscriptWatermarkParams = SessionStoreReadParams & {
   key: string;
+  /** Pre-SL-14 legacy JSON-composite key to fall back to for migration. */
+  legacyKey?: string;
 };
 
 type DeleteSessionEntryParams = SessionStoreReadParams & {
@@ -467,13 +470,21 @@ export function readSessionUpdatedAt(params: SessionStoreReadParams): number | u
   return readAccessorSessionUpdatedAt(toSessionAccessScope(params));
 }
 
-export { resolveAmbientTranscriptWatermarkKey, updateAmbientTranscriptWatermark };
+export {
+  resolveAmbientTranscriptWatermarkKey,
+  resolveAmbientTranscriptWatermarkLegacyKey,
+  updateAmbientTranscriptWatermark,
+};
 export type { AmbientTranscriptWatermarkScope };
 
 export function readAmbientTranscriptWatermark(
   params: ReadAmbientTranscriptWatermarkParams,
 ): AmbientTranscriptWatermark | undefined {
-  return readAmbientTranscriptWatermarkFromEntry(getSessionEntry(params), params.key);
+  return readAmbientTranscriptWatermarkFromEntry(
+    getSessionEntry(params),
+    params.key,
+    params.legacyKey,
+  );
 }
 
 /** Updates an existing session entry by store path and session key. */

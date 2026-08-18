@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   readAmbientTranscriptWatermark,
   resolveAmbientTranscriptWatermarkKey,
+  resolveAmbientTranscriptWatermarkLegacyKey,
   updateAmbientTranscriptWatermark,
 } from "./ambient-transcript-watermark.js";
 import { loadSessionEntry, replaceSessionEntry } from "./session-accessor.js";
@@ -120,5 +121,105 @@ describe("ambient transcript watermark", () => {
     expect(
       readAmbientTranscriptWatermark(loadSessionEntry({ sessionKey, storePath }), key),
     ).toBeUndefined();
+  });
+
+  it("resolves a stable, human-readable ':'-joined key (SL-14)", () => {
+    const structured = resolveAmbientTranscriptWatermarkKey({
+      channel: "telegram",
+      accountId: "default",
+      conversationId: "-1004328838138",
+    });
+    expect(structured).toBe("wat:telegram:default:-1004328838138:");
+
+    const threaded = resolveAmbientTranscriptWatermarkKey({
+      channel: "telegram",
+      accountId: "default",
+      conversationId: "-1004328838138",
+      threadId: 287,
+    });
+    expect(threaded).toBe("wat:telegram:default:-1004328838138:287");
+
+    const accountless = resolveAmbientTranscriptWatermarkKey({
+      channel: "telegram",
+      conversationId: "-1004328838138",
+    });
+    expect(accountless).toBe("wat:telegram::-1004328838138:");
+  });
+
+  it("derives the legacy JSON composite key (pre-SL-14)", () => {
+    expect(
+      resolveAmbientTranscriptWatermarkLegacyKey({
+        channel: "telegram",
+        accountId: "default",
+        conversationId: "-100123",
+      }),
+    ).toBe('["telegram","default","-100123",""]');
+  });
+
+  it("migrates: honors a pre-SL-14 watermark under the legacy key until overwritten", async () => {
+    const legacyKey = resolveAmbientTranscriptWatermarkLegacyKey({
+      channel: "telegram",
+      accountId: "default",
+      conversationId: "-100123",
+    });
+    // Seed a legacy-format watermark directly (as written by an old build).
+    await replaceSessionEntry(
+      { sessionKey, storePath },
+      {
+        sessionId: "before-reset",
+        updatedAt: 1_700_000_000_000,
+        ambientTranscriptWatermarks: {
+          [legacyKey]: {
+            sessionId: "before-reset",
+            messageId: "9",
+            timestampMs: 1_700_000_000_000,
+            updatedAt: 1_700_000_000_000,
+          },
+        },
+      },
+    );
+    const persisted = loadSessionEntry({ sessionKey, storePath });
+    if (!persisted) {
+      throw new Error("expected persisted entry");
+    }
+    // New-structure read falls back to the legacy watermark via legacyKey.
+    expect(readAmbientTranscriptWatermark(persisted, key, legacyKey)).toMatchObject({
+      sessionId: "before-reset",
+      messageId: "9",
+    });
+    // Without legacyKey, the new key has no watermark yet.
+    expect(readAmbientTranscriptWatermark(persisted, key)).toBeUndefined();
+  });
+
+  it("advanced to the new key: writes under the new key, legacy read ignored once present", async () => {
+    await replaceSessionEntry(
+      { sessionKey, storePath },
+      { sessionId: "session-current", updatedAt: 1_700_000_000_000 },
+    );
+    const legacyKey = resolveAmbientTranscriptWatermarkLegacyKey({
+      channel: "telegram",
+      accountId: "default",
+      conversationId: "-100123",
+    });
+    await updateAmbientTranscriptWatermark({
+      storePath,
+      sessionKey,
+      key,
+      legacyKey,
+      messageId: "11",
+      timestampMs: 1_700_000_001_000,
+    });
+    const persisted = loadSessionEntry({ sessionKey, storePath });
+    if (!persisted) {
+      throw new Error("expected persisted entry");
+    }
+    // New value stored under the structured key.
+    expect(persisted.ambientTranscriptWatermarks?.[key]).toMatchObject({
+      messageId: "11",
+    });
+    // Resolution prefers the new key.
+    expect(readAmbientTranscriptWatermark(persisted, key, legacyKey)).toMatchObject({
+      messageId: "11",
+    });
   });
 });
