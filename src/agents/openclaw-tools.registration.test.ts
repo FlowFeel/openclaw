@@ -679,4 +679,22 @@ describe("gateway client capability tool filtering", () => {
       ),
     ).toBe(false);
   });
+
+  it("includes list_topics tool only when channelTopics is provided", () => {
+    const toolsWithoutChannelTopics = createTestOpenClawTools({
+      disablePluginTools: true,
+    });
+    expect(toolsWithoutChannelTopics.some((t) => t.name === "list_topics")).toBe(false);
+
+    const toolsWithChannelTopics = createTestOpenClawTools({
+      disablePluginTools: true,
+      channelTopics: {
+        environment: "telegram",
+        chatId: "-100123",
+        resolveTopics: async () => [{ threadId: "1", name: "General" }],
+      },
+    });
+    expect(toolsWithChannelTopics.some((t) => t.name === "list_topics")).toBe(true);
+  });
 });
+
