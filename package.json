@@ -14,7 +14,7 @@
     "url": "https://github.com/openclaw/openclaw/issues"
   },
   "license": "MIT",
-  "author": "Ed Phillips <ed@cronos.net> (Inferno Labs)",
+  "author": "Ed Phillips <ed@cronos.net> (phosphene) for inferno labs",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/openclaw/openclaw.git"

@@ -1,6 +1,6 @@
 # OpenClaw Fork (Inferno Labs) — CHANGELOG
 
-All notable changes to the Inferno OpenClaw core fork (`v2026.8.1-inferno`) authored by **Ed Phillips (`ed@cronos.net`)** for **Inferno Labs**.
+All notable changes to the Inferno OpenClaw core fork (`v2026.8.1-inferno`) authored by **Ed Phillips `<ed@cronos.net>` (phosphene) for inferno labs**.
 
 ---
 
@@ -32,4 +32,4 @@ All notable changes to the Inferno OpenClaw core fork (`v2026.8.1-inferno`) auth
 
 ---
 
-**Author**: Ed Phillips (`ed@cronos.net`) | **Organization**: Inferno Labs
+**Author**: Ed Phillips `<ed@cronos.net>` (phosphene) for inferno labs
