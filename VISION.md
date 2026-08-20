@@ -1,7 +1,9 @@
-## OpenClaw Vision
+## OpenClaw Vision — Inferno Fork (`v2026.8.1-inferno`)
 
 OpenClaw is the AI that actually does things.
 It runs on your devices, in your channels, with your rules.
+
+> **Inferno Fork Vision**: Authored by **Ed Phillips `<ed@cronos.net>` (phosphene) for inferno labs**. We prioritize ultra-lean context surfaces (< 250 token prompt footprints), 100% Structured Markdown interfaces, relational SQLite indexing, and zero-bloat runtime architecture.
 
 This document explains the current state and direction of the project.
 We are still early, so iteration is fast.
@@ -10,17 +12,18 @@ Contribution guide: [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 OpenClaw started as a personal playground to learn AI and build something genuinely useful:
 an assistant that can run real tasks on a real computer.
-It evolved through several names and shells: Warelay -> Clawdbot -> Moltbot -> OpenClaw.
+It evolved through several names and shells: Warelay -> Clawdbot -> Moltbot -> OpenClaw -> **Inferno Fork**.
 
-The goal: a personal assistant that is easy to use, supports a wide range of platforms, and respects privacy and security.
+The goal: a personal assistant that is easy to use, supports a wide range of platforms, respects privacy and security, and operates with minimal prompt overhead.
 
-The current focus is:
+The current focus for `v2026.8.1-inferno` is:
 
 Priority:
 
-- Security and safe defaults
-- Bug fixes and stability
-- Setup reliability and first-run UX
+- **Ultra-Slim Prompt Engine**: Keep system prompt payload < 250 tokens in scaffold mode.
+- **Phosphene StructRAG Dual-Store**: 100% Structured Markdown surfaces with 0ms SQLite section indexing.
+- **Security & Safe Defaults**: Secure channel pairing, zero unauthenticated exposure.
+- **Bug Fixes & Stability**: 29/29 Level 1 Vitest verification suites passing.
 
 Next priorities:
 
