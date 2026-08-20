@@ -251,19 +251,34 @@ class IncludeProcessor {
     logicalPath: readonly string[],
   ): { value: unknown; targetPath?: string; targetPaths?: string[] } {
     if (typeof value === "string") {
+      if (value.includes("*")) {
+        const expandedPaths = this.expandGlobInclude(value);
+        if (expandedPaths.length === 0) {
+          return { value: {}, targetPaths: [] };
+        }
+        return this.resolveInclude(expandedPaths, logicalPath);
+      }
       return this.loadFile(value, logicalPath);
     }
 
     if (Array.isArray(value)) {
-      const resolvedEntries = value.map((item) => {
+      const resolvedEntries: Array<{ value: unknown; targetPath: string }> = [];
+      for (const item of value) {
         if (typeof item !== "string") {
           throw new ConfigIncludeError(
             `Invalid $include array item: expected string, got ${typeof item}`,
             String(item),
           );
         }
-        return this.loadFile(item, logicalPath);
-      });
+        if (item.includes("*")) {
+          const expanded = this.expandGlobInclude(item);
+          for (const subItem of expanded) {
+            resolvedEntries.push(this.loadFile(subItem, logicalPath));
+          }
+        } else {
+          resolvedEntries.push(this.loadFile(item, logicalPath));
+        }
+      }
       const merged = resolvedEntries.reduce<unknown>(
         (current, entry) => deepMerge(current, entry.value),
         {},
@@ -278,6 +293,28 @@ class IncludeProcessor {
       `Invalid $include value: expected string or array of strings, got ${typeof value}`,
       String(value),
     );
+  }
+
+  private expandGlobInclude(globPattern: string): string[] {
+    const configDir = path.dirname(this.basePath);
+    const resolvedPatternPath = path.isAbsolute(globPattern)
+      ? globPattern
+      : path.resolve(configDir, globPattern);
+    const dir = path.dirname(resolvedPatternPath);
+    const pattern = path.basename(resolvedPatternPath);
+    const regex = new RegExp("^" + pattern.replace(/\./g, "\\.").replace(/\*/g, ".*") + "$");
+
+    if (!fs.existsSync(dir)) {
+      return [];
+    }
+
+    const files = fs.readdirSync(dir);
+    const matched = files
+      .filter((f) => regex.test(f))
+      .sort()
+      .map((f) => path.join(path.dirname(globPattern), f));
+
+    return matched;
   }
 
   private loadFile(

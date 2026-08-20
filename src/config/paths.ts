@@ -25,7 +25,8 @@ export let isNixMode = resolveIsNixMode();
 // Support the remaining legacy pre-rebrand state dir.
 const LEGACY_STATE_DIRNAMES = [".clawdbot"] as const;
 const NEW_STATE_DIRNAME = ".openclaw";
-const CONFIG_FILENAME = "openclaw.json";
+const CONFIG_FILENAME = "openclaw.yaml";
+const CONFIG_FILENAMES = ["openclaw.yaml", "openclaw.yml", "openclaw.json"] as const;
 const LEGACY_CONFIG_FILENAMES = ["clawdbot.json"] as const;
 
 /** True when the root CLI selected a non-default isolated profile. */
@@ -393,7 +394,9 @@ export function resolveDefaultConfigCandidates(
 
   const defaultDirs = [newStateDir(effectiveHomedir), ...legacyStateDirs(effectiveHomedir)];
   for (const dir of defaultDirs) {
-    candidates.push(path.join(dir, CONFIG_FILENAME));
+    for (const name of CONFIG_FILENAMES) {
+      candidates.push(path.join(dir, name));
+    }
     candidates.push(...LEGACY_CONFIG_FILENAMES.map((name) => path.join(dir, name)));
   }
   return candidates;

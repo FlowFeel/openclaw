@@ -4,6 +4,7 @@ import {
   shouldDeferShellEnvFallback,
   shouldEnableShellEnvFallback,
 } from "../infra/shell-env.js";
+import { parseJsonWithJson5Fallback } from "../utils/parse-json-compat.js";
 import { DuplicateAgentDirError, findDuplicateAgentDirs } from "./agent-dirs.js";
 import type { ConfigIoContext } from "./io.context.js";
 import { materializeConfigForLoad } from "./io.context.js";
@@ -58,7 +59,7 @@ export function loadConfigFromContext(
       return migratePersistedImplicitMainRoster({}).config as OpenClawConfig;
     }
     const raw = deps.fs.readFileSync(configPath, "utf-8");
-    const parsed = deps.json5.parse(raw);
+    const parsed = parseJsonWithJson5Fallback(raw);
     const readResolution = resolveConfigForRead(
       resolveConfigIncludesForRead(parsed, configPath, deps),
       deps.env,
