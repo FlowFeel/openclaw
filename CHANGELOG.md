@@ -4,6 +4,18 @@ All notable changes to the Inferno OpenClaw core fork (`v2026.8.1-inferno`) auth
 
 ---
 
+## [v2026.8.2-inferno] — 2026-08-20
+
+### 🚀 Key Features & Updates
+
+1. **Integrated OpenRouter Model Routing Defaults**:
+   - Model defaults updated in `config.d/agents.yaml`:
+     - Primary: `openrouter/~deepseek/deepseek-v4-flash-latest` (1,024+ token prefix cache alignment)
+     - Fallbacks: `google/gemini-3.7-flash` (75% off deal on OpenRouter), `google/gemini-2.5-flash`, `openrouter/@preset/glm-5-2`
+   - Fully compatible with Go proxy smart model router on `infernoroute.phosphene.net`.
+
+---
+
 ## [v2026.8.1-inferno] — 2026-08-20
 
 ### 🚀 Key Features & Core Mods
