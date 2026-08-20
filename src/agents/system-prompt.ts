@@ -60,6 +60,10 @@ import {
   buildSkillWorkshopPromptSection,
   SKILL_WORKSHOP_TOOL_NAME,
 } from "./skill-workshop-prompt.js";
+import {
+  filterContextFilesForPrompt,
+  type ContextFilterOptions,
+} from "./context-filter-policy.js";
 import type {
   ProviderSystemPromptContribution,
   ProviderSystemPromptSectionId,
@@ -1122,6 +1126,8 @@ export type BuildAgentSystemPromptParams = {
   /** Prepared repository identities used to filter curated raw context fail-closed. */
   activeProjectKeys?: readonly string[];
   promptContribution?: ProviderSystemPromptContribution;
+  /** Controls filtering of static persona and workspace context files in system prompt. */
+  contextFilterPolicy?: ContextFilterOptions;
 };
 
 export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
@@ -1357,11 +1363,15 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
   // per-session: tool list, runtime state, sandbox state, skills manifest,
   // temporal context, and the cache boundary.
   if (isScaffold) {
+    const filterOptions: ContextFilterOptions = params.contextFilterPolicy ?? { mode: "dynamic_only" };
     const scaffoldContextFiles = prepareContextFilesForPrompt(
-      filterProjectScopedCuratedContextFiles({
-        contextFiles: params.contextFiles,
-        activeProjectKeys: params.activeProjectKeys,
-      }),
+      filterContextFilesForPrompt(
+        filterProjectScopedCuratedContextFiles({
+          contextFiles: params.contextFiles,
+          activeProjectKeys: params.activeProjectKeys,
+        }),
+        filterOptions,
+      ),
     );
     const scaffoldStableLines = [
       ...(toolLines.length > 0
