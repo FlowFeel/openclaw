@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-DaJ6WEGw.js";var t,n=e((()=>{t=class{constructor(e,t,n,r=!0){this.intervalMs=t,this.tick=n,this.autoStart=r,this.timer=null,e.addController(this)}hostConnected(){this.autoStart&&this.start()}hostDisconnected(){this.stop()}start(){return this.timer===null?(this.timer=globalThis.setInterval(()=>{this.tick()},this.intervalMs),!0):!1}stop(){this.timer!==null&&(globalThis.clearInterval(this.timer),this.timer=null)}}}));export{n,t};
-//# sourceMappingURL=poll-controller-BnQs2EZr.js.map

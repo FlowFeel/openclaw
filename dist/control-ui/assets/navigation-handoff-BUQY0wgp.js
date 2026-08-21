@@ -1,2 +1,0 @@
-import{n as e}from"./rolldown-runtime-DaJ6WEGw.js";function t(e,t,n){let{client:a,hello:o}=e.snapshot,s={pathname:t,sessionKey:n,client:a,hello:o};i.set(e,s),globalThis.setTimeout(()=>{i.get(e)===s&&i.delete(e)},r)}function n(e,t){let n=i.get(e);if(!n||n.pathname!==t)return;i.delete(e);let{client:r,hello:a}=e.snapshot;if(!(n.client!==r||n.hello!==a))return n.sessionKey}var r,i,a=e((()=>{r=2e3,i=new WeakMap}));export{a as n,t as r,n as t};
-//# sourceMappingURL=navigation-handoff-BUQY0wgp.js.map
