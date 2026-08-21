@@ -1,0 +1,1 @@
+../../../dist/extensions/openai/realtime-quicksilver-bridge.d.ts

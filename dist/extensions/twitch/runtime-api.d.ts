@@ -1,0 +1,5 @@
+import { n as OpenClawConfig } from "../../types.openclaw-DlZm98yj.js";
+import { d as RuntimeEnv } from "../../manifest-registry-5AqPUfeS.js";
+import { O as ChannelOutboundAdapter, T as ChannelStatusAdapter, V as OutboundDeliveryResult, b as ChannelResolveKind, et as ChannelAccountSnapshot, ft as ChannelMeta, g as ChannelGatewayContext, it as ChannelCapabilities, k as ChannelOutboundContext, lt as ChannelMessageActionAdapter, q as WizardPrompter, st as ChannelLogSink, ut as ChannelMessageActionContext, x as ChannelResolveResult } from "../../setup-wizard-types-C6GPHZpk.js";
+import { t as ChannelPlugin } from "../../types.public-BVT2cLE1.js";
+export type { ChannelAccountSnapshot, ChannelCapabilities, ChannelGatewayContext, ChannelLogSink, ChannelMessageActionAdapter, ChannelMessageActionContext, ChannelMeta, ChannelOutboundAdapter, ChannelOutboundContext, ChannelPlugin, ChannelResolveKind, ChannelResolveResult, ChannelStatusAdapter, OpenClawConfig, OutboundDeliveryResult, RuntimeEnv, WizardPrompter };

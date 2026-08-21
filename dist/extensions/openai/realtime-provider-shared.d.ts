@@ -1,0 +1,36 @@
+import { n as normalizeOptionalString } from "../../string-coerce-D1ftETdv.js";
+import { t as asOptionalRecord } from "../../record-coerce-B66xMJko.js";
+
+//#region packages/normalization-core/src/number-coercion.d.ts
+/** Returns a number only when the input is already finite. */
+declare function asFiniteNumber(value: unknown): number | undefined;
+//#endregion
+//#region extensions/openai/realtime-provider-shared.d.ts
+declare const trimToUndefined: typeof normalizeOptionalString;
+declare function readRealtimeErrorDetail(error: unknown): string;
+declare function resolveOpenAIProviderConfigRecord(config: Record<string, unknown>): Record<string, unknown> | undefined;
+declare function captureOpenAIRealtimeWsClose(params: {
+  url: string;
+  flowId: string;
+  capability: "realtime-transcription" | "realtime-voice";
+  code: unknown;
+  reasonBuffer: unknown;
+}): void;
+type OpenAIRealtimeClientSecretResult = {
+  value: string;
+  expiresAt?: number;
+};
+declare function createOpenAIRealtimeClientSecret(params: {
+  authToken: string;
+  auditContext: string;
+  session: Record<string, unknown>;
+  authRejectedMessage?: string;
+}): Promise<OpenAIRealtimeClientSecretResult>;
+declare function createOpenAIRealtimeTranscriptionClientSecret(params: {
+  authToken: string;
+  auditContext: string;
+  session: Record<string, unknown>;
+  authRejectedMessage?: string;
+}): Promise<OpenAIRealtimeClientSecretResult>;
+//#endregion
+export { asFiniteNumber, asOptionalRecord as asObjectRecord, captureOpenAIRealtimeWsClose, createOpenAIRealtimeClientSecret, createOpenAIRealtimeTranscriptionClientSecret, readRealtimeErrorDetail, resolveOpenAIProviderConfigRecord, trimToUndefined };

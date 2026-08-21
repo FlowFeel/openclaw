@@ -1,0 +1,1 @@
+../../../dist/extensions/policy/cli-metadata.d.ts

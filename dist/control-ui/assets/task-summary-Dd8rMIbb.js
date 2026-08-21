@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DaJ6WEGw.js";import{Qt as t,t as n}from"./value-Bh5d6NNx.js";import{o as r,t as i}from"./tasks-3GA_eazJ.js";function a(e){if(!t(i,e))return null;let n=e.id.trim(),r=e.taskId?.trim()||n;return!n||!r?null:{...e,id:n,taskId:r}}var o=e((()=>{n(),r()}));export{a as n,o as t};
+//# sourceMappingURL=task-summary-Dd8rMIbb.js.map

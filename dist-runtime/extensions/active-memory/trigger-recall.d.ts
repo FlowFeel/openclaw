@@ -1,0 +1,1 @@
+../../../dist/extensions/active-memory/trigger-recall.d.ts

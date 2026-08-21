@@ -1,0 +1,1 @@
+../../../dist/extensions/msteams/qa-runner-api.d.ts

@@ -1,0 +1,19 @@
+import { j as ModelProviderDeclarationConfig } from "./types.openclaw-DlZm98yj.js";
+import { t as LiveModelCatalogFetchGuard } from "./provider-catalog-live-runtime-DQ6Aj11R.js";
+
+//#region extensions/xai/provider-catalog.d.ts
+declare const XAI_GROK_OAUTH_BASE_URL = "https://cli-chat-proxy.grok.com/v1";
+declare function buildXaiProvider(api?: ModelProviderDeclarationConfig["api"]): ModelProviderDeclarationConfig;
+declare function buildLiveXaiProvider(params: {
+  apiKey?: string;
+  discoveryApiKey?: string;
+  fetchGuard?: LiveModelCatalogFetchGuard;
+  signal?: AbortSignal;
+}): Promise<ModelProviderDeclarationConfig>;
+declare function buildLiveXaiOAuthProvider(params: {
+  discoveryApiKey: string;
+  fetchGuard?: LiveModelCatalogFetchGuard;
+  signal?: AbortSignal;
+}): Promise<ModelProviderDeclarationConfig>;
+//#endregion
+export { buildXaiProvider as i, buildLiveXaiOAuthProvider as n, buildLiveXaiProvider as r, XAI_GROK_OAUTH_BASE_URL as t };

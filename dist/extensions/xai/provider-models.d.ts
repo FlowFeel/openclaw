@@ -1,0 +1,2 @@
+import { n as normalizeXaiResolvedModel, r as resolveXaiForwardCompatModel, t as isModernXaiModel } from "../../provider-models-D9AnTE5r.js";
+export { isModernXaiModel, normalizeXaiResolvedModel, resolveXaiForwardCompatModel };

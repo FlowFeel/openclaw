@@ -1,0 +1,1 @@
+../../../dist/extensions/minimax/media-provider-runtime.d.ts

@@ -1,0 +1,1 @@
+../../../dist/extensions/google-meet/cli-metadata.d.ts

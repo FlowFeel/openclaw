@@ -1,0 +1,1 @@
+../../../dist/extensions/memory-lancedb/memory-policy.d.ts

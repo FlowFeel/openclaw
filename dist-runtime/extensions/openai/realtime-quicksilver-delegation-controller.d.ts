@@ -1,0 +1,1 @@
+../../../dist/extensions/openai/realtime-quicksilver-delegation-controller.d.ts

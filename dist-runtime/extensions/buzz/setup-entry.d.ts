@@ -1,0 +1,1 @@
+../../../dist/extensions/buzz/setup-entry.d.ts

@@ -1,0 +1,23 @@
+import { _ as resolveApiKeyForProvider$1 } from "../../types-odeWQ5Sn.js";
+import { n as postJsonRequest, t as fetchWithTimeoutGuarded } from "../../provider-http-64P7j3eP.js";
+
+//#region src/plugin-sdk/provider-auth-runtime.d.ts
+type ResolveApiKeyForProvider = typeof resolveApiKeyForProvider$1;
+/**
+ * Resolves provider API-key auth through the runtime auth module when available.
+ */
+declare function resolveApiKeyForProvider(/** Provider auth lookup params forwarded to the runtime auth module. */params: Parameters<ResolveApiKeyForProvider>[0]): Promise<Awaited<ReturnType<ResolveApiKeyForProvider>>>;
+//#endregion
+//#region extensions/minimax/media-provider-runtime.d.ts
+declare const DEFAULT_MINIMAX_MEDIA_BASE_URL = "https://api.minimax.io";
+type MinimaxBaseResp = {
+  status_code?: number;
+  status_msg?: string;
+};
+type MinimaxRequestPolicy = Pick<Parameters<typeof postJsonRequest>[0], "allowPrivateNetwork" | "dispatcherPolicy">;
+declare function resolveMinimaxMediaBaseUrl(cfg: Parameters<typeof resolveApiKeyForProvider>[0]["cfg"], providerId: string): string;
+declare function assertMinimaxBaseResp(baseResp: MinimaxBaseResp | undefined, context: string): void;
+declare function normalizeMinimaxHexAudio(data: string, label: string): string;
+declare function resolveMinimaxGuardedRequestOptions(policy: MinimaxRequestPolicy): Parameters<typeof fetchWithTimeoutGuarded>[4] | undefined;
+//#endregion
+export { DEFAULT_MINIMAX_MEDIA_BASE_URL, MinimaxBaseResp, MinimaxRequestPolicy, assertMinimaxBaseResp, normalizeMinimaxHexAudio, resolveMinimaxGuardedRequestOptions, resolveMinimaxMediaBaseUrl };

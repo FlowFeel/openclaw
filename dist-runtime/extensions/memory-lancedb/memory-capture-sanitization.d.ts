@@ -1,0 +1,1 @@
+../../../dist/extensions/memory-lancedb/memory-capture-sanitization.d.ts
