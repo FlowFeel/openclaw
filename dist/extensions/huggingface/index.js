@@ -1,6 +1,6 @@
-import { t as defineSingleProviderPluginEntry } from "../../provider-entry-CEVjneMX.js";
-import { n as applyHuggingfaceConfig, t as HUGGINGFACE_DEFAULT_MODEL_REF } from "../../onboard-s_CIqJ_r.js";
-import { t as buildHuggingfaceProvider } from "../../provider-catalog-DaDXIY5U.js";
+import { t as defineSingleProviderPluginEntry } from "../../provider-entry-C9OCgE6N.js";
+import { n as applyHuggingfaceConfig, t as HUGGINGFACE_DEFAULT_MODEL_REF } from "../../onboard-DQMN53Dc.js";
+import { t as buildHuggingfaceProvider } from "../../provider-catalog-DFWS5gvo.js";
 //#region extensions/huggingface/openclaw.plugin.json
 var openclaw_plugin_default = {
 	id: "huggingface",

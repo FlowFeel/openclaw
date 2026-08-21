@@ -1,17 +1,17 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { r as resolvePluginConfigObject } from "../../plugin-config-runtime-AmbPKaTK.js";
+import { r as resolvePluginConfigObject } from "../../plugin-config-runtime-D33X7huv.js";
 import { r as buildProviderToolCompatFamilyHooks } from "../../provider-tools-mj-Qt8cY.js";
-import { t as buildOpenAIImageGenerationProvider } from "../../image-generation-provider-DG9qIP8M.js";
-import { t as openaiMediaUnderstandingProvider } from "../../media-understanding-provider-CIJVgU5e.js";
-import { t as openAiMemoryEmbeddingProviderAdapter } from "../../memory-embedding-adapter-xq1BS1ZH.js";
-import { n as buildOpenAIProvider } from "../../openai-provider-BKv1xV6Q.js";
-import { n as resolveOpenAISystemPromptContribution, t as resolveOpenAIPromptOverlayMode } from "../../prompt-overlay-CM_eTrNu.js";
-import { n as OPENAI_QUICKSILVER_OFFER_PATH } from "../../realtime-quicksilver-session-RVAs5_eQ.js";
-import { n as releaseOpenAIQuicksilverBrowserSessionBroker, t as acquireOpenAIQuicksilverBrowserSessionBroker } from "../../realtime-quicksilver-session-owner-CF71uzOP.js";
-import { t as buildOpenAIRealtimeTranscriptionProvider } from "../../realtime-transcription-provider-CnyOILfn.js";
-import { t as buildOpenAIRealtimeVoiceProvider } from "../../realtime-voice-provider-Db-iWwHQ.js";
-import { t as buildOpenAISpeechProvider } from "../../speech-provider-DRgbFE8W.js";
-import { t as buildOpenAIVideoGenerationProvider } from "../../video-generation-provider-jYAfxv6b.js";
+import { t as buildOpenAIImageGenerationProvider } from "../../image-generation-provider-DSwr9tgE.js";
+import { t as openaiMediaUnderstandingProvider } from "../../media-understanding-provider-CC4xVY_A.js";
+import { t as openAiMemoryEmbeddingProviderAdapter } from "../../memory-embedding-adapter-M6pEKFOW.js";
+import { n as buildOpenAIProvider } from "../../openai-provider-DESXHQXO.js";
+import { n as resolveOpenAISystemPromptContribution, t as resolveOpenAIPromptOverlayMode } from "../../prompt-overlay-CaLTQcad.js";
+import { n as OPENAI_QUICKSILVER_OFFER_PATH } from "../../realtime-quicksilver-session-CWQ8YUV8.js";
+import { n as releaseOpenAIQuicksilverBrowserSessionBroker, t as acquireOpenAIQuicksilverBrowserSessionBroker } from "../../realtime-quicksilver-session-owner-DX3hTqG-.js";
+import { t as buildOpenAIRealtimeTranscriptionProvider } from "../../realtime-transcription-provider-yqnUvDP4.js";
+import { t as buildOpenAIRealtimeVoiceProvider } from "../../realtime-voice-provider-Cd7GDzbN.js";
+import { t as buildOpenAISpeechProvider } from "../../speech-provider-BGbQlNbM.js";
+import { t as buildOpenAIVideoGenerationProvider } from "../../video-generation-provider-BB3EG9ro.js";
 //#region extensions/openai/index.ts
 var openai_default = definePluginEntry({
 	id: "openai",

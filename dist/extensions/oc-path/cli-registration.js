@@ -1,2 +1,2 @@
-import { t as registerOcPathCli } from "../../cli-registration-3LUC-60D.js";
+import { t as registerOcPathCli } from "../../cli-registration-Bwmsa1Ca.js";
 export { registerOcPathCli };

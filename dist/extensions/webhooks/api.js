@@ -1,3 +1,3 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import "../../api-D0jLzWJ-.js";
+import "../../api-DZdxkStM.js";
 export { definePluginEntry };

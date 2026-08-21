@@ -1,2 +1,2 @@
-import { t as OpenAIQuicksilverDelegationController } from "../../realtime-quicksilver-delegation-controller-BNQRUxR_.js";
+import { t as OpenAIQuicksilverDelegationController } from "../../realtime-quicksilver-delegation-controller-BuaZobKq.js";
 export { OpenAIQuicksilverDelegationController };

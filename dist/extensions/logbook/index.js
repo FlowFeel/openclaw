@@ -1,16 +1,16 @@
-import { r as formatErrorMessage } from "../../errors-Cg_yT1Sv.js";
-import { l as runSqliteImmediateTransactionSync, t as openNodeSqliteDatabase } from "../../node-sqlite-B_0DgpUE.js";
-import { a as migrateSqliteSchemaToStrict, t as configureSqliteConnectionPragmas } from "../../sqlite-wal-CD8rJ7gZ.js";
+import { r as formatErrorMessage } from "../../errors-D-7D3ZtF.js";
+import { l as runSqliteImmediateTransactionSync, t as openNodeSqliteDatabase } from "../../node-sqlite-BJTPe7U8.js";
+import { a as migrateSqliteSchemaToStrict, t as configureSqliteConnectionPragmas } from "../../sqlite-wal-CMGyl8qq.js";
 import { t as ErrorCodes } from "../../gateway-error-details-mJ5vWsi5.js";
 import { t as canonicalizeBase64 } from "../../base64-KcXAb-1x.js";
 import { a as errorShape } from "../../error-codes-P4fBo0lR.js";
-import "../../error-runtime-Dbl9_3mW.js";
+import "../../error-runtime-Nqb-RQG4.js";
 import { t as expectDefined } from "../../expect-runtime--WgnKYXT.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import "../../media-runtime-CSmTPMNF.js";
-import "../../gateway-runtime-BM4_lec6.js";
-import "../../plugin-state-runtime-DPNN9H8S.js";
-import "../../sqlite-runtime-BeOlxLOz.js";
+import "../../media-runtime-CLhEwOPy.js";
+import "../../gateway-runtime-BOoMLXP7.js";
+import "../../plugin-state-runtime-Bg9BCk2k.js";
+import "../../sqlite-runtime-kT0Fczvb.js";
 import { createHash } from "node:crypto";
 import { chmodSync, mkdirSync, readFileSync, rmSync, rmdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -1405,7 +1405,7 @@ var logbook_default = definePluginEntry({
 		cap: "screen",
 		dangerous: false,
 		handle: async (paramsJSON) => {
-			const { handleLogbookSnapshot } = await import("../../node-host-vW3ZO9kE.js");
+			const { handleLogbookSnapshot } = await import("../../node-host-CTJvQBz0.js");
 			let params;
 			try {
 				params = paramsJSON ? JSON.parse(paramsJSON) : void 0;

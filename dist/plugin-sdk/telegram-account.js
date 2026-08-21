@@ -1,4 +1,4 @@
-import { r as loadBundledPluginPublicSurfaceModuleSync } from "../facade-loader-CxDnUcw1.js";
+import { r as loadBundledPluginPublicSurfaceModuleSync } from "../facade-loader-BvYmnhxz.js";
 //#region src/plugin-sdk/telegram-account.ts
 function loadTelegramAccountFacadeModule() {
 	return loadBundledPluginPublicSurfaceModuleSync({

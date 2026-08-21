@@ -1,6 +1,6 @@
-import { t as defineSingleProviderPluginEntry } from "../../provider-entry-CEVjneMX.js";
-import { a as buildSelectableNvidiaProvider, i as buildSelectableLiveNvidiaProvider, n as buildLiveNvidiaProvider, o as openclaw_plugin_default } from "../../provider-catalog-n556zOMJ.js";
-import { n as applyNvidiaConfig, t as NVIDIA_DEFAULT_MODEL_REF } from "../../onboard-y5HjzQN9.js";
+import { t as defineSingleProviderPluginEntry } from "../../provider-entry-C9OCgE6N.js";
+import { a as buildSelectableNvidiaProvider, i as buildSelectableLiveNvidiaProvider, n as buildLiveNvidiaProvider, o as openclaw_plugin_default } from "../../provider-catalog-j7EmkaUS.js";
+import { n as applyNvidiaConfig, t as NVIDIA_DEFAULT_MODEL_REF } from "../../onboard-DhSRtxkO.js";
 //#region extensions/nvidia/index.ts
 const PROVIDER_ID = "nvidia";
 function hasNvidiaApiToken(ctx) {

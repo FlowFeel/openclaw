@@ -1,10 +1,10 @@
-import { a as buildProviderReplayFamilyHooks } from "../../provider-model-shared-DPyoH6xD.js";
-import { t as defineSingleProviderPluginEntry } from "../../provider-entry-CEVjneMX.js";
+import { a as buildProviderReplayFamilyHooks } from "../../provider-model-shared-D9A9VaW7.js";
+import { t as defineSingleProviderPluginEntry } from "../../provider-entry-C9OCgE6N.js";
 import { r as buildProviderToolCompatFamilyHooks } from "../../provider-tools-mj-Qt8cY.js";
-import { i as normalizeClawRouterRootUrl, n as normalizeClawRouterApiBaseUrl, r as normalizeClawRouterResolvedModel, t as buildClawRouterProviderConfig } from "../../provider-catalog-BwHR-a0r.js";
-import { t as wrapClawRouterProviderStream } from "../../stream-Ca7cdVY1.js";
+import { i as normalizeClawRouterRootUrl, n as normalizeClawRouterApiBaseUrl, r as normalizeClawRouterResolvedModel, t as buildClawRouterProviderConfig } from "../../provider-catalog-CHO5Ydd7.js";
+import { t as wrapClawRouterProviderStream } from "../../stream-CFPKc4K1.js";
 import { n as normalizePerplexityToolSchemas, t as inspectPerplexityToolSchemas } from "../../tool-schemas-DTNzNE7G.js";
-import { t as fetchClawRouterUsage } from "../../usage-De7Tul1W.js";
+import { t as fetchClawRouterUsage } from "../../usage-BvVT5g7D.js";
 //#region extensions/clawrouter/openclaw.plugin.json
 var openclaw_plugin_default = {
 	id: "clawrouter",

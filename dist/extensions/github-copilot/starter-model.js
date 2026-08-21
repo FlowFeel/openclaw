@@ -1,2 +1,2 @@
-import { t as resolveCopilotStarterModel } from "../../starter-model-29XZeXXh.js";
+import { t as resolveCopilotStarterModel } from "../../starter-model-BCFvhRQp.js";
 export { resolveCopilotStarterModel };

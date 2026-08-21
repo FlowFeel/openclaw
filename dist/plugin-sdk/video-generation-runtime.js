@@ -1,3 +1,3 @@
-import { n as listRuntimeVideoGenerationProviders, t as generateVideo } from "../runtime-DHkm_a9L.js";
-import "../video-generation-runtime-CN-rGtox.js";
+import { n as listRuntimeVideoGenerationProviders, t as generateVideo } from "../runtime-BJucWGh-.js";
+import "../video-generation-runtime-ufQJv_ph.js";
 export { generateVideo, listRuntimeVideoGenerationProviders };

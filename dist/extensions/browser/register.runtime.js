@@ -1,17 +1,17 @@
 import { a as normalizeLowercaseStringOrEmpty } from "../../string-coerce-DW4mBlAt.js";
 import { t as formatCliCommand } from "../../command-format-C5kg4XY_.js";
-import { u as isPrivateIpAddress } from "../../ssrf-CLKoEH8E.js";
+import { u as isPrivateIpAddress } from "../../ssrf-C889LYfv.js";
 import { c as hasConfiguredSecretInput } from "../../types.secrets-BvApkFoj.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
 import "../../secret-input-Dsfz4fVL.js";
-import "../../setup-tools-DvrgjDew.js";
-import { o as isPrivateNetworkOptInEnabled } from "../../ssrf-policy-BhrO0_v9.js";
-import { n as redactCdpUrl } from "../../browser-config-y8Xi4vs-.js";
-import { a as resolveProfile, r as resolveBrowserConfig } from "../../config-B2k8sZ1m.js";
-import { n as resolveBrowserControlAuth } from "../../control-auth-wBqEDAjN.js";
+import "../../setup-tools-D58ofQ4v.js";
+import { o as isPrivateNetworkOptInEnabled } from "../../ssrf-policy-CHmrygRA.js";
+import { n as redactCdpUrl } from "../../browser-config-DrIx0YNN.js";
+import { a as resolveProfile, r as resolveBrowserConfig } from "../../config-BcGUGkwH.js";
+import { n as resolveBrowserControlAuth } from "../../control-auth-dKa9J3g_.js";
 import { t as hasNonEmptyString } from "../../record-shared-BCecxvOL.js";
-import { i as createBrowserTool, r as handleBrowserGatewayRequest, t as createBrowserPluginService } from "../../plugin-service-DZXXuMCz.js";
-import { g as ensureBrowserProxyUploadCleanup, t as runBrowserProxyCommand } from "../../core-api-1VgVUcJH.js";
+import { i as createBrowserTool, r as handleBrowserGatewayRequest, t as createBrowserPluginService } from "../../plugin-service-CNp__eYu.js";
+import { g as ensureBrowserProxyUploadCleanup, t as runBrowserProxyCommand } from "../../core-api-BzuK8fNT.js";
 //#region extensions/browser/src/security-audit.ts
 const BLOCKED_HOSTNAMES = /* @__PURE__ */ new Set([
 	"localhost",

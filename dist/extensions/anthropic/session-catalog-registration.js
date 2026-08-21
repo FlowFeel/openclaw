@@ -1,2 +1,2 @@
-import { t as registerClaudeSessionDiscovery } from "../../session-catalog-registration-DL-jWBYw.js";
+import { t as registerClaudeSessionDiscovery } from "../../session-catalog-registration-BAJmaqUB.js";
 export { registerClaudeSessionDiscovery };

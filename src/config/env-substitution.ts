@@ -179,8 +179,9 @@ function substituteAny(
   if (isPlainObject(value)) {
     const result: Record<string, unknown> = {};
     for (const [key, val] of Object.entries(value)) {
-      const childPath = path ? `${path}.${key}` : key;
-      result[key] = substituteAny(val, env, childPath, opts);
+      const substitutedKey = typeof key === "string" ? substituteString(key, env, path, opts) : key;
+      const childPath = path ? `${path}.${substitutedKey}` : substitutedKey;
+      result[substitutedKey] = substituteAny(val, env, childPath, opts);
     }
     return result;
   }

@@ -1,4 +1,4 @@
-import { r as loadBundledEntryExportSync, t as defineBundledChannelEntry } from "../../channel-entry-contract-DxDc4pHR.js";
+import { r as loadBundledEntryExportSync, t as defineBundledChannelEntry } from "../../channel-entry-contract-BqXCQUt5.js";
 //#region extensions/nostr/index.ts
 function createNostrProfileHttpHandler() {
 	return loadBundledEntryExportSync(import.meta.url, {

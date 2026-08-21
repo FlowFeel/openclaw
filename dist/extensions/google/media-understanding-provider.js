@@ -1,12 +1,12 @@
-import { i as assertOkOrThrowProviderError, m as readProviderJsonResponse } from "../../provider-http-errors-Cj7zfu8U.js";
-import { c as postJsonRequest } from "../../shared-3S5SOCXx.js";
-import { r as describeImagesWithModel, t as describeImageWithModel } from "../../image-runtime-DJpunQo1.js";
-import "../../media-understanding-D8ZNLfrC.js";
-import "../../provider-http-BV0argQa.js";
+import { i as assertOkOrThrowProviderError, m as readProviderJsonResponse } from "../../provider-http-errors-Dm9G78mz.js";
+import { c as postJsonRequest } from "../../shared-Ck9SyaVQ.js";
+import { r as describeImagesWithModel, t as describeImageWithModel } from "../../image-runtime-CyhPVswR.js";
+import "../../media-understanding-CKeaLddD.js";
+import "../../provider-http-C8bsuM26.js";
 import { n as normalizeGoogleModelId } from "../../model-id-CAmKILzd.js";
-import { s as DEFAULT_GOOGLE_API_BASE_URL } from "../../provider-policy-CMZWsxuW.js";
-import { t as resolveGoogleGenerativeAiHttpRequestConfig } from "../../api-CzF-7Yea.js";
-import "../../runtime-api-B4rJNZ3u.js";
+import { s as DEFAULT_GOOGLE_API_BASE_URL } from "../../provider-policy-Cfq4-WOo.js";
+import { t as resolveGoogleGenerativeAiHttpRequestConfig } from "../../api-CVOhFyQN.js";
+import "../../runtime-api-D6QyhVOz.js";
 //#region extensions/google/media-understanding-provider.ts
 const DEFAULT_GOOGLE_AUDIO_MODEL = "gemini-3-flash-preview";
 const DEFAULT_GOOGLE_VIDEO_MODEL = "gemini-3-flash-preview";

@@ -1,3 +1,3 @@
-import { a as requestHeartbeat } from "../heartbeat-wake-D9__uym3.js";
-import "../heartbeat-runtime-0ffUJcEo.js";
+import { a as requestHeartbeat } from "../heartbeat-wake-T9cP7M4q.js";
+import "../heartbeat-runtime-Bd9Ge4qp.js";
 export { requestHeartbeat };

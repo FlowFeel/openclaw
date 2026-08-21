@@ -1,21 +1,21 @@
-import { n as isTruthyEnvValue } from "../../env-vD3tMcRW.js";
+import { n as isTruthyEnvValue } from "../../env-Bnf0Z-yF.js";
 import { b as parseStrictPositiveInteger } from "../../number-coercion-Crk_c9KW.js";
 import { l as normalizeStringEntries } from "../../string-normalization-CRyoFBPt.js";
 import { c as hasConfiguredSecretInput } from "../../types.secrets-BvApkFoj.js";
 import { t as normalizeOptionalSecretInput } from "../../normalize-secret-input-Df_qhWv_.js";
-import { o as removeProviderAuthProfilesWithLock } from "../../profiles-Hfbx6aWI.js";
-import { n as buildApiKeyCredential } from "../../provider-auth-helpers-CpmS5ZvJ.js";
-import "../../provider-auth-SalgjzRl.js";
-import { t as ensureApiKeyFromEnvOrPrompt } from "../../provider-auth-input-BZW5CuzH.js";
-import "../../runtime-env-DEukRWMB.js";
+import { o as removeProviderAuthProfilesWithLock } from "../../profiles-B5_Ws1zV.js";
+import { n as buildApiKeyCredential } from "../../provider-auth-helpers-CuJGpUMn.js";
+import "../../provider-auth-D9UigLvZ.js";
+import { t as ensureApiKeyFromEnvOrPrompt } from "../../provider-auth-input-DNzGlXUB.js";
+import "../../runtime-env-Cah9m5gV.js";
 import "../../number-runtime-C6TGSEc_.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
-import { g as withAgentModelAliases } from "../../provider-onboard-DwmQBy2F.js";
-import { n as configureOpenAICompatibleSelfHostedProviderNonInteractive, t as applyProviderDefaultModel } from "../../provider-setup-D4V1uLy-.js";
-import { f as selectPreferredLocalModelId } from "../../provider-model-shared-DPyoH6xD.js";
+import { g as withAgentModelAliases } from "../../provider-onboard-cYJFSlAR.js";
+import { n as configureOpenAICompatibleSelfHostedProviderNonInteractive, t as applyProviderDefaultModel } from "../../provider-setup--W3Dt7qy.js";
+import { f as selectPreferredLocalModelId } from "../../provider-model-shared-D9A9VaW7.js";
 import { t as WizardCancelledError } from "../../prompts-B0iOB1_a.js";
-import "../../setup-oCHSAPND.js";
-import { A as LMSTUDIO_DEFAULT_LOAD_CONTEXT_LENGTH, C as resolveLmstudioReasoningCompat, D as LMSTUDIO_DEFAULT_BASE_URL, E as LMSTUDIO_DEFAULT_API_KEY_ENV_VAR, F as LMSTUDIO_MODEL_PLACEHOLDER, I as LMSTUDIO_PROVIDER_ID, L as LMSTUDIO_PROVIDER_LABEL, M as LMSTUDIO_DOCKER_HOST_BASE_URL, N as LMSTUDIO_DOCKER_HOST_INFERENCE_BASE_URL, O as LMSTUDIO_DEFAULT_EMBEDDING_MODEL, P as LMSTUDIO_LOCAL_API_KEY_PLACEHOLDER, S as resolveLmstudioReasoningCapability, T as resolveLoadedContextWindow, _ as normalizeLmstudioConfiguredCatalogEntries, a as resolveLmstudioConfiguredApiKey, c as resolveLmstudioRequestContext, d as resolveLmstudioProviderAuthMode, f as shouldUseLmstudioApiKeyPlaceholder, g as mapLmstudioWireModelsToConfig, h as mapLmstudioWireEntry, i as buildLmstudioAuthHeaders, j as LMSTUDIO_DEFAULT_MODEL_ID, k as LMSTUDIO_DEFAULT_INFERENCE_BASE_URL, l as resolveLmstudioRuntimeApiKey, m as buildLmstudioModelName, r as fetchLmstudioModels, s as resolveLmstudioProviderHeaders, t as discoverLmstudioModels, u as hasLmstudioAuthorizationHeader, v as normalizeLmstudioConfiguredCatalogEntry, w as resolveLmstudioServerBase, x as resolveLmstudioInferenceBase, y as normalizeLmstudioProviderConfig } from "../../models.fetch-BV1oSbae.js";
+import "../../setup-CYovCPWJ.js";
+import { A as LMSTUDIO_DEFAULT_LOAD_CONTEXT_LENGTH, C as resolveLmstudioReasoningCompat, D as LMSTUDIO_DEFAULT_BASE_URL, E as LMSTUDIO_DEFAULT_API_KEY_ENV_VAR, F as LMSTUDIO_MODEL_PLACEHOLDER, I as LMSTUDIO_PROVIDER_ID, L as LMSTUDIO_PROVIDER_LABEL, M as LMSTUDIO_DOCKER_HOST_BASE_URL, N as LMSTUDIO_DOCKER_HOST_INFERENCE_BASE_URL, O as LMSTUDIO_DEFAULT_EMBEDDING_MODEL, P as LMSTUDIO_LOCAL_API_KEY_PLACEHOLDER, S as resolveLmstudioReasoningCapability, T as resolveLoadedContextWindow, _ as normalizeLmstudioConfiguredCatalogEntries, a as resolveLmstudioConfiguredApiKey, c as resolveLmstudioRequestContext, d as resolveLmstudioProviderAuthMode, f as shouldUseLmstudioApiKeyPlaceholder, g as mapLmstudioWireModelsToConfig, h as mapLmstudioWireEntry, i as buildLmstudioAuthHeaders, j as LMSTUDIO_DEFAULT_MODEL_ID, k as LMSTUDIO_DEFAULT_INFERENCE_BASE_URL, l as resolveLmstudioRuntimeApiKey, m as buildLmstudioModelName, r as fetchLmstudioModels, s as resolveLmstudioProviderHeaders, t as discoverLmstudioModels, u as hasLmstudioAuthorizationHeader, v as normalizeLmstudioConfiguredCatalogEntry, w as resolveLmstudioServerBase, x as resolveLmstudioInferenceBase, y as normalizeLmstudioProviderConfig } from "../../models.fetch-BRhlSytB.js";
 //#region extensions/lmstudio/src/setup.ts
 const LMSTUDIO_APP_GUIDED_MIN_CONTEXT_TOKENS = 16384;
 function resolveLmstudioSetupDefaultBaseUrl(env = process.env) {

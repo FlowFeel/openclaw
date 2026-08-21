@@ -1,2 +1,2 @@
-import { n as transcribeElevenLabsAudio, t as elevenLabsMediaUnderstandingProvider } from "../../media-understanding-provider-mSzzSH1w.js";
+import { n as transcribeElevenLabsAudio, t as elevenLabsMediaUnderstandingProvider } from "../../media-understanding-provider-rBgkEyBP.js";
 export { elevenLabsMediaUnderstandingProvider, transcribeElevenLabsAudio };

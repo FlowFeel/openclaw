@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { i as normalizeEnv, n as isTruthyEnvValue } from "./env-vD3tMcRW.js";
+import { i as normalizeEnv, n as isTruthyEnvValue } from "./env-Bnf0Z-yF.js";
 import { t as expectDefined } from "./expect-CyE8FADM.js";
 import "./src-COWbwBfI.js";
 import { d as isRootHelpInvocation, f as isRootVersionInvocation, r as getCommandPositionalsWithRootOptions } from "./argv-D6QuZiS5.js";
@@ -8,7 +8,7 @@ import { n as runCliWithExitFinalization, t as requestExitAfterOneShotOutput } f
 import { t as isMainModule } from "./is-main-CH4EEB_R.js";
 import { t as resolveCliArgvInvocation } from "./argv-invocation-DfZI3Nyr.js";
 import { n as parseCliContainerArgs, r as resolveCliContainerTarget } from "./container-target-CUBB_V4p.js";
-import { a as tryOutputPrecomputedCommandHelp, i as parseCliProfileArgs, n as createGatewayStartupTrace, r as applyCliProfileEnv, t as configureGatewayStartupTraceConsoleFormatting } from "./startup-trace-C7yWLDKZ.js";
+import { a as tryOutputPrecomputedCommandHelp, i as parseCliProfileArgs, n as createGatewayStartupTrace, r as applyCliProfileEnv, t as configureGatewayStartupTraceConsoleFormatting } from "./startup-trace-B2EYxjPf.js";
 import { t as normalizeWindowsArgv } from "./windows-argv-8XbjFcoh.js";
 import { t as attachChildProcessBridge } from "./child-process-bridge-Vp-FhPhG.js";
 import { n as signalProcessTree } from "./kill-tree-B-nnBWyI.js";
@@ -412,7 +412,7 @@ function tryHandleRootVersionFastPath(argv, deps = {}) {
 	const onError = deps.onError ?? (async (error) => {
 		const message = `[openclaw] Failed to resolve version: ${error instanceof Error ? error.stack ?? error.message : String(error)}\n`;
 		try {
-			const [{ loadCliDotEnv }, { formatConsoleDiagnosticBlock }] = await Promise.all([import("./dotenv-BMa-Kdz_.js"), import("./json-console-line-BNlbvf_c.js")]);
+			const [{ loadCliDotEnv }, { formatConsoleDiagnosticBlock }] = await Promise.all([import("./dotenv--g1mb6ER.js"), import("./json-console-line-WKSC9ltu.js")]);
 			loadCliDotEnv({ quiet: true });
 			process.stderr.write(formatConsoleDiagnosticBlock({
 				level: "error",
@@ -449,28 +449,28 @@ const ENTRY_WRAPPER_PAIRS = [{
 const loadRootHelpLiveConfigModule = async () => await import("./root-help-live-config-DLFpCf-w.js");
 const loadRootHelpMetadataModule = async () => await import("./root-help-metadata-BjR0rGWA.js");
 async function writeCapturedCliArgumentError(message) {
-	const { loadCliDotEnv } = await import("./dotenv-BMa-Kdz_.js");
+	const { loadCliDotEnv } = await import("./dotenv--g1mb6ER.js");
 	loadCliDotEnv({ quiet: true });
 	await configureGatewayStartupTraceConsoleFormatting(gatewayEntryStartupTrace);
-	const { enableConsoleCapture } = await import("./logging-CK6VZ760.js");
+	const { enableConsoleCapture } = await import("./logging-Bjcw6ryb.js");
 	enableConsoleCapture();
 	console.error(`[openclaw] ${message}`);
 }
 async function writeCliDiagnosticBlock(message) {
-	const { loadCliDotEnv } = await import("./dotenv-BMa-Kdz_.js");
+	const { loadCliDotEnv } = await import("./dotenv--g1mb6ER.js");
 	loadCliDotEnv({ quiet: true });
 	await configureGatewayStartupTraceConsoleFormatting(gatewayEntryStartupTrace);
-	const { formatConsoleDiagnosticBlock } = await import("./json-console-line-BNlbvf_c.js");
+	const { formatConsoleDiagnosticBlock } = await import("./json-console-line-WKSC9ltu.js");
 	process$1.stderr.write(formatConsoleDiagnosticBlock({
 		level: "error",
 		message: `${message}\n`
 	}));
 }
 async function prepareCliDiagnosticBlockWriter() {
-	const { loadCliDotEnv } = await import("./dotenv-BMa-Kdz_.js");
+	const { loadCliDotEnv } = await import("./dotenv--g1mb6ER.js");
 	loadCliDotEnv({ quiet: true });
 	await configureGatewayStartupTraceConsoleFormatting(gatewayEntryStartupTrace);
-	const { formatConsoleDiagnosticBlock } = await import("./json-console-line-BNlbvf_c.js");
+	const { formatConsoleDiagnosticBlock } = await import("./json-console-line-WKSC9ltu.js");
 	return (message, error) => {
 		const formatted = error === void 0 ? message : format$1(message, error);
 		process$1.stderr.write(formatConsoleDiagnosticBlock({
@@ -481,7 +481,7 @@ async function prepareCliDiagnosticBlockWriter() {
 }
 async function flushEntryStartupTraceForEarlyReturn(argv) {
 	if (!gatewayEntryStartupTrace.enabled) return;
-	const { loadCliDotEnvForEarlyDiagnostic } = await import("./dotenv-BMa-Kdz_.js");
+	const { loadCliDotEnvForEarlyDiagnostic } = await import("./dotenv--g1mb6ER.js");
 	await loadCliDotEnvForEarlyDiagnostic(argv);
 	await configureGatewayStartupTraceConsoleFormatting(gatewayEntryStartupTrace);
 }
@@ -504,9 +504,9 @@ if (!isMainModule({
 	process$1.argv = normalizeWindowsArgv(process$1.argv);
 	const earlyProfile = parseCliProfileArgs(process$1.argv);
 	if (earlyProfile.ok && earlyProfile.profile) applyCliProfileEnv({ profile: earlyProfile.profile });
-	const { assertSupportedRuntime, isCurrentRuntimeSupported } = await import("./runtime-guard-C3ilpdtD.js");
+	const { assertSupportedRuntime, isCurrentRuntimeSupported } = await import("./runtime-guard-Ca_5vESF.js");
 	if (!isCurrentRuntimeSupported()) {
-		const { loadCliDotEnv } = await import("./dotenv-BMa-Kdz_.js");
+		const { loadCliDotEnv } = await import("./dotenv--g1mb6ER.js");
 		loadCliDotEnv({ quiet: true });
 		await configureGatewayStartupTraceConsoleFormatting(gatewayEntryStartupTrace);
 	}
@@ -570,7 +570,7 @@ async function tryHandleRootHelpFastPath(argv, deps = {}) {
 		if (!liveRootHelpOptions) {
 			if ((deps.outputPrecomputedRootHelpText ?? (await loadRootHelpMetadataModule()).outputPrecomputedRootHelpText)()) return true;
 		}
-		await (deps.outputRootHelp ?? (await import("./root-help-CqpZXEZT.js")).outputRootHelp)(liveRootHelpOptions ?? void 0);
+		await (deps.outputRootHelp ?? (await import("./root-help-BbtKClsK.js")).outputRootHelp)(liveRootHelpOptions ?? void 0);
 		return true;
 	} catch (error) {
 		await handleError(error);
@@ -593,7 +593,7 @@ async function runMainOrRootHelp(argv, deps = {}) {
 	await runCliWithExitFinalization({
 		run: async () => {
 			if (isNativeHookRelayArgv(argv) && !argv.includes("--help") && !argv.includes("-h")) {
-				const { runNativeHookRelayCliFromArgv } = await import("./native-hook-relay-cli-Dg0JlEYN.js");
+				const { runNativeHookRelayCliFromArgv } = await import("./native-hook-relay-cli-DgxeIffD.js");
 				const exitCode = await runNativeHookRelayCliFromArgv(argv);
 				process$1.exitCode = exitCode;
 				requestExitAfterOneShotOutput(defaultRuntime, exitCode);
@@ -614,12 +614,12 @@ async function runMainOrRootHelp(argv, deps = {}) {
 			});
 		},
 		onError: async (error) => {
-			const { loadCliDotEnvForEarlyDiagnostic } = await import("./dotenv-BMa-Kdz_.js");
+			const { loadCliDotEnvForEarlyDiagnostic } = await import("./dotenv--g1mb6ER.js");
 			await loadCliDotEnvForEarlyDiagnostic(argv);
 			await configureGatewayStartupTraceConsoleFormatting(gatewayEntryStartupTrace);
-			const { enableConsoleCapture } = await import("./logging-CK6VZ760.js");
+			const { enableConsoleCapture } = await import("./logging-Bjcw6ryb.js");
 			enableConsoleCapture();
-			const { formatCliFailureLines } = await import("./failure-output-t_3e-TcB.js");
+			const { formatCliFailureLines } = await import("./failure-output-QpQ0Ugu4.js");
 			for (const line of formatCliFailureLines({
 				title: "Could not start the CLI.",
 				error,

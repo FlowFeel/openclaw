@@ -788,8 +788,6 @@ declare const validateWorkerHeartbeatParams: ProtocolValidator<{
 }>;
 declare const validateWorkerTranscriptCommitParams: ProtocolValidator<{
   seq: number;
-  runEpoch: number;
-  baseLeafId: string | null;
   messages: ({
     role: "user";
     content: ({
@@ -816,10 +814,10 @@ declare const validateWorkerTranscriptCommitParams: ProtocolValidator<{
     }[] | undefined;
     errorCode?: string | undefined;
     errorMessage?: string | undefined;
-    responseModel?: string | undefined;
-    responseId?: string | undefined;
     errorType?: string | undefined;
     errorBody?: string | undefined;
+    responseModel?: string | undefined;
+    responseId?: string | undefined;
     role: "assistant";
     model: string;
     content: ({
@@ -827,13 +825,13 @@ declare const validateWorkerTranscriptCommitParams: ProtocolValidator<{
       type: "text";
       text: string;
     } | {
-      thinkingSignature?: string | undefined;
       redacted?: boolean | undefined;
+      thinkingSignature?: string | undefined;
       type: "thinking";
       thinking: string;
     } | {
-      thoughtSignature?: string | undefined;
       executionMode?: "sequential" | "parallel" | undefined;
+      thoughtSignature?: string | undefined;
       type: "toolCall";
       id: string;
       name: string;
@@ -882,6 +880,8 @@ declare const validateWorkerTranscriptCommitParams: ProtocolValidator<{
     timestamp: number;
     isError: boolean;
   })[];
+  runEpoch: number;
+  baseLeafId: string | null;
 }>;
 declare const validateWorkerLiveEventParams: ProtocolValidator<{
   readonly event: {

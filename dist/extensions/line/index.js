@@ -1,10 +1,10 @@
 import { r as createLazyRuntimeModule } from "../../lazy-runtime-CgCh8H_K.js";
-import { t as defineBundledChannelEntry } from "../../channel-entry-contract-DxDc4pHR.js";
+import { t as defineBundledChannelEntry } from "../../channel-entry-contract-BqXCQUt5.js";
 //#region extensions/line/index.ts
 function createLineCardCommandLoader(api) {
 	return createLazyRuntimeModule(async () => {
 		let registered = null;
-		const { registerLineCardCommand } = await import("../../card-command-D7Lidfie.js");
+		const { registerLineCardCommand } = await import("../../card-command-B4VKspbV.js");
 		registerLineCardCommand({
 			...api,
 			registerCommand(command) {

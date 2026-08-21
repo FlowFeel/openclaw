@@ -1,2 +1,2 @@
-import { t as resolveClaudeTerminalExecutable } from "../../session-catalog-executable-Dz-ycwTl.js";
+import { t as resolveClaudeTerminalExecutable } from "../../session-catalog-executable-Dz73gsLO.js";
 export { resolveClaudeTerminalExecutable };

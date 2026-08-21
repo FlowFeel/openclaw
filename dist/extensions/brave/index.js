@@ -1,5 +1,5 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { t as createBraveWebSearchProvider } from "../../brave-web-search-provider-TUyKuTdQ.js";
+import { t as createBraveWebSearchProvider } from "../../brave-web-search-provider-TwRA7uVH.js";
 //#region extensions/brave/index.ts
 /**
 * Brave Search plugin entry. It registers the Brave web-search provider and

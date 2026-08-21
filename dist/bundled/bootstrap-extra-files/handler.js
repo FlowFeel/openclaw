@@ -1,7 +1,7 @@
 import { d as normalizeTrimmedStringList } from "../../string-normalization-CRyoFBPt.js";
-import { t as createSubsystemLogger } from "../../subsystem-Ess1Ww-N.js";
-import { m as filterBootstrapFilesForSession, v as loadExtraBootstrapFilesWithDiagnostics } from "../../workspace-aPJlJwqC.js";
-import { a as isAgentBootstrapEvent } from "../../internal-hooks-g7-iEVAy.js";
+import { t as createSubsystemLogger } from "../../subsystem-Cr19cPPQ.js";
+import { m as filterBootstrapFilesForSession, v as loadExtraBootstrapFilesWithDiagnostics } from "../../workspace-CelKqYGr.js";
+import { a as isAgentBootstrapEvent } from "../../internal-hooks-glvlO_hY.js";
 import { i as resolveHookConfig } from "../../config-CaQnSSBm.js";
 //#region src/hooks/bundled/bootstrap-extra-files/handler.ts
 const HOOK_KEY = "bootstrap-extra-files";

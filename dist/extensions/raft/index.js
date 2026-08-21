@@ -1,4 +1,4 @@
-import { t as defineBundledChannelEntry } from "../../channel-entry-contract-DxDc4pHR.js";
+import { t as defineBundledChannelEntry } from "../../channel-entry-contract-BqXCQUt5.js";
 //#region extensions/raft/index.ts
 var raft_default = defineBundledChannelEntry({
 	id: "raft",

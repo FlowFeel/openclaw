@@ -1,4 +1,4 @@
-import { u as asObjectRecord } from "../../runtime-doctor-BHX5ardJ.js";
+import { u as asObjectRecord } from "../../runtime-doctor-9vOSwNaE.js";
 import { r as OLLAMA_CLOUD_PROVIDER_ID, t as OLLAMA_CLOUD_BASE_URL } from "../../defaults-h8fOLDCy.js";
 //#region extensions/ollama/src/config-compat.ts
 function isRetiredOllamaCloudBaseUrl(value) {

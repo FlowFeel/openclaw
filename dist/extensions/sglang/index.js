@@ -1,4 +1,4 @@
-import { a as buildProviderReplayFamilyHooks, o as defineSelfHostedOpenAICompatibleProvider } from "../../provider-model-shared-DPyoH6xD.js";
+import { a as buildProviderReplayFamilyHooks, o as defineSelfHostedOpenAICompatibleProvider } from "../../provider-model-shared-D9A9VaW7.js";
 import { i as SGLANG_PROVIDER_LABEL, n as SGLANG_DEFAULT_BASE_URL, r as SGLANG_MODEL_PLACEHOLDER, t as SGLANG_DEFAULT_API_KEY_ENV_VAR } from "../../defaults-DEyguuem.js";
 //#region extensions/sglang/index.ts
 var sglang_default = defineSelfHostedOpenAICompatibleProvider({

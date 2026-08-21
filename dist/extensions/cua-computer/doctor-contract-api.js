@@ -1,4 +1,4 @@
-import { u as asObjectRecord } from "../../runtime-doctor-BHX5ardJ.js";
+import { u as asObjectRecord } from "../../runtime-doctor-9vOSwNaE.js";
 /** Retired CUA daemon configuration that `openclaw doctor --fix` removes. */
 const legacyConfigRules = [{
 	path: [

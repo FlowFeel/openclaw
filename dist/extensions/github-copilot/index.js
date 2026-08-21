@@ -1,23 +1,23 @@
 import { s as coerceSecretRef } from "../../types.secrets-BvApkFoj.js";
 import { c as resolveDefaultSecretProviderAlias } from "../../ref-contract-BVYOI0KD.js";
-import { n as listProfilesForProvider } from "../../profile-list-C0Y7xLon.js";
-import { i as ensureAuthProfileStore } from "../../store-BWT5kQzj.js";
+import { n as listProfilesForProvider } from "../../profile-list-BV1ORe-C.js";
+import { i as ensureAuthProfileStore } from "../../store-C8MGqOG3.js";
 import { t as normalizeOptionalSecretInput } from "../../normalize-secret-input-Df_qhWv_.js";
-import { l as upsertAuthProfileWithLock } from "../../profiles-Hfbx6aWI.js";
-import { t as applyAuthProfileConfig } from "../../provider-auth-helpers-CpmS5ZvJ.js";
-import "../../provider-auth-SalgjzRl.js";
+import { l as upsertAuthProfileWithLock } from "../../profiles-B5_Ws1zV.js";
+import { t as applyAuthProfileConfig } from "../../provider-auth-helpers-CuJGpUMn.js";
+import "../../provider-auth-D9UigLvZ.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { r as resolvePluginConfigObject } from "../../plugin-config-runtime-AmbPKaTK.js";
-import { n as resolveCopilotExtendedThinkingLevels, t as DEFAULT_COPILOT_MODEL } from "../../model-metadata-DqeGTayX.js";
-import { n as buildCopilotRuntimeHeaders } from "../../runtime-identity-BD2QQj8n.js";
-import { t as PROVIDER_ID } from "../../models-Dt_UGc1E.js";
-import { t as resolveFirstGithubToken } from "../../auth-BJTC8HEv.js";
+import { r as resolvePluginConfigObject } from "../../plugin-config-runtime-D33X7huv.js";
+import { n as resolveCopilotExtendedThinkingLevels, t as DEFAULT_COPILOT_MODEL } from "../../model-metadata-SjQCPT5v.js";
+import { n as buildCopilotRuntimeHeaders } from "../../runtime-identity-DNvjdRIm.js";
+import { t as PROVIDER_ID } from "../../models-BSoRhDT4.js";
+import { t as resolveFirstGithubToken } from "../../auth-MS57ZHb0.js";
 import { i as resolveGithubCopilotDomain, r as normalizeGithubCopilotDomain, t as PUBLIC_GITHUB_COPILOT_DOMAIN } from "../../domain-DI7ThHsj.js";
-import { t as createGithubCopilotDynamicModelHooks } from "../../dynamic-models-BTAkIoOk.js";
-import { t as githubCopilotMemoryEmbeddingProviderAdapter } from "../../embeddings-Bn4-95Yc.js";
-import { a as refreshGithubCopilotOAuth, i as parseGithubCopilotApiKey, n as formatGithubCopilotApiKey, r as loginGithubCopilotOAuth, t as buildGithubCopilotAuthDoctorHint } from "../../oauth-Lv8mrnFy.js";
+import { t as createGithubCopilotDynamicModelHooks } from "../../dynamic-models-CX-ZxLH5.js";
+import { t as githubCopilotMemoryEmbeddingProviderAdapter } from "../../embeddings-BgZZvyBp.js";
+import { a as refreshGithubCopilotOAuth, i as parseGithubCopilotApiKey, n as formatGithubCopilotApiKey, r as loginGithubCopilotOAuth, t as buildGithubCopilotAuthDoctorHint } from "../../oauth-D-efB7W7.js";
 import { n as sanitizeGithubCopilotReplayHistory, t as buildGithubCopilotReplayPolicy } from "../../replay-policy-BiLP3lcM.js";
-import { n as wrapCopilotProviderStream } from "../../stream-dgAos9l8.js";
+import { n as wrapCopilotProviderStream } from "../../stream-DkeynRwZ.js";
 //#region extensions/github-copilot/index.ts
 const COPILOT_ENV_VARS = [
 	"COPILOT_GITHUB_TOKEN",

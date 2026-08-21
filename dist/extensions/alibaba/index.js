@@ -1,5 +1,5 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { t as alibabaVideoGenerationProvider } from "../../video-generation-provider-DVtg8b7X.js";
+import { t as alibabaVideoGenerationProvider } from "../../video-generation-provider-ntVFdrWg.js";
 //#region extensions/alibaba/index.ts
 /**
 * Alibaba Model Studio plugin entry. Registers the DashScope-backed video

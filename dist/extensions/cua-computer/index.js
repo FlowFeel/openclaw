@@ -2,9 +2,9 @@ import { Ln as strictObject, Rn as string, Tn as object, wn as number, yt as _en
 import { n as resolvePreferredOpenClawTmpDir } from "../../tmp-openclaw-dir-BBjU-hqW.js";
 import { t as canonicalizeBase64 } from "../../base64-KcXAb-1x.js";
 import { n as buildPluginConfigSchema } from "../../config-schema-Cjz2ed1U.js";
-import "../../temp-path-CW1P0Bq-.js";
+import "../../temp-path-CVFOBJ6f.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import "../../media-runtime-CSmTPMNF.js";
+import "../../media-runtime-CLhEwOPy.js";
 import { createRequire } from "node:module";
 import { createHash, randomUUID } from "node:crypto";
 import fs from "node:fs";

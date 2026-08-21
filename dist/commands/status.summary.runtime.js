@@ -2,15 +2,15 @@ import { a as normalizeLowercaseStringOrEmpty, c as normalizeOptionalString, s a
 import { o as resolveAgentConfig } from "../agent-scope-config-Dusa8eSA.js";
 import { i as resolveAgentModelPrimaryValue } from "../model-input-BofPWz0k.js";
 import { n as DEFAULT_MODEL, r as DEFAULT_PROVIDER } from "../defaults-CdX9UGcX.js";
-import { A as resolveConfiguredProviderFallback } from "../model-selection-shared-V7VmYFPH.js";
-import { n as parseModelRef } from "../model-selection-normalize-BL5u3jOs.js";
+import { A as resolveConfiguredProviderFallback } from "../model-selection-shared-BDTPW9Jk.js";
+import { n as parseModelRef } from "../model-selection-normalize-Bae-aoqX.js";
 import { i as resolveStoredSessionKeyForAgentStore } from "../session-store-key-DmGCpash.js";
-import { l as resolvePersistedSelectedModelRef } from "../model-selection-CZlE_kEq.js";
+import { l as resolvePersistedSelectedModelRef } from "../model-selection-D5gxVbBh.js";
 import { t as classifySessionKind } from "../classify-session-kind-CRKc5-5D.js";
-import { r as readAcpSessionMeta } from "../session-meta-jzIthKMh.js";
-import { t as resolveModelAgentRuntimeMetadata } from "../agent-runtime-metadata-CRKtbTUo.js";
-import { h as resolveContextTokensForModelFromCache, s as waitForContextWindowCacheLoad } from "../context-Bq_6Vo-L.js";
-import { t as resolveAgentRuntimeLabel } from "../agent-runtime-label-ClqNdX4j.js";
+import { r as readAcpSessionMeta } from "../session-meta-DqFXJodN.js";
+import { t as resolveModelAgentRuntimeMetadata } from "../agent-runtime-metadata-DGvl-y7n.js";
+import { h as resolveContextTokensForModelFromCache, s as waitForContextWindowCacheLoad } from "../context-CuDuj0gh.js";
+import { t as resolveAgentRuntimeLabel } from "../agent-runtime-label-BxxpcMcg.js";
 //#region src/status/summary.runtime.ts
 function resolveStatusModelRefFromRaw(params) {
 	const trimmed = params.rawModel.trim();

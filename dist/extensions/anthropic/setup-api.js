@@ -1,5 +1,5 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { t as buildAnthropicCliBackend } from "../../cli-backend-DfrMuFqP.js";
+import { t as buildAnthropicCliBackend } from "../../cli-backend-CdlNy608.js";
 //#region extensions/anthropic/setup-api.ts
 /**
 * Lightweight Anthropic setup entry. It registers Claude CLI backend metadata

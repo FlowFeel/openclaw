@@ -3,9 +3,9 @@ import { i as asOptionalRecord } from "../../record-coerce-DHZ4bFlT.js";
 import { _ as pathExists } from "../../fs-safe-DVaClkIX.js";
 import { c as resolveUserPath } from "../../home-dir-Cs7bTrwJ.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
-import { r as resolvePluginConfigObject } from "../../plugin-config-runtime-AmbPKaTK.js";
-import "../../security-runtime-Z5eWBqsY.js";
-import "../../text-utility-runtime-Dwuhfjgs.js";
+import { r as resolvePluginConfigObject } from "../../plugin-config-runtime-D33X7huv.js";
+import "../../security-runtime-Dk7rUwxb.js";
+import "../../text-utility-runtime-D52Cj1WO.js";
 import path from "node:path";
 import fs from "node:fs/promises";
 //#region extensions/canvas/doctor-contract-api.ts

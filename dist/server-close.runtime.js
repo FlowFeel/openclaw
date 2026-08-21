@@ -1,22 +1,22 @@
 import { c as normalizeOptionalString } from "./string-coerce-DW4mBlAt.js";
 import { t as drainGlobalSingletonLifecycleState } from "./global-singleton-Dc_stLtU.js";
-import { t as createSubsystemLogger } from "./subsystem-Ess1Ww-N.js";
-import { r as clearActivePluginRegistry } from "./runtime-WkCmQTS9.js";
-import { t as disposeRegisteredAgentHarnesses } from "./registry-DkL0MuB5.js";
-import { p as closePluginStateDatabase } from "./plugin-state-store-CeV9ciGZ.js";
-import { i as listChannelPlugins } from "./registry-DOSZ6AfI.js";
-import "./plugins-DYLnGbXq.js";
-import { o as createAgentRunRestartAbortError } from "./run-termination-CczpQCyZ.js";
-import { n as disposeAllSessionMcpRuntimes } from "./agent-bundle-mcp-manager-api-D2GddaSc.js";
-import "./agent-bundle-mcp-tools-DIqqH-eP.js";
-import { m as triggerInternalHook, n as createInternalHookEvent } from "./internal-hooks-g7-iEVAy.js";
-import { t as clearSessionSuspensionTimers } from "./session-suspension-A0HAqEj-.js";
+import { t as createSubsystemLogger } from "./subsystem-Cr19cPPQ.js";
+import { r as clearActivePluginRegistry } from "./runtime-yJAYArQt.js";
+import { t as disposeRegisteredAgentHarnesses } from "./registry-BjwLx-0R.js";
+import { p as closePluginStateDatabase } from "./plugin-state-store-aPYaqCXn.js";
+import { i as listChannelPlugins } from "./registry-B1AiP2IQ.js";
+import "./plugins-1tM2ZjdA.js";
+import { o as createAgentRunRestartAbortError } from "./run-termination-nrLSEQ_b.js";
+import { n as disposeAllSessionMcpRuntimes } from "./agent-bundle-mcp-manager-api-BO7-Y1u4.js";
+import "./agent-bundle-mcp-tools-DCf2vF2J.js";
+import { m as triggerInternalHook, n as createInternalHookEvent } from "./internal-hooks-glvlO_hY.js";
+import { t as clearSessionSuspensionTimers } from "./session-suspension-DUbfGECM.js";
 import { n as createChatAbortMarker } from "./server-chat-state-C8AVcQU8.js";
-import { a as isChatAbortControllerEntryAbortable, c as removeChatAbortControllerEntry, r as abortTrackedChatRunById } from "./chat-abort-B1M0lO2h.js";
+import { a as isChatAbortControllerEntryAbortable, c as removeChatAbortControllerEntry, r as abortTrackedChatRunById } from "./chat-abort-BvCyxb9W.js";
 import { n as abortQueuedChatTurns } from "./chat-queued-turns-DWyXqGgL.js";
-import { n as collectGatewayProcessMemoryUsageMb, o as measureGatewayRestartTrace, s as recordGatewayRestartTrace } from "./restart-trace-wEbhk9Tt.js";
+import { n as collectGatewayProcessMemoryUsageMb, o as measureGatewayRestartTrace, s as recordGatewayRestartTrace } from "./restart-trace-Cu5YQjxo.js";
 import { n as clearSessionTypingState } from "./session-typing-state-CJxhp501.js";
-import { r as drainActiveSessionsForShutdown } from "./session-reset-service-IM65qQHe.js";
+import { r as drainActiveSessionsForShutdown } from "./session-reset-service-bcdW_m_M.js";
 import { cleanupSessionResources } from "@openclaw/ai/internal/runtime";
 //#region src/gateway/server-close.ts
 const shutdownLog = createSubsystemLogger("gateway/shutdown");
@@ -351,15 +351,15 @@ async function disposeRuntimeWithShutdownGrace(params) {
 	disposeTimeout.clear();
 }
 async function disposeAllBundleLspRuntimesOnDemand() {
-	const { disposeAllBundleLspRuntimes } = await import("./agent-bundle-lsp-runtime-DwyXvHci.js");
+	const { disposeAllBundleLspRuntimes } = await import("./agent-bundle-lsp-runtime-B4z38_8w.js");
 	await disposeAllBundleLspRuntimes();
 }
 async function drainRetainedEmbeddingProvidersOnDemand() {
-	const { drainRetainedOpenAiEmbeddingProviders } = await import("./embeddings-http-DR-CnWV8.js");
+	const { drainRetainedOpenAiEmbeddingProviders } = await import("./embeddings-http-D7nv5M2C.js");
 	await drainRetainedOpenAiEmbeddingProviders();
 }
 async function stopGmailWatcherOnDemand() {
-	const { stopGmailWatcher } = await import("./gmail-watcher-iu2ZXRma.js");
+	const { stopGmailWatcher } = await import("./gmail-watcher-CxvgeP6g.js");
 	await stopGmailWatcher();
 }
 async function runGatewayClosePrelude(params) {
@@ -466,7 +466,7 @@ function createGatewayCloseHandler(params) {
 				for (const channelId of channelIds) await shutdownStep(`channel/${channelId}`, () => params.stopChannel(channelId), warnings);
 			});
 			await shutdownStep("code-mode-runs", async () => {
-				const { disposeAllCodeModeRuns } = await import("./code-mode-state-CamRIQpt.js");
+				const { disposeAllCodeModeRuns } = await import("./code-mode-state-CT_sfhqO.js");
 				return disposeAllCodeModeRuns();
 			}, warnings);
 			await shutdownStep("agent-harnesses", () => disposeRegisteredAgentHarnesses(), warnings);

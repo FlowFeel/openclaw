@@ -1,11 +1,11 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { n as buildMinimaxPortalImageGenerationProvider, t as buildMinimaxImageGenerationProvider } from "../../image-generation-provider-3ODE8ena.js";
-import { n as minimaxPortalMediaUnderstandingProvider, t as minimaxMediaUnderstandingProvider } from "../../media-understanding-provider-IYf8aFBg.js";
-import { n as buildMinimaxPortalMusicGenerationProvider, t as buildMinimaxMusicGenerationProvider } from "../../music-generation-provider-eGw01GQS.js";
-import { t as registerMinimaxProviders } from "../../provider-registration-BSCrAWtE.js";
-import { t as buildMinimaxSpeechProvider } from "../../speech-provider-BlLBcddp.js";
-import { t as createMiniMaxWebSearchProvider } from "../../minimax-web-search-provider-DDyRb2P7.js";
-import { n as buildMinimaxVideoGenerationProvider, t as buildMinimaxPortalVideoGenerationProvider } from "../../video-generation-provider-DF9D0z-0.js";
+import { n as buildMinimaxPortalImageGenerationProvider, t as buildMinimaxImageGenerationProvider } from "../../image-generation-provider-QRcNLtsl.js";
+import { n as minimaxPortalMediaUnderstandingProvider, t as minimaxMediaUnderstandingProvider } from "../../media-understanding-provider-ngEdl1p1.js";
+import { n as buildMinimaxPortalMusicGenerationProvider, t as buildMinimaxMusicGenerationProvider } from "../../music-generation-provider-B4EnB58j.js";
+import { t as registerMinimaxProviders } from "../../provider-registration-D7qrUQ97.js";
+import { t as buildMinimaxSpeechProvider } from "../../speech-provider-tbmti9Dz.js";
+import { t as createMiniMaxWebSearchProvider } from "../../minimax-web-search-provider-DQ_PtpK8.js";
+import { n as buildMinimaxVideoGenerationProvider, t as buildMinimaxPortalVideoGenerationProvider } from "../../video-generation-provider-DFAZ4WzP.js";
 //#region extensions/minimax/index.ts
 var minimax_default = definePluginEntry({
 	id: "minimax",

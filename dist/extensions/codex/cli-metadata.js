@@ -1,2 +1,2 @@
-import { n as registerCodexCliMetadata, t as cli_metadata_default } from "../../cli-metadata-AzKaftJl.js";
+import { n as registerCodexCliMetadata, t as cli_metadata_default } from "../../cli-metadata-YRxdbZ6H.js";
 export { cli_metadata_default as default, registerCodexCliMetadata };

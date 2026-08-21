@@ -5,12 +5,12 @@ import { _ as pathExists } from "../../fs-safe-DVaClkIX.js";
 import { c as resolveAgentDir, i as listAgentIds } from "../../agent-scope-config-Dusa8eSA.js";
 import { _ as resolveSessionAgentIds } from "../../agent-scope-DyEposw2.js";
 import { s as withFileLock } from "../../file-lock-CndaTTeS.js";
-import { m as resolveStorePath, s as patchSessionEntry } from "../../session-store-runtime-DND3iX5-.js";
+import { m as resolveStorePath, s as patchSessionEntry } from "../../session-store-runtime-dul9f0ER.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
-import "../../runtime-doctor-BHX5ardJ.js";
+import "../../runtime-doctor-9vOSwNaE.js";
 import { n as legacyStateFileExists, t as archiveLegacyStateSource } from "../../doctor-state-migration-fs-CfVap4xL.js";
-import "../../agent-runtime--vhO0pxB.js";
-import "../../security-runtime-Z5eWBqsY.js";
+import "../../agent-runtime-DUspTi2a.js";
+import "../../security-runtime-Dk7rUwxb.js";
 import { n as CODEX_APP_SERVER_BINDING_NAMESPACE, t as CODEX_APP_SERVER_BINDING_MAX_ENTRIES } from "../../session-binding-meta-B7aEMU7g.js";
 import path from "node:path";
 import fs from "node:fs/promises";
@@ -283,7 +283,7 @@ async function migrateSource(source, candidates, params, store) {
 		return await withFileLock(source.sidecarPath, LEGACY_BINDING_LOCK_OPTIONS, async () => {
 			const [contents, stat] = await Promise.all([fs.readFile(source.sidecarPath, "utf8"), fs.stat(source.sidecarPath)]);
 			const raw = JSON.parse(contents);
-			const [{ bindingStoreKey, createStoredCodexAppServerBinding, normalizeStoredCodexAppServerBindingFingerprints, readStoredCodexAppServerBinding }, { legacyCodexConversationBindingId }] = await Promise.all([import("../../session-binding-Cn7a5Juo.js"), import("../../conversation-binding-data-39jYO58F.js")]);
+			const [{ bindingStoreKey, createStoredCodexAppServerBinding, normalizeStoredCodexAppServerBindingFingerprints, readStoredCodexAppServerBinding }, { legacyCodexConversationBindingId }] = await Promise.all([import("../../session-binding-BzyrrHUK.js"), import("../../conversation-binding-data-39jYO58F.js")]);
 			const agentId = owner?.agentId ?? (source.agentIds.size === 1 ? [...source.agentIds][0] : void 0);
 			const baseStored = createStoredCodexAppServerBinding(raw, {
 				now: stat.mtime.toISOString(),

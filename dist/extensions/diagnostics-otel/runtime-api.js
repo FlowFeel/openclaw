@@ -1,2 +1,2 @@
-import { t as createDiagnosticsOtelService } from "../../runtime-api-CF8k3urW.js";
+import { t as createDiagnosticsOtelService } from "../../runtime-api-BuLcx6vl.js";
 export { createDiagnosticsOtelService };

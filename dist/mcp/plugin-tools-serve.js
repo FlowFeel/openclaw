@@ -1,12 +1,12 @@
-import { r as formatErrorMessage } from "../errors-Cg_yT1Sv.js";
+import { r as formatErrorMessage } from "../errors-D-7D3ZtF.js";
 import { c as parseAgentSessionKey } from "../session-key-utils-02xWdGSz.js";
-import { r as getRuntimeConfig } from "../io-BsQc3Kgy.js";
-import { a as routeLogsToStderr } from "../console-DRDfhKk-.js";
+import { r as getRuntimeConfig } from "../io-DCw4R0kD.js";
+import { a as routeLogsToStderr } from "../console-shoafCYv.js";
 import { _ as resolveToolProfilePolicy, a as collectExplicitDenylist, c as mergeAlsoAllowPolicy, i as collectExplicitAllowlist } from "../tool-policy-CrjVfI-s.js";
 import { n as pickSandboxToolPolicy } from "../sandbox-tool-policy-ClB7s2K0.js";
-import "../config-BBVHtcXg.js";
-import { a as resolvePluginTools, r as ensureStandalonePluginToolRegistryLoaded } from "../tools-sUgO7zqy.js";
-import { i as resolveToolsMcpAgentSessionKey, n as createToolsMcpServer, r as OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY_ENV, t as connectToolsMcpServerToStdio } from "../tools-stdio-server-DWX0m3Cx.js";
+import "../config-UtpOr1Uw.js";
+import { a as resolvePluginTools, r as ensureStandalonePluginToolRegistryLoaded } from "../tools-DfrDsxdD.js";
+import { i as resolveToolsMcpAgentSessionKey, n as createToolsMcpServer, r as OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY_ENV, t as connectToolsMcpServerToStdio } from "../tools-stdio-server-DBGR_MCh.js";
 import { pathToFileURL } from "node:url";
 import "@modelcontextprotocol/sdk/server/index.js";
 //#region src/mcp/plugin-tools-serve.ts

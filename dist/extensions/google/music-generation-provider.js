@@ -1,15 +1,15 @@
 import { c as normalizeOptionalString } from "../../string-coerce-DW4mBlAt.js";
 import { r as extensionForMime } from "../../mime-Ir6g3Vae.js";
-import { h as resolveProviderOperationTimeoutMs, n as createProviderOperationDeadline } from "../../shared-3S5SOCXx.js";
+import { h as resolveProviderOperationTimeoutMs, n as createProviderOperationDeadline } from "../../shared-Ck9SyaVQ.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
 import "../../media-mime-snsyzHJv.js";
-import { a as resolveApiKeyForProvider } from "../../provider-auth-runtime-y5vTf3MK.js";
-import "../../provider-http-BV0argQa.js";
-import { r as generatedMusicAssetFromBase64 } from "../../music-generation-b8eEey81.js";
-import { n as resolveGoogleGenerativeAiApiOrigin } from "../../provider-policy-CMZWsxuW.js";
-import { c as createGoogleMusicGenerationProviderMetadata } from "../../generation-provider-metadata-DVrj8ND1.js";
-import "../../api-CzF-7Yea.js";
-import { t as createGoogleGenAI } from "../../google-genai-runtime-vwWmiC1I.js";
+import { a as resolveApiKeyForProvider } from "../../provider-auth-runtime-Ey4OZkKd.js";
+import "../../provider-http-C8bsuM26.js";
+import { r as generatedMusicAssetFromBase64 } from "../../music-generation-Cq69I7wr.js";
+import { n as resolveGoogleGenerativeAiApiOrigin } from "../../provider-policy-Cfq4-WOo.js";
+import { c as createGoogleMusicGenerationProviderMetadata } from "../../generation-provider-metadata-C7T8YZKq.js";
+import "../../api-CVOhFyQN.js";
+import { t as createGoogleGenAI } from "../../google-genai-runtime-CoO4Lzde.js";
 //#region extensions/google/music-generation-provider.ts
 const DEFAULT_TIMEOUT_MS = 18e4;
 function resolveConfiguredGoogleMusicBaseUrl(req) {

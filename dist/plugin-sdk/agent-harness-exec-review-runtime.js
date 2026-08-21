@@ -1,6 +1,6 @@
 //#region src/plugin-sdk/agent-harness-exec-review-runtime.ts
 async function reviewExecRequestWithConfiguredModel(params) {
-	const { createModelExecAutoReviewer } = await import("../exec-auto-reviewer-DYAF4ENa.js");
+	const { createModelExecAutoReviewer } = await import("../exec-auto-reviewer-YrYEgB_D.js");
 	return createModelExecAutoReviewer({
 		cfg: params.cfg,
 		agentId: params.agentId,
@@ -9,7 +9,7 @@ async function reviewExecRequestWithConfiguredModel(params) {
 }
 async function buildExecAutoReviewInputForShellCommand(params) {
 	const [{ commandRequiresSecurityAuditSuppressionApproval, evaluateShellAllowlistWithAuthorization }, { detectUnsafeExecControlShellCommand }, { detectPolicyInlineEval }, { isBlockedShellWrapperCommand }] = await Promise.all([
-		import("../exec-approvals-k5vaGEp6.js"),
+		import("../exec-approvals-Czk0yfr0.js"),
 		import("../exec-control-command-guard-Cmwf8Asq.js"),
 		import("../policy-u26_P42Y.js"),
 		import("../exec-wrapper-resolution-CINO1WH4.js")

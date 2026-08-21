@@ -1,5 +1,5 @@
 import { a as normalizeLowercaseStringOrEmpty, c as normalizeOptionalString, s as normalizeOptionalLowercaseString } from "../string-coerce-DW4mBlAt.js";
-import { i as normalizeEnv, n as isTruthyEnvValue } from "../env-vD3tMcRW.js";
+import { i as normalizeEnv, n as isTruthyEnvValue } from "../env-Bnf0Z-yF.js";
 import { A as consumeGatewayRunOptionToken, F as getCoreCliCommandDescriptors, I as getCoreCliCommandNames, K as isMachineOutputStdoutTTY, M as resolveGatewayRunPreBootstrapOptions, R as getCoreCliParentDefaultHelpCommands, _ as normalizeRootNoColorArgv, b as getSubCliEntries, g as normalizeRootLogLevelArgv, h as normalizeRootHelpTargetArgv, j as resolveGatewayCatalogCommandPath, k as consumeGatewayFastPathRootOptionToken, m as normalizeGeneratedHelpCommandArgv, p as isSimpleCommandHelpInvocation, x as getSubCliParentDefaultHelpCommands } from "../argv-D6QuZiS5.js";
 import { i as isValueToken, n as consumeRootOptionToken } from "../cli-root-options-tXk2lfs9.js";
 import { u as tryProcessCwd } from "../home-dir-Cs7bTrwJ.js";
@@ -7,15 +7,15 @@ import { C as resolveStateDir } from "../paths-CL43LNS6.js";
 import { t as requestExitAfterOneShotOutput } from "../one-shot-exit-B87g-N4r.js";
 import { t as resolveCliArgvInvocation } from "../argv-invocation-DfZI3Nyr.js";
 import { n as parseCliContainerArgs, t as maybeRunCliInContainer } from "../container-target-CUBB_V4p.js";
-import { a as tryOutputPrecomputedCommandHelp, i as parseCliProfileArgs, n as createGatewayStartupTrace, r as applyCliProfileEnv, t as configureGatewayStartupTraceConsoleFormatting } from "../startup-trace-C7yWLDKZ.js";
+import { a as tryOutputPrecomputedCommandHelp, i as parseCliProfileArgs, n as createGatewayStartupTrace, r as applyCliProfileEnv, t as configureGatewayStartupTraceConsoleFormatting } from "../startup-trace-B2EYxjPf.js";
 import { t as normalizeWindowsArgv } from "../windows-argv-8XbjFcoh.js";
-import { t as assertSupportedRuntime } from "../runtime-guard-V6qd1oW6.js";
+import { t as assertSupportedRuntime } from "../runtime-guard-B4NeRnVJ.js";
 import { n as resolveManifestCommandAliasOwnerInRegistry, r as resolveManifestToolOwnerInRegistry } from "../manifest-command-aliases-B8DIagnu.js";
 import { a as isLoopbackAddress, l as isSecureWebSocketUrl } from "../net-B22ilI8B.js";
-import { t as ensureOpenClawCliOnPath } from "../path-env-Dt7Wf9uQ.js";
-import { a as shouldSkipPluginCommandRegistration, r as shouldRegisterPrimaryCommandOnly, t as isReservedNonPluginCommandRoot } from "../command-registration-policy-DfVbI5Fh.js";
+import { t as ensureOpenClawCliOnPath } from "../path-env-tiBrEueK.js";
+import { a as shouldSkipPluginCommandRegistration, r as shouldRegisterPrimaryCommandOnly, t as isReservedNonPluginCommandRoot } from "../command-registration-policy-Cfr-tW1z.js";
 import { n as resolveCliNetworkProxyPolicy, t as resolveCliCommandPathPolicy } from "../command-path-policy-w8xXX0Qu.js";
-import { t as resolveCliStartupPolicy } from "../command-startup-policy-DAk85Ac6.js";
+import { t as resolveCliStartupPolicy } from "../command-startup-policy-CmMA-ufG.js";
 import { t as isUnconfiguredConfigSource } from "../fresh-install-config-DhP5LyQI.js";
 import { i as withConsoleLogsRoutedToStderrForJson, n as hasJsonOutputFlag, r as withConsoleLogsRoutedToStderr } from "../json-output-mode-BBbjwPbU.js";
 import { t as formatCliCommandSuggestions } from "../command-suggestions-D8abp3R0.js";
@@ -148,10 +148,10 @@ const CLI_PROXY_ENV_KEYS = [
 ];
 const loadRootHelpLiveConfigModule = async () => await import("../root-help-live-config-DLFpCf-w.js");
 const loadRootHelpMetadataModule = async () => await import("../root-help-metadata-BjR0rGWA.js");
-const loadLoggingModule = async () => await import("../logging-CK6VZ760.js");
-const loadCliRegistryLoaderModule = async () => await import("../cli-registry-loader-Oxh8qgL4.js");
-const loadManifestCommandAliasesRuntimeModule = async () => await import("../manifest-command-aliases.runtime-CVPi24CG.js");
-const loadProxyLifecycleModule = async () => await import("../proxy-lifecycle-DUfCxzHl.js");
+const loadLoggingModule = async () => await import("../logging-Bjcw6ryb.js");
+const loadCliRegistryLoaderModule = async () => await import("../cli-registry-loader-B82Lw16E.js");
+const loadManifestCommandAliasesRuntimeModule = async () => await import("../manifest-command-aliases.runtime-HOFpF-FA.js");
+const loadProxyLifecycleModule = async () => await import("../proxy-lifecycle-BwO03hW3.js");
 const loadProgressModule = async () => await import("../progress-9yJEe3sF.js");
 function isRemoteAgentDispatchInvocation(argv, primary) {
 	return primary === "agent" && !argv.includes("--local");
@@ -200,11 +200,11 @@ async function tryRunGatewayRunFastPath(argv, startupTrace) {
 	if (!isGatewayRunFastPathArgv(argv)) return false;
 	const [{ Command }, { addGatewayRunCommand }, { VERSION }, { emitCliBanner }, { resolveCliStartupPolicy }, { ensureCliExecutionBootstrap }, { defaultRuntime }] = await startupTrace.measure("gateway-run-imports", () => Promise.all([
 		import("commander"),
-		import("../run-command-DBjaFWqj.js"),
+		import("../run-command-C-Q4vDHD.js"),
 		import("../version-BmsGkjsI.js"),
 		import("../banner-Dy888sCu.js"),
-		import("../command-startup-policy-DyzrLEtl.js"),
-		import("../command-execution-startup-BjBMTTzZ.js"),
+		import("../command-startup-policy-BPYmoqep.js"),
+		import("../command-execution-startup-FblE5Smm.js"),
 		import("../runtime-BpncsYKr.js")
 	]));
 	const commandPath = resolveGatewayCatalogCommandPath(argv) ?? ["gateway"];
@@ -227,7 +227,7 @@ async function tryRunGatewayRunFastPath(argv, startupTrace) {
 		let skipPristineStartupStateMigrations = false;
 		let skipPristineCoreStateMigrations = false;
 		if (!await startupTrace.measure("gateway-run-pre-bootstrap", async () => {
-			const { prepareGatewayRunBootstrap, recheckGatewayRunBootstrap, wasPreparedGatewayRunCoreStatePristine, wasPreparedGatewayRunStatePristine } = await import("../pre-bootstrap-DMSxPlaw.js");
+			const { prepareGatewayRunBootstrap, recheckGatewayRunBootstrap, wasPreparedGatewayRunCoreStatePristine, wasPreparedGatewayRunStatePristine } = await import("../pre-bootstrap-DeW3uFyz.js");
 			const prepared = await prepareGatewayRunBootstrap({
 				opts,
 				runtime: defaultRuntime
@@ -253,7 +253,7 @@ async function tryRunGatewayRunFastPath(argv, startupTrace) {
 				...skipPristineStartupStateMigrations ? { skipPristineStartupStateMigrations: true } : {},
 				...skipPristineCoreStateMigrations ? { skipPristineCoreStateMigrations: true } : {}
 			});
-			const { reloadTrustedGatewayRunEnvironment } = await import("../pre-bootstrap-DMSxPlaw.js");
+			const { reloadTrustedGatewayRunEnvironment } = await import("../pre-bootstrap-DeW3uFyz.js");
 			await reloadTrustedGatewayRunEnvironment({ runtime: defaultRuntime });
 		});
 	};
@@ -270,13 +270,13 @@ async function closeCliMemoryManagers() {
 	try {
 		const { hasMemoryRuntime } = await import("../plugins/memory-state.js");
 		if (!hasMemoryRuntime()) return;
-		const { closeActiveMemorySearchManagers } = await import("../memory-runtime-Cudv_-gQ.js");
+		const { closeActiveMemorySearchManagers } = await import("../memory-runtime-Blxc5xwy.js");
 		await closeActiveMemorySearchManagers();
 	} catch {}
 }
 async function disposeCliAgentHarnesses() {
 	try {
-		const { listRegisteredAgentHarnesses, disposeRegisteredAgentHarnesses } = await import("../registry-DNoi8BHL.js");
+		const { listRegisteredAgentHarnesses, disposeRegisteredAgentHarnesses } = await import("../registry-6PL9DqbD.js");
 		if (listRegisteredAgentHarnesses().length === 0) return;
 		await disposeRegisteredAgentHarnesses();
 	} catch {}
@@ -285,7 +285,7 @@ async function closeCliMcpLoopbackServer() {
 	try {
 		const { getActiveMcpLoopbackRuntime } = await import("../mcp-http.loopback-runtime-BuVgLGSa.js");
 		if (!getActiveMcpLoopbackRuntime()) return;
-		const { closeMcpLoopbackServer } = await import("../mcp-http-Dt8WX-rY.js");
+		const { closeMcpLoopbackServer } = await import("../mcp-http-C3YQli0W.js");
 		await closeMcpLoopbackServer();
 	} catch {}
 }
@@ -297,7 +297,7 @@ function isUnconfiguredConfigSnapshot(snapshot) {
 async function shouldStartLocalOnboarding(snapshot) {
 	if (isUnconfiguredConfigSnapshot(snapshot)) return true;
 	if (!snapshot.valid || snapshot.sourceConfig.gateway?.mode === "remote") return false;
-	const { readLocalOnboardingStateForConfig } = await import("../local-onboarding-state-DXdl4oSf.js");
+	const { readLocalOnboardingStateForConfig } = await import("../local-onboarding-state-BDRTwv4h.js");
 	return readLocalOnboardingStateForConfig(snapshot.path, snapshot.sourceConfig)?.status === "pending";
 }
 async function shouldStartOnboardingForFreshInstall(argv) {
@@ -363,7 +363,7 @@ async function resolveReachableGateway(config, options) {
 	const targets = await resolveGatewayProbeTargets(config);
 	if (targets.length === 0) return { kind: "unreachable" };
 	const auth = await resolveGatewayProbeAuth(config, targets.some((target) => target.auth === "remote") ? "remote" : "local");
-	const { probeGatewayConfiguredModel } = await import("../onboard-helpers-CKVn1bCG.js");
+	const { probeGatewayConfiguredModel } = await import("../onboard-helpers-Dxm_i9Uy.js");
 	let missingModelGateway;
 	let reachableUnverifiedGateway;
 	let configuredGateway;
@@ -401,7 +401,7 @@ async function resolveReachableGateway(config, options) {
 	return { kind: "unreachable" };
 }
 async function resolveGatewayProbeAuth(config, auth) {
-	const { resolveGatewayProbeSurfaceAuth } = await import("../auth-surface-resolution-7vO6j3D8.js");
+	const { resolveGatewayProbeSurfaceAuth } = await import("../auth-surface-resolution-DfHnSFDk.js");
 	const authResolution = await resolveGatewayProbeSurfaceAuth({
 		config,
 		surface: auth
@@ -462,9 +462,9 @@ async function resolveValidatedRemoteGatewayUrl(config) {
 async function resolveLocalGatewayProbeTargets(config) {
 	const [{ resolveGatewayPort }, { resolveControlUiLinks }, { buildGatewayProbeConnectionDetails }, { readActiveGatewayLockPort }] = await Promise.all([
 		import("../paths-DRqu1KUT.js"),
-		import("../control-ui-links-6WuBZZIW.js"),
-		import("../call-ujGvHIZc.js"),
-		import("../gateway-lock-Db2v7iEo.js")
+		import("../control-ui-links-CGycJqCZ.js"),
+		import("../call-DctZOBCQ.js"),
+		import("../gateway-lock-MRYQL4Zv.js")
 	]);
 	const gateway = config.gateway;
 	const configuredPort = resolveGatewayPort(config);
@@ -589,7 +589,7 @@ async function ensureCliEnvProxyDispatcher() {
 	try {
 		const { hasEnvHttpProxyAgentConfigured } = await import("../proxy-env-IZKJG2YA.js");
 		if (!hasEnvHttpProxyAgentConfigured()) return;
-		const { ensureGlobalUndiciEnvProxyDispatcher } = await import("../undici-global-dispatcher-zGxBtaCA.js");
+		const { ensureGlobalUndiciEnvProxyDispatcher } = await import("../undici-global-dispatcher-BKllF2mO.js");
 		ensureGlobalUndiciEnvProxyDispatcher();
 	} catch {}
 }
@@ -695,7 +695,7 @@ async function resolveUnownedCliPrimaryMessage(params) {
 	return [`Unknown command: openclaw ${params.primary}. No built-in command or plugin CLI metadata owns "${params.primary}".`, suggestion].filter(Boolean).join("\n");
 }
 async function bootstrapCliProxyCaptureAndDispatcher(startupTrace, options = {}) {
-	const [{ initializeDebugProxyCapture, finalizeDebugProxyCapture }, { maybeWarnAboutDebugProxyCoverage }] = await startupTrace.measure("proxy-imports", () => Promise.all([import("../runtime-CqBDgNjK.js"), import("../coverage-8MV2fWGj.js")]));
+	const [{ initializeDebugProxyCapture, finalizeDebugProxyCapture }, { maybeWarnAboutDebugProxyCoverage }] = await startupTrace.measure("proxy-imports", () => Promise.all([import("../runtime-C2H1Z_iW.js"), import("../coverage-8MV2fWGj.js")]));
 	initializeDebugProxyCapture("cli");
 	process$1.once("exit", () => {
 		finalizeDebugProxyCapture();
@@ -770,10 +770,10 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 	assertSupportedRuntime();
 	if (!isHelpOrVersionInvocation && !isAgentExecInvocation(normalizedInvocation.commandPath) && (isGatewayRunInvocation || shouldLoadCliDotEnv())) await startupTrace.measure("dotenv", async () => {
 		if (isRemoteAgentDispatchInvocation(normalizedArgv, normalizedInvocation.primary)) {
-			const { loadGatewayDispatchCliDotEnv } = await import("../gateway-dispatch-dotenv-272JynRz.js");
+			const { loadGatewayDispatchCliDotEnv } = await import("../gateway-dispatch-dotenv-WLkICwzh.js");
 			await loadGatewayDispatchCliDotEnv({ quiet: true });
 		} else {
-			const { loadCliDotEnv } = await import("../dotenv-BMa-Kdz_.js");
+			const { loadCliDotEnv } = await import("../dotenv--g1mb6ER.js");
 			loadCliDotEnv({
 				loadGlobalEnv: !isGatewayRunInvocation,
 				quiet: true
@@ -782,7 +782,7 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 	});
 	await configureStartupTraces();
 	if (!isHelpOrVersionInvocation && isGatewayRunInvocation) await startupTrace.measure("gateway-run-select-environment", async () => {
-		const [{ selectGatewayRunEnvironment }, { defaultRuntime }] = await Promise.all([import("../pre-bootstrap-DMSxPlaw.js"), import("../runtime-BpncsYKr.js")]);
+		const [{ selectGatewayRunEnvironment }, { defaultRuntime }] = await Promise.all([import("../pre-bootstrap-DeW3uFyz.js"), import("../runtime-BpncsYKr.js")]);
 		await selectGatewayRunEnvironment({
 			opts: resolveGatewayRunPreBootstrapOptions(normalizedArgv) ?? {},
 			runtime: defaultRuntime
@@ -804,7 +804,7 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 		env: process$1.env
 	}).skipConfigGuard;
 	const readBestEffortCliConfig = async () => {
-		if (!bestEffortConfigPromise) bestEffortConfigPromise = import("../io-Dzf83G4H.js").then(({ readBestEffortConfig }) => readBestEffortConfig({
+		if (!bestEffortConfigPromise) bestEffortConfigPromise = import("../io-KBO9NxB7.js").then(({ readBestEffortConfig }) => readBestEffortConfig({
 			...isolateProxyConfigEnv ? {
 				isolateEnv: true,
 				observe: false
@@ -908,13 +908,13 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 				const { outputPrecomputedRootHelpText } = await loadRootHelpMetadataModule();
 				if (outputPrecomputedRootHelpText()) return;
 			}
-			const { outputRootHelp } = await import("../root-help-CqpZXEZT.js");
+			const { outputRootHelp } = await import("../root-help-BbtKClsK.js");
 			await outputRootHelp(liveRootHelpOptions ?? void 0);
 			return;
 		}
 		if (await tryOutputPrecomputedCommandHelp(normalizedArgv)) return;
 		if (shouldUseSetupOnboardConfigureHelpFastPath(normalizedArgv)) {
-			const { tryOutputSetupOnboardConfigureHelp } = await import("../setup-onboard-configure-help-fast-path-BfN-2i3F.js");
+			const { tryOutputSetupOnboardConfigureHelp } = await import("../setup-onboard-configure-help-fast-path-MdUEklGl.js");
 			if (await tryOutputSetupOnboardConfigureHelp(normalizedArgv)) return;
 		}
 		await installConsoleCapture();
@@ -939,7 +939,7 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 					process$1.exitCode = 1;
 					return;
 				}
-				const { runRemoteGatewayInferenceOnboarding } = await import("../onboard-remote-gateway-l1HfwUzM.js");
+				const { runRemoteGatewayInferenceOnboarding } = await import("../onboard-remote-gateway-Blyk2dTJ.js");
 				await runRemoteGatewayInferenceOnboarding(bareRootLaunchTarget.target);
 				return;
 			}
@@ -949,7 +949,7 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 					process$1.exitCode = 1;
 					return;
 				}
-				const { setupWizardCommand } = await import("../onboard-D7wyzTeB.js");
+				const { setupWizardCommand } = await import("../onboard-DNvu2QQ5.js");
 				await setupWizardCommand(bareRootLaunchTarget.classic ? { classic: true } : {});
 				return;
 			}
@@ -959,7 +959,7 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 					process$1.exitCode = 1;
 					return;
 				}
-				const { launchTuiCli } = await import("../tui-launch-BDe0EceF.js");
+				const { launchTuiCli } = await import("../tui-launch-CwXRFyQM.js");
 				const tuiOptions = bareRootLaunchTarget.local ? {
 					deliver: false,
 					local: true
@@ -979,7 +979,7 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 		if (!bootstrapProxyBeforeFastPath && await tryRunGatewayRunFastPath(normalizedArgv, startupTrace)) return;
 		if (!isHelpOrVersionInvocation) await bootstrapCliProxyCaptureAndDispatcher(startupTrace, { ensureDispatcher: shouldUseCliEnvProxy });
 		if (bootstrapProxyBeforeFastPath && await tryRunGatewayRunFastPath(normalizedArgv, startupTrace)) return;
-		const { tryRouteCli } = await startupTrace.measure("route-import", () => import("../route-WMP7sM6O.js"));
+		const { tryRouteCli } = await startupTrace.measure("route-import", () => import("../route-vXHAIY74.js"));
 		if (await startupTrace.measure("route", () => options.builtInMachineOutput ? tryRouteCli(normalizedArgv, { machineOutput: true }) : tryRouteCli(normalizedArgv), { timeline: false })) return;
 		let parseArgv = normalizeGeneratedHelpCommandArgv(normalizedArgv);
 		const suppressStartupProgress = hasJsonOutputFlag(parseArgv);
@@ -998,11 +998,11 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 		};
 		try {
 			const [{ buildProgram }, { formatUncaughtError }, { formatCliFailureLines }, { runFatalErrorHooks }, { installUnhandledRejectionHandler, isBenignUncaughtExceptionError, isUncaughtExceptionHandled }, { restoreRuntimeTerminalState }] = await startupTrace.measure("core-imports", () => Promise.all([
-				import("../program-GW1lOfPQ.js"),
+				import("../program-CDjKgEAX.js"),
 				import("../infra/errors.js"),
-				import("../failure-output-t_3e-TcB.js"),
+				import("../failure-output-QpQ0Ugu4.js"),
 				import("../fatal-error-hooks-BiXaGF_Q.js"),
-				import("../unhandled-rejections-2yS5z9S8.js"),
+				import("../unhandled-rejections-DlYiJKVa.js"),
 				import("../runtime-BpncsYKr.js")
 			]));
 			const program = await startupTrace.measure("build-program", () => buildProgram());
@@ -1031,10 +1031,10 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 				const { getProgramContext } = await import("../program-context-C5CVUqfZ.js");
 				const ctx = getProgramContext(program);
 				if (ctx) {
-					const { registerCoreCliByName } = await import("../command-registry-DonAA0-F.js");
+					const { registerCoreCliByName } = await import("../command-registry-Ac38ddTn.js");
 					await registerCoreCliByName(program, ctx, primary, parseArgv);
 				}
-				const { registerSubCliByName } = await import("../register.subclis-kgi5eTcf.js");
+				const { registerSubCliByName } = await import("../register.subclis-DBQ7MDra.js");
 				await registerSubCliByName(program, primary, parseArgv);
 			});
 			const hasBuiltinPrimary = primary !== null && program.commands.some((command) => command.name() === primary || command.aliases().includes(primary));
@@ -1044,7 +1044,7 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 				hasBuiltinPrimary
 			})) {
 				const config = await startupTrace.measure("register-plugin-commands", async () => {
-					const [{ registerPluginCliCommandsFromValidatedConfig }, { resolveCliStartupPolicy }] = await Promise.all([import("../cli-BZJxGH08.js"), import("../command-startup-policy-DyzrLEtl.js")]);
+					const [{ registerPluginCliCommandsFromValidatedConfig }, { resolveCliStartupPolicy }] = await Promise.all([import("../cli-13RSR3oD.js"), import("../command-startup-policy-BPYmoqep.js")]);
 					const startupPolicy = resolveCliStartupPolicy({
 						argv: parseArgv,
 						commandPath: invocation.commandPath,

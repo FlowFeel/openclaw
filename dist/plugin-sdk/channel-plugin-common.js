@@ -1,10 +1,10 @@
 import { n as normalizeAccountId, t as DEFAULT_ACCOUNT_ID } from "../account-id-CIVg1QNG.js";
-import { s as getChatChannelMeta } from "../registry-DqHlaOgA.js";
+import { s as getChatChannelMeta } from "../registry-Ddw5GtUg.js";
 import { a as buildChannelConfigSchema } from "../config-schema-CPBvH4gM.js";
 import { n as deleteAccountFromConfigSection, r as setAccountEnabledInConfigSection, t as clearAccountEntryFields } from "../config-helpers-DII6k2NF.js";
 import { n as formatPairingApproveHint } from "../helpers-B381bECH.js";
 import { r as emptyPluginConfigSchema } from "../config-schema-Cjz2ed1U.js";
-import { o as migrateBaseNameToDefaultAccount, t as applyAccountNameToChannelSection } from "../setup-helpers-t3GC4Z1N.js";
+import { o as migrateBaseNameToDefaultAccount, t as applyAccountNameToChannelSection } from "../setup-helpers-Clze7-j-.js";
 import { t as PAIRING_APPROVED_MESSAGE } from "../pairing-message-DNhqI-OE.js";
-import "../channel-plugin-common-CbDMp58p.js";
+import "../channel-plugin-common-BA7IQQ_g.js";
 export { DEFAULT_ACCOUNT_ID, PAIRING_APPROVED_MESSAGE, applyAccountNameToChannelSection, buildChannelConfigSchema, clearAccountEntryFields, deleteAccountFromConfigSection, emptyPluginConfigSchema, formatPairingApproveHint, getChatChannelMeta, migrateBaseNameToDefaultAccount, normalizeAccountId, setAccountEnabledInConfigSection };

@@ -1,2 +1,2 @@
-import { t as senseaudioMediaUnderstandingProvider } from "../../media-understanding-provider--M2MKLFq.js";
+import { t as senseaudioMediaUnderstandingProvider } from "../../media-understanding-provider-BeelesVk.js";
 export { senseaudioMediaUnderstandingProvider };

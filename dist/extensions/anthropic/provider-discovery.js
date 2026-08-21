@@ -1,2 +1,2 @@
-import { n as resolveClaudeCliSyntheticAuth, t as anthropicProviderDiscovery } from "../../provider-discovery-CiBwnlrO.js";
+import { n as resolveClaudeCliSyntheticAuth, t as anthropicProviderDiscovery } from "../../provider-discovery-CvqH5bnt.js";
 export { anthropicProviderDiscovery as default, resolveClaudeCliSyntheticAuth };

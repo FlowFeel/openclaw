@@ -1,10 +1,10 @@
 import { c as normalizeOptionalString } from "../../string-coerce-DW4mBlAt.js";
 import { r as createLazyRuntimeModule } from "../../lazy-runtime-CgCh8H_K.js";
-import { r as formatErrorMessage } from "../../errors-Cg_yT1Sv.js";
-import "../../error-runtime-Dbl9_3mW.js";
+import { r as formatErrorMessage } from "../../errors-D-7D3ZtF.js";
+import "../../error-runtime-Nqb-RQG4.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
 //#region extensions/matrix/src/plugin-entry.runtime.ts
-const loadMatrixVerificationRuntime = createLazyRuntimeModule(() => import("../../verification-Ca9SOdCO.js"));
+const loadMatrixVerificationRuntime = createLazyRuntimeModule(() => import("../../verification-BEuGEjh5.js"));
 function sendError(respond, err) {
 	respond(false, { error: formatErrorMessage(err) });
 }

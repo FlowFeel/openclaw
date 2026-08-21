@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-import { i as formatUncaughtError } from "./errors-Cg_yT1Sv.js";
-import { t as formatCliFailureLines } from "./failure-output-P7C2SOPu.js";
+import { i as formatUncaughtError } from "./errors-D-7D3ZtF.js";
+import { t as formatCliFailureLines } from "./failure-output-DU1KMIM9.js";
 import { n as runCliWithExitFinalization } from "./one-shot-exit-B87g-N4r.js";
 import { r as runFatalErrorHooks } from "./fatal-error-hooks-Cu2jsdBV.js";
 import { t as isMainModule } from "./is-main-CH4EEB_R.js";
-import { n as isBenignUncaughtExceptionError, o as isUncaughtExceptionHandled, t as installUnhandledRejectionHandler } from "./unhandled-rejections-CyRemXOR.js";
+import { n as isBenignUncaughtExceptionError, o as isUncaughtExceptionHandled, t as installUnhandledRejectionHandler } from "./unhandled-rejections-5K00oho9.js";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 //#region src/index.ts
@@ -39,7 +39,7 @@ async function runLegacyCliEntry(argv = process.argv, deps, options) {
 	await runCli(argv, options);
 }
 const isMain = isMainModule({ currentFile: fileURLToPath(import.meta.url) });
-if (!isMain) ({applyTemplate, createDefaultDeps, deriveSessionKey, describePortOwner, ensureBinary, ensurePortAvailable, getReplyFromConfig, handlePortError, loadConfig, loadSessionStore, monitorWebChannel, normalizeE164, PortInUseError, promptYesNo, resolveSessionKey, resolveStorePath, runCommandWithTimeout, runExec, saveSessionStore, waitForever} = await import("./library-qEF-5uTN.js"));
+if (!isMain) ({applyTemplate, createDefaultDeps, deriveSessionKey, describePortOwner, ensureBinary, ensurePortAvailable, getReplyFromConfig, handlePortError, loadConfig, loadSessionStore, monitorWebChannel, normalizeE164, PortInUseError, promptYesNo, resolveSessionKey, resolveStorePath, runCommandWithTimeout, runExec, saveSessionStore, waitForever} = await import("./library-DFNMANOS.js"));
 if (isMain) {
 	const { restoreRuntimeTerminalState } = await import("./runtime-BpncsYKr.js");
 	installUnhandledRejectionHandler();

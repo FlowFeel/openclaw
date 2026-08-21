@@ -1,7 +1,7 @@
-import { n as createLiveTransportQaCliRegistration, s as runLiveTransportQaSuiteCommand, t as createLazyCliRuntimeLoader } from "../../qa-runner-runtime-DzVb4LKn.js";
+import { n as createLiveTransportQaCliRegistration, s as runLiveTransportQaSuiteCommand, t as createLazyCliRuntimeLoader } from "../../qa-runner-runtime-BpTfVp5H.js";
 //#region extensions/buzz/src/qa/cli.ts
 const DEFAULT_BUZZ_QA_SCENARIOS = ["channel-canary", "channel-mention-gating"];
-const loadBuzzQaAdapterRuntime = createLazyCliRuntimeLoader(() => import("../../adapter.runtime-YRsraVpx.js"));
+const loadBuzzQaAdapterRuntime = createLazyCliRuntimeLoader(() => import("../../adapter.runtime-C8b31Q4J.js"));
 async function runQaBuzz(options) {
 	await runLiveTransportQaSuiteCommand({
 		channelId: "buzz",

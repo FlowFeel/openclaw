@@ -1,10 +1,10 @@
 import { t as DEFAULT_ACCOUNT_ID } from "../../account-id-CIVg1QNG.js";
 import { a as buildChannelConfigSchema } from "../../config-schema-CPBvH4gM.js";
 import { n as describeAccountSnapshot } from "../../account-helpers-Dal2iRvY.js";
-import { i as createDelegatedSetupWizardProxy } from "../../setup-credential-ASZO-4c5.js";
-import "../../setup-runtime-B3zeWYrb.js";
-import { t as NostrConfigSchema } from "../../config-schema-CQxoNBYQ.js";
-import { i as createNostrSetupStatus, n as createNostrSetupAdapter, o as DEFAULT_RELAYS, r as createNostrSetupContract } from "../../setup-adapter-XeWLgdbr.js";
+import { i as createDelegatedSetupWizardProxy } from "../../setup-credential-BpH9R_y0.js";
+import "../../setup-runtime-CB6BLGeO.js";
+import { t as NostrConfigSchema } from "../../config-schema-Dh5r5vu_.js";
+import { i as createNostrSetupStatus, n as createNostrSetupAdapter, o as DEFAULT_RELAYS, r as createNostrSetupContract } from "../../setup-adapter-DYoC9ZHs.js";
 //#region extensions/nostr/src/channel.setup.ts
 const channel = "nostr";
 function getNostrConfig(cfg) {
@@ -41,7 +41,7 @@ function resolveSetupNostrAccount(params) {
 }
 const nostrSetupWizard = createDelegatedSetupWizardProxy({
 	channel,
-	loadWizard: async () => (await import("../../setup-surface-CiYGxhhY.js")).nostrSetupWizard,
+	loadWizard: async () => (await import("../../setup-surface-CHZjhK7I.js")).nostrSetupWizard,
 	status: createNostrSetupStatus(resolveSetupNostrAccount),
 	resolveShouldPromptAccountIds: () => false,
 	delegatePrepare: true,

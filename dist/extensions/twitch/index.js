@@ -1,4 +1,4 @@
-import { t as defineBundledChannelEntry } from "../../channel-entry-contract-DxDc4pHR.js";
+import { t as defineBundledChannelEntry } from "../../channel-entry-contract-BqXCQUt5.js";
 //#region extensions/twitch/index.ts
 var twitch_default = defineBundledChannelEntry({
 	id: "twitch",

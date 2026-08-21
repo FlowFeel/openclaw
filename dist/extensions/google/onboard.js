@@ -1,2 +1,2 @@
-import { n as applyGoogleGeminiModelDefault, t as GOOGLE_GEMINI_DEFAULT_MODEL } from "../../onboard-Ch8EmPaK.js";
+import { n as applyGoogleGeminiModelDefault, t as GOOGLE_GEMINI_DEFAULT_MODEL } from "../../onboard-Bux2kHlO.js";
 export { GOOGLE_GEMINI_DEFAULT_MODEL, applyGoogleGeminiModelDefault };

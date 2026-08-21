@@ -1,6 +1,6 @@
 import { n as describeAccountSnapshot } from "../../account-helpers-Dal2iRvY.js";
 import { a as resolveDefaultBuzzAccountId, n as listBuzzAccountIds, r as resolveBuzzAccount } from "../../types-CJFyWMAi.js";
-import { a as BuzzConfigSchema, n as buzzSetupContract, t as buzzSetupWizard } from "../../setup-surface-BlaY4R_r.js";
+import { a as BuzzConfigSchema, n as buzzSetupContract, t as buzzSetupWizard } from "../../setup-surface-LRZwXRQp.js";
 //#region extensions/buzz/src/channel.setup.ts
 const buzzSetupPlugin = {
 	id: "buzz",

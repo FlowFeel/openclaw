@@ -1,5 +1,5 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { t as createDiagnosticsOtelService } from "../../runtime-api-CF8k3urW.js";
+import { t as createDiagnosticsOtelService } from "../../runtime-api-BuLcx6vl.js";
 //#region extensions/diagnostics-otel/index.ts
 var diagnostics_otel_default = definePluginEntry({
 	id: "diagnostics-otel",

@@ -1,5 +1,5 @@
-import { n as buildGoogleStaticCatalogProvider, r as buildGoogleVertexStaticCatalogProvider } from "../../provider-catalog-D3Ayi0tI.js";
-import { r as resolveGoogleVertexConfigApiKey } from "../../vertex-adc-NURvq4ij.js";
+import { n as buildGoogleStaticCatalogProvider, r as buildGoogleVertexStaticCatalogProvider } from "../../provider-catalog-DZz9__Gd.js";
+import { r as resolveGoogleVertexConfigApiKey } from "../../vertex-adc-Bg7g4GCF.js";
 //#region extensions/google/provider-discovery.ts
 const googleProviderDiscovery = {
 	id: "google",

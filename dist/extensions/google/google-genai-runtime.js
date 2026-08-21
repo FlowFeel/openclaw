@@ -1,2 +1,2 @@
-import { t as createGoogleGenAI } from "../../google-genai-runtime-vwWmiC1I.js";
+import { t as createGoogleGenAI } from "../../google-genai-runtime-CoO4Lzde.js";
 export { createGoogleGenAI };

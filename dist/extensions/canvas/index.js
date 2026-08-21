@@ -1,10 +1,10 @@
 import { r as createLazyRuntimeModule } from "../../lazy-runtime-CgCh8H_K.js";
-import { r as formatErrorMessage } from "../../errors-Cg_yT1Sv.js";
-import "../../error-runtime-Dbl9_3mW.js";
+import { r as formatErrorMessage } from "../../errors-D-7D3ZtF.js";
+import "../../error-runtime-Nqb-RQG4.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
 import { n as validateSupportedA2UIJsonl } from "../../a2ui-jsonl-DeIxQ_ge.js";
-import { n as CANVAS_HOST_PATH, o as canvasConfigSchema, r as CANVAS_WS_PATH, s as isCanvasHostEnabled, t as A2UI_PATH } from "../../a2ui-shared-e4RdJX--.js";
-import { t as CanvasToolSchema } from "../../tool-schema-D7tAHpPK.js";
+import { n as CANVAS_HOST_PATH, o as canvasConfigSchema, r as CANVAS_WS_PATH, s as isCanvasHostEnabled, t as A2UI_PATH } from "../../a2ui-shared-C-Nk2LFW.js";
+import { t as CanvasToolSchema } from "../../tool-schema-Cx2olLuS.js";
 //#region extensions/canvas/index.ts
 const CANVAS_NODE_COMMANDS = [
 	"canvas.present",
@@ -17,7 +17,7 @@ const CANVAS_NODE_COMMANDS = [
 	"canvas.a2ui.reset"
 ];
 function createLazyCanvasTool(params) {
-	const loadTool = createLazyRuntimeModule(() => import("../../tool-BfHdPPGz.js").then(({ createCanvasTool }) => createCanvasTool({
+	const loadTool = createLazyRuntimeModule(() => import("../../tool-ndLThLic.js").then(({ createCanvasTool }) => createCanvasTool({
 		config: params.config,
 		workspaceDir: params.workspaceDir,
 		agentSessionKey: params.agentSessionKey
@@ -44,7 +44,7 @@ var canvas_default = definePluginEntry({
 	] },
 	register(api) {
 		if (isCanvasHostEnabled(api.config)) {
-			const httpRouteHandlerLoader = createLazyRuntimeModule(() => import("../../http-route-CFZi0lZe.js").then(({ createCanvasHttpRouteHandler }) => createCanvasHttpRouteHandler({
+			const httpRouteHandlerLoader = createLazyRuntimeModule(() => import("../../http-route-CZSJLesJ.js").then(({ createCanvasHttpRouteHandler }) => createCanvasHttpRouteHandler({
 				config: api.config,
 				pluginConfig: api.pluginConfig,
 				runtime: {
@@ -123,7 +123,7 @@ var canvas_default = definePluginEntry({
 			agentSessionKey: ctx.sessionKey
 		}));
 		api.registerNodeCliFeature(async ({ program }) => {
-			const { createDefaultCanvasCliDependencies, registerNodesCanvasCommands } = await import("../../cli-D9pPl-Wx.js");
+			const { createDefaultCanvasCliDependencies, registerNodesCanvasCommands } = await import("../../cli-BEVzOvNx.js");
 			registerNodesCanvasCommands(program, createDefaultCanvasCliDependencies());
 		}, { descriptors: [{
 			name: "canvas",

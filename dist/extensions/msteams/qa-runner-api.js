@@ -1,7 +1,7 @@
-import { n as createLiveTransportQaCliRegistration, s as runLiveTransportQaSuiteCommand, t as createLazyCliRuntimeLoader } from "../../qa-runner-runtime-DzVb4LKn.js";
+import { n as createLiveTransportQaCliRegistration, s as runLiveTransportQaSuiteCommand, t as createLazyCliRuntimeLoader } from "../../qa-runner-runtime-BpTfVp5H.js";
 //#region extensions/msteams/src/qa/cli.ts
 const DEFAULT_MSTEAMS_QA_SCENARIOS = ["channel-canary"];
-const loadMSTeamsQaAdapterRuntime = createLazyCliRuntimeLoader(() => import("../../adapter.runtime-BA2baN0W.js"));
+const loadMSTeamsQaAdapterRuntime = createLazyCliRuntimeLoader(() => import("../../adapter.runtime-DrU4AyrG.js"));
 async function runQaMSTeams(options) {
 	await runLiveTransportQaSuiteCommand({
 		channelId: "msteams",

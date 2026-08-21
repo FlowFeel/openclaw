@@ -1,4 +1,4 @@
-import { r as normalizeCommandBody } from "../commands-registry-normalize-BaFSffsi.js";
-import { n as shouldHandleTextCommands } from "../commands-text-routing-CYeQwY3X.js";
-import "../command-surface-CvuOcNf8.js";
+import { r as normalizeCommandBody } from "../commands-registry-normalize-CdLMZZiE.js";
+import { n as shouldHandleTextCommands } from "../commands-text-routing-CutKlF0B.js";
+import "../command-surface-C_Espdug.js";
 export { normalizeCommandBody, shouldHandleTextCommands };

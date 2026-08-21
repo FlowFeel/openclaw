@@ -1,9 +1,9 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
 import { t as FILE_TRANSFER_NODE_INVOKE_COMMANDS } from "../../node-invoke-policy-commands-DfRVjRLi.js";
-import { a as DIR_LIST_TOOL_DESCRIPTOR, c as FILE_FETCH_TOOL_DESCRIPTOR, d as FILE_WRITE_TOOL_DESCRIPTOR, r as DIR_FETCH_TOOL_DESCRIPTOR } from "../../descriptors-CSOtGfoA.js";
+import { a as DIR_LIST_TOOL_DESCRIPTOR, c as FILE_FETCH_TOOL_DESCRIPTOR, d as FILE_WRITE_TOOL_DESCRIPTOR, r as DIR_FETCH_TOOL_DESCRIPTOR } from "../../descriptors-sTTpzkis.js";
 //#region extensions/file-transfer/src/shared/lazy-node-invoke-policy.ts
 const loadFileTransferNodeInvokePolicy = async () => {
-	const { createFileTransferNodeInvokePolicy } = await import("../../node-invoke-policy-BP9-IAXj.js");
+	const { createFileTransferNodeInvokePolicy } = await import("../../node-invoke-policy-DlKIZS7x.js");
 	return createFileTransferNodeInvokePolicy();
 };
 function createLazyFileTransferNodeInvokePolicy(loadPolicy = loadFileTransferNodeInvokePolicy) {
@@ -55,7 +55,7 @@ var file_transfer_default = definePluginEntry({
 			cap: "file",
 			dangerous: true,
 			handle: async (paramsJSON) => {
-				const { handleFileFetch } = await import("../../file-fetch-BZsHiLQf.js");
+				const { handleFileFetch } = await import("../../file-fetch-DFZP6qgs.js");
 				const result = await handleFileFetch(readNodeCommandParams(paramsJSON));
 				return JSON.stringify(result);
 			}
@@ -65,7 +65,7 @@ var file_transfer_default = definePluginEntry({
 			cap: "file",
 			dangerous: true,
 			handle: async (paramsJSON) => {
-				const { handleDirList } = await import("../../dir-list-DqLxpL2C.js");
+				const { handleDirList } = await import("../../dir-list-Dm76k2J0.js");
 				const result = await handleDirList(readNodeCommandParams(paramsJSON));
 				return JSON.stringify(result);
 			}
@@ -75,7 +75,7 @@ var file_transfer_default = definePluginEntry({
 			cap: "file",
 			dangerous: true,
 			handle: async (paramsJSON) => {
-				const { handleDirFetch } = await import("../../dir-fetch-DnH5sQz2.js");
+				const { handleDirFetch } = await import("../../dir-fetch-CS4eHwuc.js");
 				const result = await handleDirFetch(readNodeCommandParams(paramsJSON));
 				return JSON.stringify(result);
 			}
@@ -85,7 +85,7 @@ var file_transfer_default = definePluginEntry({
 			cap: "file",
 			dangerous: true,
 			handle: async (paramsJSON) => {
-				const { handleFileWrite } = await import("../../file-write-BbrrKmEQ.js");
+				const { handleFileWrite } = await import("../../file-write-CYBSPHpr.js");
 				const result = await handleFileWrite(readNodeCommandParams(paramsJSON));
 				return JSON.stringify(result);
 			}
@@ -94,19 +94,19 @@ var file_transfer_default = definePluginEntry({
 	register(api) {
 		api.registerNodeInvokePolicy(createLazyFileTransferNodeInvokePolicy());
 		api.registerTool(createLazyTool(FILE_FETCH_TOOL_DESCRIPTOR, async () => {
-			const { createFileFetchTool } = await import("../../file-fetch-tool-BC0v6SXr.js");
+			const { createFileFetchTool } = await import("../../file-fetch-tool-DLTraLix.js");
 			return createFileFetchTool();
 		}));
 		api.registerTool(createLazyTool(DIR_LIST_TOOL_DESCRIPTOR, async () => {
-			const { createDirListTool } = await import("../../dir-list-tool-DUEiSVtD.js");
+			const { createDirListTool } = await import("../../dir-list-tool-B3aUMzp7.js");
 			return createDirListTool();
 		}));
 		api.registerTool(createLazyTool(DIR_FETCH_TOOL_DESCRIPTOR, async () => {
-			const { createDirFetchTool } = await import("../../dir-fetch-tool-B-L4klLf.js");
+			const { createDirFetchTool } = await import("../../dir-fetch-tool-AnaNOTTI.js");
 			return createDirFetchTool();
 		}));
 		api.registerTool(createLazyTool(FILE_WRITE_TOOL_DESCRIPTOR, async () => {
-			const { createFileWriteTool } = await import("../../file-write-tool-h_54fpaM.js");
+			const { createFileWriteTool } = await import("../../file-write-tool-BG5h_MpY.js");
 			return createFileWriteTool();
 		}));
 	}

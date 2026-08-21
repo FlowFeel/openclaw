@@ -1,2 +1,2 @@
-import { t as waitForTransportReady } from "../transport-ready-BDt5NDBO.js";
+import { t as waitForTransportReady } from "../transport-ready-SxPItSan.js";
 export { waitForTransportReady };

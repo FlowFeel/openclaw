@@ -1,2 +1,2 @@
-import { t as buildLitellmImageGenerationProvider } from "../../image-generation-provider-CjHHpnzM.js";
+import { t as buildLitellmImageGenerationProvider } from "../../image-generation-provider-D8r-pmws.js";
 export { buildLitellmImageGenerationProvider };

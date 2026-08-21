@@ -1,4 +1,4 @@
-import { n as defineBundledChannelSetupEntry } from "../../channel-entry-contract-DxDc4pHR.js";
+import { n as defineBundledChannelSetupEntry } from "../../channel-entry-contract-BqXCQUt5.js";
 //#region extensions/zalo/setup-entry.ts
 var setup_entry_default = defineBundledChannelSetupEntry({
 	importMetaUrl: import.meta.url,

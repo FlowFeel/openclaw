@@ -1,12 +1,12 @@
 import { t as safeEqualSecret } from "../../secret-equal-DRsL8lKD.js";
-import { _ as readStringParam } from "../../common-yW0U9cHP.js";
+import { _ as readStringParam } from "../../common-RkLs-2lL.js";
 import { t as jsonResult } from "../../tool-results-BCM3fdVS.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import "../../core-QIH5yboB.js";
-import "../../security-runtime-Z5eWBqsY.js";
+import "../../core-Djf8nMCZ.js";
+import "../../security-runtime-Dk7rUwxb.js";
 import "../../api-DPZ7KyBV.js";
 import { d as WORKBOARD_STATUSES, m as redactClaimToken } from "../../src-CMxcJXXp.js";
-import { a as WORKBOARD_TOOL_NAMES, c as resolveAgentWorkboardWorkspaceRuntime, i as cleanupWorkboardRunWorktree, l as resolveCommandWorkboardWorkspaceAccess, n as dispatchAndStartWorkboardCards, o as canonicalizeWorkboardWorkspaceAccess, r as WorkboardStore, s as guardWorkboardToolsForWorkspaceAccess, t as registerWorkboardGatewayMethods, u as resolveWorkboardAgentWorkspace } from "../../runtime-api-gCk1dYRU.js";
+import { a as WORKBOARD_TOOL_NAMES, c as resolveAgentWorkboardWorkspaceRuntime, i as cleanupWorkboardRunWorktree, l as resolveCommandWorkboardWorkspaceAccess, n as dispatchAndStartWorkboardCards, o as canonicalizeWorkboardWorkspaceAccess, r as WorkboardStore, s as guardWorkboardToolsForWorkspaceAccess, t as registerWorkboardGatewayMethods, u as resolveWorkboardAgentWorkspace } from "../../runtime-api-DlOw-aD0.js";
 import { t as resolveWorkboardCardByIdOrPrefix } from "../../card-lookup-BoXKYGHH.js";
 import { Type } from "typebox";
 //#region extensions/workboard/src/change-events.ts
@@ -972,7 +972,7 @@ var workboard_default = definePluginEntry({
 			});
 		});
 		api.registerCli(async ({ program }) => {
-			const { registerWorkboardCli } = await import("../../cli-CYUojtIW.js");
+			const { registerWorkboardCli } = await import("../../cli-DOw3Uh2m.js");
 			registerWorkboardCli({
 				program,
 				store

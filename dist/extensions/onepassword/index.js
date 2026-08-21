@@ -1,16 +1,16 @@
 import { o as isRecord } from "../../record-coerce-DHZ4bFlT.js";
-import { n as extractErrorCode } from "../../errors-Cg_yT1Sv.js";
-import { c as normalizePluginsConfig, l as resolveEffectiveEnableState } from "../../config-state-DrPZVhOu.js";
-import { n as runExec } from "../../exec-SGTX01mL.js";
+import { n as extractErrorCode } from "../../errors-D-7D3ZtF.js";
+import { c as normalizePluginsConfig, l as resolveEffectiveEnableState } from "../../config-state-B6-Feb6H.js";
+import { n as runExec } from "../../exec-Bcu-_3pW.js";
 import { t as jsonResult } from "../../tool-results-BCM3fdVS.js";
-import "../../error-runtime-Dbl9_3mW.js";
+import "../../error-runtime-Nqb-RQG4.js";
 import { n as tryReadSecretFileSync } from "../../secret-file-CSUKBUCe.js";
 import "../../secret-file-runtime-CyWaUExj.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { n as resolveLivePluginConfigObject } from "../../plugin-config-runtime-AmbPKaTK.js";
+import { n as resolveLivePluginConfigObject } from "../../plugin-config-runtime-D33X7huv.js";
 import "../../channel-secret-basic-runtime-oPyge9AJ.js";
-import "../../process-runtime-D85QNVP4.js";
-import { t as resolveTrustedOnePasswordCli } from "../../onepassword-op-path-91AoOFo1.js";
+import "../../process-runtime-dAJSGvJr.js";
+import { t as resolveTrustedOnePasswordCli } from "../../onepassword-op-path-DngdWacP.js";
 import { createHash, randomUUID } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
@@ -720,8 +720,8 @@ var onepassword_default = definePluginEntry({
 			}
 		}) : void 0;
 		api.registerCli(async ({ program, config }) => {
-			const { registerOnePasswordCommands } = await import("../../cli-C186JL0P.js");
-			const { registerOnePasswordSecretRefCommands } = await import("../../secret-ref-cli-DHVb0y_E.js");
+			const { registerOnePasswordCommands } = await import("../../cli-CCwGtRN2.js");
+			const { registerOnePasswordSecretRefCommands } = await import("../../secret-ref-cli-CLLxqWZm.js");
 			registerOnePasswordCommands({
 				program,
 				resolveConfig: resolveCurrentConfig,
