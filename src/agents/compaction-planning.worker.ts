@@ -69,11 +69,24 @@ function isWorkerInput(value: unknown): value is CompactionPlanningWorkerInput {
   }
 }
 
-function createMessageIndexer(source: AgentMessage[]): (selected: AgentMessage[]) => number[] {
+export function createMessageIndexer(source: AgentMessage[]): (selected: AgentMessage[]) => number[] {
   const indexByMessage = new Map(source.map((message, index) => [message, index]));
+  
+  const keyMap = new Map<string, number>();
+  for (const [index, message] of source.entries()) {
+    const key = `${message.role}:${message.timestamp}:${JSON.stringify(message.content)}`;
+    if (!keyMap.has(key)) {
+      keyMap.set(key, index);
+    }
+  }
+
   return (selected) =>
     selected.map((message) => {
-      const index = indexByMessage.get(message);
+      let index = indexByMessage.get(message);
+      if (index === undefined) {
+        const key = `${message.role}:${message.timestamp}:${JSON.stringify(message.content)}`;
+        index = keyMap.get(key);
+      }
       if (index === undefined) {
         throw new Error("Compaction planning result contains an unknown message");
       }

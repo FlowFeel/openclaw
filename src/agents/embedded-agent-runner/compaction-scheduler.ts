@@ -31,8 +31,12 @@
 export type CompactionPlanningContext = {
   /** The number of messages in the history to compact. */
   readonly messageCount: number;
+  /** The total estimated characters/bytes in the history to compact. */
+  readonly totalBytes?: number;
   /** Override for the minimum message count that triggers worker offload. */
   readonly minMessagesForWorker?: number;
+  /** Override for the minimum bytes/chars that triggers worker offload. */
+  readonly minBytesForWorker?: number;
   /** True when worker_threads are unavailable (e.g. constrained runtime). */
   readonly workerUnavailable?: boolean;
 };
@@ -43,6 +47,12 @@ export type CompactionPlanningContext = {
  * Matches the fork's original hardcoded threshold (64).
  */
 export const DEFAULT_MIN_MESSAGES_FOR_COMPACTION_WORKER = 64;
+
+/**
+ * The default minimum byte/character count that triggers worker offload.
+ * Offloads small message count histories that contain massive payloads.
+ */
+export const DEFAULT_MIN_BYTES_FOR_COMPACTION_WORKER = 128 * 1024;
 
 /**
  * The chosen compaction planning strategy — a result struct (A6: check-result).
@@ -79,20 +89,31 @@ export function resolveCompactionWorkerThreshold(
 }
 
 /**
+ * Resolve the effective minimum-byte threshold for worker offload.
+ */
+export function resolveCompactionByteThreshold(
+  context: { minBytesForWorker?: number } = {},
+): number {
+  const raw = context.minBytesForWorker;
+  if (typeof raw === "number" && Number.isFinite(raw)) {
+    return Math.max(0, Math.floor(raw));
+  }
+  return DEFAULT_MIN_BYTES_FOR_COMPACTION_WORKER;
+}
+
+/**
  * Decide whether compaction planning should run inline or on a worker.
  *
  * Policy:
  *   - workerUnavailable → inline (can't offload)
- *   - messageCount < threshold → inline (worker startup not worth it)
- *   - messageCount >= threshold → worker (offload CPU-bound planning)
- *
- * @example
- *   resolveCompactionStrategy({ messageCount: 10 })   // → { mode: "inline", threshold: 64, ... }
- *   resolveCompactionStrategy({ messageCount: 100 })  // → { mode: "worker", threshold: 64, ... }
- *   resolveCompactionStrategy({ messageCount: 100, workerUnavailable: true }) // → { mode: "inline", ... }
+ *   - messageCount < threshold AND totalBytes < byteThreshold → inline
+ *   - messageCount >= threshold OR totalBytes >= byteThreshold → worker
  */
 export function resolveCompactionStrategy(context: CompactionPlanningContext): CompactionStrategy {
   const threshold = resolveCompactionWorkerThreshold(context);
+  const byteThreshold = resolveCompactionByteThreshold(context);
+  const totalBytes = context.totalBytes ?? 0;
+
   if (context.messageCount <= 0) {
     return {
       mode: "inline",
@@ -107,17 +128,24 @@ export function resolveCompactionStrategy(context: CompactionPlanningContext): C
       reason: "worker_threads unavailable; planning runs inline",
     };
   }
-  if (context.messageCount < threshold) {
+
+  const exceedsCount = context.messageCount >= threshold;
+  const exceedsBytes = totalBytes >= byteThreshold;
+
+  if (exceedsCount || exceedsBytes) {
     return {
-      mode: "inline",
+      mode: "worker",
       threshold,
-      reason: `messageCount ${context.messageCount} < threshold ${threshold}; worker startup not worth it`,
+      reason: exceedsBytes
+        ? `totalBytes ${totalBytes} >= threshold ${byteThreshold}; offload CPU-bound planning to worker`
+        : `messageCount ${context.messageCount} >= threshold ${threshold}; offload CPU-bound planning to worker`,
     };
   }
+
   return {
-    mode: "worker",
+    mode: "inline",
     threshold,
-    reason: `messageCount ${context.messageCount} >= threshold ${threshold}; offload CPU-bound planning to worker`,
+    reason: `messageCount ${context.messageCount} < threshold ${threshold} and totalBytes ${totalBytes} < threshold ${byteThreshold}; worker startup not worth it`,
   };
 }
 
