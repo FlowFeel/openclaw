@@ -1,0 +1,2 @@
+import { E as definePluginEntry, g as ProviderAuthContext, s as OpenClawPluginApi, v as ProviderAuthResult } from "../../plugin-entry-CHoiSyUn.js";
+export { type OpenClawPluginApi, type ProviderAuthContext, type ProviderAuthResult, definePluginEntry };

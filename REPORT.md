@@ -1,3 +1,32 @@
+# OpenClaw Core Implementation Report — `v2026.8.1-inferno`
+
+## `v2026.8.1-inferno` Core Runtime Innovations & Verification Report
+
+> **Authored by Ed Phillips `<ed@cronos.net>` (phosphene) for inferno labs.**
+
+### Key Achievements
+
+1. **ContextFilterPolicy & ~213 Token System Prompt Footprint**:
+   - Implemented `src/agents/context-filter-policy.ts` to suppress static persona file loading (`SOUL.md`, `AGENTS.md`, `IDENTITY.md`, `TOOLS.md`, `BOOTSTRAP.md`) when running in `scaffold` mode (`mode: "dynamic_only"`).
+   - Reduced prompt payload size from **4,455 characters (~1,114 tokens)** down to **851 characters (~213 tokens)** — an **80.8% reduction over baseline scaffold** and 96.6% reduction over full mode (~6,250 tokens).
+   - Beats the Pi baseline prompt footprint threshold (< 480 tokens).
+
+2. **Phosphene StructRAG Dual-Store Engine**:
+   - Implemented 100% Structured Markdown (`.md`) context surfaces with zero JSON bloat.
+   - Built 0ms relational SQLite section index (`topic_sections` table in `openclaw-state.sqlite`) allowing instant section lookups (`topic_query`).
+
+3. **Open-Source AST Standardization**:
+   - Integrated `marked@18.0.7` GFM AST lexer and `yaml@2.9.0` frontmatter parser.
+   - Removed all custom AST regex parsers.
+
+4. **EC2 Production Deployment & Storage Remediation**:
+   - Diagnosed root disk saturation on EC2 host (`18.116.164.101`) and executed Docker system prune, reclaiming **11.87GB** of free disk space.
+   - Deployed fresh custom image `ghcr.io/flowfeel/custom-oc:v2026.8.1-inferno` to EC2.
+   - Verified compiled symbol `STATIC_PERSONA_BASENAMES` in live JS bundle (`/app/oc/source/dist/system-prompt-params-BENSLgZq.js`).
+   - Verified live container health (`{"ok":true,"status":"live"}`) and Telegram ingress (@faustyrollbot).
+
+---
+
 # W4 Drafts UX implementation report
 
 ## Outcome

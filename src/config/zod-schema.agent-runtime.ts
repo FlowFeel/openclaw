@@ -280,6 +280,7 @@ export const AgentContextLimitsSchema = z
   .object({
     memoryGetMaxChars: z.number().int().min(1).max(250_000).optional(),
     postCompactionMaxChars: z.number().int().min(1).max(50_000).optional(),
+    maxResultChars: z.number().int().min(1).max(250_000).optional(),
   })
   .strict()
   .optional();

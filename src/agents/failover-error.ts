@@ -763,18 +763,98 @@ export function buildFailoverRemediationHint(err: unknown): string | undefined {
   if (!isFailoverError(err)) {
     return undefined;
   }
-  if (err.reason !== "auth" && err.reason !== "auth_permanent") {
+  if (err.reason !== "auth" && err.reason !== "auth_permanent" && err.reason !== "billing") {
     return undefined;
   }
   const provider = err.provider?.trim();
   if (!provider) {
     return undefined;
   }
+
+  const rawText = String(err.rawError || err.message || "");
+
+  if (provider === "openrouter") {
+    if (/key limit exceeded|total limit|insufficient credits|quota/i.test(rawText) || err.reason === "billing" || err.status === 403) {
+      return "OpenRouter API key limit exceeded. Manage key limits or top up balance at: https://openrouter.ai/keys";
+    }
+  }
+
+  if (provider === "openai" && (err.reason === "billing" || /insufficient_quota|quota/i.test(rawText))) {
+    return "OpenAI quota/billing limit reached. Manage plan and billing at: https://platform.openai.com/account/billing";
+  }
+
+  if (provider === "anthropic" && (err.reason === "billing" || /credit balance|billing/i.test(rawText))) {
+    return "Anthropic billing balance depleted. Top up balance at: https://console.anthropic.com/settings/billing";
+  }
+
+  if (err.reason === "billing") {
+    return undefined;
+  }
+
   if (provider === "google-gemini-cli") {
     return `Authenticate in Gemini CLI directly, or configure a supported Google API key with: ${formatCliCommand("openclaw configure")}`;
   }
   const command = buildProviderReauthCommand(provider);
   return command ? `Re-authenticate with: ${command}` : undefined;
+}
+
+/**
+ * Identify fatal account-wide or key-wide exhaustion rejections.
+ * When true, retrying fallback candidate models under the same provider/credentials
+ * is guaranteed to fail identically. Callers should immediately break the fallback loop.
+ */
+export function isFatalProviderExhaustionError(err: unknown, provider?: string): boolean {
+  if (!err) {
+    return false;
+  }
+  const rawText = String(
+    isFailoverError(err)
+      ? (err.rawError || err.message || "")
+      : err instanceof Error
+        ? `${err.name} ${err.message}`
+        : typeof err === "object" && err !== null && "message" in err
+          ? String((err as { message: unknown }).message)
+          : String(err)
+  ).toLowerCase();
+
+  // 1. Check failover error reason flags
+  if (isFailoverError(err)) {
+    if (err.reason === "billing" || err.reason === "auth_permanent") {
+      return true;
+    }
+  }
+
+  // 2. OpenRouter Key Limit / Depletion
+  if (
+    rawText.includes("key limit exceeded") ||
+    rawText.includes("total limit") ||
+    rawText.includes("insufficient credits") ||
+    rawText.includes("credit balance depleted")
+  ) {
+    return true;
+  }
+
+  // 3. OpenAI & Anthropic Quota / Billing Exhaustion
+  if (
+    rawText.includes("insufficient_quota") ||
+    rawText.includes("exceeded your current quota") ||
+    rawText.includes("credit balance is too low") ||
+    rawText.includes("billing account disabled") ||
+    rawText.includes("account deactivated")
+  ) {
+    return true;
+  }
+
+  // 4. Fatal invalid API key (permanent authentication rejection)
+  if (
+    rawText.includes("invalid_api_key") ||
+    rawText.includes("incorrect api key provided") ||
+    rawText.includes("invalid x-api-key")
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 function quotePosixShellArg(value: string): string {

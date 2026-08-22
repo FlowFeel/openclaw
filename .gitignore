@@ -6,6 +6,8 @@ docker-compose.extra.yml
 docker-compose.sandbox.yml
 dist
 dist-runtime/
+!dist/**
+!dist-runtime/**
 dist-sea/
 pnpm-lock.yaml
 bun.lock

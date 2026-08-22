@@ -1,0 +1,1 @@
+../../../dist/extensions/buzz/secret-contract-api.d.ts

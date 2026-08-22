@@ -1,0 +1,1 @@
+../../../dist/extensions/memory-lancedb/cli-output-mode.d.ts

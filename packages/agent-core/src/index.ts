@@ -39,6 +39,7 @@ export {
   prepareCompaction,
   serializeConversation,
   shouldCompact,
+  type CompactionConvergence,
   type CompactionDetails,
   type CompactionPreparation,
   type CompactionResult,

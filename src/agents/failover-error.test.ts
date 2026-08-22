@@ -14,6 +14,7 @@ import {
   FailoverError,
   findCliMaxTurnsError,
   findCliTimeoutError,
+  isFatalProviderExhaustionError,
   isNonProviderRuntimeCoordinationError,
   isSignalTimeoutReason,
   isTimeoutError,
@@ -1615,6 +1616,42 @@ describe("buildFailoverRemediationHint", () => {
     );
   });
 
+  it("returns actionable web console link for OpenRouter key limit exhaustion", () => {
+    const err = new FailoverError("HTTP 403 Key limit exceeded (total limit)", {
+      reason: "auth_permanent",
+      provider: "openrouter",
+      model: "google/gemini-2.5-flash",
+      rawError: '{"error":{"message":"Key limit exceeded (total limit)","code":403}}',
+    });
+    expect(buildFailoverRemediationHint(err)).toBe(
+      "OpenRouter API key limit exceeded. Manage key limits or top up balance at: https://openrouter.ai/keys",
+    );
+  });
+
+  it("returns billing management link for OpenAI quota errors", () => {
+    const err = new FailoverError("insufficient_quota", {
+      reason: "billing",
+      provider: "openai",
+      model: "gpt-4o",
+      rawError: INSUFFICIENT_QUOTA_PAYLOAD,
+    });
+    expect(buildFailoverRemediationHint(err)).toBe(
+      "OpenAI quota/billing limit reached. Manage plan and billing at: https://platform.openai.com/account/billing",
+    );
+  });
+
+  it("returns billing management link for Anthropic billing errors", () => {
+    const err = new FailoverError("credit balance too low", {
+      reason: "billing",
+      provider: "anthropic",
+      model: "claude-3-5-sonnet",
+      rawError: '{"type":"error","error":{"type":"billing_error","message":"Credit balance too low."}}',
+    });
+    expect(buildFailoverRemediationHint(err)).toBe(
+      "Anthropic billing balance depleted. Top up balance at: https://console.anthropic.com/settings/billing",
+    );
+  });
+
   it("quotes provider ids that contain shell metacharacters", () => {
     expect(buildProviderReauthCommand("custom;touch /tmp/pwned")).toBe(
       "openclaw models auth login --provider 'custom;touch /tmp/pwned' --force",
@@ -1691,4 +1728,53 @@ describe("isSignalTimeoutReason", () => {
     expect(isSignalTimeoutReason(undefined)).toBe(false);
   });
 });
+
+describe("isFatalProviderExhaustionError", () => {
+  it("identifies OpenRouter key limit exceeded as fatal provider exhaustion", () => {
+    const err = new FailoverError("HTTP 403 Key limit exceeded (total limit)", {
+      status: 403,
+      provider: "openrouter",
+      model: "deepseek-v4",
+    });
+    expect(isFatalProviderExhaustionError(err)).toBe(true);
+  });
+
+  it("identifies OpenAI insufficient quota as fatal provider exhaustion", () => {
+    const err = new Error("429 You exceeded your current quota, please check your plan and billing details.");
+    expect(isFatalProviderExhaustionError(err)).toBe(true);
+  });
+
+  it("identifies Anthropic credit balance depletion as fatal provider exhaustion", () => {
+    const err = new FailoverError("Your credit balance is too low to access the Claude API", {
+      reason: "billing",
+      provider: "anthropic",
+      model: "claude-3-5-sonnet",
+    });
+    expect(isFatalProviderExhaustionError(err)).toBe(true);
+  });
+
+  it("identifies permanent invalid API key as fatal provider exhaustion", () => {
+    const err = new Error("401 Incorrect API key provided: sk-proj-123***");
+    expect(isFatalProviderExhaustionError(err)).toBe(true);
+  });
+
+  it("does not flag transient 429 rate limit per minute as fatal provider exhaustion", () => {
+    const err = new FailoverError("Rate limit exceeded: 60 requests per minute", {
+      status: 429,
+      reason: "rate_limit",
+      provider: "openrouter",
+    });
+    expect(isFatalProviderExhaustionError(err)).toBe(false);
+  });
+
+  it("does not flag transient 503 gateway outages as fatal provider exhaustion", () => {
+    const err = new FailoverError("Service Unavailable", {
+      status: 503,
+      reason: "gateway_timeout",
+      provider: "openrouter",
+    });
+    expect(isFatalProviderExhaustionError(err)).toBe(false);
+  });
+});
+
 /* oxlint-disable max-lines -- TODO: split this grandfathered oversized file. */

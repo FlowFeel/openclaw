@@ -44,9 +44,19 @@ function warnInvalidAllowFromEntries(entries: string[]) {
 }
 
 export const normalizeAllowFrom = (list?: Array<string | number>): NormalizedAllowFrom => {
-  const entries = (list ?? [])
+  const rawEntries = (list ?? [])
     .map((value) => normalizeOptionalString(String(value)) ?? "")
     .filter(Boolean);
+  
+  const entries: string[] = [];
+  for (const entry of rawEntries) {
+    if (entry.includes(",")) {
+      entries.push(...entry.split(",").map((s) => s.trim()).filter(Boolean));
+    } else {
+      entries.push(entry);
+    }
+  }
+
   const hasWildcard = entries.includes("*");
   const normalized = entries
     .filter((value) => value !== "*")

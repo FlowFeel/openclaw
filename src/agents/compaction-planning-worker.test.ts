@@ -8,7 +8,7 @@ import {
 } from "./compaction-planning-worker.js";
 import { compactionPlanningWorkerTesting } from "./compaction-planning-worker.test-support.js";
 import { estimateMessagesTokens } from "./compaction-planning.js";
-import { runCompactionPlanningWorkerInput } from "./compaction-planning.worker.js";
+import { runCompactionPlanningWorkerInput, createMessageIndexer } from "./compaction-planning.worker.js";
 import type { AgentMessage } from "./runtime/index.js";
 import { makeAgentAssistantMessage } from "./test-helpers/agent-message-fixtures.js";
 
@@ -302,4 +302,41 @@ describe("compaction planning worker", () => {
     await expect(Promise.race([timer, planning])).resolves.toBe("timer");
     await expect(planning).resolves.toBe("planning");
   }, 30_000);
+
+  describe("createMessageIndexer", () => {
+    it("successfully maps identical reference messages", () => {
+      const msg1 = makeMessage(1, "hello");
+      const msg2 = makeMessage(2, "world");
+      const source = [msg1, msg2];
+      const indexer = createMessageIndexer(source);
+      
+      expect(indexer([msg1])).toEqual([0]);
+      expect(indexer([msg2])).toEqual([1]);
+      expect(indexer([msg1, msg2])).toEqual([0, 1]);
+    });
+
+    it("successfully falls back to content-signature matching if messages are cloned", () => {
+      const msg1 = makeMessage(1, "hello");
+      const msg2 = makeMessage(2, "world");
+      const source = [msg1, msg2];
+      const indexer = createMessageIndexer(source);
+
+      // Clone messages to simulate middleware re-cloning
+      const clonedMsg1 = { ...msg1 };
+      const clonedMsg2 = { ...msg2 };
+
+      expect(indexer([clonedMsg1])).toEqual([0]);
+      expect(indexer([clonedMsg2])).toEqual([1]);
+      expect(indexer([clonedMsg1, clonedMsg2])).toEqual([0, 1]);
+    });
+
+    it("throws an error when mapping a completely unknown message", () => {
+      const msg1 = makeMessage(1, "hello");
+      const source = [msg1];
+      const indexer = createMessageIndexer(source);
+
+      const unknownMsg = makeMessage(99, "unknown");
+      expect(() => indexer([unknownMsg])).toThrowError(/contains an unknown message/);
+    });
+  });
 });

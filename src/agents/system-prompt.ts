@@ -60,11 +60,15 @@ import {
   buildSkillWorkshopPromptSection,
   SKILL_WORKSHOP_TOOL_NAME,
 } from "./skill-workshop-prompt.js";
+import {
+  filterContextFilesForPrompt,
+  type ContextFilterOptions,
+} from "./context-filter-policy.js";
 import type {
   ProviderSystemPromptContribution,
   ProviderSystemPromptSectionId,
 } from "./system-prompt-contribution.js";
-import type { PromptMode, SilentReplyPromptMode } from "./system-prompt.types.js";
+import type { PromptMode, PromptSection, SilentReplyPromptMode } from "./system-prompt.types.js";
 import { AUTOMATIONS_TOOL_NAME } from "./tools/automations-tool-name.js";
 import {
   buildWatchedSessionsPromptLines,
@@ -98,11 +102,13 @@ type StablePromptPrefixCacheEntry = {
   value: string;
 };
 
-function normalizeSubagentDelegationMode(mode?: SubagentDelegationMode): SubagentDelegationMode {
+export function normalizeSubagentDelegationMode(
+  mode?: SubagentDelegationMode,
+): SubagentDelegationMode {
   return mode === "prefer" ? "prefer" : "suggest";
 }
 
-function buildSubagentDelegationPreferenceSection(params: {
+export function buildSubagentDelegationPreferenceSection(params: {
   mode: SubagentDelegationMode;
   isMinimal: boolean;
   hasSessionsSpawn: boolean;
@@ -131,7 +137,7 @@ function buildSubagentDelegationPreferenceSection(params: {
   ].filter(Boolean);
 }
 
-function buildProactiveSubagentOrchestrationSection(params: {
+export function buildProactiveSubagentOrchestrationSection(params: {
   enabled: boolean;
   hasSessionsSpawn: boolean;
 }): string[] {
@@ -150,7 +156,7 @@ function buildProactiveSubagentOrchestrationSection(params: {
 
 const stablePromptPrefixCache = new Map<string, StablePromptPrefixCacheEntry>();
 
-function cacheStablePromptPrefix(key: string, build: () => string): string {
+export function cacheStablePromptPrefix(key: string, build: () => string): string {
   const cached = stablePromptPrefixCache.get(key);
   if (cached) {
     stablePromptPrefixCache.delete(key);
@@ -164,37 +170,39 @@ function cacheStablePromptPrefix(key: string, build: () => string): string {
   return value;
 }
 
-function hashStablePromptInput(value: unknown): string {
+export function hashStablePromptInput(value: unknown): string {
   const hash = createHash("sha256");
   hash.update(JSON.stringify(value));
   return hash.digest("hex");
 }
 
-function normalizeContextFilePath(pathValue: string): string {
+export function normalizeContextFilePath(pathValue: string): string {
   return pathValue.trim().replace(/\\/g, "/");
 }
 
-function getContextFileBasename(pathValue: string): string {
+export function getContextFileBasename(pathValue: string): string {
   const normalizedPath = normalizeContextFilePath(pathValue);
   return normalizeLowercaseStringOrEmpty(normalizedPath.split("/").pop() ?? normalizedPath);
 }
 
-function isDynamicContextFile(pathValue: string): boolean {
+export function isDynamicContextFile(pathValue: string): boolean {
   return DYNAMIC_CONTEXT_FILE_BASENAMES.has(getContextFileBasename(pathValue));
 }
 
-function isBootstrapContextFile(pathValue: string): boolean {
+export function isBootstrapContextFile(pathValue: string): boolean {
   return /(^|[\\/])BOOTSTRAP\.md$/iu.test(pathValue.trim());
 }
 
-function sanitizeContextFileContentForPrompt(content: string): string {
+export function sanitizeContextFileContentForPrompt(content: string): string {
   // Claude Code subscription mode rejects this exact prompt-policy quote when it
   // appears in system context. The live heartbeat user turn still carries the
   // actual instruction, and the generated heartbeat section below covers behavior.
   return content.replaceAll(DEFAULT_HEARTBEAT_PROMPT_CONTEXT_BLOCK, "").replace(/\n{3,}/g, "\n\n");
 }
 
-function sortContextFilesForPrompt(contextFiles: EmbeddedContextFile[]): EmbeddedContextFile[] {
+export function sortContextFilesForPrompt(
+  contextFiles: EmbeddedContextFile[],
+): EmbeddedContextFile[] {
   return contextFiles.toSorted((a, b) => {
     const aPath = normalizeContextFilePath(a.path);
     const bPath = normalizeContextFilePath(b.path);
@@ -212,7 +220,7 @@ function sortContextFilesForPrompt(contextFiles: EmbeddedContextFile[]): Embedde
   });
 }
 
-function prepareContextFilesForPrompt(contextFiles: EmbeddedContextFile[] = []) {
+export function prepareContextFilesForPrompt(contextFiles: EmbeddedContextFile[] = []) {
   const ordered = sortContextFilesForPrompt(
     contextFiles.filter((file) => typeof file.path === "string" && file.path.trim().length > 0),
   );
@@ -223,7 +231,7 @@ function prepareContextFilesForPrompt(contextFiles: EmbeddedContextFile[] = []) 
   };
 }
 
-function buildProjectContextSection(params: {
+export function buildProjectContextSection(params: {
   files: EmbeddedContextFile[];
   heading: string;
   dynamic: boolean;
@@ -266,7 +274,7 @@ function buildProjectContextSection(params: {
   return lines;
 }
 
-function buildHeartbeatSection(params: { isMinimal: boolean; heartbeatPrompt?: string }) {
+export function buildHeartbeatSection(params: { isMinimal: boolean; heartbeatPrompt?: string }) {
   if (params.isMinimal || !params.heartbeatPrompt) {
     return [];
   }
@@ -279,7 +287,7 @@ function buildHeartbeatSection(params: { isMinimal: boolean; heartbeatPrompt?: s
   ];
 }
 
-function buildExecApprovalPromptGuidance(params: {
+export function buildExecApprovalPromptGuidance(params: {
   runtimeChannel?: string;
   inlineButtonsEnabled?: boolean;
   runtimeCapabilities?: readonly string[];
@@ -295,7 +303,7 @@ function buildExecApprovalPromptGuidance(params: {
   return 'exec approval-pending: send exact /approve from "Reply with:"; never ask for another code.';
 }
 
-function buildSkillsSection(params: {
+export function buildSkillsSection(params: {
   skillsPrompt?: string;
   readToolName: string;
   codeModeActive?: boolean;
@@ -317,7 +325,7 @@ function buildSkillsSection(params: {
   ];
 }
 
-function buildMemorySection(params: {
+export function buildMemorySection(params: {
   isMinimal: boolean;
   includeMemorySection?: boolean;
   availableTools: Set<string>;
@@ -342,7 +350,7 @@ function buildMemorySection(params: {
   );
 }
 
-function buildAgentBootstrapSystemContext(params: {
+export function buildAgentBootstrapSystemContext(params: {
   bootstrapMode?: BootstrapMode;
   hasBootstrapFileInProjectContext?: boolean;
 }): string[] {
@@ -372,7 +380,7 @@ function buildAgentBootstrapSystemContext(params: {
   ];
 }
 
-function buildAgentBootstrapSystemPromptSections(params: {
+export function buildAgentBootstrapSystemPromptSections(params: {
   bootstrapMode?: BootstrapMode;
   bootstrapTruncationNotice?: string;
   contextFiles?: EmbeddedContextFile[];
@@ -396,14 +404,14 @@ function buildAgentBootstrapSystemPromptSections(params: {
   return lines;
 }
 
-function buildUserIdentitySection(ownerLine: string | undefined, isMinimal: boolean) {
+export function buildUserIdentitySection(ownerLine: string | undefined, isMinimal: boolean) {
   if (!ownerLine || isMinimal) {
     return [];
   }
   return ["## Authorized Senders", ownerLine, ""];
 }
 
-function formatOwnerDisplayId(ownerId: string, ownerDisplaySecret?: string) {
+export function formatOwnerDisplayId(ownerId: string, ownerDisplaySecret?: string) {
   const hasSecret = ownerDisplaySecret?.trim();
   const digest = hasSecret
     ? createHmac("sha256", hasSecret).update(ownerId).digest("hex")
@@ -415,7 +423,7 @@ const MAX_OWNER_PROMPT_LINE_BYTES = 1_024;
 const OWNER_PROMPT_PREFIX = "Allowlisted senders: ";
 const OWNER_PROMPT_SUFFIX = ". Allowlisted != owner.";
 
-function formatRawOwnerDisplayId(ownerId: string, maxBytes: number): string {
+export function formatRawOwnerDisplayId(ownerId: string, maxBytes: number): string {
   const sanitized = sanitizeForPromptLiteral(ownerId);
   if (Buffer.byteLength(sanitized, "utf8") <= maxBytes) {
     return sanitized;
@@ -426,7 +434,7 @@ function formatRawOwnerDisplayId(ownerId: string, maxBytes: number): string {
   return `${truncateUtf8Prefix(sanitized, maxBytes - 3)}...`;
 }
 
-function buildOwnerIdentityLine(
+export function buildOwnerIdentityLine(
   ownerNumbers: string[],
   ownerDisplay: OwnerIdDisplay,
   ownerDisplaySecret?: string,
@@ -466,7 +474,7 @@ function buildOwnerIdentityLine(
   return `${OWNER_PROMPT_PREFIX}${displayOwnerNumbers.join(", ")}${OWNER_PROMPT_SUFFIX}`;
 }
 
-function buildTemporalContextSection(params: {
+export function buildTemporalContextSection(params: {
   userDate?: string;
   userTimezone?: string;
   sessionStatusAvailable: boolean;
@@ -485,7 +493,7 @@ function buildTemporalContextSection(params: {
   ];
 }
 
-function buildAssistantOutputDirectivesSection(params: {
+export function buildAssistantOutputDirectivesSection(params: {
   isMinimal: boolean;
   sourceMessageToolOnly: boolean;
 }) {
@@ -512,7 +520,7 @@ function buildAssistantOutputDirectivesSection(params: {
   ];
 }
 
-function buildWebchatCanvasSection(params: {
+export function buildWebchatCanvasSection(params: {
   isMinimal: boolean;
   runtimeChannel?: string;
   sourceMessageToolOnly: boolean;
@@ -534,7 +542,7 @@ function buildWebchatCanvasSection(params: {
   ];
 }
 
-function buildControlUiSessionCompanionSection(params: {
+export function buildControlUiSessionCompanionSection(params: {
   isMinimal: boolean;
   runtimeChannel?: string;
 }) {
@@ -550,7 +558,7 @@ function buildControlUiSessionCompanionSection(params: {
   ];
 }
 
-function buildExecutionBiasSection(params: { isMinimal: boolean }) {
+export function buildExecutionBiasSection(params: { isMinimal: boolean }) {
   if (params.isMinimal) {
     return [];
   }
@@ -567,7 +575,7 @@ function buildExecutionBiasSection(params: { isMinimal: boolean }) {
   ];
 }
 
-function normalizeProviderPromptBlock(value?: string): string | undefined {
+export function normalizeProviderPromptBlock(value?: string): string | undefined {
   if (typeof value !== "string") {
     return undefined;
   }
@@ -575,7 +583,7 @@ function normalizeProviderPromptBlock(value?: string): string | undefined {
   return normalized || undefined;
 }
 
-function buildOverridablePromptSection(params: {
+export function buildOverridablePromptSection(params: {
   override?: string;
   fallback: string[];
 }): string[] {
@@ -586,7 +594,7 @@ function buildOverridablePromptSection(params: {
   return params.fallback;
 }
 
-function buildMessagingSection(params: {
+export function buildMessagingSection(params: {
   isMinimal: boolean;
   availableTools: Set<string>;
   inlineButtonsEnabled: boolean;
@@ -669,7 +677,7 @@ function buildMessagingSection(params: {
   ];
 }
 
-function buildCollapsibleDetailsSection(params: {
+export function buildCollapsibleDetailsSection(params: {
   isMinimal: boolean;
   collapsibleDetailsSupported: boolean;
 }) {
@@ -684,7 +692,7 @@ function buildCollapsibleDetailsSection(params: {
   ];
 }
 
-function buildMessageChannelOptions(runtimeChannel?: string): string | undefined {
+export function buildMessageChannelOptions(runtimeChannel?: string): string | undefined {
   const deliverableChannels: readonly string[] = listDeliverableMessageChannels();
   if (deliverableChannels.length <= 1) {
     return undefined;
@@ -695,7 +703,7 @@ function buildMessageChannelOptions(runtimeChannel?: string): string | undefined
   return deliverableChannels.join("|");
 }
 
-function buildVoiceSection(params: { isMinimal: boolean; ttsHint?: string }) {
+export function buildVoiceSection(params: { isMinimal: boolean; ttsHint?: string }) {
   if (params.isMinimal) {
     return [];
   }
@@ -706,7 +714,7 @@ function buildVoiceSection(params: { isMinimal: boolean; ttsHint?: string }) {
   return ["## Voice (TTS)", hint, ""];
 }
 
-function buildDocsSection(params: {
+export function buildDocsSection(params: {
   docsPath?: string;
   sourcePath?: string;
   isMinimal: boolean;
@@ -735,7 +743,7 @@ function buildDocsSection(params: {
   return lines.filter((line): line is string => line !== undefined);
 }
 
-function formatFullAccessBlockedReason(reason?: EmbeddedFullAccessBlockedReason): string {
+export function formatFullAccessBlockedReason(reason?: EmbeddedFullAccessBlockedReason): string {
   if (reason === "host-policy") {
     return "host policy";
   }
@@ -746,6 +754,247 @@ function formatFullAccessBlockedReason(reason?: EmbeddedFullAccessBlockedReason)
     return "sandbox constraints";
   }
   return "runtime constraints";
+}
+
+export function buildToolingSection(params: {
+  toolLines: string[];
+  promptSurface: AgentPromptSurfaceKind;
+  execToolName: string;
+  processToolName: string;
+  toolSchemaDirectoryPrompt?: string;
+  renderOpenClawToolWorkflowHints: boolean;
+  availableTools: Set<string>;
+  hasSessionsSpawn: boolean;
+  nativeCommandGuidanceLines: string[];
+  acpHarnessSpawnAllowed: boolean;
+  runtimeChannel?: string;
+  threadBoundAcpSpawnEnabled: boolean;
+}): string[] {
+  return [
+    "## Tooling",
+    "Tools policy-filtered. Names case-sensitive; call exact.",
+    params.toolLines.length > 0
+      ? params.toolLines.join("\n")
+      : buildOpenClawToolFallbackText({
+          surface: params.promptSurface,
+          execToolName: params.execToolName,
+          processToolName: params.processToolName,
+        }),
+    ...(params.toolSchemaDirectoryPrompt
+      ? ["", "### Deferred Tool Schemas", params.toolSchemaDirectoryPrompt]
+      : []),
+    "The AGENTS.md Tools section guides usage; it never grants availability.",
+    ...(params.renderOpenClawToolWorkflowHints
+      ? [
+          // SL-5: Only include workflow hints for tools that are actually available.
+          ...(params.availableTools.has("exec") || params.availableTools.has("process")
+            ? [
+                `Long wait: no rapid poll. Use ${params.execToolName} yieldMs or ${params.processToolName}(poll, timeout=<ms>).`,
+              ]
+            : []),
+          ...(params.hasSessionsSpawn
+            ? [
+                "Large work: `sessions_spawn`; completion push-based.",
+                '`sessions_spawn`: omit `context`; transcript needed => `context:"fork"`.',
+                "`visible:true` only web/app user or asked.",
+              ]
+            : []),
+          ...(params.availableTools.has("screen")
+            ? ["`screen` present: web/app turn may drive UI; messaging turn: don't."]
+            : []),
+        ]
+      : []),
+    ...params.nativeCommandGuidanceLines,
+    ...(params.acpHarnessSpawnAllowed
+      ? [
+          '"Do in claude code/cursor/gemini/opencode" = ACP intent: `sessions_spawn(runtime:"acp")`.',
+          ...(params.runtimeChannel === "discord" && params.threadBoundAcpSpawnEnabled
+            ? [
+                'Discord ACP default: persistent thread (`thread:true`, `mode:"session"`) unless user says otherwise.',
+              ]
+            : []),
+          'No thread-capable channel: one-shot `mode:"run"`; never claim binding.',
+          "Set `agentId` unless `acp.defaultAgent`; never route ACP via `subagents`/`agents_list`/local PTY.",
+          ...(params.threadBoundAcpSpawnEnabled
+            ? [
+                'ACP thread: only `sessions_spawn(runtime:"acp", thread:true)`; never `message(thread-create)`.',
+              ]
+            : []),
+        ]
+      : []),
+    // SL-5: Only include loop-poll guidance when session/subagent tools are available.
+    ...(params.renderOpenClawToolWorkflowHints &&
+    (params.availableTools.has("subagents") ||
+      params.availableTools.has("sessions_list") ||
+      params.availableTools.has("sessions_yield"))
+      ? [
+          params.availableTools.has("sessions_yield")
+            ? "Never loop-poll `subagents list`/`sessions_list`; wait with `sessions_yield`. Status only on-demand/intervention/debug/request."
+            : "Never loop-poll `subagents list`/`sessions_list`; status only on-demand/intervention/debug/request.",
+        ]
+      : []),
+    ...(params.renderOpenClawToolWorkflowHints &&
+    (params.availableTools.has("sessions_search") || params.availableTools.has("sessions_list"))
+      ? [
+          "Asked about another chat/group/session not in context: check `sessions_list`/`sessions_search` before claiming no access.",
+        ]
+      : []),
+    "",
+  ];
+}
+
+export function buildSandboxSection(params: {
+  sandboxInfo?: EmbeddedSandboxInfo;
+  hasSessionsSpawn: boolean;
+  acpEnabled: boolean;
+  elevated?: EmbeddedSandboxInfo["elevated"];
+  fullAccessBlockedReasonLabel?: string;
+}): string[] {
+  if (!params.sandboxInfo?.enabled) {
+    return [];
+  }
+  const sandbox = params.sandboxInfo;
+  return [
+    "## Sandbox",
+    "Sandbox runtime; tools execute in Docker. Policy may hide tools.",
+    "Subagents remain sandboxed; no elevated/host access. Need host read/write: do not spawn; ask.",
+    params.hasSessionsSpawn && params.acpEnabled
+      ? 'Sandbox blocks ACP spawn. Use `sessions_spawn(runtime:"subagent")`.'
+      : "",
+    sandbox.containerWorkspaceDir
+      ? `Sandbox container workdir: ${sanitizeForPromptLiteral(sandbox.containerWorkspaceDir)}`
+      : "",
+    sandbox.workspaceDir
+      ? `Sandbox host mount source (file tools bridge only; not valid inside sandbox exec): ${sanitizeForPromptLiteral(sandbox.workspaceDir)}`
+      : "",
+    sandbox.workspaceAccess
+      ? `Agent workspace access: ${sandbox.workspaceAccess}${
+          sandbox.agentWorkspaceMount
+            ? ` (mounted at ${sanitizeForPromptLiteral(sandbox.agentWorkspaceMount)})`
+            : ""
+        }`
+      : "",
+    sandbox.browserBridgeUrl ? "Sandbox browser: enabled." : "",
+    sandbox.hostBrowserAllowed === true
+      ? "Host browser control: allowed."
+      : sandbox.hostBrowserAllowed === false
+        ? "Host browser control: blocked."
+        : "",
+    ...buildElevatedSection(params.elevated, params.fullAccessBlockedReasonLabel),
+  ];
+}
+
+export function buildElevatedSection(
+  elevated: EmbeddedSandboxInfo["elevated"],
+  fullAccessBlockedReasonLabel?: string,
+): string[] {
+  if (!elevated) {
+    return [];
+  }
+  const allowed = elevated.allowed;
+  const fullAccess = elevated.fullAccessAvailable;
+  return [
+    allowed
+      ? "Elevated exec is available for this session."
+      : "Elevated exec is unavailable for this session.",
+    allowed && fullAccess ? "User can toggle with /elevated on|off|ask|full." : "",
+    allowed && !fullAccess ? "User can toggle with /elevated on|off|ask." : "",
+    allowed && fullAccess ? "You may also send /elevated on|off|ask|full when needed." : "",
+    allowed && !fullAccess ? "You may also send /elevated on|off|ask when needed." : "",
+    fullAccess === false
+      ? `Auto-approved /elevated full is unavailable here (${fullAccessBlockedReasonLabel}).`
+      : "",
+    allowed && fullAccess
+      ? `Current elevated level: ${elevated.defaultLevel} (ask runs exec on host with approvals; full auto-approves).`
+      : allowed
+        ? `Current elevated level: ${elevated.defaultLevel} (full auto-approval unavailable here; use ask/on instead).`
+        : "Current elevated level: off (elevated exec unavailable).",
+    !allowed ? "Do not tell the user to switch to /elevated full in this session." : "",
+  ];
+}
+
+export function buildOpenClawControlSection(params: {
+  hasOpenClaw: boolean;
+  hasGateway: boolean;
+}): string[] {
+  if (!params.hasOpenClaw && !params.hasGateway) {
+    return [];
+  }
+  return [
+    "## OpenClaw Control",
+    "Do not invent commands.",
+    params.hasOpenClaw
+      ? "Gateway restart, config, channels, plugins, agents, models/providers, updates: ask `openclaw`. Never restart the Gateway through shell commands or write your own config."
+      : "Config read: `gateway` (`config.get|config.schema.lookup`). Write/restart unavailable; ask human.",
+    "",
+  ];
+}
+
+export function buildModelAliasesSection(params: {
+  modelAliasLines?: string[];
+  isMinimal: boolean;
+}): string[] {
+  if (params.isMinimal || !params.modelAliasLines || params.modelAliasLines.length === 0) {
+    return [];
+  }
+  return [
+    "## Model Aliases",
+    "Model override: aliases are shortcuts for unqualified model requests. Use explicit provider/model references verbatim; do not substitute an alias or another provider.",
+    params.modelAliasLines.join("\n"),
+    "",
+  ];
+}
+
+export function buildWorkspaceSection(params: {
+  displayWorkspaceDir: string;
+  workspaceGuidance: string;
+  workspaceOnlyGuidance: string;
+  workspaceNotes: string[];
+}): string[] {
+  return [
+    "## Workspace",
+    `Working directory: ${params.displayWorkspaceDir}`,
+    params.workspaceGuidance,
+    params.workspaceOnlyGuidance,
+    ...params.workspaceNotes,
+    "",
+  ];
+}
+
+export function buildSilentRepliesSection(params: {
+  isMinimal: boolean;
+  silentReplyPromptMode: SilentReplyPromptMode;
+}): string[] {
+  if (params.isMinimal || params.silentReplyPromptMode === "none") {
+    return [];
+  }
+  return [
+    "## Silent Replies",
+    `Nothing to say: entire reply exactly ${SILENT_REPLY_TOKEN}`,
+    `Never append to real response or wrap in Markdown/code.`,
+    "",
+  ];
+}
+
+export function buildReactionsSection(params: {
+  reactionGuidance?: { level: "minimal" | "extensive"; channel: string };
+}): string[] {
+  if (!params.reactionGuidance) {
+    return [];
+  }
+  const { level, channel } = params.reactionGuidance;
+  const guidanceText =
+    level === "minimal"
+      ? [
+          `${channel} reactions: MINIMAL.`,
+          "Only important request/confirmation or sparse genuine sentiment.",
+          "Never routine messages/own replies. Max ~1 per 5-10 exchanges.",
+        ].join("\n")
+      : [
+          `${channel} reactions: EXTENSIVE.`,
+          "React naturally for acknowledgment, sentiment, interesting/humorous/notable content, understanding/agreement.",
+        ].join("\n");
+  return ["## Reactions", guidanceText, ""];
 }
 
 const MODEL_IDENTITY_PREFIX = "Current model identity:";
@@ -792,7 +1041,9 @@ export function appendModelIdentitySystemPrompt(params: {
   return base ? `${base}\n\n${line}` : line;
 }
 
-export function buildAgentSystemPrompt(params: {
+/** Parameters for {@link buildAgentSystemPrompt}. Extracted from the inline
+ * god-params literal so callers and tests can reference the type by name. */
+export type BuildAgentSystemPromptParams = {
   workspaceDir: string;
   defaultThinkLevel?: ThinkLevel;
   reasoningLevel?: ReasoningLevel;
@@ -875,61 +1126,15 @@ export function buildAgentSystemPrompt(params: {
   /** Prepared repository identities used to filter curated raw context fail-closed. */
   activeProjectKeys?: readonly string[];
   promptContribution?: ProviderSystemPromptContribution;
-}) {
+  /** Controls filtering of static persona and workspace context files in system prompt. */
+  contextFilterPolicy?: ContextFilterOptions;
+};
+
+export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
   const acpEnabled = params.acpEnabled === true;
   const promptSurface = params.promptSurface ?? "openclaw_main";
   const sandboxedRuntime = params.sandboxInfo?.enabled === true;
   const acpSpawnRuntimeEnabled = acpEnabled && !sandboxedRuntime;
-  const coreToolSummaries: Record<string, string> = {
-    read: "Read files",
-    write: "Write files",
-    edit: "Exact file edits",
-    apply_patch: "Patch files",
-    grep: "Search file contents",
-    find: "Find files by glob",
-    ls: "List directories",
-    exec: params.codeModeActive
-      ? "Run JavaScript/TypeScript Code Mode; call exact catalog tools from code, never shell/Python/imports"
-      : promptSurface === "cli_backend"
-        ? "Run shell on connected node; sync; host=node"
-        : "Run shell; pty for TTY CLIs",
-    wait: "Resume a suspended Code Mode exec",
-    process: "Control background exec",
-    web_search: "Web search",
-    web_fetch: "Fetch/extract URL",
-    // Channel docking: add login tools here when a channel needs interactive linking.
-    browser: "Control browser",
-    screen: "Drive operator web UI",
-    terminal:
-      "Own visible shell. Use for long/interactive jobs user should watch. exec for quiet work",
-    canvas: "Present/eval/snapshot Canvas",
-    nodes: "Paired node status/control/media",
-    [AUTOMATIONS_TOOL_NAME]:
-      "Schedule/wake. Reminder text must read as reminder when fired; mention reminder for delayed gaps; include useful recent context. This feature is called automations; never call it cron.",
-    message: "Message/channel actions",
-    conversations_list: "List exact external conversation addresses",
-    conversations_send: "Send directly to an external conversation",
-    conversations_turn: "Send and wait for one correlated external reply",
-    openclaw: "Gateway restart/system setup/config; changes need human approval",
-    gateway: "Read gateway config/schema",
-    agents_list: acpSpawnRuntimeEnabled
-      ? "List allowed OpenClaw subagent ids; not ACP ids"
-      : "List allowed subagent ids",
-    sessions_list: "List visible sessions; filters/last",
-    sessions_history: "Read visible session/subagent history",
-    sessions_search: "Search past sessions; use sessionKey with sessions_history",
-    sessions_send: "Message other session/subagent",
-    sessions_spawn: acpSpawnRuntimeEnabled
-      ? 'Spawn isolated subagent/ACP. Transcript needed: context="fork". ACP needs agentId unless default; ids from acp.allowedAgents, not agents_list.'
-      : 'Spawn isolated subagent; transcript needed: context="fork"',
-    sessions_yield: "End turn; await subagent events",
-    subagents: "Subagent status; never wait-loop",
-    session_status: "Session/model/usage/time/status; model override",
-    skill_workshop: "Manage reusable-skill proposals",
-    image: "Analyze images",
-    image_generate: "Generate/edit images",
-  };
-
   const toolOrder = [
     "read",
     "write",
@@ -992,27 +1197,16 @@ export function buildAgentSystemPrompt(params: {
   const nativeCommandGuidanceLines = normalizeUniqueStringEntries(
     params.nativeCommandGuidanceLines,
   );
-  const externalToolSummaries = new Map<string, string>();
-  for (const [key, value] of Object.entries(params.toolSummaries ?? {})) {
-    const normalized = key.trim().toLowerCase();
-    if (!normalized || !value?.trim()) {
-      continue;
-    }
-    externalToolSummaries.set(normalized, value.trim());
-  }
   const extraTools = Array.from(
     new Set(normalizedTools.filter((tool) => !toolOrder.includes(tool))),
   );
   const enabledTools = toolOrder.filter((tool) => visibleTools.has(tool));
-  const toolLines = enabledTools.map((tool) => {
-    const summary = coreToolSummaries[tool] ?? externalToolSummaries.get(tool);
-    const name = resolveToolName(tool);
-    return summary ? `- ${name}: ${summary}` : `- ${name}`;
-  });
+  // SL-6: Tool schemas sent to the model already include full descriptions.
+  // The one-line summaries here were redundant with schema descriptions.
+  // List names only to save ~500 tokens per turn.
+  const toolLines = enabledTools.map((tool) => `- ${resolveToolName(tool)}`);
   for (const tool of extraTools.toSorted()) {
-    const summary = coreToolSummaries[tool] ?? externalToolSummaries.get(tool);
-    const name = resolveToolName(tool);
-    toolLines.push(summary ? `- ${name}: ${summary}` : `- ${name}`);
+    toolLines.push(`- ${resolveToolName(tool)}`);
   }
   const toolSchemaDirectoryPrompt = params.toolSchemaDirectoryPrompt?.trim();
   const renderOpenClawToolWorkflowHints =
@@ -1040,6 +1234,7 @@ export function buildAgentSystemPrompt(params: {
   ) as Partial<Record<ProviderSystemPromptSectionId, string>>;
   const promptMode = params.promptMode ?? "full";
   const isMinimal = promptMode === "minimal" || promptMode === "none";
+  const isScaffold = promptMode === "scaffold";
   const ownerDisplay = params.ownerDisplay === "hash" ? "hash" : "raw";
   const ownerLine = isMinimal
     ? undefined
@@ -1146,9 +1341,153 @@ export function buildAgentSystemPrompt(params: {
 
   // For "none" mode, return just the basic identity line
   if (promptMode === "none") {
+    lastResolvedPromptSections = [
+      {
+        id: "identity",
+        cacheStable: true,
+        lines: [
+          "You are a personal assistant running inside OpenClaw.",
+          ...(modelIdentityLine ? [modelIdentityLine] : []),
+        ],
+      },
+    ];
     return ["You are a personal assistant running inside OpenClaw.", modelIdentityLine]
       .filter(Boolean)
       .join("\n");
+  }
+
+  // For "scaffold" mode, return only the irreducible dynamic state.
+  // All static guidance (safety, conduct, execution, messaging, tool policy,
+  // protocol formats) lives in AGENTS.md, which is loaded as project context
+  // every turn. The system prompt provides only what changes per-turn or
+  // per-session: tool list, runtime state, sandbox state, skills manifest,
+  // temporal context, and the cache boundary.
+  if (isScaffold) {
+    const filterOptions: ContextFilterOptions = params.contextFilterPolicy ?? { mode: "dynamic_only" };
+    const scaffoldContextFiles = prepareContextFilesForPrompt(
+      filterContextFilesForPrompt(
+        filterProjectScopedCuratedContextFiles({
+          contextFiles: params.contextFiles,
+          activeProjectKeys: params.activeProjectKeys,
+        }),
+        filterOptions,
+      ),
+    );
+    const scaffoldStableLines = [
+      ...(toolLines.length > 0
+        ? ["## Tools", ...toolLines]
+        : [
+            "## Tools",
+            buildOpenClawToolFallbackText({
+              surface: promptSurface,
+              execToolName,
+              processToolName,
+            }),
+          ]),
+      ...(toolSchemaDirectoryPrompt
+        ? ["", "### Deferred Tool Schemas", toolSchemaDirectoryPrompt]
+        : []),
+      ...(params.sandboxInfo?.enabled
+        ? [
+            "",
+            "## Sandbox",
+            `Container workdir: ${displayWorkspaceDir}`,
+            ...(elevated?.allowed
+              ? [`Elevated: ${elevated.defaultLevel} (full=${elevated.fullAccessAvailable})`]
+              : []),
+          ]
+        : []),
+      ...(skillsPrompt ? ["", "## Skills", skillsPrompt] : []),
+      "",
+      SYSTEM_PROMPT_CACHE_BOUNDARY,
+    ];
+    const scaffoldDynamicLines = [
+      ...buildTemporalContextSection({
+        userDate,
+        userTimezone,
+        sessionStatusAvailable: availableTools.has("session_status"),
+      }),
+      "## Runtime",
+      buildRuntimeLine(runtimeInfo, runtimeChannel, runtimeCapabilities, params.defaultThinkLevel),
+      ...(modelIdentityLine ? [modelIdentityLine] : []),
+      `Reasoning=${reasoningLevel}; hidden unless on/stream.`,
+      "",
+      ...buildProjectContextSection({
+        files: scaffoldContextFiles.ordered,
+        heading: "# Project Context",
+        dynamic: false,
+      }),
+    ];
+
+    lastResolvedPromptSections = [
+      {
+        id: "tools",
+        cacheStable: true,
+        lines: [
+          ...(toolLines.length > 0
+            ? ["## Tools", ...toolLines]
+            : [
+                "## Tools",
+                buildOpenClawToolFallbackText({
+                  surface: promptSurface,
+                  execToolName,
+                  processToolName,
+                }),
+              ]),
+          ...(toolSchemaDirectoryPrompt
+            ? ["", "### Deferred Tool Schemas", toolSchemaDirectoryPrompt]
+            : []),
+          ...(params.sandboxInfo?.enabled
+            ? [
+                "",
+                "## Sandbox",
+                `Container workdir: ${displayWorkspaceDir}`,
+                ...(elevated?.allowed
+                  ? [`Elevated: ${elevated.defaultLevel} (full=${elevated.fullAccessAvailable})`]
+                  : []),
+              ]
+            : []),
+          ...(skillsPrompt ? ["", "## Skills", skillsPrompt] : []),
+        ],
+      },
+      { id: "cache-boundary", cacheStable: true, lines: ["", SYSTEM_PROMPT_CACHE_BOUNDARY] },
+      {
+        id: "temporal",
+        cacheStable: false,
+        lines: buildTemporalContextSection({
+          userDate,
+          userTimezone,
+          sessionStatusAvailable: availableTools.has("session_status"),
+        }),
+      },
+      {
+        id: "runtime",
+        cacheStable: false,
+        lines: [
+          "## Runtime",
+          buildRuntimeLine(
+            runtimeInfo,
+            runtimeChannel,
+            runtimeCapabilities,
+            params.defaultThinkLevel,
+          ),
+          ...(modelIdentityLine ? [modelIdentityLine] : []),
+          `Reasoning=${reasoningLevel}; hidden unless on/stream.`,
+          "",
+        ],
+      },
+      {
+        id: "project-context",
+        cacheStable: false,
+        lines: buildProjectContextSection({
+          files: scaffoldContextFiles.ordered,
+          heading: "# Project Context",
+          dynamic: false,
+        }),
+      },
+    ];
+
+    return [...scaffoldStableLines, ...scaffoldDynamicLines].filter(Boolean).join("\n");
   }
 
   const contextFiles = prepareContextFilesForPrompt(
@@ -1205,82 +1544,64 @@ export function buildAgentSystemPrompt(params: {
     acpEnabled,
     stableContextFiles: contextFiles.stable,
   });
-  const stablePrefix = cacheStablePromptPrefix(stablePrefixCacheKey, () => {
-    const lines = [
-      "You are a personal assistant running inside OpenClaw.",
-      "",
-      "## Tooling",
-      "Tools policy-filtered. Names case-sensitive; call exact.",
-      toolLines.length > 0
-        ? toolLines.join("\n")
-        : buildOpenClawToolFallbackText({
-            surface: promptSurface,
-            execToolName,
-            processToolName,
-          }),
-      ...(toolSchemaDirectoryPrompt
-        ? ["", "### Deferred Tool Schemas", toolSchemaDirectoryPrompt]
-        : []),
-      "The AGENTS.md Tools section guides usage; it never grants availability.",
-      ...(renderOpenClawToolWorkflowHints
-        ? [
-            `Long wait: no rapid poll. Use ${execToolName} yieldMs or ${processToolName}(poll, timeout=<ms>).`,
-            "Large work: `sessions_spawn`; completion push-based.",
-            '`sessions_spawn`: omit `context`; transcript needed => `context:"fork"`.',
-            ...(hasSessionsSpawn ? ["`visible:true` only web/app user or asked."] : []),
-            ...(availableTools.has("screen")
-              ? ["`screen` present: web/app turn may drive UI; messaging turn: don't."]
-              : []),
-          ]
-        : []),
-      ...nativeCommandGuidanceLines,
-      ...(acpHarnessSpawnAllowed
-        ? [
-            '"Do in claude code/cursor/gemini/opencode" = ACP intent: `sessions_spawn(runtime:"acp")`.',
-            ...(runtimeChannel === "discord" && threadBoundAcpSpawnEnabled
-              ? [
-                  'Discord ACP default: persistent thread (`thread:true`, `mode:"session"`) unless user says otherwise.',
-                ]
-              : []),
-            'No thread-capable channel: one-shot `mode:"run"`; never claim binding.',
-            "Set `agentId` unless `acp.defaultAgent`; never route ACP via `subagents`/`agents_list`/local PTY.",
-            ...(threadBoundAcpSpawnEnabled
-              ? [
-                  'ACP thread: only `sessions_spawn(runtime:"acp", thread:true)`; never `message(thread-create)`.',
-                ]
-              : []),
-          ]
-        : []),
-      ...(renderOpenClawToolWorkflowHints
-        ? [
-            availableTools.has("sessions_yield")
-              ? "Never loop-poll `subagents list`/`sessions_list`; wait with `sessions_yield`. Status only on-demand/intervention/debug/request."
-              : "Never loop-poll `subagents list`/`sessions_list`; status only on-demand/intervention/debug/request.",
-          ]
-        : []),
-      ...(renderOpenClawToolWorkflowHints &&
-      (availableTools.has("sessions_search") || availableTools.has("sessions_list"))
-        ? [
-            "Asked about another chat/group/session not in context: check `sessions_list`/`sessions_search` before claiming no access.",
-          ]
-        : []),
-      "",
-      ...buildProactiveSubagentOrchestrationSection({
+  const stableSections: PromptSection[] = [
+    {
+      id: "identity",
+      cacheStable: true,
+      lines: ["You are a personal assistant running inside OpenClaw.", ""],
+    },
+    {
+      id: "tooling",
+      cacheStable: true,
+      lines: [
+        ...buildToolingSection({
+          toolLines,
+          promptSurface,
+          execToolName,
+          processToolName,
+          toolSchemaDirectoryPrompt,
+          renderOpenClawToolWorkflowHints,
+          availableTools,
+          hasSessionsSpawn,
+          nativeCommandGuidanceLines,
+          acpHarnessSpawnAllowed,
+          runtimeChannel,
+          threadBoundAcpSpawnEnabled,
+        }),
+        "",
+      ],
+    },
+    {
+      id: "subagent-orchestration",
+      cacheStable: true,
+      lines: buildProactiveSubagentOrchestrationSection({
         enabled: proactiveSubagentOrchestration,
         hasSessionsSpawn,
       }),
-      ...buildSubagentDelegationPreferenceSection({
+    },
+    {
+      id: "subagent-delegation",
+      cacheStable: true,
+      lines: buildSubagentDelegationPreferenceSection({
         mode: proactiveSubagentOrchestration ? "suggest" : subagentDelegationMode,
         isMinimal,
         hasSessionsSpawn,
         hasSubagents: availableTools.has("subagents"),
         hasSessionsYield: availableTools.has("sessions_yield"),
       }),
-      ...buildOverridablePromptSection({
+    },
+    {
+      id: "interaction-style",
+      cacheStable: true,
+      lines: buildOverridablePromptSection({
         override: providerSectionOverrides.interaction_style,
         fallback: [],
       }),
-      ...buildOverridablePromptSection({
+    },
+    {
+      id: "tool-call-style",
+      cacheStable: true,
+      lines: buildOverridablePromptSection({
         override: providerSectionOverrides.tool_call_style,
         fallback: [
           "## Tool Call Style",
@@ -1293,246 +1614,284 @@ export function buildAgentSystemPrompt(params: {
           "",
         ],
       }),
-      ...buildOverridablePromptSection({
+    },
+    {
+      id: "execution-bias",
+      cacheStable: true,
+      lines: buildOverridablePromptSection({
         override: providerSectionOverrides.execution_bias,
-        fallback: buildExecutionBiasSection({
-          isMinimal,
-        }),
+        fallback: buildExecutionBiasSection({ isMinimal }),
       }),
-      ...buildPromisedWorkPromptSection(),
-      ...buildOverridablePromptSection({
+    },
+    { id: "promised-work", cacheStable: true, lines: buildPromisedWorkPromptSection() },
+    {
+      id: "provider-stable-prefix",
+      cacheStable: true,
+      lines: buildOverridablePromptSection({
         override: providerStablePrefix,
         fallback: [],
       }),
-      ...safetySection,
-      "## OpenClaw Control",
-      "Do not invent commands.",
-      ...(hasOpenClaw
-        ? [
-            "Gateway restart, config, channels, plugins, agents, models/providers, updates: ask `openclaw`. Never restart the Gateway through shell commands or write your own config.",
-          ]
-        : [
-            "Config read: `gateway` (`config.get|config.schema.lookup`). Write/restart unavailable; ask human.",
-          ]),
-      "",
-      ...skillsSection,
-      ...skillWorkshopSection,
-      ...memorySection,
-      params.modelAliasLines && params.modelAliasLines.length > 0 && !isMinimal
-        ? "## Model Aliases"
-        : "",
-      params.modelAliasLines && params.modelAliasLines.length > 0 && !isMinimal
-        ? "Model override: aliases are shortcuts for unqualified model requests. Use explicit provider/model references verbatim; do not substitute an alias or another provider."
-        : "",
-      params.modelAliasLines && params.modelAliasLines.length > 0 && !isMinimal
-        ? params.modelAliasLines.join("\n")
-        : "",
-      params.modelAliasLines && params.modelAliasLines.length > 0 && !isMinimal ? "" : "",
-      "## Workspace",
-      `Working directory: ${displayWorkspaceDir}`,
-      workspaceGuidance,
-      workspaceOnlyGuidance,
-      ...workspaceNotes,
-      "",
-      ...docsSection,
-      params.sandboxInfo?.enabled ? "## Sandbox" : "",
-      params.sandboxInfo?.enabled
-        ? [
-            "Sandbox runtime; tools execute in Docker. Policy may hide tools.",
-            "Subagents remain sandboxed; no elevated/host access. Need host read/write: do not spawn; ask.",
-            hasSessionsSpawn && acpEnabled
-              ? 'Sandbox blocks ACP spawn. Use `sessions_spawn(runtime:"subagent")`.'
-              : "",
-            params.sandboxInfo.containerWorkspaceDir
-              ? `Sandbox container workdir: ${sanitizeForPromptLiteral(params.sandboxInfo.containerWorkspaceDir)}`
-              : "",
-            params.sandboxInfo.workspaceDir
-              ? `Sandbox host mount source (file tools bridge only; not valid inside sandbox exec): ${sanitizeForPromptLiteral(params.sandboxInfo.workspaceDir)}`
-              : "",
-            params.sandboxInfo.workspaceAccess
-              ? `Agent workspace access: ${params.sandboxInfo.workspaceAccess}${
-                  params.sandboxInfo.agentWorkspaceMount
-                    ? ` (mounted at ${sanitizeForPromptLiteral(params.sandboxInfo.agentWorkspaceMount)})`
-                    : ""
-                }`
-              : "",
-            params.sandboxInfo.browserBridgeUrl ? "Sandbox browser: enabled." : "",
-            params.sandboxInfo.hostBrowserAllowed === true
-              ? "Host browser control: allowed."
-              : params.sandboxInfo.hostBrowserAllowed === false
-                ? "Host browser control: blocked."
-                : "",
-            elevated?.allowed
-              ? "Elevated exec is available for this session."
-              : elevated
-                ? "Elevated exec is unavailable for this session."
-                : "",
-            elevated?.allowed && elevated.fullAccessAvailable
-              ? "User can toggle with /elevated on|off|ask|full."
-              : "",
-            elevated?.allowed && !elevated.fullAccessAvailable
-              ? "User can toggle with /elevated on|off|ask."
-              : "",
-            elevated?.allowed && elevated.fullAccessAvailable
-              ? "You may also send /elevated on|off|ask|full when needed."
-              : "",
-            elevated?.allowed && !elevated.fullAccessAvailable
-              ? "You may also send /elevated on|off|ask when needed."
-              : "",
-            elevated?.fullAccessAvailable === false
-              ? `Auto-approved /elevated full is unavailable here (${fullAccessBlockedReasonLabel}).`
-              : "",
-            elevated?.allowed && elevated.fullAccessAvailable
-              ? `Current elevated level: ${elevated.defaultLevel} (ask runs exec on host with approvals; full auto-approves).`
-              : elevated?.allowed
-                ? `Current elevated level: ${elevated.defaultLevel} (full auto-approval unavailable here; use ask/on instead).`
-                : elevated
-                  ? "Current elevated level: off (elevated exec unavailable)."
-                  : "",
-            elevated && !elevated.allowed
-              ? "Do not tell the user to switch to /elevated full in this session."
-              : "",
-          ]
-            .filter(Boolean)
-            .join("\n")
-        : "",
-      params.sandboxInfo?.enabled ? "" : "",
-      ...bootstrapSystemPromptSections,
-      "## Workspace Files (injected)",
-      "User-editable; OpenClaw loads below as Project Context.",
-      "",
-      ...buildAssistantOutputDirectivesSection({ isMinimal, sourceMessageToolOnly }),
-    ];
-
-    if (reasoningHint) {
-      lines.push("## Reasoning Format", reasoningHint, "");
-    }
-
-    lines.push(
-      ...buildProjectContextSection({
-        files: contextFiles.stable,
-        heading: "# Project Context",
-        dynamic: false,
+    },
+    { id: "safety", cacheStable: true, lines: safetySection },
+    {
+      id: "openclaw-control",
+      cacheStable: true,
+      lines: buildOpenClawControlSection({ hasOpenClaw, hasGateway }),
+    },
+    { id: "skills", cacheStable: true, lines: skillsSection },
+    { id: "skill-workshop", cacheStable: true, lines: skillWorkshopSection },
+    { id: "memory", cacheStable: true, lines: memorySection },
+    {
+      id: "model-aliases",
+      cacheStable: true,
+      lines: buildModelAliasesSection({
+        modelAliasLines: params.modelAliasLines,
+        isMinimal,
       }),
-    );
-
-    if (!isMinimal && silentReplyPromptMode !== "none") {
-      lines.push(
-        "## Silent Replies",
-        `Nothing to say: entire reply exactly ${SILENT_REPLY_TOKEN}`,
-        `Never append to real response or wrap in Markdown/code.`,
+    },
+    {
+      id: "workspace",
+      cacheStable: true,
+      lines: buildWorkspaceSection({
+        displayWorkspaceDir,
+        workspaceGuidance,
+        workspaceOnlyGuidance,
+        workspaceNotes,
+      }),
+    },
+    { id: "docs", cacheStable: true, lines: docsSection },
+    {
+      id: "sandbox",
+      cacheStable: true,
+      lines: buildSandboxSection({
+        sandboxInfo: params.sandboxInfo,
+        hasSessionsSpawn,
+        acpEnabled,
+        elevated,
+        fullAccessBlockedReasonLabel,
+      }),
+    },
+    { id: "bootstrap", cacheStable: true, lines: bootstrapSystemPromptSections },
+    {
+      id: "workspace-files-header",
+      cacheStable: true,
+      lines: [
+        "## Workspace Files (injected)",
+        "User-editable; OpenClaw loads below as Project Context.",
         "",
-      );
-    }
+      ],
+    },
+    {
+      id: "assistant-output-directives",
+      cacheStable: true,
+      lines: buildAssistantOutputDirectivesSection({ isMinimal, sourceMessageToolOnly }),
+    },
+  ];
 
-    lines.push(SYSTEM_PROMPT_CACHE_BOUNDARY);
-    return lines.filter(Boolean).join("\n");
+  if (reasoningHint) {
+    stableSections.push({
+      id: "reasoning-format",
+      cacheStable: true,
+      lines: ["## Reasoning Format", reasoningHint, ""],
+    });
+  }
+
+  stableSections.push({
+    id: "project-context-stable",
+    cacheStable: true,
+    lines: buildProjectContextSection({
+      files: contextFiles.stable,
+      heading: "# Project Context",
+      dynamic: false,
+    }),
   });
 
-  const lines = [stablePrefix];
+  stableSections.push({
+    id: "silent-replies",
+    cacheStable: true,
+    lines: buildSilentRepliesSection({ isMinimal, silentReplyPromptMode }),
+  });
 
-  // Local date and timezone can change between turns. Keep them at the front of
-  // the volatile suffix so rollover is visible without invalidating the stable prefix.
-  lines.push(
-    ...buildTemporalContextSection({
-      userDate,
-      userTimezone,
-      sessionStatusAvailable: availableTools.has("session_status"),
-    }),
+  stableSections.push({
+    id: "cache-boundary",
+    cacheStable: true,
+    lines: [SYSTEM_PROMPT_CACHE_BOUNDARY],
+  });
+
+  const stablePrefix = cacheStablePromptPrefix(stablePrefixCacheKey, () =>
+    stableSections
+      .flatMap((s) => s.lines)
+      .filter(Boolean)
+      .join("\n"),
   );
 
-  lines.push(
-    ...buildProjectContextSection({
-      files: contextFiles.dynamic,
-      heading: contextFiles.stable.length > 0 ? "# Dynamic Project Context" : "# Project Context",
-      dynamic: true,
-    }),
-  );
+  const dynamicSections: PromptSection[] = [
+    {
+      id: "temporal",
+      cacheStable: false,
+      lines: buildTemporalContextSection({
+        userDate,
+        userTimezone,
+        sessionStatusAvailable: availableTools.has("session_status"),
+      }),
+    },
+    {
+      id: "project-context-dynamic",
+      cacheStable: false,
+      lines: buildProjectContextSection({
+        files: contextFiles.dynamic,
+        heading: contextFiles.stable.length > 0 ? "# Dynamic Project Context" : "# Project Context",
+        dynamic: true,
+      }),
+    },
+  ];
 
-  // Channel/session-specific guidance lives below the cache boundary so large
-  // stable workspace context can remain a byte-identical prefix across turns.
-  lines.push(
-    // Approval UI and owner identity vary by turn, so keep both below the stable prefix.
-    // A tool_call_style override owns the complete section and suppresses default guidance.
-    ...(providerSectionOverrides.tool_call_style
-      ? []
-      : [
-          buildExecApprovalPromptGuidance({
-            runtimeChannel: params.runtimeInfo?.channel,
-            inlineButtonsEnabled,
-            runtimeCapabilities,
-          }),
-        ]),
-    ...buildUserIdentitySection(ownerLine, isMinimal),
-    ...buildWebchatCanvasSection({
-      isMinimal,
-      runtimeChannel,
-      sourceMessageToolOnly,
-    }),
-    ...buildControlUiSessionCompanionSection({
-      isMinimal,
-      runtimeChannel,
-    }),
-    ...buildMessagingSection({
-      isMinimal,
-      availableTools,
-      inlineButtonsEnabled,
-      runtimeChannel,
-      runtimeChatType,
-      messageChannelOptions,
-      messageToolHints: params.messageToolHints,
-      sourceReplyDeliveryMode: params.sourceReplyDeliveryMode,
-      requireExplicitMessageTarget: params.requireExplicitMessageTarget,
-      silentReplyPromptMode,
-    }),
+  // Approval UI and owner identity vary by turn, so keep both below the stable prefix.
+  // A tool_call_style override owns the complete section and suppresses default guidance.
+  if (!providerSectionOverrides.tool_call_style) {
+    dynamicSections.push({
+      id: "exec-approval",
+      cacheStable: false,
+      lines: [
+        buildExecApprovalPromptGuidance({
+          runtimeChannel: params.runtimeInfo?.channel,
+          inlineButtonsEnabled,
+          runtimeCapabilities,
+        }),
+      ],
+    });
+  }
+
+  dynamicSections.push(
+    {
+      id: "user-identity",
+      cacheStable: false,
+      lines: buildUserIdentitySection(ownerLine, isMinimal),
+    },
+    {
+      id: "webchat-canvas",
+      cacheStable: false,
+      lines: buildWebchatCanvasSection({
+        isMinimal,
+        runtimeChannel,
+        sourceMessageToolOnly,
+      }),
+    },
+    {
+      id: "control-ui-session",
+      cacheStable: false,
+      lines: buildControlUiSessionCompanionSection({
+        isMinimal,
+        runtimeChannel,
+      }),
+    },
+    {
+      id: "messaging",
+      cacheStable: false,
+      lines: buildMessagingSection({
+        isMinimal,
+        availableTools,
+        inlineButtonsEnabled,
+        runtimeChannel,
+        runtimeChatType,
+        messageChannelOptions,
+        messageToolHints: params.messageToolHints,
+        sourceReplyDeliveryMode: params.sourceReplyDeliveryMode,
+        requireExplicitMessageTarget: params.requireExplicitMessageTarget,
+        silentReplyPromptMode,
+      }),
+    },
     // Capability-gated reply guidance stays below the cache boundary so channel changes
     // cannot alter the byte-identical stable prefix shared across sessions.
-    ...buildCollapsibleDetailsSection({ isMinimal, collapsibleDetailsSupported }),
-    ...buildVoiceSection({ isMinimal, ttsHint: params.ttsHint }),
+    {
+      id: "collapsible-details",
+      cacheStable: false,
+      lines: buildCollapsibleDetailsSection({ isMinimal, collapsibleDetailsSupported }),
+    },
+    {
+      id: "voice",
+      cacheStable: false,
+      lines: buildVoiceSection({ isMinimal, ttsHint: params.ttsHint }),
+    },
   );
 
   if (extraSystemPrompt) {
     const contextHeader =
       promptMode === "minimal" ? "## Subagent Context" : "## Conversation Context";
-    lines.push(contextHeader, extraSystemPrompt, "");
+    dynamicSections.push({
+      id: "conversation-context",
+      cacheStable: false,
+      lines: [contextHeader, extraSystemPrompt, ""],
+    });
   }
-  if (params.reactionGuidance) {
-    const { level, channel } = params.reactionGuidance;
-    const guidanceText =
-      level === "minimal"
-        ? [
-            `${channel} reactions: MINIMAL.`,
-            "Only important request/confirmation or sparse genuine sentiment.",
-            "Never routine messages/own replies. Max ~1 per 5-10 exchanges.",
-          ].join("\n")
-        : [
-            `${channel} reactions: EXTENSIVE.`,
-            "React naturally for acknowledgment, sentiment, interesting/humorous/notable content, understanding/agreement.",
-          ].join("\n");
-    lines.push("## Reactions", guidanceText, "");
-  }
+  dynamicSections.push({
+    id: "reactions",
+    cacheStable: false,
+    lines: buildReactionsSection({ reactionGuidance: params.reactionGuidance }),
+  });
   if (providerDynamicSuffix) {
-    lines.push(providerDynamicSuffix, "");
+    dynamicSections.push({
+      id: "provider-dynamic-suffix",
+      cacheStable: false,
+      lines: [providerDynamicSuffix, ""],
+    });
   }
 
   // Watched sessions change rarely but per-session; keep them below the cache
   // boundary so the shared stable prefix stays byte-identical across sessions.
-  lines.push(...buildWatchedSessionsPromptLines(params.preparedWatchedSessions));
+  dynamicSections.push({
+    id: "watched-sessions",
+    cacheStable: false,
+    lines: buildWatchedSessionsPromptLines(params.preparedWatchedSessions),
+  });
 
-  lines.push(...buildHeartbeatSection({ isMinimal, heartbeatPrompt }));
+  dynamicSections.push({
+    id: "heartbeats",
+    cacheStable: false,
+    lines: buildHeartbeatSection({ isMinimal, heartbeatPrompt }),
+  });
 
-  lines.push(
-    "## Runtime",
-    buildRuntimeLine(runtimeInfo, runtimeChannel, runtimeCapabilities, params.defaultThinkLevel),
-    ...(modelIdentityLine ? [modelIdentityLine] : []),
-    ...buildActiveProcessSessionReferenceLines(runtimeInfo?.activeProcessSessions),
-    `Reasoning=${reasoningLevel}; hidden unless on/stream. Toggle /reasoning; /status shows when enabled.`,
-  );
+  dynamicSections.push({
+    id: "runtime",
+    cacheStable: false,
+    lines: [
+      "## Runtime",
+      buildRuntimeLine(runtimeInfo, runtimeChannel, runtimeCapabilities, params.defaultThinkLevel),
+      ...(modelIdentityLine ? [modelIdentityLine] : []),
+      ...buildActiveProcessSessionReferenceLines(runtimeInfo?.activeProcessSessions),
+      `Reasoning=${reasoningLevel}; hidden unless on/stream. Toggle /reasoning; /status shows when enabled.`,
+    ],
+  });
 
+  const lines = [stablePrefix, ...dynamicSections.flatMap((s) => s.lines)];
+
+  lastResolvedPromptSections = [...stableSections, ...dynamicSections];
   return lines.filter(Boolean).join("\n");
 }
 
-function buildActiveProcessSessionReferenceLines(
+let lastResolvedPromptSections: PromptSection[] = [];
+
+/** Returns the sections from the most recent {@link buildAgentSystemPrompt} call.
+ *
+ * Each section has `{ id, lines, cacheStable }`. Use this to assert on section
+ * IDs, ordering, and cache-stable/dynamic split in tests.
+ */
+export function getLastResolvedPromptSections(): PromptSection[] {
+  return lastResolvedPromptSections;
+}
+
+/** Resolves the system prompt as a list of named sections for structural testing.
+ *
+ * Calls {@link buildAgentSystemPrompt} and returns the captured section list.
+ * Each section has `{ id, lines, cacheStable }`. Sections with `cacheStable: true`
+ * belong to the cache-stable prefix (before the cache boundary).
+ */
+export function resolvePromptSections(params: BuildAgentSystemPromptParams): PromptSection[] {
+  buildAgentSystemPrompt(params);
+  return lastResolvedPromptSections;
+}
+
+export function buildActiveProcessSessionReferenceLines(
   sessions: ActiveProcessSessionReference[] | undefined,
 ): string[] {
   if (!sessions?.length) {
@@ -1549,7 +1908,7 @@ function buildActiveProcessSessionReferenceLines(
   ];
 }
 
-function buildRuntimeLine(
+export function buildRuntimeLine(
   runtimeInfo?: {
     agentId?: string;
     sessionKey?: string;

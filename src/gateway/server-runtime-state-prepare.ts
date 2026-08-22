@@ -9,6 +9,7 @@ import { isTruthyEnvValue } from "../infra/env.js";
 import type { createSubsystemLogger } from "../logging/subsystem.js";
 import { runtimeForLogger } from "../logging/subsystem.js";
 import { isGatewayDraining } from "../process/command-queue.js";
+import { setupRuntime } from "../process/runtime-setup.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { getActiveSecretsRuntimeConfigSnapshot } from "../secrets/runtime-state.js";
 import { createAuthRateLimiter, type AuthRateLimiter } from "./auth-rate-limit.js";
@@ -105,6 +106,18 @@ export async function prepareGatewayRuntimeState(params: {
     registry: pluginBootstrap.pluginRegistry,
     baseGatewayMethods: pluginBootstrap.baseGatewayMethods,
   };
+  // ── Phase 4: wire the multithreaded runtime dispatcher ──────────────
+  // Resolve the scale from config + host, install dispatchers if Scale 1.
+  // Scale 0 = no provider (default inline). Scale 2 = remote worker layer
+  // (below) installs its own provider.
+  const runtimeSetup = setupRuntime(cfgAtStart);
+  if (runtimeSetup.scale.scale === 1) {
+    log.info(
+      `multithreaded runtime: ${runtimeSetup.scale.reason} (poolSize=${runtimeSetup.scale.poolSize}, model-execution=worker-pool)`,
+    );
+  } else {
+    log.info(`multithreaded runtime: ${runtimeSetup.scale.reason}`);
+  }
   // Unconfigured clean installs get no service; durable rows still need list/status projection.
   const hasConfiguredWorkerProfiles =
     Object.keys(gatewayPluginConfigAtStart.cloudWorkers?.profiles ?? {}).length > 0;
@@ -491,5 +504,7 @@ export async function prepareGatewayRuntimeState(params: {
     getMcpAppSandboxPort,
     ensureSandboxHostPort,
     workerGatewayEndpoint,
+    /** Runtime cleanup — terminates the worker pool + uninstalls the admission provider. */
+    runtimeCleanup: runtimeSetup.cleanup,
   };
 }

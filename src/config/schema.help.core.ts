@@ -267,6 +267,8 @@ export const CORE_FIELD_HELP: Record<string, string> = {
     "Default max characters returned by memory_get before truncation metadata and continuation notice are added. Increase to approximate older larger excerpts, but keep it bounded.",
   "agents.defaults.contextLimits.postCompactionMaxChars":
     "Default max characters retained from AGENTS.md during post-compaction context refresh injection. Lower this to make compaction recovery cheaper, or raise it for agents that depend on longer startup guidance.",
+  "agents.defaults.contextLimits.maxResultChars":
+    "Override the auto-derived max characters per live tool result. When unset, caps auto-derive from the model context window (16K/32K/64K at 30% share). Set lower (e.g. 8000) for chat bots that mostly read small files and search results.",
   "agents.entries":
     "Explicit list of configured agents with IDs and optional overrides for model, tools, identity, and workspace. Keep IDs stable over time so bindings, approvals, and session routing remain deterministic.",
   "agents.entries.*.skillsLimits":
@@ -279,6 +281,8 @@ export const CORE_FIELD_HELP: Record<string, string> = {
     "Per-agent override for the default memory_get max character budget.",
   "agents.entries.*.contextLimits.postCompactionMaxChars":
     "Per-agent override for the post-compaction AGENTS.md excerpt budget.",
+  "agents.entries.*.contextLimits.maxResultChars":
+    "Per-agent override for the max characters per live tool result. Omit to inherit the default auto-derived cap.",
   "agents.entries.*.thinkingDefault":
     "Optional per-agent default thinking level. Overrides agents.defaults.thinkingDefault for this agent when no per-message or session override is set.",
   "agents.entries.*.reasoningDefault":

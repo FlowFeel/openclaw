@@ -1,0 +1,1 @@
+../../../dist/extensions/cua-computer/doctor-contract-api.d.ts

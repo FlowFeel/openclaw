@@ -85,6 +85,7 @@ export type TelegramMessageContextSessionRuntimeOverrides = Partial<
     | "recordInboundSession"
     | "readAmbientTranscriptWatermark"
     | "resolveAmbientTranscriptWatermarkKey"
+    | "resolveAmbientTranscriptWatermarkLegacyKey"
     | "resolveInboundLastRouteSessionKey"
     | "resolvePinnedMainDmOwnerFromAllowlist"
     | "resolveStorePath"

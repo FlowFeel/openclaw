@@ -4,6 +4,7 @@
 import { filterHeartbeatTranscriptArtifacts } from "../../../auto-reply/heartbeat-filter.js";
 import type { SessionSystemPromptReport } from "../../../config/sessions/types.js";
 import type { HeartbeatSummary } from "../../../infra/heartbeat-summary.js";
+import { resolveAgentContextLimits } from "../../agent-scope.js";
 import { DEFAULT_CONTEXT_TOKENS } from "../../defaults.js";
 import type { AgentMessage } from "../../runtime/index.js";
 import { log } from "../logger.js";
@@ -108,8 +109,13 @@ export function prepareEmbeddedAttemptPromptContext(input: {
   }
   const prePromptMessageCount = sessionMessages.length;
   const contextTokenBudget = attempt.contextTokenBudget ?? DEFAULT_CONTEXT_TOKENS;
+  const maxResultCharsOverride = resolveAgentContextLimits(
+    attempt.config,
+    input.sessionAgentId,
+  )?.maxResultChars;
   const promptToolResultMaxChars = resolveLiveToolResultMaxChars({
     contextWindowTokens: contextTokenBudget,
+    ...(maxResultCharsOverride ? { maxResultCharsOverride } : {}),
   });
   const promptToolResultAggregateMaxChars = resolveLiveToolResultAggregateMaxChars({
     contextWindowTokens: contextTokenBudget,

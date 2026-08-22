@@ -3,6 +3,7 @@
  */
 import type { AssembleResult } from "../../../context-engine/types.js";
 import type { AgentRunAttemptFailureSource } from "../../agent-run-terminal-outcome.js";
+import { resolveAgentContextLimits } from "../../agent-scope.js";
 import { DEFAULT_CONTEXT_TOKENS } from "../../defaults.js";
 import type { AgentMessage } from "../../runtime/index.js";
 import type { SessionManager } from "../../sessions/index.js";
@@ -81,8 +82,13 @@ export function handleEmbeddedAttemptMidTurnPrecheck(input: {
 
   if (request.route === "truncate_tool_results_only") {
     const contextTokenBudget = attempt.contextTokenBudget ?? DEFAULT_CONTEXT_TOKENS;
+    const maxResultCharsOverride = resolveAgentContextLimits(
+      attempt.config,
+      input.sessionAgentId,
+    )?.maxResultChars;
     const toolResultMaxChars = resolveLiveToolResultMaxChars({
       contextWindowTokens: contextTokenBudget,
+      ...(maxResultCharsOverride ? { maxResultCharsOverride } : {}),
     });
     const truncationResult = truncateOversizedToolResultsInSessionManager({
       sessionManager: input.sessionManager,
@@ -256,16 +262,44 @@ export async function prepareEmbeddedAttemptPromptPreflight(input: {
         ...(attempt.sessionFile ? { sessionFile: attempt.sessionFile } : {}),
       }),
     );
-    if (preemptiveCompaction.route !== "fits") {
-      // Character pressure remains observable, but it is not authoritative enough to
-      // discard history or manufacture an overflow before the provider sees the payload.
-      log.info(
-        `[context-pressure-diagnostic] admitted provider attempt for ` +
-          `${attempt.provider}/${attempt.modelId} route=${preemptiveCompaction.route} ` +
-          `estimatedPromptTokens=${preemptiveCompaction.estimatedPromptTokens} ` +
-          `promptBudgetBeforeReserve=${preemptiveCompaction.promptBudgetBeforeReserve}`,
-      );
-    }
+    // SL-2: Emit a context-pressure diagnostic on every turn, not just when
+    // pressure is detected. This gives visibility into whether context efficiency
+    // changes (FC-1 through FC-7, SL-1) are keeping pressure low.
+    const ratio =
+      preemptiveCompaction.promptBudgetBeforeReserve > 0
+        ? (
+            preemptiveCompaction.estimatedPromptTokens /
+            preemptiveCompaction.promptBudgetBeforeReserve
+          ).toFixed(2)
+        : "?";
+    log.info(
+      `[context-pressure-diagnostic] ` +
+        `sessionKey=${attempt.sessionKey ?? attempt.sessionId ?? "?"} ` +
+        `provider=${attempt.provider}/${attempt.modelId} ` +
+        `route=${preemptiveCompaction.route} ` +
+        `estimatedPromptTokens=${preemptiveCompaction.estimatedPromptTokens} ` +
+        `promptBudgetBeforeReserve=${preemptiveCompaction.promptBudgetBeforeReserve} ` +
+        `ratio=${ratio}` +
+        (preemptiveCompaction.overflowTokens > 0
+          ? ` overflowTokens=${preemptiveCompaction.overflowTokens}`
+          : ""),
+    );
+  } else if (!shouldSkipPrecheck) {
+    // Precheck ran but returned null (no compaction needed); log the estimate
+    // from the LLM boundary pressure so we still see the baseline.
+    const ratio =
+      input.contextTokenBudget > 0
+        ? (llmBoundaryTokenPressure / input.contextTokenBudget).toFixed(2)
+        : "?";
+    log.info(
+      `[context-pressure-diagnostic] ` +
+        `sessionKey=${attempt.sessionKey ?? attempt.sessionId ?? "?"} ` +
+        `provider=${attempt.provider}/${attempt.modelId} ` +
+        `route=fits ` +
+        `estimatedPromptTokens=${llmBoundaryTokenPressure} ` +
+        `promptBudgetBeforeReserve=${input.contextTokenBudget} ` +
+        `ratio=${ratio}`,
+    );
   }
 
   return { ...input.state, contextBudgetStatus };

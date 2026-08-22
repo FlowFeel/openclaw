@@ -390,7 +390,7 @@ describe("buildTelegramMessageContext prompt context", () => {
       ]),
       sessionRuntime: {
         readAmbientTranscriptWatermark: ({ key }) =>
-          key === '["telegram","default","-1001234567890",""]'
+          key === "wat:telegram:default:-1001234567890:"
             ? {
                 sessionId: "session-current",
                 messageId: "11",
@@ -498,7 +498,7 @@ describe("buildTelegramMessageContext prompt context", () => {
       ]),
       sessionRuntime: {
         readAmbientTranscriptWatermark: ({ key }) =>
-          key === '["telegram","default","-1001234567890",""]'
+          key === "wat:telegram:default:-1001234567890:"
             ? {
                 sessionId: "session-current",
                 messageId: "11",

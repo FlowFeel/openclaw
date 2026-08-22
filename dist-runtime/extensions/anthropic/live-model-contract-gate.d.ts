@@ -1,0 +1,1 @@
+../../../dist/extensions/anthropic/live-model-contract-gate.d.ts

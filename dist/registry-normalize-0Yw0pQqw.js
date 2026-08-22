@@ -1,0 +1,11 @@
+import { s as normalizeOptionalLowercaseString } from "./string-coerce-DW4mBlAt.js";
+import { t as findRegisteredChannelPluginEntry } from "./registry-lookup-DCU2N45P.js";
+//#region src/channels/registry-normalize.ts
+/** Normalizes user/config channel identifiers so aliases resolve to canonical channel ids. */
+function normalizeAnyChannelId(raw) {
+	const key = normalizeOptionalLowercaseString(raw);
+	if (!key) return null;
+	return findRegisteredChannelPluginEntry(key)?.plugin.id ?? null;
+}
+//#endregion
+export { normalizeAnyChannelId as t };

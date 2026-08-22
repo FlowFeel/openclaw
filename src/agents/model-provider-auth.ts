@@ -2,6 +2,24 @@
  * Warms and queries provider-auth availability for model catalogs. The module
  * keeps per-agent auth snapshots process-current so model listing can avoid
  * repeated env/profile/plugin discovery on hot paths.
+ *
+ * Spawn-per-call rationale (2b):
+ * This worker uses cancellation-via-termination: `cancelCurrentProviderAuthWarmWorker()`
+ * calls `worker.terminate()` to immediately free resources when a config reload
+ * triggers a new warm while the previous one is in-flight.  Pooling with
+ * `TopicAffineWorkerPool` (poolSize: 1) would make this impossible — the shared
+ * worker cannot be terminated without killing in-flight requests.  A new warm
+ * would queue behind the stale one, adding 5–30s of latency on config reload
+ * (vs. immediate restart with spawn-per-call).  The spawn cost (~100ms, ~30MB
+ * transient) is negligible relative to the auth discovery work (5–30s), and the
+ * worker is called infrequently (startup + rare config reloads).
+ *
+ * Prediction tested: spawn-per-call with termination provides lower latency on
+ * config reload than a warm pool.
+ * Competing account: a warm pool saves enough spawn cost to offset queuing.
+ * Result that supports: reload latency ≈ single-worker time (5–30s), not
+ * 2× single-worker time (stale + new in serial).
+ * Result that refutes: reload latency with pool ≈ reload latency with spawn.
  */
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";

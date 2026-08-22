@@ -54,6 +54,20 @@ export interface CompactionDetails {
   /** Files modified in the compacted history. */
   modifiedFiles: string[];
 }
+
+/** Convergence metadata for R4 post-compaction logging. */
+export interface CompactionConvergence {
+  /** Number of summarization passes run (1 = first pass only, 2 = convergence re-summarized). */
+  passes: number;
+  /** Whether the post-compaction context fits within 85% of the context budget. */
+  converged: boolean;
+  /** Estimated token count of the final summary. */
+  summaryTokens: number;
+  /** keepRecentTokens used for the final pass. */
+  keepRecentTokens: number;
+  /** Context token budget (model context window), if known. */
+  contextTokenBudget: number | undefined;
+}
 function safeJsonStringify(value: unknown): string {
   try {
     return JSON.stringify(value) ?? "undefined";
@@ -140,6 +154,8 @@ export interface CompactionResult<T = unknown> {
   tokensBefore: number;
   /** Optional implementation-specific details stored with the compaction entry. */
   details?: T;
+  /** R4: Convergence metadata for post-compaction logging. Undefined when no budget was provided. */
+  convergence?: CompactionConvergence;
 }
 
 /** Compaction thresholds and retention settings. */
@@ -150,13 +166,24 @@ export interface CompactionSettings {
   reserveTokens: number;
   /** Approximate recent-context tokens to keep after compaction. */
   keepRecentTokens: number;
+  /**
+   * Proactive compaction ratio: fire when context usage reaches this fraction
+   * of the context window (default 0.70). At 0.70 on a 242K window, compaction
+   * fires at ~169K instead of the reactive edge (~226K), giving the model a
+   * smaller, more summarizable context.
+   */
+  compactAtRatio?: number;
 }
+
+/** Default proactive compaction ratio (fire at 70% of context window). */
+export const DEFAULT_COMPACT_AT_RATIO = 0.7;
 
 /** Default compaction settings used by the harness. */
 export const DEFAULT_COMPACTION_SETTINGS: CompactionSettings = {
   enabled: true,
   reserveTokens: 16384,
   keepRecentTokens: 20000,
+  compactAtRatio: DEFAULT_COMPACT_AT_RATIO,
 };
 
 /** Calculate total context tokens from provider usage. */
@@ -253,7 +280,25 @@ export function estimateContextTokens(messages: AgentMessage[]): ContextUsageEst
   };
 }
 
-/** Return whether context usage exceeds the configured compaction threshold. */
+/**
+ * Return whether context usage exceeds the configured compaction threshold.
+ *
+ * R1 (proactive compaction): fires at `compactAtRatio` of the context window
+ * (default 0.70) — well before the reactive edge (`contextWindow - reserveTokens`,
+ * ~93%). The `min` ensures we never fire later than the reactive threshold,
+ * so a high `compactAtRatio` (e.g. 0.95) falls back to reactive behavior.
+ *
+ * Prediction: firing at 70% gives the model a smaller, more summarizable
+ * context, producing higher-quality summaries that fit the budget on the
+ * first pass.
+ *
+ * Competing account: firing at 93% is fine if the model can summarize a
+ * near-full context window effectively.
+ *
+ * Support: on 2026-08-15, topic 53 reached 275K tokens (114% over the 242K
+ * budget) because compaction at ~93% left the model with too much context to
+ * summarize. At 70% (~169K), the model would have had a manageable input.
+ */
 export function shouldCompact(
   contextTokens: number,
   contextWindow: number,
@@ -262,7 +307,10 @@ export function shouldCompact(
   if (!settings.enabled) {
     return false;
   }
-  return contextTokens > contextWindow - settings.reserveTokens;
+  const reactiveThreshold = contextWindow - settings.reserveTokens;
+  const compactAtRatio = settings.compactAtRatio ?? DEFAULT_COMPACT_AT_RATIO;
+  const proactiveThreshold = Math.floor(contextWindow * compactAtRatio);
+  return contextTokens > Math.min(proactiveThreshold, reactiveThreshold);
 }
 
 const IMAGE_BLOCK_CHARS = 4800;
@@ -494,7 +542,9 @@ export function findCutPoint(
 
 export const SUMMARIZATION_SYSTEM_PROMPT = `You are a context summarization assistant. Your task is to read a conversation between a user and an AI assistant, then produce a structured summary following the exact format specified.
 
-Do NOT continue the conversation. Do NOT respond to any questions in the conversation. ONLY output the structured summary.`;
+Do NOT continue the conversation. Do NOT respond to any questions in the conversation. ONLY output the structured summary.
+
+If the workspace defines stable axiom IDs (e.g., S-xxx, C-xxx, E-xxx, M-xxx, T-xxx in AGENTS.md), preserve and reference them by ID when summarizing constraints, decisions, and context. Do not paraphrase axiom IDs away — they are stable cross-references that survive compaction.`;
 
 const SUMMARIZATION_PROMPT = `The messages above are a conversation to summarize. Create a structured context checkpoint summary that another LLM will use to continue the work.
 
@@ -505,6 +555,7 @@ Use this EXACT format:
 
 ## Constraints & Preferences
 - [Any constraints, preferences, or requirements mentioned by user]
+- [Reference workspace axiom IDs where applicable, e.g., "Must follow T-102 (Exec Hygiene)"]
 - [Or "(none)" if none were mentioned]
 
 ## Progress
@@ -518,16 +569,17 @@ Use this EXACT format:
 - [Issues preventing progress, if any]
 
 ## Key Decisions
-- **[Decision]**: [Brief rationale]
+- **[Decision]**: [Brief rationale, referencing axiom IDs where relevant]
 
 ## Next Steps
 1. [Ordered list of what should happen next]
 
 ## Critical Context
 - [Any data, examples, or references needed to continue]
+- [Preserve exact file paths, function names, axiom IDs, and error messages]
 - [Or "(none)" if not applicable]
 
-Keep each section concise. Preserve exact file paths, function names, and error messages.`;
+Keep each section concise. Preserve exact file paths, function names, axiom IDs, and error messages.`;
 
 const UPDATE_SUMMARIZATION_PROMPT = `The messages above are NEW conversation messages to incorporate into the existing summary provided in <previous-summary> tags.
 
@@ -536,7 +588,7 @@ Update the existing structured summary with new information. RULES:
 - ADD new progress, decisions, and context from the new messages
 - UPDATE the Progress section: move items from "In Progress" to "Done" when completed
 - UPDATE "Next Steps" based on what was accomplished
-- PRESERVE exact file paths, function names, and error messages
+- PRESERVE exact file paths, function names, axiom IDs, and error messages
 - If something is no longer relevant, you may remove it
 
 Use this EXACT format:
@@ -546,6 +598,7 @@ Use this EXACT format:
 
 ## Constraints & Preferences
 - [Preserve existing, add new ones discovered]
+- [Reference workspace axiom IDs where applicable]
 
 ## Progress
 ### Done
@@ -565,8 +618,9 @@ Use this EXACT format:
 
 ## Critical Context
 - [Preserve important context, add new if needed]
+- [Preserve axiom ID references]
 
-Keep each section concise. Preserve exact file paths, function names, and error messages.`;
+Keep each section concise. Preserve exact file paths, function names, axiom IDs, and error messages.`;
 
 function createSummarizationOptions(
   model: Model,
@@ -670,9 +724,22 @@ export async function generateSummary(
   thinkingLevel?: ThinkingLevel,
   streamFn?: StreamFn,
   runtime?: AgentCoreCompletionRuntimeDeps,
+  contextTokenBudget?: number,
+  keepRecentTokens?: number,
 ): Promise<Result<string, CompactionError>> {
+  // SL-4: Budget-aware maxTokens sizing. When contextTokenBudget and
+  // keepRecentTokens are provided, size the summary to fit the available
+  // budget after keeping recent context. Cap at 25% of the context window
+  // so summary + recent + system prompt fits comfortably.
+  const budgetForSummary =
+    contextTokenBudget && keepRecentTokens != null
+      ? Math.max(2048, contextTokenBudget - keepRecentTokens - reserveTokens)
+      : reserveTokens;
+  const summaryCap = contextTokenBudget
+    ? Math.floor(0.25 * contextTokenBudget)
+    : Number.POSITIVE_INFINITY;
   const maxTokens = Math.min(
-    Math.floor(0.8 * reserveTokens),
+    Math.floor(0.8 * Math.min(budgetForSummary, summaryCap)),
     model.maxTokens > 0 ? model.maxTokens : Number.POSITIVE_INFINITY,
   );
   let basePrompt = previousSummary ? UPDATE_SUMMARIZATION_PROMPT : SUMMARIZATION_PROMPT;
@@ -883,6 +950,7 @@ export async function compact(
   thinkingLevel?: ThinkingLevel,
   streamFn?: StreamFn,
   runtime?: AgentCoreCompletionRuntimeDeps,
+  contextTokenBudget?: number,
 ): Promise<Result<CompactionResult, CompactionError>> {
   const {
     firstKeptEntryId,
@@ -921,6 +989,8 @@ export async function compact(
             thinkingLevel,
             streamFn,
             runtime,
+            contextTokenBudget,
+            settings.keepRecentTokens,
           )
         : ok<string, CompactionError>("No prior history.");
     if (!historyResult.ok) {
@@ -954,6 +1024,8 @@ export async function compact(
       thinkingLevel,
       streamFn,
       runtime,
+      contextTokenBudget,
+      settings.keepRecentTokens,
     );
     if (!summaryResult.ok) {
       return err(summaryResult.error);
@@ -961,14 +1033,76 @@ export async function compact(
     summary = summaryResult.value;
   }
 
+  // SL-3: Convergence check. After the first pass, estimate whether the
+  // summary + keepRecent fits the context budget. If not, re-summarize with
+  // halved keepRecentTokens to force a smaller post-compaction context.
+  // This prevents the failure mode where compaction runs but the result
+  // still exceeds budget, causing repeated overflow retries.
+  // R4: Track convergence metadata for post-compaction logging.
+  let convergencePasses = 1;
+  let convergenceKeepRecent = settings.keepRecentTokens;
+  let convergenceConverged = true;
+  if (
+    contextTokenBudget &&
+    contextTokenBudget > 0 &&
+    !isSplitTurn &&
+    messagesToSummarize.length > 0
+  ) {
+    const summaryTokens = Math.ceil(estimateStringChars(summary) / CHARS_PER_TOKEN_ESTIMATE);
+    const projectedTotal = summaryTokens + settings.keepRecentTokens;
+    const convergenceThreshold = Math.floor(contextTokenBudget * 0.85);
+    if (projectedTotal > convergenceThreshold) {
+      convergenceConverged = false;
+      const halvedKeepRecent = Math.max(2048, Math.floor(settings.keepRecentTokens / 2));
+      const secondPass = await generateSummary(
+        messagesToSummarize,
+        model,
+        settings.reserveTokens,
+        apiKey,
+        headers,
+        signal,
+        customInstructions,
+        summary,
+        thinkingLevel,
+        streamFn,
+        runtime,
+        contextTokenBudget,
+        halvedKeepRecent,
+      );
+      if (secondPass.ok) {
+        summary = secondPass.value;
+        convergencePasses = 2;
+        convergenceKeepRecent = halvedKeepRecent;
+        // Re-check convergence after second pass
+        const secondPassTokens = Math.ceil(estimateStringChars(summary) / CHARS_PER_TOKEN_ESTIMATE);
+        convergenceConverged = secondPassTokens + halvedKeepRecent <= convergenceThreshold;
+      }
+      // If second pass fails, keep the first pass summary — the caller's
+      // overflow recovery will handle the remaining pressure.
+    }
+  }
+
   const { readFiles, modifiedFiles } = computeFileLists(fileOps);
   summary += formatFileOperations(readFiles, modifiedFiles);
+
+  // R4: Build convergence metadata for the caller to log.
+  const convergence: CompactionConvergence | undefined =
+    contextTokenBudget && contextTokenBudget > 0 && !isSplitTurn && messagesToSummarize.length > 0
+      ? {
+          passes: convergencePasses,
+          converged: convergenceConverged,
+          summaryTokens: Math.ceil(estimateStringChars(summary) / CHARS_PER_TOKEN_ESTIMATE),
+          keepRecentTokens: convergenceKeepRecent,
+          contextTokenBudget,
+        }
+      : undefined;
 
   return ok({
     summary,
     firstKeptEntryId,
     tokensBefore,
     details: { readFiles, modifiedFiles } as CompactionDetails,
+    convergence,
   });
 }
 async function generateTurnPrefixSummary(

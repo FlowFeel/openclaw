@@ -29,7 +29,8 @@
       "configuredState": {
         "env": {
           "anyOf": [
-            "TELEGRAM_BOT_TOKEN"
+            "TELEGRAM_BOT_TOKEN",
+            "TELEGRAM_WEBHOOK_SECRET"
           ]
         }
       },

@@ -1,0 +1,1 @@
+../../../dist/extensions/memory-lancedb/memory-cli.d.ts

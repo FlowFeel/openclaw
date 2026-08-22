@@ -56,6 +56,21 @@ const sleepSyncOverride: ((ms: number) => void) | null = null;
 const dateNowOverride: (() => number) | null = null;
 const parentPidOverride: (() => number) | null = null;
 
+// Module-level SAB reused across all sleepSync calls (avoids per-call
+// SharedArrayBuffer allocation — the previous code allocated 4 bytes + SAB
+// overhead on every call).
+//
+// Atomics.wait exception (multithreaded-runtime-design.md §6):
+// sleepSync is used only in the restart flow (kill stale processes, wait for
+// port release) which is inherently synchronous — it uses spawnSync,
+// process.kill, and readFileSync.  The sleeps are bounded (50–600ms) and fire
+// only during gateway restart, never during normal operation.  The long-term
+// fix is to move the restart flow into a worker (Phase 3); until then, all
+// sync sleep alternatives are strictly worse (busy-wait burns CPU,
+// execSync('sleep') spawns a process).
+// lint-ignore: atomics-wait-on-main — sync restart flow, bounded, restart-only
+const SLEEP_SYNC_SAB = new Int32Array(new SharedArrayBuffer(4));
+
 function getTimeMs(): number {
   return dateNowOverride ? dateNowOverride() : Date.now();
 }
@@ -70,8 +85,7 @@ function sleepSync(ms: number): void {
     return;
   }
   try {
-    const lock = new Int32Array(new SharedArrayBuffer(4));
-    Atomics.wait(lock, 0, 0, timeoutMs);
+    Atomics.wait(SLEEP_SYNC_SAB, 0, 0, timeoutMs);
   } catch {
     const start = Date.now();
     while (Date.now() - start < timeoutMs) {

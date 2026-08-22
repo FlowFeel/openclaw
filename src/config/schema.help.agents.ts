@@ -132,6 +132,8 @@ export const AGENT_FIELD_HELP: Record<string, string> = {
     'Optional thinking level used only for embedded OpenClaw compaction summaries: "off", "minimal", "low", "medium", "high", "xhigh", "adaptive", "max", or "ultra". It overrides the session level and is clamped to the actual compaction model/runtime; leave unset to inherit the session level. Native Codex app-server compaction ignores this setting because its compact request has no per-operation thinking override, and OpenClaw logs a warning.',
   "agents.defaults.compaction.keepRecentTokens":
     "Minimum token budget preserved from the most recent conversation window during compaction. Use higher values to protect immediate context continuity and lower values to keep more long-tail history.",
+  "agents.defaults.compaction.compactAtRatio":
+    "Proactive compaction ratio: fire when context usage reaches this fraction of the context window (default: 0.70). Lower values compact earlier with a smaller, more summarizable context; higher values defer compaction until closer to the limit. Set to 1.0 to disable proactive compaction and use only the reactive edge.",
   "agents.defaults.compaction.identifierPolicy":
     'Identifier-preservation policy for compaction summaries: "strict" prepends built-in opaque-identifier retention guidance (default), while "off" disables this prefix.',
   "agents.defaults.compaction.recentTurnsPreserve":

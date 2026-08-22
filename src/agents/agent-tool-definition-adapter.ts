@@ -31,6 +31,7 @@ import type { AgentTool, AgentToolResult, AgentToolUpdateCallback } from "./runt
 import type { ToolDefinition } from "./sessions/index.js";
 import { normalizeToolName } from "./tool-policy.js";
 import { jsonResult, payloadTextResult, ToolInputError } from "./tools/common.js";
+import { resolveToolCallTimeoutMs } from "./tools/tool-call-timeout-policy.js";
 
 type AnyAgentTool = AgentTool;
 
@@ -408,7 +409,22 @@ export function toToolDefinitions(
             }
             recordAdjustedParamsForToolCall(toolCallId, executeParams, hookContext?.runId);
           }
-          const rawResult = await tool.execute(toolCallId, executeParams, signal, onUpdate);
+          // ── Core mod #2: per-call timeoutMs ──────────────────────────────
+          // The dispatcher reads timeoutMs from the tool-call payload and applies
+          // it as a per-call AbortSignal, combined with the parent run-level signal.
+          // See oc/fork/src/agents/tools/tool-call-timeout-policy.ts (pure logic).
+          const perCallTimeout = resolveToolCallTimeoutMs(executeParams as Record<string, unknown>);
+          let effectiveSignal = signal;
+          if (perCallTimeout.timeoutMs !== undefined) {
+            const timeoutSignal = AbortSignal.timeout(perCallTimeout.timeoutMs);
+            effectiveSignal = signal ? AbortSignal.any([signal, timeoutSignal]) : timeoutSignal;
+          }
+          const rawResult = await tool.execute(
+            toolCallId,
+            executeParams,
+            effectiveSignal,
+            onUpdate,
+          );
           const result = normalizeToolExecutionResult({
             toolName: normalizedName,
             result: rawResult,

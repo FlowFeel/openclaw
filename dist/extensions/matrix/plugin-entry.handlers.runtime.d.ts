@@ -1,0 +1,19 @@
+import { n as GatewayRequestHandlerOptions } from "../../types-Dcjbq5gz.js";
+import { IncomingMessage } from "node:http";
+import { Command } from "commander";
+
+//#region extensions/matrix/src/plugin-entry.runtime.d.ts
+declare function handleVerifyRecoveryKey({
+  params,
+  respond
+}: GatewayRequestHandlerOptions): Promise<void>;
+declare function handleVerificationBootstrap({
+  params,
+  respond
+}: GatewayRequestHandlerOptions): Promise<void>;
+declare function handleVerificationStatus({
+  params,
+  respond
+}: GatewayRequestHandlerOptions): Promise<void>;
+//#endregion
+export { handleVerificationBootstrap, handleVerificationStatus, handleVerifyRecoveryKey };

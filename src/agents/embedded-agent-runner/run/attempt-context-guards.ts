@@ -3,6 +3,7 @@ import { MAX_IMAGE_BYTES } from "@openclaw/media-core/constants";
 import { OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST } from "../../../context-engine/host-compat.js";
 import { buildContextEngineRuntimeSettings } from "../../../context-engine/runtime-settings.js";
 import type { ContextEngine } from "../../../context-engine/types.js";
+import { resolveAgentContextLimits } from "../../agent-scope.js";
 import { isHeartbeatLifecycleRunKind } from "../../bootstrap-mode.js";
 import { DEFAULT_CONTEXT_TOKENS } from "../../defaults.js";
 import { resolveImageSanitizationLimits } from "../../image-sanitization.js";
@@ -66,6 +67,12 @@ export function installEmbeddedAttemptContextGuards(input: {
   );
   const toolResultMaxChars = resolveLiveToolResultMaxChars({
     contextWindowTokens: contextTokenBudget,
+    ...(resolveAgentContextLimits(attempt.config, input.sessionAgentId)?.maxResultChars
+      ? {
+          maxResultCharsOverride: resolveAgentContextLimits(attempt.config, input.sessionAgentId)
+            ?.maxResultChars,
+        }
+      : {}),
   });
   let pendingMidTurnPrecheckRequest: MidTurnPrecheckRequest | null = null;
   let afterTurnCheckpoint: number | null = null;

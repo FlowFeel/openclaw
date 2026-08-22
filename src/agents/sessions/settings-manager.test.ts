@@ -106,6 +106,7 @@ describe("SettingsManager runtime overrides", () => {
       enabled: false,
       reserveTokens: 50_000,
       keepRecentTokens: 16_000,
+      compactAtRatio: 0.7,
     });
 
     await settingsManager.flush();
@@ -115,6 +116,7 @@ describe("SettingsManager runtime overrides", () => {
       enabled: false,
       reserveTokens: 50_000,
       keepRecentTokens: 16_000,
+      compactAtRatio: 0.7,
     });
   });
 

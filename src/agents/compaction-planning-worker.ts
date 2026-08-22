@@ -1,12 +1,24 @@
 /**
  * Runs CPU-heavy compaction planning in a worker thread when histories are
  * large enough to risk starving the main event loop.
+ *
+ * Phase 1 (multithreaded-runtime-design.md): uses a warm worker pool
+ * (`TopicAffineWorkerPool`) instead of spawning a fresh worker per call.
+ * The legacy `runCompactionPlanningWorker` (spawn-per-call) is retained as a
+ * fallback and for the test API.
+ *
+ * 2a reconciliation: the former `CompactionPlanningWorkerPool` (a dedicated
+ * single-worker pool) has been retired.  `TopicAffineWorkerPool<CompactionPlanningWorkerValue>`
+ * with `poolSize: 1` and `workerData: { mode: "persistent" }` replaces it —
+ * one pool abstraction for all request-response workers.
  */
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { Worker } from "node:worker_threads";
 import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
 import { toErrorObject } from "../infra/errors.js";
+import { createSubsystemLogger } from "../logging/subsystem.js";
+import { TopicAffineWorkerPool, WorkerPoolError } from "../process/topic-affine-worker-pool.js";
 import {
   buildOversizedFallbackPlan,
   buildStageSplitPlan,
@@ -17,17 +29,56 @@ import {
   type OversizedFallbackPlan,
   type StageSplitPlan,
 } from "./compaction-planning.js";
+import { readCompactionPlanningOmittedChars } from "./compaction-planning-projection.js";
 import type {
   CompactionPlanningWorkerInput,
   CompactionPlanningWorkerResult,
   CompactionPlanningWorkerValue,
 } from "./compaction-planning.worker.js";
+import { resolveCompactionStrategy } from "./embedded-agent-runner/compaction-scheduler.js";
 import type { AgentMessage } from "./runtime/index.js";
 
 const COMPACTION_PLANNING_WORKER_TIMEOUT_MS = 60_000;
-// Worker startup is more expensive than local planning for tiny histories.
-// Keep small compactions synchronous; move only starvation-sized plans off-thread.
-const COMPACTION_PLANNING_WORKER_MIN_MESSAGES = 64;
+// The inline-vs-worker threshold lives in compaction-scheduler.ts
+// (DEFAULT_MIN_MESSAGES_FOR_COMPACTION_WORKER = 64). Small compactions run
+// inline (worker startup not worth it); starvation-sized plans offload.
+
+const log = createSubsystemLogger("compaction");
+
+function estimateMessagesBytes(messages: AgentMessage[]): number {
+  let total = 0;
+  for (const msg of messages) {
+    if (typeof msg.content === "string") {
+      total += msg.content.length;
+    } else if (Array.isArray(msg.content)) {
+      for (const block of msg.content) {
+        if (block && typeof block === "object") {
+          const record = block as Record<string, unknown>;
+          if (typeof record.text === "string") {
+            total += record.text.length;
+          }
+          if (typeof record.content === "string") {
+            total += record.content.length;
+          }
+          if (typeof record.thinking === "string") {
+            total += record.thinking.length;
+          }
+          if (record.arguments && typeof record.arguments === "object") {
+            total += JSON.stringify(record.arguments).length;
+          }
+        }
+      }
+    }
+    const record = msg as unknown as Record<string, unknown>;
+    for (const field of ["command", "output", "summary"] as const) {
+      const val = record[field];
+      if (typeof val === "string") {
+        total += val.length;
+      }
+    }
+  }
+  return total;
+}
 
 class CompactionPlanningWorkerError extends Error {
   constructor(
@@ -153,6 +204,36 @@ function restoreIndexedMessages(source: AgentMessage[], indexes: number[]): Agen
   });
 }
 
+// ── Module-level warm pool (Phase 1, 2a reconciled) ──────────────────
+// Performs RPC-style persistent thread execution.
+let pool: TopicAffineWorkerPool<CompactionPlanningWorkerValue> | null = null;
+
+function resolvePool(): TopicAffineWorkerPool<CompactionPlanningWorkerValue> | null {
+  if (process.env.VITEST || process.env.NODE_ENV === "test") {
+    return null; // tests use the legacy one-shot path
+  }
+  if (!pool) {
+    const envVal = Number(process.env.OPENCLAW_COMPACTION_POOL_SIZE);
+    const poolSize = Number.isInteger(envVal) && envVal > 0 ? envVal : 1;
+    pool = new TopicAffineWorkerPool<CompactionPlanningWorkerValue>({
+      workerUrl: resolveCompactionPlanningWorkerUrl(),
+      poolSize,
+      workerData: { mode: "persistent" },
+      queueDepth: 32,
+      timeoutMs: 60_000,
+    });
+  }
+  return pool;
+}
+
+/** Terminate the warm compaction pool (called on shutdown). */
+export async function terminateCompactionPlanningPool(): Promise<void> {
+  if (pool) {
+    await pool.terminateAll();
+    pool = null;
+  }
+}
+
 async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, TResult>(params: {
   input: TInput;
   signal?: AbortSignal;
@@ -162,32 +243,135 @@ async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, T
     messages: AgentMessage[],
   ) => TResult;
 }): Promise<TResult> {
+  const start = performance.now();
   const messages = sanitizeCompactionMessages(params.input.messages);
-  if (messages.length < COMPACTION_PLANNING_WORKER_MIN_MESSAGES) {
-    return params.fallback(params.input.messages);
+  const totalBytes = estimateMessagesBytes(messages);
+  const strategy = resolveCompactionStrategy({
+    messageCount: messages.length,
+    totalBytes,
+  });
+
+  if (strategy.mode === "inline") {
+    const result = params.fallback(params.input.messages);
+    const elapsed = performance.now() - start;
+    log.info({
+      event: "compaction.plan",
+      mode: "inline",
+      messages: messages.length,
+      totalBytes,
+      durationMs: elapsed,
+      reason: strategy.reason,
+    }, `Compaction strategy: inline (messages: ${messages.length}, bytes: ${totalBytes}, duration: ${elapsed.toFixed(1)}ms)`);
+    return result;
   }
 
+  const projectedMessages = projectCompactionMessagesForPlanning(messages);
+  const projectedBytes = estimateMessagesBytes(projectedMessages);
+  const projectedInput = {
+    ...params.input,
+    messages: projectedMessages,
+  };
+
+  let totalOmittedChars = 0;
+  for (const msg of projectedMessages) {
+    totalOmittedChars += readCompactionPlanningOmittedChars(msg);
+  }
+
+  const activePool = resolvePool();
   try {
-    const value = await runCompactionPlanningWorker({
-      input: {
-        ...params.input,
-        messages: projectCompactionMessagesForPlanning(messages),
-      },
-      signal: params.signal,
-    });
+    if (!activePool) {
+      throw new WorkerPoolError("pool disabled (test mode)", "unavailable");
+    }
+    const value = await activePool.dispatch("compaction", projectedInput);
     if (value.kind !== params.input.kind) {
       throw new CompactionPlanningWorkerError(
         "unexpected compaction planning worker result",
         "failed",
       );
     }
-    return params.restore(
+    const result = params.restore(
       value as Extract<CompactionPlanningWorkerValue, { kind: TInput["kind"] }>,
       messages,
     );
+    const elapsed = performance.now() - start;
+    log.info({
+      event: "compaction.plan",
+      mode: "worker",
+      pool: "persistent",
+      messages: messages.length,
+      totalBytes,
+      projectedBytes,
+      omittedChars: totalOmittedChars,
+      durationMs: elapsed,
+    }, `Compaction planning offloaded to persistent worker (messages: ${messages.length}, bytes: ${totalBytes} -> ${projectedBytes}, omitted: ${totalOmittedChars}, duration: ${elapsed.toFixed(1)}ms)`);
+    return result;
   } catch (error) {
-    if (error instanceof CompactionPlanningWorkerError && error.code === "unavailable") {
-      return params.fallback(messages);
+    // Pool unavailable or busy — try the legacy one-shot harness.
+    if (
+      error instanceof WorkerPoolError &&
+      (error.code === "unavailable" || error.code === "busy")
+    ) {
+      try {
+        const value = await runCompactionPlanningWorker({
+          input: projectedInput,
+          signal: params.signal,
+        });
+        if (value.kind !== params.input.kind) {
+          throw new CompactionPlanningWorkerError(
+            "unexpected compaction planning worker result",
+            "failed",
+          );
+        }
+        const result = params.restore(
+          value as Extract<CompactionPlanningWorkerValue, { kind: TInput["kind"] }>,
+          messages,
+        );
+        const elapsed = performance.now() - start;
+        log.info({
+          event: "compaction.plan",
+          mode: "worker",
+          pool: "one-shot-fallback",
+          messages: messages.length,
+          totalBytes,
+          projectedBytes,
+          omittedChars: totalOmittedChars,
+          durationMs: elapsed,
+          poolError: error.code,
+        }, `Compaction planning offloaded to one-shot fallback worker (messages: ${messages.length}, bytes: ${totalBytes} -> ${projectedBytes}, duration: ${elapsed.toFixed(1)}ms)`);
+        return result;
+      } catch (fallbackError) {
+        if (
+          fallbackError instanceof CompactionPlanningWorkerError &&
+          fallbackError.code === "unavailable"
+        ) {
+          const result = params.fallback(messages);
+          const elapsed = performance.now() - start;
+          log.warn({
+            event: "compaction.plan",
+            mode: "inline-fallback",
+            messages: messages.length,
+            totalBytes,
+            durationMs: elapsed,
+            error: fallbackError.message,
+          }, `Compaction planning worker unavailable, fell back to inline (duration: ${elapsed.toFixed(1)}ms)`);
+          return result;
+        }
+        throw fallbackError;
+      }
+    }
+    // Pool timeout/failed — fall back to inline.
+    if (error instanceof WorkerPoolError) {
+      const result = params.fallback(messages);
+      const elapsed = performance.now() - start;
+      log.warn({
+        event: "compaction.plan",
+        mode: "inline-fallback",
+        messages: messages.length,
+        totalBytes,
+        durationMs: elapsed,
+        error: error.message,
+      }, `Compaction planning worker failed (${error.code}), fell back to inline (duration: ${elapsed.toFixed(1)}ms)`);
+      return result;
     }
     throw error;
   }

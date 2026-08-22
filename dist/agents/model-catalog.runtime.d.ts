@@ -1,0 +1,20 @@
+import { i as OpenClawConfig } from "../types.openclaw-3lPuYQv-.js";
+import { w as loadManifestModelCatalog } from "../types-CRZpySL92.js";
+import { c as ModelCatalogSnapshot, s as ModelCatalogEntry } from "../provider-model-types-BbGdZNB-.js";
+
+//#region src/agents/prepared-model-catalog.d.ts
+type LoadPreparedModelCatalogParams = {
+  agentId?: string;
+  agentDir?: string;
+  config?: OpenClawConfig;
+  readOnly?: boolean;
+  workspaceDir?: string;
+  env?: NodeJS.ProcessEnv;
+  providerDiscoveryProviderIds?: readonly string[];
+  allowGatewaySubagentBinding?: boolean;
+};
+/** Reads one atomic catalog generation, activating a lifecycle owner when needed. */
+declare function loadPreparedModelCatalogSnapshot(params?: LoadPreparedModelCatalogParams): Promise<ModelCatalogSnapshot>;
+declare function loadPreparedModelCatalog(params?: LoadPreparedModelCatalogParams): Promise<ModelCatalogEntry[]>;
+//#endregion
+export { loadManifestModelCatalog, loadPreparedModelCatalog, loadPreparedModelCatalogSnapshot };

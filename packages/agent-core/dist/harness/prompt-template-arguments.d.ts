@@ -1,0 +1,17 @@
+//#region packages/agent-core/src/harness/prompt-template-arguments.d.ts
+interface PromptTemplate {
+  name: string;
+  description?: string;
+  content: string;
+}
+/** Parse an argument string using simple shell-style single and double quotes. */
+declare function parseCommandArgs(argsString: string): string[];
+/**
+ * Substitute prompt template placeholders (`$1`, `$@`, `$ARGUMENTS`, `${@:N}`, `${@:N:L}`) with command arguments.
+ *
+ * Unsafe integer placeholders resolve to empty text instead of throwing, so malformed templates cannot abort prompt
+ * loading or invocation.
+ */
+declare function substituteArgs(content: string, args: string[]): string;
+//#endregion
+export { PromptTemplate, parseCommandArgs, substituteArgs };

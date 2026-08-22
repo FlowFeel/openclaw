@@ -220,8 +220,52 @@ describe("applyAgentCompactionSettingsFromConfig", () => {
       enabled: true,
       reserveTokens: 8_384,
       keepRecentTokens: 20_000,
+      compactAtRatio: 0.7,
     });
     expect(shouldCompact(1, 16_384, { enabled: true, ...result.compaction })).toBe(false);
+  });
+
+  it("shouldCompact fires proactively at compactAtRatio (0.70) before the reactive edge", () => {
+    // 242K context window, 16K reserve → reactive threshold at 226K (~93%).
+    // compactAtRatio 0.70 → proactive threshold at 169K (~70%).
+    // At 170K tokens, proactive fires (170K > 169K) even though reactive wouldn't (170K < 226K).
+    const settings = {
+      enabled: true,
+      reserveTokens: 16_384,
+      keepRecentTokens: 20_000,
+      compactAtRatio: 0.7,
+    };
+    expect(shouldCompact(170_000, 242_144, settings)).toBe(true); // above proactive
+    expect(shouldCompact(169_000, 242_144, settings)).toBe(false); // below proactive
+  });
+
+  it("shouldCompact falls back to reactive edge when compactAtRatio is high", () => {
+    // compactAtRatio 0.95 → proactive at 230K. Reactive at 226K. min = 226K.
+    const settings = {
+      enabled: true,
+      reserveTokens: 16_384,
+      keepRecentTokens: 20_000,
+      compactAtRatio: 0.95,
+    };
+    expect(shouldCompact(227_000, 242_144, settings)).toBe(true); // above reactive (226K)
+    expect(shouldCompact(225_000, 242_144, settings)).toBe(false); // below reactive
+  });
+
+  it("shouldCompact defaults to 0.70 when compactAtRatio is undefined", () => {
+    // No compactAtRatio → defaults to 0.70. At 70% of 100K = 70K.
+    const settings = { enabled: true, reserveTokens: 16_384, keepRecentTokens: 20_000 };
+    expect(shouldCompact(71_000, 100_000, settings)).toBe(true); // above 70%
+    expect(shouldCompact(69_000, 100_000, settings)).toBe(false); // below 70%
+  });
+
+  it("shouldCompact respects enabled=false even with compactAtRatio set", () => {
+    const settings = {
+      enabled: false,
+      reserveTokens: 16_384,
+      keepRecentTokens: 20_000,
+      compactAtRatio: 0.7,
+    };
+    expect(shouldCompact(200_000, 242_144, settings)).toBe(false);
   });
 
   it("applies capped floor when current reserve is below it on small-context models", () => {
@@ -504,6 +548,7 @@ describe("applyAgentAutoCompactionGuard", () => {
       enabled: false,
       reserveTokens: 50_000,
       keepRecentTokens: 20_000,
+      compactAtRatio: 0.7,
     });
   });
 

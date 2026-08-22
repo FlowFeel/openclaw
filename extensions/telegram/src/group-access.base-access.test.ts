@@ -29,6 +29,17 @@ describe("evaluateTelegramGroupBaseAccess", () => {
     });
   });
 
+  it("splits comma-separated strings inside entries list", () => {
+    const result = normalizeAllowFrom(["12345,67890, 24680", "13579"]);
+
+    expect(result).toEqual({
+      entries: ["12345", "67890", "24680", "13579"],
+      hasWildcard: false,
+      hasEntries: true,
+      invalidEntries: [],
+    });
+  });
+
   it("fails closed when explicit group allowFrom override is empty", () => {
     const result = evaluateTelegramGroupBaseAccess({
       isGroup: true,

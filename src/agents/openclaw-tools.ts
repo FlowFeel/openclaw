@@ -50,6 +50,7 @@ import type { ToolFsPolicy } from "./tool-fs-policy.js";
 import { resolveToolLoopDetectionConfig } from "./tool-loop-detection-config.js";
 import { createAgentsListTool } from "./tools/agents-list-tool.js";
 import { createAskUserTool } from "./tools/ask-user-tool.js";
+import { createListTopicsTool } from "./tools/list-topics-tool.js";
 import type { AnyAgentTool } from "./tools/common.js";
 import { createComputerTool } from "./tools/computer-tool.js";
 import {
@@ -219,6 +220,18 @@ export function createOpenClawTools(
     onYield?: (message: string) => Promise<void> | void;
     /** Allow plugin tools for this tool set to late-bind the gateway subagent. */
     allowGatewaySubagentBinding?: boolean;
+    /**
+     * Channel topic-index bridge for the list_topics tool. When present, a
+     * `list_topics` tool is included that resolves sibling topic names/thread ids
+     * for the active forum chat. Wired by the channel adapter (e.g. Telegram);
+     * the core tool stays channel-neutral.
+     */
+    channelTopics?: {
+      environment: string;
+      chatId: string;
+      scope?: string;
+      resolveTopics: import("./tools/list-topics-tool.js").ResolveTopicsProvider;
+    };
   } & SpawnedToolContext &
     ModelAwareToolContext,
 ): AnyAgentTool[] {
@@ -715,6 +728,16 @@ export function createOpenClawTools(
       },
     }),
     ...collectPresentOpenClawTools([webSearchTool, webFetchTool, imageTool, pdfTool]),
+    ...(options?.channelTopics
+      ? [
+          createListTopicsTool({
+            environment: options.channelTopics.environment,
+            chatId: options.channelTopics.chatId,
+            scope: options.channelTopics.scope,
+            resolveTopics: options.channelTopics.resolveTopics,
+          }),
+        ]
+      : []),
   ];
   options?.recordToolPrepStage?.("openclaw-tools:core-tool-list");
   let allTools = tools;

@@ -4,6 +4,7 @@ export {
   readAmbientTranscriptWatermark,
   readSessionUpdatedAt,
   resolveAmbientTranscriptWatermarkKey,
+  resolveAmbientTranscriptWatermarkLegacyKey,
   resolveStorePath,
 } from "openclaw/plugin-sdk/session-store-runtime";
 export { recordInboundSession } from "openclaw/plugin-sdk/conversation-runtime";

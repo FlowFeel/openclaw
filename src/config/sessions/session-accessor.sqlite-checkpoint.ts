@@ -5,6 +5,7 @@ import {
   runOpenClawAgentWriteTransaction,
   type OpenClawAgentDatabase,
 } from "../../state/openclaw-agent-db.js";
+import { stripBloatFields } from "./bloat-field-policy.js";
 import type { TranscriptEvent } from "./session-accessor.sqlite-contract.js";
 import {
   collectSessionEntryLookupKeys,
@@ -412,7 +413,7 @@ function readSessionCompactionCheckpoint(
   );
 }
 
-function cloneSqliteCheckpointSessionEntry(params: {
+export function cloneSqliteCheckpointSessionEntry(params: {
   currentEntry: SessionEntry;
   nextSessionId: string;
   label?: string;
@@ -422,8 +423,18 @@ function cloneSqliteCheckpointSessionEntry(params: {
 }): SessionEntry {
   const hasTotalTokens =
     typeof params.totalTokens === "number" && Number.isFinite(params.totalTokens);
+  // ── Core mod #1: bloat re-injection prevention ────────────────────────
+  // The pre-compaction entry carries systemPromptReport, skillsSnapshot, and
+  // compactionCheckpoints — metadata that is rebuilt every turn. Previously the
+  // spread `...params.currentEntry` carried all three into the post-compaction
+  // entry, where the stale copies sat in the session context (~15K tokens/turn
+  // of dead metadata) until rebuilt. Now we strip them via the pure policy so
+  // they never carry over. compactionCheckpoints is still conditionally
+  // preserved below when preserveCompactionCheckpoints is set.
+  // See src/config/sessions/bloat-field-policy.ts (pure logic).
+  const stripped = stripBloatFields(params.currentEntry as Record<string, unknown>);
   return {
-    ...params.currentEntry,
+    ...stripped.entry,
     sessionId: params.nextSessionId,
     updatedAt: Date.now(),
     systemSent: false,
@@ -444,7 +455,7 @@ function cloneSqliteCheckpointSessionEntry(params: {
     compactionCheckpoints: params.preserveCompactionCheckpoints
       ? params.currentEntry.compactionCheckpoints
       : undefined,
-  };
+  } as SessionEntry;
 }
 
 function readTranscriptHeaderCwd(events: readonly TranscriptEvent[]): string | undefined {

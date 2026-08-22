@@ -63,6 +63,19 @@ function createTelegramMessageContextSessionRuntimeForTest(
     readSessionUpdatedAt: () => undefined,
     recordInboundSession: async () => undefined,
     resolveAmbientTranscriptWatermarkKey: ({ channel, accountId, conversationId, threadId }) =>
+      [
+        "wat",
+        channel,
+        accountId ?? "",
+        conversationId,
+        threadId === undefined ? "" : String(threadId),
+      ].join(":"),
+    resolveAmbientTranscriptWatermarkLegacyKey: ({
+      channel,
+      accountId,
+      conversationId,
+      threadId,
+    }) =>
       JSON.stringify([
         channel,
         accountId ?? "",

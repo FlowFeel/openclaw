@@ -1,0 +1,1 @@
+../../../dist/extensions/github-copilot/runtime-identity.d.ts

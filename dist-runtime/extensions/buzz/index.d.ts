@@ -1,0 +1,1 @@
+../../../dist/extensions/buzz/index.d.ts

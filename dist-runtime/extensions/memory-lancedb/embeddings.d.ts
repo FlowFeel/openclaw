@@ -1,0 +1,1 @@
+../../../dist/extensions/memory-lancedb/embeddings.d.ts

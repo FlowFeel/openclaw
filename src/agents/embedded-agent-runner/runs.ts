@@ -38,6 +38,10 @@ import {
 } from "../../logging/diagnostic-run-activity.js";
 import { logMessageQueuedWithBacklogPolicy } from "../../logging/diagnostic-runtime.js";
 import { diagnosticLogger as diag, logSessionStateChange } from "../../logging/diagnostic.js";
+import {
+  resolveTopicIsolation,
+  type TopicIsolation,
+} from "../../process/topic-isolation-policy.js";
 import { resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
 import { resolveTimerTimeoutMs } from "../../shared/number-coercion.js";
 import {
@@ -130,6 +134,45 @@ export function formatEmbeddedAgentQueueFailureSummary(
   const errorPart = outcome.errorMessage ? ` error=${outcome.errorMessage}` : "";
   return `queue_message_failed reason=${outcome.reason} sessionId=${outcome.sessionId} gatewayHealth=${outcome.gatewayHealth}${errorPart}`;
 }
+
+// ── Core mod #5: topic isolation worker assignment ─────────────────────────
+// Records the multithreaded-runtime routing decision for each active run. The
+// decision is computed by topic-isolation-policy.ts (pure, foundry-gateable);
+// this map is the observable record. The actual worker spawn/execution is
+// future I/O work; the routing decision is wired and observable now.
+const ACTIVE_RUN_WORKER_ASSIGNMENTS = new Map<string, TopicIsolation>();
+
+/** Records the topic-isolation routing decision for an active run. */
+export function recordActiveRunTopicIsolation(
+  sessionId: string,
+  sessionKey?: string,
+  poolConfig?: { workerCount?: number; isolationMode?: "disabled" | "enabled" },
+): TopicIsolation | undefined {
+  const topicKey = sessionKey?.trim() || sessionId;
+  const decision = resolveTopicIsolation({
+    topicKey,
+    workerCount: poolConfig?.workerCount ?? 1,
+    isolationMode: poolConfig?.isolationMode,
+  });
+  ACTIVE_RUN_WORKER_ASSIGNMENTS.set(sessionId, decision);
+  if (decision.isolate) {
+    diag.debug(
+      `topic isolation: sessionId=${sessionId} topicKey=${topicKey} worker=${decision.assignment.workerKey}`,
+    );
+  }
+  return decision;
+}
+
+/** Returns the recorded worker assignment for an active run, if any. */
+export function getActiveRunWorkerAssignment(sessionId: string): TopicIsolation | undefined {
+  return ACTIVE_RUN_WORKER_ASSIGNMENTS.get(sessionId);
+}
+
+/** Clears the worker assignment for a run (called when the run ends). */
+function clearActiveRunWorkerAssignment(sessionId: string): void {
+  ACTIVE_RUN_WORKER_ASSIGNMENTS.delete(sessionId);
+}
+
 function setActiveRunSessionKey(sessionKey: string | undefined, sessionId: string): void {
   const normalizedSessionKey = sessionKey?.trim();
   if (!normalizedSessionKey) {
@@ -974,6 +1017,7 @@ async function persistForceClearedEmbeddedRunTerminalState(params: {
 }
 
 function notifyEmbeddedRunEnded(sessionId: string) {
+  clearActiveRunWorkerAssignment(sessionId);
   const waiters = EMBEDDED_RUN_WAITERS.get(sessionId);
   if (!waiters || waiters.size === 0) {
     return;
@@ -1022,6 +1066,10 @@ export function setActiveEmbeddedRun(
   }
   clearActiveRunSessionKeys(sessionId);
   setActiveRunSessionKey(sessionKey, sessionId);
+  // ── Core mod #5: record the topic-isolation routing decision ──────────
+  // The worker assignment is computed by topic-isolation-policy.ts and stored
+  // for observability/future worker-pool routing. See recordActiveRunTopicIsolation.
+  recordActiveRunTopicIsolation(sessionId, sessionKey);
   clearActiveRunSessionFiles(sessionId);
   setActiveRunSessionFile(sessionFile, sessionId);
   logSessionStateChange({

@@ -1,6 +1,7 @@
 // Telegram test support owns cleanup for process-global plugin state.
 import { createPluginRuntimeStore } from "openclaw/plugin-sdk/runtime-store";
 import type { TelegramRuntime } from "./runtime.types.js";
+import { resetTopicNameCacheForTest } from "./topic-name-cache.js";
 
 const TELEGRAM_ACCOUNT_THROTTLERS_KEY = Symbol.for("openclaw.telegram.accountThrottlers");
 const TELEGRAM_MESSAGE_CACHE_BUCKETS_KEY = Symbol.for("openclaw.telegram.messageCacheBuckets");
@@ -8,7 +9,6 @@ const TELEGRAM_POLLING_LEASES_KEY = Symbol.for("openclaw.telegram.pollingLeases"
 const TELEGRAM_POLLING_SESSION_STATE_KEY = Symbol.for("openclaw.telegram.pollingSessionState");
 const TELEGRAM_REPLY_FENCE_STATE_KEY = Symbol.for("openclaw.telegram.replyFenceState");
 const TELEGRAM_SENT_MESSAGES_STATE_KEY = Symbol.for("openclaw.telegramSentMessagesState");
-const TELEGRAM_TOPIC_NAME_CACHE_STATE_KEY = Symbol.for("openclaw.telegramTopicNameCacheState");
 
 const { clearRuntime } = createPluginRuntimeStore<TelegramRuntime>({
   pluginId: "telegram",
@@ -66,6 +66,5 @@ export function resetTelegramSentMessageCacheForTest(): void {
 }
 
 export function resetTelegramTopicNameCacheForTest(): void {
-  const globalRecord = globalThis as Record<PropertyKey, unknown>;
-  delete globalRecord[TELEGRAM_TOPIC_NAME_CACHE_STATE_KEY];
+  resetTopicNameCacheForTest();
 }

@@ -1,0 +1,5 @@
+//#region packages/media-understanding-common/src/output-extract.d.ts
+/** Extract Gemini CLI-style response text from the last JSON object in output. */
+declare function extractGeminiResponse(raw: string): string | null;
+//#endregion
+export { extractGeminiResponse };

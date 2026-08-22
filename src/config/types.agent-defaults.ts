@@ -1,5 +1,6 @@
 // Defines agent default configuration types shared by runtime schemas.
 import type { FastMode } from "@openclaw/normalization-core/string-coerce";
+import type { PromptMode } from "../agents/system-prompt.types.js";
 import type { SilentReplyPolicyShape } from "../shared/silent-reply-policy.js";
 import type {
   AgentModelConfig,
@@ -102,6 +103,8 @@ export type AgentContextLimitsConfig = {
   memoryGetMaxChars?: number;
   /** Max chars retained from post-compaction AGENTS.md context injection (default: 1800). */
   postCompactionMaxChars?: number;
+  /** Override the auto-derived max chars per live tool result (default: auto-derived from context window). */
+  maxResultChars?: number;
 };
 
 export type AgentDefaultsConfig = {
@@ -324,8 +327,20 @@ export type AgentDefaultsConfig = {
   systemAgent?: {
     agentId?: string;
   };
-  /** Max concurrent agent runs across all conversations. Default: min(16, max(8, available CPU parallelism)). */
+  /** Max concurrent agent runs across all conversations. Default: min(16, max(1, available CPU parallelism)). */
   maxConcurrent?: number;
+  /**
+   * Multithreaded runtime isolation mode (Phase 2, multithreaded-runtime-design.md).
+   * Controls how turns are dispatched: inline on the main loop, in-process
+   * worker pool, or remote SSH workers. Default: "auto" (Scale 0 on 1-CPU,
+   * Scale 1 on >1-CPU).
+   */
+  runtime?: {
+    /** Isolation mode: "auto" (default), "disabled", "in-process", "remote". */
+    isolation?: "auto" | "disabled" | "in-process" | "remote";
+    /** Worker pool size for in-process isolation (default: availableParallelism, capped 1–64). */
+    workerCount?: number;
+  };
   /** Sub-agent defaults (spawned via sessions_spawn). */
   subagents?: {
     /** Prompt-only guidance for how strongly the main agent should delegate work. Default: "suggest". */
@@ -353,6 +368,8 @@ export type AgentDefaultsConfig = {
   };
   /** Optional sandbox settings for non-main sessions. */
   sandbox?: AgentSandboxConfig;
+  /** Default prompt rendering mode for agent system prompts. */
+  promptMode?: PromptMode;
 };
 
 export type AgentCompactionMode = "default" | "safeguard";
@@ -382,6 +399,12 @@ export type AgentCompactionConfig = {
   thinkingLevel?: AgentThinkingLevel;
   /** Embedded OpenClaw keepRecentTokens budget used for cut-point selection. */
   keepRecentTokens?: number;
+  /**
+   * Proactive compaction ratio: fire when context usage reaches this fraction
+   * of the context window (default: 0.70). At 0.70 on a 242K window,
+   * compaction fires at ~169K instead of the reactive edge (~226K).
+   */
+  compactAtRatio?: number;
   /** Preserve this many most-recent user/assistant turns verbatim in compaction summary context. */
   recentTurnsPreserve?: number;
   /** Identifier-preservation instruction policy for compaction summaries. */

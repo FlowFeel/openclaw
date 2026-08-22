@@ -31,9 +31,14 @@ export function calculateMaxToolResultCharsWithCap(
   return Math.min(maxChars, Math.max(1, hardCapChars));
 }
 
-export function resolveLiveToolResultMaxChars(params: { contextWindowTokens: number }): number {
-  return calculateMaxToolResultCharsWithCap(
-    params.contextWindowTokens,
-    resolveAutoLiveToolResultMaxChars(params.contextWindowTokens),
-  );
+export function resolveLiveToolResultMaxChars(params: {
+  contextWindowTokens: number;
+  /** Config override from agents.defaults.contextLimits.maxResultChars. When set, replaces the auto-derived cap. */
+  maxResultCharsOverride?: number;
+}): number {
+  const hardCapChars =
+    params.maxResultCharsOverride && params.maxResultCharsOverride > 0
+      ? params.maxResultCharsOverride
+      : resolveAutoLiveToolResultMaxChars(params.contextWindowTokens);
+  return calculateMaxToolResultCharsWithCap(params.contextWindowTokens, hardCapChars);
 }

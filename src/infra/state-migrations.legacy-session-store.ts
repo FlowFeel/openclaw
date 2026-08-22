@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeRestartRecoveryEntryFields } from "../config/sessions/restart-recovery-state.js";
+import { serializeSessionStore } from "../config/sessions/serialization-format-policy.js";
 import {
   ensureSessionStorePromptBlobsForPersistence,
   hydrateSessionStoreSkillPromptRefs,
@@ -55,6 +56,7 @@ import {
   isInternalNonDeliveryChannel,
 } from "../utils/message-channel-constants.js";
 import { writeTextAtomic } from "./json-files.js";
+import { replaceFileAtomic } from "./replace-file.js";
 import { readSessionStoreJson5 } from "./state-migrations.fs.js";
 
 export type LegacySessionStoreLoadOptions = {
@@ -379,17 +381,32 @@ async function persistLegacySessionStore(
     store: stripRuntimeOnlySkillState(store),
   });
   await fs.promises.mkdir(path.dirname(storePath), { recursive: true });
-  await writeTextAtomic(storePath, JSON.stringify(persisted.store, null, 2), {
+  // ── Core mod #4: structured serialization ─────────────────────────────
+  // The on-disk format is chosen by serialization-format-policy: JSON for
+  // JSON-native stores (human-readable, backward-compatible), v8 structured
+  // serialization for stores containing non-JSON-native types (lossless).
+  // See src/config/sessions/serialization-format-policy.ts.
+  const { bytes: storeBytes, format: storeFormat } = serializeSessionStore(persisted.store);
+  const trailingNewline = storeFormat === "json";
+  const payload =
+    trailingNewline && !storeBytes.toString("utf-8").endsWith("\n")
+      ? Buffer.concat([storeBytes, Buffer.from("\n")])
+      : storeBytes;
+  await replaceFileAtomic({
+    filePath: storePath,
+    content: payload,
+    mode: 0o600,
+    dirMode: 0o777 & ~process.umask(),
+    copyFallbackOnPermissionError: true,
+    syncTempFile: true,
+    syncParentDir: true,
+    tempPrefix: path.basename(storePath),
     beforeRename: async () => {
       await ensureSessionStorePromptBlobsForPersistence({
         storePath,
         promptBlobs: persisted.promptBlobs.values(),
       });
     },
-    durable: true,
-    mode: 0o600,
-    tempPrefix: path.basename(storePath),
-    trailingNewline: true,
   });
 }
 

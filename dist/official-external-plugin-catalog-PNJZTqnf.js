@@ -1,0 +1,2 @@
+import { f as loadConfiguredHostedOfficialExternalPluginCatalogEntries, g as resolveOfficialExternalPluginLabel, h as resolveOfficialExternalPluginInstall, m as resolveOfficialExternalPluginId } from "./official-external-plugin-catalog-D2YYNHlE.js";
+export { loadConfiguredHostedOfficialExternalPluginCatalogEntries, resolveOfficialExternalPluginId, resolveOfficialExternalPluginInstall, resolveOfficialExternalPluginLabel };

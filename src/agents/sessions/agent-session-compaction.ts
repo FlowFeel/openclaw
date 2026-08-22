@@ -1,6 +1,7 @@
 import { isContextOverflow } from "@openclaw/ai/internal/runtime";
 import { InvalidSummaryOutputError } from "../../../packages/agent-core/src/harness/types.js";
 import type { AssistantMessage, Model } from "../../llm/types.js";
+import { createSubsystemLogger } from "../../logging/subsystem.js";
 import {
   calculateContextTokens,
   compact,
@@ -17,6 +18,8 @@ import { preflightManualSessionCompaction } from "./manual-compaction-preflight.
 import { getModelRegistryRuntime } from "./model-registry-runtime.js";
 import { getLatestCompactionEntry, type CompactionEntry } from "./session-manager.js";
 import type { SettingsManager } from "./settings-manager.js";
+
+const log = createSubsystemLogger("agent/compaction");
 
 type CompactionReason = "manual" | "threshold" | "overflow";
 type SummaryOutputPolicy = "none" | "retry-invalid-once";
@@ -203,6 +206,7 @@ export abstract class AgentSessionCompaction extends AgentSessionInspection {
     }
 
     if (!compactionResult) {
+      const contextTokenBudget = this.model?.contextWindow ?? 0;
       const runCoreCompaction = () =>
         compact(
           preparation,
@@ -213,6 +217,8 @@ export abstract class AgentSessionCompaction extends AgentSessionInspection {
           options.signal,
           this.thinkingLevel,
           this.agent.streamFn,
+          undefined,
+          contextTokenBudget > 0 ? contextTokenBudget : undefined,
         );
       let result = await runCoreCompaction();
       // Automatic core compaction owns one retry for invalid summary output.
@@ -231,6 +237,21 @@ export abstract class AgentSessionCompaction extends AgentSessionInspection {
         }
       }
       compactionResult = unwrapCoreResult(result);
+    }
+
+    // R4: Post-compaction convergence logging. Pairs with SL-2's input-side
+    // [context-pressure-diagnostic] to show whether compaction actually
+    // reduced context to fit the budget.
+    if (compactionResult.convergence) {
+      const c = compactionResult.convergence;
+      log.info(
+        `[compaction-convergence] ` +
+          `passes=${c.passes} ` +
+          `converged=${c.converged} ` +
+          `summaryTokens=${c.summaryTokens} ` +
+          `keepRecentTokens=${c.keepRecentTokens} ` +
+          `budget=${c.contextTokenBudget ?? "?"}`,
+      );
     }
 
     if (options.signal.aborted) {

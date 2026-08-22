@@ -110,6 +110,7 @@ export function resolveGatewayScopedTools(params: {
   groupSpace?: string;
   spawnedBy?: string;
   scheduledToolPolicy?: ScheduledToolPolicyContext;
+  channelTopics?: import("./topic-list-source.js").ChannelTopicsSource;
 }) {
   const runtimePolicySessionKey = params.runtimePolicySessionKey?.trim() || params.sessionKey;
   const {
@@ -271,6 +272,7 @@ export function resolveGatewayScopedTools(params: {
     senderIsOwner: params.senderIsOwner,
     conversationReadOrigin: params.conversationReadOrigin,
     allowGatewaySubagentBinding: params.allowGatewaySubagentBinding,
+    channelTopics: params.channelTopics,
     allowMediaInvokeCommands: params.allowMediaInvokeCommands,
     disablePluginTools: params.disablePluginTools,
     wrapBeforeToolCallHook: false,

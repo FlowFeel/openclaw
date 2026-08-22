@@ -1,0 +1,1 @@
+../../../dist/extensions/llm-task/doctor-contract-api.d.ts

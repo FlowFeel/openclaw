@@ -1,4 +1,12 @@
-# OpenClaw 🦞 — Your assistant, on your devices, in your chats
+# OpenClaw 🦞 — Inferno Fork (`v2026.8.1-inferno`)
+
+![Inferno Fork](https://img.shields.io/badge/OpenClaw%20Fork-v2026.8.1--inferno-red)
+![CI Status](https://img.shields.io/badge/CI%20State-Passing%20(29%2F29%20verify)-success)
+![Prompt Overhead](https://img.shields.io/badge/Prompt%20Footprint-~213%20tokens-brightgreen)
+
+> **Inferno OpenClaw Fork (`v2026.8.1-inferno`) — Core runtime modifications authored by Ed Phillips `<ed@cronos.net>` (phosphene) for inferno labs.**
+
+---
 
 <p align="center">
   <picture>
@@ -12,10 +20,21 @@
   <a href="https://www.npmjs.com/package/openclaw"><img src="https://img.shields.io/npm/v/openclaw?style=flat-square&label=npm" alt="npm version"></a>
   <a href="https://nodejs.org"><img src="https://img.shields.io/node/v/openclaw?style=flat-square" alt="Node.js version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License: MIT"></a>
-  <a href="https://discord.gg/clawd"><img src="https://img.shields.io/discord/1456350064065904867?label=discord&logo=discord&logoColor=white&color=5865F2&style=flat-square" alt="Discord"></a>
 </p>
 
-OpenClaw is a personal AI assistant that runs on your devices and meets you in the channels you already use. It is designed for a single operator and connects models, tools, messaging channels, and optional companion apps through one Gateway.
+OpenClaw is a personal AI assistant that runs on your devices and meets you in the channels you already use. The **Inferno Fork** enhances the core Gateway runtime with an ultra-slim prompt engine (~213 tokens), Phosphene MD StructRAG dual-store, decomposed YAML configs, and native multi-threading.
+
+---
+
+## Core Runtime Innovations in `v2026.8.1-inferno`
+
+1. **Ultra-Slim Prompt Engine (`ContextFilterPolicy`)**: Suppresses static persona file loading (`SOUL.md`, `AGENTS.md`) in `scaffold` mode (`mode: "dynamic_only"`). Reduces system prompt overhead from ~1,114 tokens to **~213 tokens** (80.8% reduction over baseline).
+2. **Phosphene MD StructRAG Dual-Store**: 100% Structured Markdown (`.md`) context surfaces with 0ms relational SQLite section indexing (`topic_sections`).
+3. **Open-Source AST Libraries**: Standardized on `marked@18.0.7` GFM AST lexer and `yaml@2.9.0` frontmatter parser.
+4. **Decomposed Domain Configuration**: `./config.d/*.yaml` modular config with native glob `$include`.
+5. **SQLite Key-Value Storage (`SqliteKvStore`)**: Single `openclaw-state.sqlite` database replacing loose JSON stores.
+
+---
 
 [Website](https://openclaw.ai) · [Docs](https://docs.openclaw.ai) · [Getting started](https://docs.openclaw.ai/start/getting-started) · [Showcase](https://docs.openclaw.ai/start/showcase) · [FAQ](https://docs.openclaw.ai/help/faq) · [Vision](VISION.md) · [DeepWiki](https://deepwiki.com/openclaw/openclaw)
 

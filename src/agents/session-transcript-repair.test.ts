@@ -6,6 +6,8 @@ import {
   sanitizeToolUseResultPairing,
   repairToolUseResultPairing,
   stripToolResultDetails,
+  validateTurnInvariants,
+  isUnrecoverableEnvironmentError,
 } from "./session-transcript-repair.js";
 import { castAgentMessage, castAgentMessages } from "./test-helpers/agent-message-fixtures.js";
 
@@ -1589,6 +1591,58 @@ describe("stripToolResultDetails", () => {
 
     const out = stripToolResultDetails(input);
     expect(out).toBe(input);
+  });
+});
+
+describe("validateTurnInvariants", () => {
+  it("returns valid=true when all tool call IDs have matching results", () => {
+    const callIds = ["call_1", "call_2"];
+    const resultIds = ["call_1", "call_2"];
+    const res = validateTurnInvariants(callIds, resultIds);
+    expect(res.valid).toBe(true);
+    if (res.valid) {
+      expect(res.pairedCount).toBe(2);
+    }
+  });
+
+  it("detects orphan tool calls when result is missing", () => {
+    const callIds = ["call_1", "call_2", "call_3"];
+    const resultIds = ["call_1"];
+    const res = validateTurnInvariants(callIds, resultIds);
+    expect(res.valid).toBe(false);
+    if (!res.valid) {
+      expect(res.orphanCallIds).toEqual(["call_2", "call_3"]);
+      expect(res.orphanResultIds).toEqual([]);
+    }
+  });
+
+  it("detects orphan results when call is absent", () => {
+    const callIds = ["call_1"];
+    const resultIds = ["call_1", "call_orphan"];
+    const res = validateTurnInvariants(callIds, resultIds);
+    expect(res.valid).toBe(false);
+    if (!res.valid) {
+      expect(res.orphanCallIds).toEqual([]);
+      expect(res.orphanResultIds).toEqual(["call_orphan"]);
+    }
+  });
+});
+
+describe("isUnrecoverableEnvironmentError", () => {
+  it("identifies missing browser error as unrecoverable", () => {
+    expect(
+      isUnrecoverableEnvironmentError("Error: No supported browser found (Chrome/Brave/Edge/Chromium on Linux)"),
+    ).toBe(true);
+  });
+
+  it("identifies missing shell command / binary as unrecoverable", () => {
+    expect(isUnrecoverableEnvironmentError("bash: pdftotext: command not found")).toBe(true);
+    expect(isUnrecoverableEnvironmentError("spawn ENOENT")).toBe(true);
+  });
+
+  it("returns false for standard runtime errors", () => {
+    expect(isUnrecoverableEnvironmentError("TypeError: Cannot read properties of undefined")).toBe(false);
+    expect(isUnrecoverableEnvironmentError("HTTP 500 Internal Server Error")).toBe(false);
   });
 });
 /* oxlint-disable max-lines -- TODO: split this grandfathered oversized file. */

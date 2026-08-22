@@ -1,0 +1,1 @@
+../../../dist/extensions/browser/cli-output-mode.d.ts

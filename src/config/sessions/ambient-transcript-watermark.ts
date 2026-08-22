@@ -11,6 +11,25 @@ export type AmbientTranscriptWatermarkScope = {
 export function resolveAmbientTranscriptWatermarkKey(
   scope: AmbientTranscriptWatermarkScope,
 ): string {
+  // Structured, delimiter-joined key (stable across encode/decode) rather than
+  // a JSON.stringify composite. Human-inspectable and server-neutral.
+  return [
+    "wat",
+    scope.channel,
+    scope.accountId ?? "",
+    scope.conversationId,
+    scope.threadId === undefined ? "" : String(scope.threadId),
+  ].join(":");
+}
+
+/**
+ * Legacy JSON-composite key used before SL-14. Retained so pre-migration
+ * persisted watermarks (written under the JSON key) are still honored until
+ * they are overwritten under the new structured key.
+ */
+export function resolveAmbientTranscriptWatermarkLegacyKey(
+  scope: AmbientTranscriptWatermarkScope,
+): string {
   return JSON.stringify([
     scope.channel,
     scope.accountId ?? "",
@@ -54,18 +73,38 @@ function isAmbientTranscriptWatermarkAfter(
 export function readAmbientTranscriptWatermark(
   entry: Pick<SessionEntry, "ambientTranscriptWatermarks" | "sessionId"> | undefined,
   key: string,
+  legacyKey?: string,
 ): AmbientTranscriptWatermark | undefined {
-  const watermark = entry?.ambientTranscriptWatermarks?.[key];
+  if (!entry) {
+    return undefined;
+  }
+  const watermarks = entry.ambientTranscriptWatermarks;
+  if (!watermarks) {
+    return undefined;
+  }
   // A watermark only vouches for rows in the transcript it was written against.
   // After a session reset those rows live in an archived file the model never
   // reads, so a cross-session (or legacy sessionId-less) watermark must not hide them.
-  return watermark?.sessionId === entry?.sessionId ? watermark : undefined;
+  const matching = (candidate: AmbientTranscriptWatermark | undefined) =>
+    candidate?.sessionId === entry.sessionId ? candidate : undefined;
+  const preferred = matching(watermarks[key]);
+  if (preferred) {
+    return preferred;
+  }
+  // Migration: honor a pre-SL-14 watermark written under the legacy JSON key
+  // only while the new structured key has no watermark for this session yet.
+  if (legacyKey && legacyKey !== key) {
+    return matching(watermarks[legacyKey]);
+  }
+  return undefined;
 }
 
 export async function updateAmbientTranscriptWatermark(params: {
   storePath: string;
   sessionKey: string;
   key: string;
+  /** Alternative key to consult for the current value (pre-SL-14 migration). */
+  legacyKey?: string;
   messageId: string;
   timestampMs?: number;
   expectedSessionId?: string;
@@ -85,7 +124,7 @@ export async function updateAmbientTranscriptWatermark(params: {
       if (params.expectedSessionId !== undefined && entry.sessionId !== params.expectedSessionId) {
         return null;
       }
-      const current = readAmbientTranscriptWatermark(entry, params.key);
+      const current = readAmbientTranscriptWatermark(entry, params.key, params.legacyKey);
       if (
         !isAmbientTranscriptWatermarkAfter(
           { messageId: params.messageId, timestampMs: params.timestampMs },

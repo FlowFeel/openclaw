@@ -1,3 +1,21 @@
+/**
+ * Code-mode worker — executes user-provided JavaScript in a QuickJS WASM
+ * sandbox for safe tool-call evaluation.
+ *
+ * Spawn-per-call rationale (2b):
+ * Each code-mode execution runs untrusted user code in a fresh QuickJS sandbox.
+ * The worker is terminated after each execution to guarantee isolation — no
+ * state leaks between executions.  Pooling would reuse a worker across
+ * executions, breaking the sandbox isolation guarantee.  The spawn cost is
+ * intentional: it is the isolation boundary.
+ *
+ * Prediction tested: each execution gets a fresh QuickJS context with no
+ * residual state from previous executions.
+ * Competing account: a pool could reset state between executions without a full
+ * respawn.
+ * Result that supports: no state leakage detected between executions.
+ * Result that refutes: state from execution A is visible in execution B.
+ */
 import { readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import path from "node:path";

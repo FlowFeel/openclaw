@@ -2,7 +2,10 @@
 import os from "node:os";
 import type { OpenClawConfig } from "./types.js";
 
-const MIN_AGENT_MAX_CONCURRENT = 8;
+// Minimum 1 — never oversubscribe a single-CPU host.  The previous floor of 8
+// forced 8 concurrent agent runs even on a 1-CPU box, causing thrashing.
+// The default now scales with availableParallelism(): 1-CPU → 1, 8-CPU → 8.
+const MIN_AGENT_MAX_CONCURRENT = 1;
 const MAX_AGENT_MAX_CONCURRENT = 16;
 let defaultAgentMaxConcurrent: number | undefined;
 

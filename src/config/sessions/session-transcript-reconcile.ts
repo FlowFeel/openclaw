@@ -1,5 +1,34 @@
-// Transcript projection reconciliation owner. Gateway startup awaits it;
-// request paths may only schedule it and return a bounded retryable response.
+/**
+ * Transcript projection reconciliation owner. Gateway startup awaits it;
+ * request paths may only schedule it and return a bounded retryable response.
+ *
+ * Spawn-per-call rationale (2b):
+ * This worker uses a bidirectional streaming protocol: the worker sends
+ * `plan-start` → `active-chunk`/`fts-chunk` → `plan-finish` → `done`, and the
+ * main thread sends `continue` acks between each message.  This is incompatible
+ * with `TopicAffineWorkerPool`, which is a single request-response pool (one
+ * `{ seq, input }` → one `{ seq, status, value }`).
+ *
+ * The streaming protocol is intentional: projection data can be large (many
+ * sessions × many FTS text bytes), and streaming in bounded chunks allows the
+ * main thread to write incrementally through the SQLite owner (bounded memory)
+ * and yield between chunks (cooperative scheduling).  Batching into a single
+ * response would increase memory pressure for large reconciles.
+ *
+ * A streaming pool abstraction (multi-message responses correlated by `seq`)
+ * could pool this worker, but that is a new concept beyond the scope of 2b.
+ * The spawn cost is amortized over significant I/O work (full transcript scan +
+ * projection rebuild), and reconcile is infrequent (only when transcript
+ * indexes are dirty).
+ *
+ * Prediction tested: the streaming protocol provides bounded memory that a
+ * batched response would exceed.
+ * Competing account: a batched response would fit in memory for all practical
+ * reconcile sizes.
+ * Result that supports: peak memory during reconcile < 2× the largest session's
+ * projection data (streaming keeps only one chunk in memory at a time).
+ * Result that refutes: peak memory with batching is the same as with streaming.
+ */
 import { randomInt } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
