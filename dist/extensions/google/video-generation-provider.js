@@ -9,7 +9,7 @@ import "../../response-limit-runtime-geq0cpf2.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
 import "../../ssrf-runtime-B8V5-MiN.js";
 import "../../media-runtime-CLhEwOPy.js";
-import "../../media-generation-runtime-L2P3yzs8.js";
+import "../../media-generation-runtime-qDvQotlK.js";
 import { a as resolveApiKeyForProvider } from "../../provider-auth-runtime-Ey4OZkKd.js";
 import "../../provider-http-C8bsuM26.js";
 import { n as resolveGoogleGenerativeAiApiOrigin } from "../../provider-policy-Cfq4-WOo.js";

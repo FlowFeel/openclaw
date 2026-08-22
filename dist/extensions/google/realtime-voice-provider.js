@@ -11,7 +11,7 @@ import "../../string-coerce-runtime-CLK2YdzD.js";
 import "../../secret-input-Dsfz4fVL.js";
 import "../../media-runtime-CLhEwOPy.js";
 import { H as REALTIME_VOICE_AUDIO_FORMAT_PCM16_24KHZ, V as REALTIME_VOICE_AUDIO_FORMAT_G711_ULAW_8KHZ, m as REALTIME_VOICE_AGENT_CONSULT_TOOL_NAME } from "../../realtime-session-harness-bu55PsqP.js";
-import { n as createRealtimeVoiceAudioQueue } from "../../realtime-voice-BQAvvGQI.js";
+import { n as createRealtimeVoiceAudioQueue } from "../../realtime-voice-D6uheH7o.js";
 import { a as mulawToPcm, i as convertPcmToMulaw8k, s as resamplePcm } from "../../audio-energy-o8vC-5VK.js";
 import "../../thinking-Dalwgp3n.js";
 import { t as createGoogleGenAI } from "../../google-genai-runtime-CoO4Lzde.js";

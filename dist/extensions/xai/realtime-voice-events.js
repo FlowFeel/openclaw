@@ -1,2 +1,2 @@
-import { n as XaiRealtimeVoiceEvents, t as XaiRealtimeMalformedAudioError } from "../../realtime-voice-events-B6wr73qP.js";
+import { n as XaiRealtimeVoiceEvents, t as XaiRealtimeMalformedAudioError } from "../../realtime-voice-events-B0ZByvLP.js";
 export { XaiRealtimeMalformedAudioError, XaiRealtimeVoiceEvents };

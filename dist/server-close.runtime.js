@@ -6,17 +6,17 @@ import { t as disposeRegisteredAgentHarnesses } from "./registry-BjwLx-0R.js";
 import { p as closePluginStateDatabase } from "./plugin-state-store-aPYaqCXn.js";
 import { i as listChannelPlugins } from "./registry-B1AiP2IQ.js";
 import "./plugins-1tM2ZjdA.js";
-import { o as createAgentRunRestartAbortError } from "./run-termination-nrLSEQ_b.js";
+import { o as createAgentRunRestartAbortError } from "./run-termination-BeCPtaNS.js";
 import { n as disposeAllSessionMcpRuntimes } from "./agent-bundle-mcp-manager-api-BO7-Y1u4.js";
 import "./agent-bundle-mcp-tools-DCf2vF2J.js";
 import { m as triggerInternalHook, n as createInternalHookEvent } from "./internal-hooks-glvlO_hY.js";
-import { t as clearSessionSuspensionTimers } from "./session-suspension-DUbfGECM.js";
+import { t as clearSessionSuspensionTimers } from "./session-suspension-DMbHqSuh.js";
 import { n as createChatAbortMarker } from "./server-chat-state-C8AVcQU8.js";
-import { a as isChatAbortControllerEntryAbortable, c as removeChatAbortControllerEntry, r as abortTrackedChatRunById } from "./chat-abort-BvCyxb9W.js";
+import { a as isChatAbortControllerEntryAbortable, c as removeChatAbortControllerEntry, r as abortTrackedChatRunById } from "./chat-abort-dteij8GM.js";
 import { n as abortQueuedChatTurns } from "./chat-queued-turns-DWyXqGgL.js";
 import { n as collectGatewayProcessMemoryUsageMb, o as measureGatewayRestartTrace, s as recordGatewayRestartTrace } from "./restart-trace-Cu5YQjxo.js";
 import { n as clearSessionTypingState } from "./session-typing-state-CJxhp501.js";
-import { r as drainActiveSessionsForShutdown } from "./session-reset-service-bcdW_m_M.js";
+import { r as drainActiveSessionsForShutdown } from "./session-reset-service-BbpxogWI.js";
 import { cleanupSessionResources } from "@openclaw/ai/internal/runtime";
 //#region src/gateway/server-close.ts
 const shutdownLog = createSubsystemLogger("gateway/shutdown");
@@ -466,7 +466,7 @@ function createGatewayCloseHandler(params) {
 				for (const channelId of channelIds) await shutdownStep(`channel/${channelId}`, () => params.stopChannel(channelId), warnings);
 			});
 			await shutdownStep("code-mode-runs", async () => {
-				const { disposeAllCodeModeRuns } = await import("./code-mode-state-CT_sfhqO.js");
+				const { disposeAllCodeModeRuns } = await import("./code-mode-state-BG85iZpz.js");
 				return disposeAllCodeModeRuns();
 			}, warnings);
 			await shutdownStep("agent-harnesses", () => disposeRegisteredAgentHarnesses(), warnings);

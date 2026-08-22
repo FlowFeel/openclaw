@@ -1615,6 +1615,42 @@ describe("buildFailoverRemediationHint", () => {
     );
   });
 
+  it("returns actionable web console link for OpenRouter key limit exhaustion", () => {
+    const err = new FailoverError("HTTP 403 Key limit exceeded (total limit)", {
+      reason: "auth_permanent",
+      provider: "openrouter",
+      model: "google/gemini-2.5-flash",
+      rawError: '{"error":{"message":"Key limit exceeded (total limit)","code":403}}',
+    });
+    expect(buildFailoverRemediationHint(err)).toBe(
+      "OpenRouter API key limit exceeded. Manage key limits or top up balance at: https://openrouter.ai/keys",
+    );
+  });
+
+  it("returns billing management link for OpenAI quota errors", () => {
+    const err = new FailoverError("insufficient_quota", {
+      reason: "billing",
+      provider: "openai",
+      model: "gpt-4o",
+      rawError: INSUFFICIENT_QUOTA_PAYLOAD,
+    });
+    expect(buildFailoverRemediationHint(err)).toBe(
+      "OpenAI quota/billing limit reached. Manage plan and billing at: https://platform.openai.com/account/billing",
+    );
+  });
+
+  it("returns billing management link for Anthropic billing errors", () => {
+    const err = new FailoverError("credit balance too low", {
+      reason: "billing",
+      provider: "anthropic",
+      model: "claude-3-5-sonnet",
+      rawError: '{"type":"error","error":{"type":"billing_error","message":"Credit balance too low."}}',
+    });
+    expect(buildFailoverRemediationHint(err)).toBe(
+      "Anthropic billing balance depleted. Top up balance at: https://console.anthropic.com/settings/billing",
+    );
+  });
+
   it("quotes provider ids that contain shell metacharacters", () => {
     expect(buildProviderReauthCommand("custom;touch /tmp/pwned")).toBe(
       "openclaw models auth login --provider 'custom;touch /tmp/pwned' --force",

@@ -1,3 +1,3 @@
-import { t as handleDiscordAction } from "../../runtime-BcG80QlD.js";
-import "../../action-runtime-api-B0Jt-5f4.js";
+import { t as handleDiscordAction } from "../../runtime-sN2_NuI8.js";
+import "../../action-runtime-api-CxINNKxP.js";
 export { handleDiscordAction };

@@ -1,2 +1,2 @@
-import { a as resolveHermesConfiguredProviderId, i as resolveCurrentModelRef, n as normalizeHermesCustomProviderId, o as resolveHermesModelRef, r as normalizeHermesProviderId, s as usesRetiredHermesQwenProvider, t as applyModelItem } from "../../model-DgnC-M9_.js";
+import { a as resolveHermesConfiguredProviderId, i as resolveCurrentModelRef, n as normalizeHermesCustomProviderId, o as resolveHermesModelRef, r as normalizeHermesProviderId, s as usesRetiredHermesQwenProvider, t as applyModelItem } from "../../model-BdN1HGCv.js";
 export { applyModelItem, normalizeHermesCustomProviderId, normalizeHermesProviderId, resolveCurrentModelRef, resolveHermesConfiguredProviderId, resolveHermesModelRef, usesRetiredHermesQwenProvider };

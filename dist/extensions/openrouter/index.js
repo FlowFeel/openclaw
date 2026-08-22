@@ -8,10 +8,10 @@ import { l as getOpenRouterModelCapabilities, u as loadOpenRouterModelCapabiliti
 import "../../provider-stream-family-3-SAZ5iJ.js";
 import "../../text-utility-runtime-D52Cj1WO.js";
 import { a as normalizeOpenRouterBaseUrl, i as isOpenRouterProxyReasoningUnsupportedModel, n as buildOpenrouterLiveProvider, o as resolveOpenRouterApiBaseUrl, r as buildOpenrouterProvider } from "../../provider-catalog-DT16V_XN.js";
-import { t as buildOpenRouterImageGenerationProvider } from "../../image-generation-provider-D1Q_-dA6.js";
+import { t as buildOpenRouterImageGenerationProvider } from "../../image-generation-provider-Bo0nLAoD.js";
 import { t as openrouterMediaUnderstandingProvider } from "../../media-understanding-provider-D8ApcDIu.js";
 import { i as normalizeOpenRouterModelFamilyId, n as isOpenRouterMistralModelId, r as normalizeOpenRouterApiModelId } from "../../models-DUd4uql_.js";
-import { t as buildOpenRouterMusicGenerationProvider } from "../../music-generation-provider-BNjFuxa2.js";
+import { t as buildOpenRouterMusicGenerationProvider } from "../../music-generation-provider-BPZAuuvB.js";
 import { n as applyOpenrouterConfig, t as OPENROUTER_DEFAULT_MODEL_REF } from "../../onboard-CbuiTq7-.js";
 import { t as createOpenRouterOAuthAuthMethod } from "../../oauth-BMzZWzOn.js";
 import { t as resolveOpenRouterExtraParamsForTransport } from "../../provider-routing-BKidv0ix.js";
@@ -20,7 +20,7 @@ import { t as wrapOpenRouterProviderStream } from "../../stream-B1JqOjv6.js";
 import { t as resolveOpenRouterThinkingProfile } from "../../thinking-policy-DBWiNWmu.js";
 import { t as fetchOpenRouterUsage } from "../../usage-DJvchvNc.js";
 import { t as listOpenRouterVideoModelCatalog } from "../../video-model-catalog-Ap36TIgN.js";
-import { t as buildOpenRouterVideoGenerationProvider } from "../../video-generation-provider-vIwASQGP.js";
+import { t as buildOpenRouterVideoGenerationProvider } from "../../video-generation-provider-COCIecj6.js";
 //#region extensions/openrouter/openclaw.plugin.json
 var openclaw_plugin_default = {
 	id: "openrouter",

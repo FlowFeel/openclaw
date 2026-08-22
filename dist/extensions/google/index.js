@@ -3,7 +3,7 @@ import { p as normalizeResolvedSecretInputString } from "../../types.secrets-BvA
 import "../../string-coerce-runtime-CLK2YdzD.js";
 import "../../secret-input-Dsfz4fVL.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { n as createRealtimeVoiceAudioQueue } from "../../realtime-voice-BQAvvGQI.js";
+import { n as createRealtimeVoiceAudioQueue } from "../../realtime-voice-D6uheH7o.js";
 import { t as buildGoogleGeminiCliBackend } from "../../cli-backend-sW66kbAj.js";
 import { n as registerGoogleGeminiCliProvider } from "../../gemini-cli-provider-DtfSV4LY.js";
 import { c as createGoogleMusicGenerationProviderMetadata, l as createGoogleVideoGenerationProviderMetadata } from "../../generation-provider-metadata-C7T8YZKq.js";

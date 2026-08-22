@@ -1,6 +1,6 @@
 import { n as listChatCommands, r as listChatCommandsForConfig, t as isCommandEnabled } from "../commands-registry-list-DXrd7jpp.js";
 import { i as resolveTextCommand, n as maybeResolveTextAlias, r as normalizeCommandBody, t as getCommandDetection } from "../commands-registry-normalize-CdLMZZiE.js";
-import { a as shouldComputeCommandAuthorized, n as hasInlineCommandTokens, r as isControlCommandMessage, t as hasControlCommand } from "../command-detection-DwmuMNEC.js";
+import { a as shouldComputeCommandAuthorized, n as hasInlineCommandTokens, r as isControlCommandMessage, t as hasControlCommand } from "../command-detection-DYoTJurA.js";
 import { a as parseAccessGroupAllowFromEntry, t as ACCESS_GROUP_ALLOW_FROM_PREFIX } from "../allow-from-o-cfFFcK.js";
 import { r as resolveDmGroupAccessWithLists } from "../dm-policy-shared-B0DvumLR.js";
 import { i as resolveStoredModelOverride } from "../stored-model-override-COLDiva4.js";

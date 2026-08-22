@@ -70,7 +70,8 @@ type CompactionPlanningWorkerResult = {
   status: "failed";
   error: string;
 };
+declare function createMessageIndexer(source: AgentMessage[]): (selected: AgentMessage[]) => number[];
 /** Run one compaction planning request and return a serializable result. */
 declare function runCompactionPlanningWorkerInput(input: unknown): CompactionPlanningWorkerResult;
 //#endregion
-export { CompactionPlanningWorkerInput, CompactionPlanningWorkerResult, CompactionPlanningWorkerValue, runCompactionPlanningWorkerInput };
+export { CompactionPlanningWorkerInput, CompactionPlanningWorkerResult, CompactionPlanningWorkerValue, createMessageIndexer, runCompactionPlanningWorkerInput };

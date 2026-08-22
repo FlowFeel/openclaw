@@ -8,7 +8,7 @@ import { r as isProviderApiKeyConfigured } from "../../provider-auth-D9UigLvZ.js
 import { c as postJsonRequest } from "../../shared-Ck9SyaVQ.js";
 import "../../number-runtime-C6TGSEc_.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
-import "../../media-generation-runtime-L2P3yzs8.js";
+import "../../media-generation-runtime-qDvQotlK.js";
 import { a as resolveApiKeyForProvider } from "../../provider-auth-runtime-Ey4OZkKd.js";
 import "../../provider-http-C8bsuM26.js";
 import { l as resolveInlineImageJsonResponseMaxBytes, n as generatedImageAssetFromBase64 } from "../../image-generation-CBVzN_gj.js";

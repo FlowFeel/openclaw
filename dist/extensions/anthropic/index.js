@@ -1,5 +1,5 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { n as registerAnthropicPlugin } from "../../register.runtime-Cz6bk1ku.js";
+import { n as registerAnthropicPlugin } from "../../register.runtime-DFOywYCG.js";
 //#region extensions/anthropic/index.ts
 /**
 * Anthropic provider plugin entry. It registers Claude API auth, Claude CLI

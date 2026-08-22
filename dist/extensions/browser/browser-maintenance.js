@@ -1,3 +1,3 @@
-import { t as movePathToTrash } from "../../trash-Bna8FICl.js";
-import { t as closeTrackedBrowserTabsForSessions } from "../../session-tab-registry-cVJiMCwS.js";
+import { t as movePathToTrash } from "../../trash-hWxEfvIX.js";
+import { t as closeTrackedBrowserTabsForSessions } from "../../session-tab-registry-DzvuLxVk.js";
 export { closeTrackedBrowserTabsForSessions, movePathToTrash };

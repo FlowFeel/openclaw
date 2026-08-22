@@ -6,7 +6,7 @@ import { _ as resolveToolProfilePolicy, a as collectExplicitDenylist, c as merge
 import { n as pickSandboxToolPolicy } from "../sandbox-tool-policy-ClB7s2K0.js";
 import "../config-UtpOr1Uw.js";
 import { a as resolvePluginTools, r as ensureStandalonePluginToolRegistryLoaded } from "../tools-DfrDsxdD.js";
-import { i as resolveToolsMcpAgentSessionKey, n as createToolsMcpServer, r as OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY_ENV, t as connectToolsMcpServerToStdio } from "../tools-stdio-server-DBGR_MCh.js";
+import { i as resolveToolsMcpAgentSessionKey, n as createToolsMcpServer, r as OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY_ENV, t as connectToolsMcpServerToStdio } from "../tools-stdio-server-C_TGEhic.js";
 import { pathToFileURL } from "node:url";
 import "@modelcontextprotocol/sdk/server/index.js";
 //#region src/mcp/plugin-tools-serve.ts

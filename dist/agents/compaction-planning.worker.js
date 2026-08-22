@@ -1,4 +1,4 @@
-import { c as buildSummaryChunks, l as computeAdaptiveChunkRatio, o as buildOversizedFallbackPlan, s as buildStageSplitPlan } from "../compaction-planning-BxtmiUiJ.js";
+import { c as buildSummaryChunks, l as computeAdaptiveChunkRatio, o as buildOversizedFallbackPlan, s as buildStageSplitPlan } from "../compaction-planning-C-JUoUqc.js";
 import { parentPort, workerData } from "node:worker_threads";
 //#region src/agents/compaction-planning.worker.ts
 /**
@@ -18,8 +18,17 @@ function isWorkerInput(value) {
 }
 function createMessageIndexer(source) {
 	const indexByMessage = new Map(source.map((message, index) => [message, index]));
+	const keyMap = /* @__PURE__ */ new Map();
+	for (const [index, message] of source.entries()) {
+		const key = `${message.role}:${message.timestamp}:${JSON.stringify(message.content)}`;
+		if (!keyMap.has(key)) keyMap.set(key, index);
+	}
 	return (selected) => selected.map((message) => {
-		const index = indexByMessage.get(message);
+		let index = indexByMessage.get(message);
+		if (index === void 0) {
+			const key = `${message.role}:${message.timestamp}:${JSON.stringify(message.content)}`;
+			index = keyMap.get(key);
+		}
 		if (index === void 0) throw new Error("Compaction planning result contains an unknown message");
 		return index;
 	});
@@ -87,4 +96,4 @@ if (parentPort) if (isPersistentMode(workerData)) parentPort.on("message", (requ
 });
 else parentPort.postMessage.bind(parentPort)(runCompactionPlanningWorkerInput(workerData));
 //#endregion
-export { runCompactionPlanningWorkerInput };
+export { createMessageIndexer, runCompactionPlanningWorkerInput };

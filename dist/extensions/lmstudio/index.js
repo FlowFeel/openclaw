@@ -12,10 +12,10 @@ import { d as createPlainTextToolCallCompatWrapper, l as createOpenAICompatibleC
 import "../../string-coerce-runtime-CLK2YdzD.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
 import "../../ssrf-runtime-B8V5-MiN.js";
-import "../../logging-core-BQkJNQAk.js";
+import "../../logging-core-6xI_Qmbn.js";
 import { r as buildProviderToolCompatFamilyHooks } from "../../provider-tools-mj-Qt8cY.js";
-import { E as LMSTUDIO_DEFAULT_API_KEY_ENV_VAR, I as LMSTUDIO_PROVIDER_ID, L as LMSTUDIO_PROVIDER_LABEL, N as LMSTUDIO_DOCKER_HOST_INFERENCE_BASE_URL, T as resolveLoadedContextWindow, _ as normalizeLmstudioConfiguredCatalogEntries, k as LMSTUDIO_DEFAULT_INFERENCE_BASE_URL, l as resolveLmstudioRuntimeApiKey, n as ensureLmstudioModelLoaded, p as shouldUseLmstudioSyntheticAuth, s as resolveLmstudioProviderHeaders, x as resolveLmstudioInferenceBase, y as normalizeLmstudioProviderConfig } from "../../models.fetch-BRhlSytB.js";
-import { t as lmstudioMemoryEmbeddingProviderAdapter } from "../../memory-embedding-adapter-C1LvH70t.js";
+import { E as LMSTUDIO_DEFAULT_API_KEY_ENV_VAR, I as LMSTUDIO_PROVIDER_ID, L as LMSTUDIO_PROVIDER_LABEL, N as LMSTUDIO_DOCKER_HOST_INFERENCE_BASE_URL, T as resolveLoadedContextWindow, _ as normalizeLmstudioConfiguredCatalogEntries, k as LMSTUDIO_DEFAULT_INFERENCE_BASE_URL, l as resolveLmstudioRuntimeApiKey, n as ensureLmstudioModelLoaded, p as shouldUseLmstudioSyntheticAuth, s as resolveLmstudioProviderHeaders, x as resolveLmstudioInferenceBase, y as normalizeLmstudioProviderConfig } from "../../models.fetch-CHmHYkWe.js";
+import { t as lmstudioMemoryEmbeddingProviderAdapter } from "../../memory-embedding-adapter-BRB00lW9.js";
 //#region extensions/lmstudio/src/stream.ts
 const log = createSubsystemLogger("extensions/lmstudio/stream");
 const preloadInFlight = /* @__PURE__ */ new Map();
@@ -232,7 +232,7 @@ async function validateLmstudioNonInteractive(ctx) {
 		envVarName: LMSTUDIO_DEFAULT_API_KEY_ENV_VAR,
 		required: false
 	});
-	const { fetchLmstudioModels } = await import("../../models.fetch-CiZ8zGm1.js");
+	const { fetchLmstudioModels } = await import("../../models.fetch-BR7uoicV.js");
 	const discovery = await fetchLmstudioModels({
 		baseUrl,
 		apiKey: resolvedApiKey?.key ?? "lmstudio-local",
