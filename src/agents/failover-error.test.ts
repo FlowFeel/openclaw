@@ -14,6 +14,7 @@ import {
   FailoverError,
   findCliMaxTurnsError,
   findCliTimeoutError,
+  isFatalProviderExhaustionError,
   isNonProviderRuntimeCoordinationError,
   isSignalTimeoutReason,
   isTimeoutError,
@@ -1727,4 +1728,53 @@ describe("isSignalTimeoutReason", () => {
     expect(isSignalTimeoutReason(undefined)).toBe(false);
   });
 });
+
+describe("isFatalProviderExhaustionError", () => {
+  it("identifies OpenRouter key limit exceeded as fatal provider exhaustion", () => {
+    const err = new FailoverError("HTTP 403 Key limit exceeded (total limit)", {
+      status: 403,
+      provider: "openrouter",
+      model: "deepseek-v4",
+    });
+    expect(isFatalProviderExhaustionError(err)).toBe(true);
+  });
+
+  it("identifies OpenAI insufficient quota as fatal provider exhaustion", () => {
+    const err = new Error("429 You exceeded your current quota, please check your plan and billing details.");
+    expect(isFatalProviderExhaustionError(err)).toBe(true);
+  });
+
+  it("identifies Anthropic credit balance depletion as fatal provider exhaustion", () => {
+    const err = new FailoverError("Your credit balance is too low to access the Claude API", {
+      reason: "billing",
+      provider: "anthropic",
+      model: "claude-3-5-sonnet",
+    });
+    expect(isFatalProviderExhaustionError(err)).toBe(true);
+  });
+
+  it("identifies permanent invalid API key as fatal provider exhaustion", () => {
+    const err = new Error("401 Incorrect API key provided: sk-proj-123***");
+    expect(isFatalProviderExhaustionError(err)).toBe(true);
+  });
+
+  it("does not flag transient 429 rate limit per minute as fatal provider exhaustion", () => {
+    const err = new FailoverError("Rate limit exceeded: 60 requests per minute", {
+      status: 429,
+      reason: "rate_limit",
+      provider: "openrouter",
+    });
+    expect(isFatalProviderExhaustionError(err)).toBe(false);
+  });
+
+  it("does not flag transient 503 gateway outages as fatal provider exhaustion", () => {
+    const err = new FailoverError("Service Unavailable", {
+      status: 503,
+      reason: "gateway_timeout",
+      provider: "openrouter",
+    });
+    expect(isFatalProviderExhaustionError(err)).toBe(false);
+  });
+});
+
 /* oxlint-disable max-lines -- TODO: split this grandfathered oversized file. */

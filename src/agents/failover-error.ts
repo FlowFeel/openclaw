@@ -798,6 +798,65 @@ export function buildFailoverRemediationHint(err: unknown): string | undefined {
   return command ? `Re-authenticate with: ${command}` : undefined;
 }
 
+/**
+ * Identify fatal account-wide or key-wide exhaustion rejections.
+ * When true, retrying fallback candidate models under the same provider/credentials
+ * is guaranteed to fail identically. Callers should immediately break the fallback loop.
+ */
+export function isFatalProviderExhaustionError(err: unknown, provider?: string): boolean {
+  if (!err) {
+    return false;
+  }
+  const rawText = String(
+    isFailoverError(err)
+      ? (err.rawError || err.message || "")
+      : err instanceof Error
+        ? `${err.name} ${err.message}`
+        : typeof err === "object" && err !== null && "message" in err
+          ? String((err as { message: unknown }).message)
+          : String(err)
+  ).toLowerCase();
+
+  // 1. Check failover error reason flags
+  if (isFailoverError(err)) {
+    if (err.reason === "billing" || err.reason === "auth_permanent") {
+      return true;
+    }
+  }
+
+  // 2. OpenRouter Key Limit / Depletion
+  if (
+    rawText.includes("key limit exceeded") ||
+    rawText.includes("total limit") ||
+    rawText.includes("insufficient credits") ||
+    rawText.includes("credit balance depleted")
+  ) {
+    return true;
+  }
+
+  // 3. OpenAI & Anthropic Quota / Billing Exhaustion
+  if (
+    rawText.includes("insufficient_quota") ||
+    rawText.includes("exceeded your current quota") ||
+    rawText.includes("credit balance is too low") ||
+    rawText.includes("billing account disabled") ||
+    rawText.includes("account deactivated")
+  ) {
+    return true;
+  }
+
+  // 4. Fatal invalid API key (permanent authentication rejection)
+  if (
+    rawText.includes("invalid_api_key") ||
+    rawText.includes("incorrect api key provided") ||
+    rawText.includes("invalid x-api-key")
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 function quotePosixShellArg(value: string): string {
   return `'${value.replaceAll("'", "'\\''")}'`;
 }

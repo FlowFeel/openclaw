@@ -16,6 +16,7 @@ import {
   FailoverError,
   buildFailoverRemediationHint,
   describeFailoverError,
+  isFatalProviderExhaustionError,
   isNonProviderRuntimeCoordinationError,
   resolveModelFallbackError,
 } from "./failover-error.js";
@@ -267,6 +268,8 @@ async function runFallbackCandidate<T>(params: {
     });
     if (
       fallbackError.kind === "coordination" ||
+      isFatalProviderExhaustionError(err, params.provider) ||
+      (fallbackError.kind === "failover" && isFatalProviderExhaustionError(fallbackError.error, params.provider)) ||
       isTerminalAbort(params.abortSignal) ||
       isCallerAbortSignal(params.abortSignal) ||
       isAgentRunDirectAbortReason(err) ||
