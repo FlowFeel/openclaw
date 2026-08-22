@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DaJ6WEGw.js";function t(e){return e.state?.lastRunStatus??e.state?.lastStatus??`unknown`}function n(e){return e.enabled&&t(e)===`error`}var r=e((()=>{}));export{n,t as r,r as t};
+//# sourceMappingURL=cron-status-CX5IwEkV.js.map
