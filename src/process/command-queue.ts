@@ -37,6 +37,11 @@ import {
 } from "./command-queue.state.js";
 import { CommandLane } from "./lanes.js";
 export type { CommandLaneTaskMarker } from "./command-queue.state.js";
+import {
+  compareQueueEntries,
+  pickNextQueueEntry,
+  resolveBasePriorityRank,
+} from "./priority-scheduler.js";
 /**
  * Dedicated error type thrown when a queued command is rejected because
  * its lane was cleared.  Callers that fire-and-forget enqueued tasks can
@@ -248,22 +253,16 @@ function normalizeTaskTimeoutMs(value: number | undefined): number | undefined {
   return clampPositiveTimerTimeoutMs(value);
 }
 
-function resolveQueuePriority(priority: CommandQueueEnqueueOptions["priority"]): number {
-  switch (priority) {
-    case "foreground":
-      return 1;
-    case "background":
-      return -1;
-    default:
-      return 0;
-  }
+function resolveQueuePriority(
+  priority: CommandQueueEnqueueOptions["priority"] | number | undefined,
+): number {
+  return resolveBasePriorityRank(priority);
 }
 
 function enqueueLaneEntry(state: LaneState, entry: QueueEntry): void {
+  const now = Date.now();
   const insertAt = state.queue.findIndex(
-    (queued) =>
-      queued.priority < entry.priority ||
-      (queued.priority === entry.priority && queued.sequence > entry.sequence),
+    (queued) => compareQueueEntries(entry, queued, now) < 0,
   );
   entry.queuedAheadAtEnqueue = insertAt < 0 ? state.queue.length : insertAt;
   entry.activeAheadAtEnqueue = state.activeTaskIds.size;
@@ -422,7 +421,10 @@ function drainLane(lane: string) {
         state.queue.length > 0 &&
         canAdmitInGroup(lane)
       ) {
-        const entry = state.queue.shift() as QueueEntry;
+        const entry = pickNextQueueEntry(state.queue, Date.now()) as QueueEntry;
+        if (!entry) {
+          break;
+        }
         const waitedMs = Date.now() - entry.enqueuedAt;
         if (waitedMs >= entry.warnAfterMs) {
           try {
@@ -606,6 +608,7 @@ export function enqueueCommandInLane<T>(
       taskTimeoutAbortGraceMs: normalizeTaskTimeoutMs(opts?.taskTimeoutAbortGraceMs),
       taskTimeoutReleaseSignal: opts?.taskTimeoutReleaseSignal,
       onWait: opts?.onWait,
+      starvationCeilingMs: opts?.starvationCeilingMs,
     });
     logLaneEnqueue(cleaned, getLaneDepth(state));
     drainLane(cleaned);

@@ -1,12 +1,10 @@
 import type { AgentMessage } from "@openclaw/agent-core";
 import {
   normalizeLowercaseStringOrEmpty,
-  normalizeOptionalString,
 } from "@openclaw/normalization-core/string-coerce";
 import { isThinkingLikeBlock } from "../thinking-block.js";
 import {
   extractToolCallsFromAssistant,
-  extractToolResultId,
   extractToolResultIds,
 } from "../tool-call-id.js";
 import { isAllowedToolCallName, normalizeAllowedToolNames } from "../tool-call-shared.js";

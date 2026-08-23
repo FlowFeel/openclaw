@@ -55,7 +55,6 @@ import {
   INTERNAL_MESSAGE_CHANNEL,
   isInternalNonDeliveryChannel,
 } from "../utils/message-channel-constants.js";
-import { writeTextAtomic } from "./json-files.js";
 import { replaceFileAtomic } from "./replace-file.js";
 import { readSessionStoreJson5 } from "./state-migrations.fs.js";
 

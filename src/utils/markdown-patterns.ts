@@ -18,7 +18,7 @@ export function splitFrontmatterContent(text: string): { yamlBlock: string; cont
     return null;
   }
   const match = trimmed.match(FRONTMATTER_BLOCK_PATTERN);
-  if (!match) {
+  if (!match || typeof match[1] !== "string" || typeof match[2] !== "string") {
     return null;
   }
   return {
@@ -33,7 +33,7 @@ export function normalizeLineEndings(text: string): string {
 
 export function parseKeyValueLine(line: string): { key: string; rawValue: string } | null {
   const match = line.trim().match(KEY_VALUE_DELIMITER_PATTERN);
-  if (!match) {
+  if (!match || typeof match[1] !== "string" || typeof match[2] !== "string") {
     return null;
   }
   return {
@@ -44,5 +44,5 @@ export function parseKeyValueLine(line: string): { key: string; rawValue: string
 
 export function stripQuotes(value: string): string {
   const match = value.match(QUOTED_STRING_PATTERN);
-  return match ? match[1] : value;
+  return match && typeof match[1] === "string" ? match[1] : value;
 }

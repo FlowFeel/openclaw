@@ -462,7 +462,9 @@ export async function resumeMainSession(params: {
     }
 
     try {
+      const agentId = resolveAgentIdFromSessionKey(params.sessionKey);
       const manager = SessionManager.open({
+        agentId,
         sessionId: params.entry.sessionId,
         sessionKey: params.sessionKey,
         storePath: params.storePath,

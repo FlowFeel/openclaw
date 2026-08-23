@@ -25,6 +25,7 @@ export type QueueEntry = {
   taskTimeoutAbortGraceMs?: number;
   taskTimeoutReleaseSignal?: AbortSignal;
   onWait?: (waitMs: number, queuedAhead: number) => void;
+  starvationCeilingMs?: number;
 };
 
 export type LaneState = {

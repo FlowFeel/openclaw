@@ -355,7 +355,7 @@ async function applyWorkerTranscriptCommit(params: {
 
     const prefixMessages = buildSessionContext(manager.getEntries(), manager.getLeafId()).messages;
     const incomingMessages = redactedMessages.slice(prefix.recoveredMessages.length);
-    const fullMessages = [...prefixMessages, ...incomingMessages];
+    const fullMessages = [...prefixMessages, ...incomingMessages].filter((m): m is AgentMessage => m !== undefined);
 
     const allToolCalls: string[] = [];
     const allToolResults: string[] = [];
@@ -384,6 +384,7 @@ async function applyWorkerTranscriptCommit(params: {
         for (let i = 0; i < fullMessages.length; i++) {
           const msg = fullMessages[i];
           if (
+            msg &&
             msg.role === "assistant" &&
             extractToolCallsFromAssistant(msg).some((c) => c.id === firstOrphanCallId)
           ) {
@@ -394,7 +395,7 @@ async function applyWorkerTranscriptCommit(params: {
         if (orphanIndex !== -1) {
           for (let i = orphanIndex + 1; i < fullMessages.length; i++) {
             const msg = fullMessages[i];
-            if (msg.role !== "toolResult") {
+            if (msg && msg.role !== "toolResult") {
               return { ok: false as const, reason: "invalid-batch" as const };
             }
           }

@@ -11,7 +11,8 @@ export type CommandQueueEnqueueOptions = {
   taskTimeoutAbortGraceMs?: number;
   /** Ends the task after a caller-owned timeout cleanup grace has already elapsed. */
   taskTimeoutReleaseSignal?: AbortSignal;
-  priority?: "foreground" | "normal" | "background";
+  priority?: "steering" | "foreground" | "normal" | "background";
+  starvationCeilingMs?: number;
 };
 
 /** Minimal queue function contract used by code that only needs to schedule work. */

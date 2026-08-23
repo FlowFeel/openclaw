@@ -432,7 +432,7 @@ export function cloneSqliteCheckpointSessionEntry(params: {
   // they never carry over. compactionCheckpoints is still conditionally
   // preserved below when preserveCompactionCheckpoints is set.
   // See src/config/sessions/bloat-field-policy.ts (pure logic).
-  const stripped = stripBloatFields(params.currentEntry as Record<string, unknown>);
+  const stripped = stripBloatFields(params.currentEntry as unknown as Record<string, unknown>);
   return {
     ...stripped.entry,
     sessionId: params.nextSessionId,

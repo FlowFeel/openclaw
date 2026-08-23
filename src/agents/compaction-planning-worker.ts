@@ -48,10 +48,11 @@ const log = createSubsystemLogger("compaction");
 function estimateMessagesBytes(messages: AgentMessage[]): number {
   let total = 0;
   for (const msg of messages) {
-    if (typeof msg.content === "string") {
-      total += msg.content.length;
-    } else if (Array.isArray(msg.content)) {
-      for (const block of msg.content) {
+    const rawContent = "content" in msg ? (msg as { content?: unknown }).content : undefined;
+    if (typeof rawContent === "string") {
+      total += rawContent.length;
+    } else if (Array.isArray(rawContent)) {
+      for (const block of rawContent) {
         if (block && typeof block === "object") {
           const record = block as Record<string, unknown>;
           if (typeof record.text === "string") {
@@ -254,14 +255,14 @@ async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, T
   if (strategy.mode === "inline") {
     const result = params.fallback(params.input.messages);
     const elapsed = performance.now() - start;
-    log.info({
+    log.info(`Compaction strategy: inline (messages: ${messages.length}, bytes: ${totalBytes}, duration: ${elapsed.toFixed(1)}ms)`, {
       event: "compaction.plan",
       mode: "inline",
       messages: messages.length,
       totalBytes,
       durationMs: elapsed,
       reason: strategy.reason,
-    }, `Compaction strategy: inline (messages: ${messages.length}, bytes: ${totalBytes}, duration: ${elapsed.toFixed(1)}ms)`);
+    });
     return result;
   }
 
@@ -294,7 +295,7 @@ async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, T
       messages,
     );
     const elapsed = performance.now() - start;
-    log.info({
+    log.info(`Compaction planning offloaded to persistent worker (messages: ${messages.length}, bytes: ${totalBytes} -> ${projectedBytes}, omitted: ${totalOmittedChars}, duration: ${elapsed.toFixed(1)}ms)`, {
       event: "compaction.plan",
       mode: "worker",
       pool: "persistent",
@@ -303,7 +304,7 @@ async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, T
       projectedBytes,
       omittedChars: totalOmittedChars,
       durationMs: elapsed,
-    }, `Compaction planning offloaded to persistent worker (messages: ${messages.length}, bytes: ${totalBytes} -> ${projectedBytes}, omitted: ${totalOmittedChars}, duration: ${elapsed.toFixed(1)}ms)`);
+    });
     return result;
   } catch (error) {
     // Pool unavailable or busy — try the legacy one-shot harness.
@@ -327,7 +328,7 @@ async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, T
           messages,
         );
         const elapsed = performance.now() - start;
-        log.info({
+        log.info(`Compaction planning offloaded to one-shot fallback worker (messages: ${messages.length}, bytes: ${totalBytes} -> ${projectedBytes}, duration: ${elapsed.toFixed(1)}ms)`, {
           event: "compaction.plan",
           mode: "worker",
           pool: "one-shot-fallback",
@@ -337,7 +338,7 @@ async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, T
           omittedChars: totalOmittedChars,
           durationMs: elapsed,
           poolError: error.code,
-        }, `Compaction planning offloaded to one-shot fallback worker (messages: ${messages.length}, bytes: ${totalBytes} -> ${projectedBytes}, duration: ${elapsed.toFixed(1)}ms)`);
+        });
         return result;
       } catch (fallbackError) {
         if (
@@ -346,14 +347,14 @@ async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, T
         ) {
           const result = params.fallback(messages);
           const elapsed = performance.now() - start;
-          log.warn({
+          log.warn(`Compaction planning worker unavailable, fell back to inline (duration: ${elapsed.toFixed(1)}ms)`, {
             event: "compaction.plan",
             mode: "inline-fallback",
             messages: messages.length,
             totalBytes,
             durationMs: elapsed,
             error: fallbackError.message,
-          }, `Compaction planning worker unavailable, fell back to inline (duration: ${elapsed.toFixed(1)}ms)`);
+          });
           return result;
         }
         throw fallbackError;
@@ -363,14 +364,14 @@ async function runCompactionPlan<TInput extends CompactionPlanningWorkerInput, T
     if (error instanceof WorkerPoolError) {
       const result = params.fallback(messages);
       const elapsed = performance.now() - start;
-      log.warn({
+      log.warn(`Compaction planning worker failed (${error.code}), fell back to inline (duration: ${elapsed.toFixed(1)}ms)`, {
         event: "compaction.plan",
         mode: "inline-fallback",
         messages: messages.length,
         totalBytes,
         durationMs: elapsed,
         error: error.message,
-      }, `Compaction planning worker failed (${error.code}), fell back to inline (duration: ${elapsed.toFixed(1)}ms)`);
+      });
       return result;
     }
     throw error;

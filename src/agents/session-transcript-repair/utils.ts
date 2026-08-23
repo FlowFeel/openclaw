@@ -1,15 +1,12 @@
 import type { AgentMessage } from "@openclaw/agent-core";
 import {
   hasNonEmptyString as hasNonEmptyStringField,
-  normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
   readStringValue,
 } from "@openclaw/normalization-core/string-coerce";
-import { isThinkingLikeBlock } from "../thinking-block.js";
 import {
   extractToolCallsFromAssistant,
   extractToolResultId,
-  extractToolResultIds,
 } from "../tool-call-id.js";
 import { isAllowedToolCallName } from "../tool-call-shared.js";
 

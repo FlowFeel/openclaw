@@ -4,7 +4,6 @@
  */
 
 import fs from "node:fs";
-import type { DatabaseSync } from "node:sqlite";
 import { tryReadJsonSync } from "./json-files.js";
 import {
   openOpenClawStateDatabase,

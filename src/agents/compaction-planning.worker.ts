@@ -74,7 +74,8 @@ export function createMessageIndexer(source: AgentMessage[]): (selected: AgentMe
   
   const keyMap = new Map<string, number>();
   for (const [index, message] of source.entries()) {
-    const key = `${message.role}:${message.timestamp}:${JSON.stringify(message.content)}`;
+    const rawContent = "content" in message ? (message as { content?: unknown }).content : undefined;
+    const key = `${message.role}:${message.timestamp}:${JSON.stringify(rawContent)}`;
     if (!keyMap.has(key)) {
       keyMap.set(key, index);
     }
@@ -84,7 +85,8 @@ export function createMessageIndexer(source: AgentMessage[]): (selected: AgentMe
     selected.map((message) => {
       let index = indexByMessage.get(message);
       if (index === undefined) {
-        const key = `${message.role}:${message.timestamp}:${JSON.stringify(message.content)}`;
+        const rawContent = "content" in message ? (message as { content?: unknown }).content : undefined;
+        const key = `${message.role}:${message.timestamp}:${JSON.stringify(rawContent)}`;
         index = keyMap.get(key);
       }
       if (index === undefined) {

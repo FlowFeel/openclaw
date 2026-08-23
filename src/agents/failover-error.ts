@@ -803,7 +803,7 @@ export function buildFailoverRemediationHint(err: unknown): string | undefined {
  * When true, retrying fallback candidate models under the same provider/credentials
  * is guaranteed to fail identically. Callers should immediately break the fallback loop.
  */
-export function isFatalProviderExhaustionError(err: unknown, provider?: string): boolean {
+export function isFatalProviderExhaustionError(err: unknown, _provider?: string): boolean {
   if (!err) {
     return false;
   }

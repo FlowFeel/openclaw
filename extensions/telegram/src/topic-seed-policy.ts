@@ -32,7 +32,7 @@ export function resolveTopicSeedParams(params: ResolveTopicSeedParams): TopicSee
     return { shouldSeed: false, content: null, pinMessage: false, documentPath };
   }
 
-  const currentDate = (params.now ? params.now() : new Date()).toISOString().split("T")[0];
+  const currentDate = (params.now ? params.now() : new Date()).toISOString().split("T")[0] ?? "";
   const formattedContent = rawContent
     .replaceAll("{{TOPIC_NAME}}", params.topicName)
     .replaceAll("{{TOPIC_ID}}", String(params.topicId))

@@ -26,10 +26,9 @@
  */
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { MessageChannel, type MessagePort } from "node:worker_threads";
+import { MessageChannel } from "node:worker_threads";
 import { streamSimple } from "../../llm/stream.js";
 import type {
-  AssistantMessage,
   AssistantMessageEvent,
   AssistantMessageEventStreamContract,
   Context,

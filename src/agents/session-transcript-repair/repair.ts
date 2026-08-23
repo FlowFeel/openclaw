@@ -8,7 +8,6 @@ import {
   type ToolUseRepairReport,
   type ToolUseResultPairingOptions,
   type ToolCallOccurrence,
-  type ToolResultRecord,
 } from "./utils.js";
 
 export function repairToolUseResultPairing(

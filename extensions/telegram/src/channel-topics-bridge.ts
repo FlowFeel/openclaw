@@ -1,5 +1,5 @@
 // Channel topics bridge adapter connecting Telegram topic name cache to core list_topics tool.
-import type { ChannelTopicsSource } from "../../src/gateway/topic-list-source.js";
+import type { ChannelTopicsSource } from "../../../src/gateway/topic-list-source.js";
 import { listTopicNames, resolveTopicNameCacheScope } from "./topic-name-cache.js";
 
 export type CreateTelegramChannelTopicsParams = {
@@ -24,7 +24,7 @@ export function createTelegramChannelTopics(
     environment: params.environment ?? "telegram",
     chatId: String(params.chatId),
     scope,
-    resolveTopics: async (chatId, resolvedScope) => {
+    resolveTopics: async (chatId: string, resolvedScope?: string) => {
       const items = await listTopicNames(chatId, resolvedScope);
       return items.map((item) => ({
         threadId: item.threadId,

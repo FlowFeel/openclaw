@@ -267,6 +267,89 @@ describe("command queue", () => {
     }
   });
 
+  it("prioritizes steering tier ahead of foreground and normal tasks", async () => {
+    const { task: blocker, release } = enqueueBlockedMainTask(async () => "blocker");
+    const calls: string[] = [];
+
+    const background = enqueueCommandInLane(
+      CommandLane.Main,
+      async () => {
+        calls.push("background");
+        return "background";
+      },
+      { priority: "background" },
+    );
+    const normal = enqueueCommandInLane(CommandLane.Main, async () => {
+      calls.push("normal");
+      return "normal";
+    });
+    const foreground = enqueueCommandInLane(
+      CommandLane.Main,
+      async () => {
+        calls.push("foreground");
+        return "foreground";
+      },
+      { priority: "foreground" },
+    );
+    const steering = enqueueCommandInLane(
+      CommandLane.Main,
+      async () => {
+        calls.push("steering");
+        return "steering";
+      },
+      { priority: "steering" },
+    );
+
+    release();
+    await expect(blocker).resolves.toBe("blocker");
+    await expect(steering).resolves.toBe("steering");
+    await expect(foreground).resolves.toBe("foreground");
+    await expect(normal).resolves.toBe("normal");
+    await expect(background).resolves.toBe("background");
+    expect(calls).toEqual(["steering", "foreground", "normal", "background"]);
+  });
+
+  it("promotes starved background task past normal tasks when aging ceiling is reached", async () => {
+    vi.useFakeTimers();
+    try {
+      const { task: blocker, release } = enqueueBlockedMainTask(async () => "blocker");
+      const calls: string[] = [];
+
+      // Background task with 10ms starvation ceiling
+      const background = enqueueCommandInLane(
+        CommandLane.Main,
+        async () => {
+          calls.push("background");
+          return "background";
+        },
+        { priority: "background", starvationCeilingMs: 10 },
+      );
+
+      // Advance time past the 10ms ceiling so background is promoted to rank 1
+      await vi.advanceTimersByTimeAsync(15);
+
+      // Enqueue fresh normal task (rank 1, but later sequence)
+      const normal = enqueueCommandInLane(
+        CommandLane.Main,
+        async () => {
+          calls.push("normal");
+          return "normal";
+        },
+        { priority: "normal" },
+      );
+
+      release();
+      await expect(blocker).resolves.toBe("blocker");
+      await expect(background).resolves.toBe("background");
+      await expect(normal).resolves.toBe("normal");
+
+      // Starved background promoted to rank 1 and ran before fresh normal
+      expect(calls).toEqual(["background", "normal"]);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it("logs enqueue depth after push", async () => {
     const task = enqueueCommandInLane(CommandLane.Main, async () => {});
 
