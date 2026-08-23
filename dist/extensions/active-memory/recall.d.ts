@@ -1,6 +1,6 @@
 import { n as OpenClawConfig } from "../../types.openclaw-CXX8ljmy.js";
-import { s as OpenClawPluginApi } from "../../plugin-entry-CHoiSyUn.js";
-import { E as ConversationRecallContext, S as ActiveRecallResult, ot as ResolvedActiveRecallPluginConfig } from "../../types-D4sbWhRg.js";
+import { s as OpenClawPluginApi } from "../../plugin-entry-i32wLQY9.js";
+import { E as ConversationRecallContext, S as ActiveRecallResult, ot as ResolvedActiveRecallPluginConfig } from "../../types-CDBuSTev.js";
 
 //#region extensions/active-memory/recall.d.ts
 type ActiveRecallParams = {

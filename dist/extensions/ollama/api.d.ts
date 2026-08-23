@@ -3,7 +3,7 @@ import { V as WizardPrompter } from "../../setup-wizard-types-B72aypBk.js";
 import { f as RuntimeEnv } from "../../manifest-registry-C0GShb_1.js";
 import { p as SecretInputMode } from "../../types-D4-wxMAX.js";
 import { t as LookupFn } from "../../ssrf-CR70xC7h.js";
-import { a as createConfiguredOllamaCompatStreamWrapper, c as isOllamaCompatProvider, d as resolveOllamaCompatNumCtxEnabled, f as shouldInjectOllamaCompatNumCtx, p as wrapOllamaCompatNumCtx, r as buildOllamaChatRequest } from "../../stream-CL_qaqPE.js";
+import { a as createConfiguredOllamaCompatStreamWrapper, c as isOllamaCompatProvider, d as resolveOllamaCompatNumCtxEnabled, f as shouldInjectOllamaCompatNumCtx, p as wrapOllamaCompatNumCtx, r as buildOllamaChatRequest } from "../../stream-D7xfq2op.js";
 
 //#region extensions/ollama/src/defaults.d.ts
 declare const OLLAMA_DEFAULT_BASE_URL = "http://127.0.0.1:11434";

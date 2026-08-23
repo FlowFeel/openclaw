@@ -1,4 +1,4 @@
-import { i as MigrationItem, n as MigrationApplyResult, o as MigrationProviderContext } from "../plugin-entry-DuzbjtPT.js";
+import { i as MigrationItem, n as MigrationApplyResult, o as MigrationProviderContext } from "../plugin-entry-yoVbiFDY.js";
 
 //#region src/plugin-sdk/migration-runtime.d.ts
 /** Directories a migration provider writes imported agent data into. */

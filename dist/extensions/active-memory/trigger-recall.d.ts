@@ -1,5 +1,5 @@
 import { n as OpenClawConfig } from "../../types.openclaw-CXX8ljmy.js";
-import { Q as MemorySearchResult } from "../../types-CJY5tURi.js";
+import { Q as MemorySearchResult } from "../../types-CAQ6JuHx.js";
 import { DatabaseSync } from "node:sqlite";
 
 //#region extensions/active-memory/trigger-recall.d.ts

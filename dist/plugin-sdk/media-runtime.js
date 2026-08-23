@@ -13,12 +13,12 @@ import { i as normalizeInboundPathRoots, t as isInboundPathAllowed } from "../in
 import { n as getAgentScopedMediaLocalRoots } from "../local-roots-DY1lg2k6.js";
 import { n as resolveOutboundAttachmentFromUrl } from "../outbound-attachment-yoIPoCOn.js";
 import { n as normalizePollInput, t as normalizePollDurationHours } from "../polls-C-v11_tu.js";
-import { n as resolveAutoMediaKeyProviders, r as resolveDefaultMediaModel } from "../defaults-BD3rxrJc.js";
-import { t as describeImageWithModel } from "../image-runtime-CyhPVswR.js";
-import { n as resolveAutoImageModel } from "../runner-CQ2pNGy1.js";
+import { n as resolveAutoMediaKeyProviders, r as resolveDefaultMediaModel } from "../defaults-D89eRl1b.js";
+import { t as describeImageWithModel } from "../image-runtime-C8xbV1aR.js";
+import { n as resolveAutoImageModel } from "../runner-ChryWPLR.js";
 import { n as isVoiceMessageCompatibleAudio, t as isVoiceCompatibleAudio } from "../audio-DwSpd5Nu.js";
 import { t as buildAgentMediaPayload } from "../agent-media-payload-CxfhUupO.js";
-import { a as unlinkIfExists, i as resolveChannelMediaMaxBytes, n as createDirectTextMediaOutbound, o as encodePngRgba, r as createScopedChannelMediaMaxBytesResolver, s as fillPixel, t as transcribeFirstAudio } from "../media-runtime-CLhEwOPy.js";
+import { a as unlinkIfExists, i as resolveChannelMediaMaxBytes, n as createDirectTextMediaOutbound, o as encodePngRgba, r as createScopedChannelMediaMaxBytesResolver, s as fillPixel, t as transcribeFirstAudio } from "../media-runtime-BSg_PCVr.js";
 import { n as renderQrPngDataUrl, r as writeQrPngTempFile, t as renderQrPngBase64 } from "../qr-image-IYPK6Q8D.js";
 import { t as renderQrTerminal } from "../qr-terminal-27AasTys.js";
 export { IMAGE_REDUCE_QUALITY_STEPS, MAX_AUDIO_BYTES, MAX_IMAGE_BYTES, MEDIA_FFMPEG_MAX_AUDIO_DURATION_SECS, MediaFetchError, buildAgentMediaPayload, buildImageResizeSideGrid, buildOutboundMediaLoadOptions, canonicalizeBase64, createDirectTextMediaOutbound, createScopedChannelMediaMaxBytesResolver, describeImageWithModel, detectMime, encodePngRgba, ensureMediaDir, estimateBase64DecodedBytes, extensionForMime, extractOriginalFilename, fetchRemoteMedia, fillPixel, getAgentScopedMediaLocalRoots, getFileExtension, getImageMetadata, getMediaDir, isGifMedia, isImageProcessorUnavailableError, isInboundPathAllowed, isVoiceCompatibleAudio, isVoiceMessageCompatibleAudio, kindFromMime, maxBytesForKind, mediaKindFromMime, normalizeInboundPathRoots, normalizePollDurationHours, normalizePollInput, parseFfprobeCodecAndSampleRate, parseMediaContentLength, probeVideoDimensions, readRemoteMediaBuffer, readResponseTextSnippet, readResponseWithLimit, renderQrPngBase64, renderQrPngDataUrl, renderQrTerminal, resizeToJpeg, resolveAutoImageModel, resolveAutoMediaKeyProviders, resolveChannelMediaMaxBytes, resolveDefaultMediaModel, resolveFfmpegBin, resolveOutboundAttachmentFromUrl, runFfmpeg, runFfprobe, saveMediaBuffer, saveMediaSource, saveRemoteMedia, saveResponseMedia, transcodeAudioBuffer, transcodeAudioBufferToOpus, transcribeFirstAudio, unlinkIfExists, writeQrPngTempFile };

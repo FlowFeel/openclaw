@@ -1,2 +1,2 @@
-import { i as resolveOpenAIChatGptSubscriptionAuth, n as OPENAI_QUICKSILVER_OFFER_PATH, r as createOpenAIQuicksilverBrowserSessionBroker, t as OPENAI_QUICKSILVER_CAPABILITIES } from "../../realtime-quicksilver-session-VjXBKbmt.js";
+import { i as resolveOpenAIChatGptSubscriptionAuth, n as OPENAI_QUICKSILVER_OFFER_PATH, r as createOpenAIQuicksilverBrowserSessionBroker, t as OPENAI_QUICKSILVER_CAPABILITIES } from "../../realtime-quicksilver-session-ChR_GnCk.js";
 export { OPENAI_QUICKSILVER_CAPABILITIES, OPENAI_QUICKSILVER_OFFER_PATH, createOpenAIQuicksilverBrowserSessionBroker, resolveOpenAIChatGptSubscriptionAuth };

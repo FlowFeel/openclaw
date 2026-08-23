@@ -1,4 +1,4 @@
-import { d as ProviderNormalizeToolSchemasContext, m as ProviderToolSchemaDiagnostic, t as AnyAgentTool } from "../../plugin-entry-Cqz1CRwl.js";
+import { d as ProviderNormalizeToolSchemasContext, m as ProviderToolSchemaDiagnostic, t as AnyAgentTool } from "../../plugin-entry-CuznV56Y.js";
 
 //#region extensions/clawrouter/tool-schemas.d.ts
 declare function normalizePerplexityToolSchemas(ctx: ProviderNormalizeToolSchemasContext): AnyAgentTool[];

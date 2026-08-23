@@ -88,6 +88,7 @@ import { createSessionsTool } from "./tools/sessions-tool.js";
 import { createSessionsYieldTool } from "./tools/sessions-yield-tool.js";
 import { createConfiguredSkillWorkshopTool } from "./tools/skill-workshop-tool-factory.js";
 import { createSubagentsTool } from "./tools/subagents-tool.js";
+import { createSystemProbeTool } from "./tools/system-probe-tool.js";
 import { createTaskSuggestionTools } from "./tools/task-suggestion-tools.js";
 import { createTerminalTool } from "./tools/terminal-tool.js";
 import { createTranscriptsTool } from "./tools/transcripts-tool.js";
@@ -726,6 +727,11 @@ export function createOpenClawTools(
         accountId: options?.agentAccountId,
         threadId: options?.currentThreadTs ?? options?.agentThreadId,
       },
+    }),
+    createSystemProbeTool({
+      getConfig: () => resolvedConfig,
+      activeProvider: options?.modelProvider,
+      activeModel: options?.modelId,
     }),
     ...collectPresentOpenClawTools([webSearchTool, webFetchTool, imageTool, pdfTool]),
     ...(options?.channelTopics

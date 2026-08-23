@@ -8,8 +8,8 @@ import "../../provider-http-C8bsuM26.js";
 import "../../provider-web-search-Cw9nqgAP.js";
 import { a as XAI_DEFAULT_MODEL_ID } from "../../model-definitions-DS2_tBMV.js";
 import { n as createCodeExecutionToolDefinition, t as buildMissingCodeExecutionApiKeyPayload } from "../../code-execution-tool-shared-CeAkKo1Y.js";
-import { r as resolveXaiToolApiKeyWithAuth } from "../../tool-auth-shared-JEbTRnih.js";
-import { n as readPluginCodeExecutionConfig, r as resolveCodeExecutionEnabled, t as readCodeExecutionConfigRecord } from "../../code-execution-config-CMQ1XEqA.js";
+import { r as resolveXaiToolApiKeyWithAuth } from "../../tool-auth-shared-DwewuXnw.js";
+import { n as readPluginCodeExecutionConfig, r as resolveCodeExecutionEnabled, t as readCodeExecutionConfigRecord } from "../../code-execution-config-CIg5NUg2.js";
 import { n as resolveNormalizedXaiToolModel, r as resolvePositiveIntegerToolConfig } from "../../tool-config-shared-aky51Auo.js";
 import { i as requireXaiResponseTextAndCitations, n as buildXaiResponsesToolBody, t as XAI_RESPONSES_ENDPOINT } from "../../responses-tool-shared-CiwtsHL1.js";
 //#region extensions/xai/src/code-execution-shared.ts

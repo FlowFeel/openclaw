@@ -570,7 +570,7 @@ async function tryHandleRootHelpFastPath(argv, deps = {}) {
 		if (!liveRootHelpOptions) {
 			if ((deps.outputPrecomputedRootHelpText ?? (await loadRootHelpMetadataModule()).outputPrecomputedRootHelpText)()) return true;
 		}
-		await (deps.outputRootHelp ?? (await import("./root-help-BbtKClsK.js")).outputRootHelp)(liveRootHelpOptions ?? void 0);
+		await (deps.outputRootHelp ?? (await import("./root-help-C2631ub7.js")).outputRootHelp)(liveRootHelpOptions ?? void 0);
 		return true;
 	} catch (error) {
 		await handleError(error);

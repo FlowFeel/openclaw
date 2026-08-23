@@ -1,4 +1,4 @@
-import { f as ProviderAuthMethod } from "../../plugin-entry-D6tZQojt.js";
+import { f as ProviderAuthMethod } from "../../plugin-entry-D7C-ld89.js";
 //#region extensions/microsoft-foundry/auth.d.ts
 declare const entraIdAuthMethod: ProviderAuthMethod;
 declare const apiKeyAuthMethod: ProviderAuthMethod;

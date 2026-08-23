@@ -1,4 +1,4 @@
-import { n as OpenClawPluginApi } from "../../plugin-entry-D6tZQojt.js";
+import { n as OpenClawPluginApi } from "../../plugin-entry-D7C-ld89.js";
 
 //#region extensions/anthropic/session-catalog-registration.d.ts
 declare function registerClaudeSessionDiscovery(api: OpenClawPluginApi): void;

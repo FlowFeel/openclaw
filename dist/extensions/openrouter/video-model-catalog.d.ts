@@ -1,5 +1,5 @@
 import { T as UnifiedModelCatalogEntry } from "../../manifest-registry-5AqPUfeS.js";
-import { f as UnifiedModelCatalogProviderContext } from "../../plugin-entry-gpekaL9C.js";
+import { f as UnifiedModelCatalogProviderContext } from "../../plugin-entry-Ba15Paz9.js";
 import { i as VideoGenerationProviderCapabilities, n as VideoGenerationModelCapabilitiesContext } from "../../video-generation-g0gV9UC7.js";
 
 //#region extensions/openrouter/video-model-catalog.d.ts

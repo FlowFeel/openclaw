@@ -1,4 +1,4 @@
-import { j as definePluginEntry, s as OpenClawPluginApi } from "../../plugin-entry-tcwokeHw.js";
+import { j as definePluginEntry, s as OpenClawPluginApi } from "../../plugin-entry-D2U6D_c3.js";
 import { t as resolveGatewayPort } from "../../config-DOwDAFiu.js";
 import { a as resolvePreferredOpenClawTmpDir, c as resolveTailscaleServeGatewayUrlsWithRunner, d as DeviceBootstrapProfile, f as PAIRING_SETUP_BOOTSTRAP_PROFILE, i as revokeDeviceBootstrapToken, l as approveDevicePairing, n as clearDeviceBootstrapTokens, o as resolveGatewayBindUrl, r as issueDeviceBootstrapToken, s as resolveTailnetHostWithRunner, t as runPluginCommandWithTimeout, u as listDevicePairing } from "../../api-y9XBNIbf.js";
 import { t as resolveAdvertisedLanHost } from "../../gateway-runtime-DUqKsk8p.js";

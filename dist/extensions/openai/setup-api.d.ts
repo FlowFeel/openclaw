@@ -1,4 +1,4 @@
-import { M as OpenClawPluginDefinition$1, P as ProviderPlugin, c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition } from "../../plugin-entry-tcwokeHw.js";
+import { M as OpenClawPluginDefinition$1, P as ProviderPlugin, c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition } from "../../plugin-entry-D2U6D_c3.js";
 
 //#region extensions/openai/setup-api.d.ts
 declare function buildOpenAISetupProvider(): ProviderPlugin;

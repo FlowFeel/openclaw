@@ -1,5 +1,5 @@
-import { f as OpenClawPluginSecurityAuditContext } from "../../plugin-entry-tcwokeHw.js";
-import { h as runBrowserProxyCommand, r as handleBrowserGatewayRequest, t as createBrowserPluginService, x as createBrowserTool } from "../../plugin-service-BdPxXjPI.js";
+import { f as OpenClawPluginSecurityAuditContext } from "../../plugin-entry-D2U6D_c3.js";
+import { h as runBrowserProxyCommand, r as handleBrowserGatewayRequest, t as createBrowserPluginService, x as createBrowserTool } from "../../plugin-service-CRrN09R5.js";
 
 //#region extensions/browser/src/browser-proxy-upload.d.ts
 /** Restores cleanup timers for staged uploads left by a previous node process. */

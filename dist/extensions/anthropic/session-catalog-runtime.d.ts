@@ -1,6 +1,6 @@
 import { n as OpenClawConfig } from "../../types.openclaw-B2WvMv3k.js";
-import { N as SessionCatalogEntrySnapshot } from "../../types-odeWQ5Sn.js";
-import { n as OpenClawPluginApi } from "../../plugin-entry-D6tZQojt.js";
+import { N as SessionCatalogEntrySnapshot } from "../../types-7SOOE25U.js";
+import { n as OpenClawPluginApi } from "../../plugin-entry-D7C-ld89.js";
 //#region extensions/anthropic/session-catalog-runtime.d.ts
 declare function currentClaudeSessionCatalogConfig(api: OpenClawPluginApi): OpenClawConfig;
 declare function listBoundClaudeSessions(api: OpenClawPluginApi, sessionEntries?: SessionCatalogEntrySnapshot): Map<string, string>;

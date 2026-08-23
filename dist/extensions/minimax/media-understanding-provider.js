@@ -1,2 +1,2 @@
-import { n as minimaxPortalMediaUnderstandingProvider, t as minimaxMediaUnderstandingProvider } from "../../media-understanding-provider-ngEdl1p1.js";
+import { n as minimaxPortalMediaUnderstandingProvider, t as minimaxMediaUnderstandingProvider } from "../../media-understanding-provider-DIOOXfOs.js";
 export { minimaxMediaUnderstandingProvider, minimaxPortalMediaUnderstandingProvider };

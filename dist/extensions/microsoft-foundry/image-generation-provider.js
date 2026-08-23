@@ -1,2 +1,2 @@
-import { t as buildMicrosoftFoundryImageGenerationProvider } from "../../image-generation-provider-Cm0CeNDQ.js";
+import { t as buildMicrosoftFoundryImageGenerationProvider } from "../../image-generation-provider-mozC0_rQ.js";
 export { buildMicrosoftFoundryImageGenerationProvider };

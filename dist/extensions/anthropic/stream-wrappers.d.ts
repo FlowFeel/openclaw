@@ -1,5 +1,5 @@
 import { Qt as StreamFn } from "../../setup-wizard-types-C896ZHgy.js";
-import { b as ProviderWrapStreamFnContext } from "../../plugin-entry-D6tZQojt.js";
+import { b as ProviderWrapStreamFnContext } from "../../plugin-entry-D7C-ld89.js";
 
 //#region extensions/anthropic/stream-wrappers.d.ts
 type AnthropicServiceTier = "auto" | "standard_only";

@@ -1,6 +1,6 @@
 import { c as resolveClaudeMythos5ModelIdentity, s as resolveClaudeModelIdentity } from "../../src-DwO28Ae0.js";
 import { n as resolveClaudeThinkingProfile } from "../../provider-claude-thinking-CQtvSIiV.js";
-import "../../provider-model-shared-D9A9VaW7.js";
+import "../../provider-model-shared-BPWEhHPG.js";
 import { n as CLAUDE_CLI_OFF_THINKING_PROFILE } from "../../cli-shared--JBpgRUJ.js";
 import { n as normalizeAnthropicProviderConfigForProvider, t as applyAnthropicConfigDefaults } from "../../config-defaults-43cKAv0u.js";
 //#region extensions/anthropic/provider-policy-api.ts

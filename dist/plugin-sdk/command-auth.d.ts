@@ -1,7 +1,7 @@
 import { r as OpenClawConfig } from "../types.openclaw-DqdTE9e3.js";
 import { n as CommandArgs, t as CommandArgValues } from "../commands-args.types-zglMcgeO.js";
 import { t as ChannelId } from "../channel-id.types-CjcGKHk0.js";
-import { Co as CommandGatingModeWhenAccessGroupsOff, Eo as resolveDualTextControlCommandGate, So as CommandAuthorizer, To as resolveControlCommandGate, wo as resolveCommandAuthorizedFromAuthorizers } from "../types-CWvW31qx.js";
+import { Co as CommandGatingModeWhenAccessGroupsOff, Eo as resolveDualTextControlCommandGate, So as CommandAuthorizer, To as resolveControlCommandGate, wo as resolveCommandAuthorizedFromAuthorizers } from "../types-BMOPjNqu.js";
 import { t as SkillCommandSpec } from "../types-Bef8ClZo2.js";
 import { a as CommandArgsParsing, c as CommandScope, i as CommandArgMenuSpec, l as NativeCommandSpec, n as CommandArgChoiceContext, o as CommandDetection, r as CommandArgDefinition, s as CommandNormalizeOptions, t as ChatCommandDefinition, u as ShouldHandleTextCommandsParams } from "../commands-registry.types-DW35EQHq.js";
 import { i as shouldComputeCommandAuthorized, n as hasInlineCommandTokens, r as isControlCommandMessage, t as hasControlCommand } from "../command-detection-B8Gyr1WM.js";
@@ -9,7 +9,7 @@ import { a as parseAccessGroupAllowFromEntry, t as ACCESS_GROUP_ALLOW_FROM_PREFI
 import { a as resolveAccessGroupAllowFromMatches, i as expandAllowFromWithAccessGroups, n as AccessGroupMembershipResolver, o as resolveAccessGroupAllowFromState, r as ResolvedAccessGroupAllowFromState, t as AccessGroupMembershipLookup } from "../access-groups-BofZKDcC.js";
 import { i as resolveInboundDirectDmAccessWithRuntime, n as ResolvedInboundDirectDmAccess, r as createPreCryptoDirectDmAuthorizer, t as DirectDmCommandAuthorizationRuntime } from "../direct-dm-access-DxZgyjJu.js";
 import { _ as normalizeCommandBody, a as formatCommandArgMenuTitle, b as listChatCommands, c as listNativeCommandSpecsForConfig, d as resolveCommandArgMenu, f as serializeCommandArgs, g as maybeResolveTextAlias, h as getCommandDetection, i as findCommandByNativeName, l as parseCommandArgs, m as shouldHandleTextCommands, n as buildCommandText, o as isCommandMessage, p as isNativeCommandSurface, r as buildCommandTextFromArgs, s as listNativeCommandSpecs, t as ResolvedCommandArgChoice, u as resolveCommandArgChoices, v as resolveTextCommand, x as listChatCommandsForConfig, y as isCommandEnabled } from "../commands-registry-im-llDmt.js";
-import { a as ResolveNativeCommandSessionTargetsParams, i as resolveCommandAuthorization, n as resolveStoredModelOverride, o as resolveNativeCommandSessionTargets, r as CommandAuthorization, t as StoredModelOverride } from "../stored-model-override-DY0sKju0.js";
+import { a as ResolveNativeCommandSessionTargetsParams, i as resolveCommandAuthorization, n as resolveStoredModelOverride, o as resolveNativeCommandSessionTargets, r as CommandAuthorization, t as StoredModelOverride } from "../stored-model-override-DL57ZmKX.js";
 import { a as resolveModelsCommandReply, i as formatModelsAvailableHeader, r as buildModelsProviderData, t as ModelsProviderData } from "../commands-models-BxJDX8_j.js";
 import { i as resolveSkillCommandInvocation, n as listSkillCommandsForWorkspace, r as listReservedChatSlashCommandNames, t as listSkillCommandsForAgents } from "../chat-commands-DJ_dPVox.js";
 import { n as listProviderPluginCommandSpecs, t as getPluginCommandSpecs } from "../command-specs-V2Zqw-6U.js";

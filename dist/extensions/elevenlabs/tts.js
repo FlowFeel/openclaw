@@ -1,2 +1,2 @@
-import { n as elevenLabsTTSStream, t as elevenLabsTTS } from "../../tts-B-y6jD8q.js";
+import { n as elevenLabsTTSStream, t as elevenLabsTTS } from "../../tts-CGozJZgZ.js";
 export { elevenLabsTTS, elevenLabsTTSStream };

@@ -1,7 +1,7 @@
-import { t as defineSingleProviderPluginEntry } from "../../provider-entry-C9OCgE6N.js";
+import { t as defineSingleProviderPluginEntry } from "../../provider-entry-CNsUOk8t.js";
 import { t as openclaw_plugin_default } from "../../openclaw.plugin-CzE7JkIG.js";
 import { n as applyTogetherConfig } from "../../onboard-BiR65w-t.js";
-import { t as buildTogetherVideoGenerationProvider } from "../../video-generation-provider-DW0mT7Y7.js";
+import { t as buildTogetherVideoGenerationProvider } from "../../video-generation-provider-DQXLQiSA.js";
 var together_default = defineSingleProviderPluginEntry({
 	id: "together",
 	name: "Together Provider",

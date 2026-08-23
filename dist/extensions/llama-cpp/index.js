@@ -1,10 +1,10 @@
 import { r as formatErrorMessage } from "../../errors-D-7D3ZtF.js";
-import { h as createAssistantMessageEventStream, u as parseStreamingJson } from "../../llm-BqxXMT0Z.js";
-import { d as createPlainTextToolCallCompatWrapper } from "../../provider-stream-shared-DSBkVQvj.js";
+import { h as createAssistantMessageEventStream, u as parseStreamingJson } from "../../llm-DFGpShix.js";
+import { d as createPlainTextToolCallCompatWrapper } from "../../provider-stream-shared-DbAiLMZ7.js";
 import "../../error-runtime-Nqb-RQG4.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
 import { t as createLocalEmbeddingProvider } from "../../embeddings-BrDLPCH_.js";
-import "../../memory-core-host-engine-embeddings-DJe7MzzG.js";
+import "../../memory-core-host-engine-embeddings-BOMiB8QQ.js";
 import { r as buildProviderToolCompatFamilyHooks } from "../../provider-tools-mj-Qt8cY.js";
 import { createRequire } from "node:module";
 import { pathToFileURL } from "node:url";

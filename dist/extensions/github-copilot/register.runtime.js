@@ -1,11 +1,11 @@
 import { s as coerceSecretRef } from "../../types.secrets-BvApkFoj.js";
 import { n as listProfilesForProvider } from "../../profile-list-BV1ORe-C.js";
-import { i as ensureAuthProfileStore } from "../../store-C8MGqOG3.js";
-import "../../provider-auth-D9UigLvZ.js";
-import { i as resolveCopilotForwardCompatModel, t as PROVIDER_ID } from "../../models-BSoRhDT4.js";
+import { i as ensureAuthProfileStore } from "../../store-BMd0T0_g.js";
+import "../../provider-auth-Cot2SGgW.js";
+import { i as resolveCopilotForwardCompatModel, t as PROVIDER_ID } from "../../models-nWvQcgU_.js";
 import { n as resolveCopilotRuntimeAuth, t as DEFAULT_COPILOT_API_BASE_URL } from "../../runtime-auth-CDaunirl.js";
-import { t as githubCopilotLoginCommand } from "../../login-Dfmt-U8V.js";
-import { n as wrapCopilotProviderStream, t as wrapCopilotAnthropicStream } from "../../stream-DkeynRwZ.js";
-import { t as resolveCopilotStarterModel } from "../../starter-model-BCFvhRQp.js";
-import { t as fetchCopilotUsage } from "../../usage-DORWmXtr.js";
+import { t as githubCopilotLoginCommand } from "../../login-UaT9YGpg.js";
+import { n as wrapCopilotProviderStream, t as wrapCopilotAnthropicStream } from "../../stream-C6djSaOi.js";
+import { t as resolveCopilotStarterModel } from "../../starter-model-ESegeJii.js";
+import { t as fetchCopilotUsage } from "../../usage-CqUBRpF5.js";
 export { DEFAULT_COPILOT_API_BASE_URL, PROVIDER_ID, coerceSecretRef, ensureAuthProfileStore, fetchCopilotUsage, githubCopilotLoginCommand, listProfilesForProvider, resolveCopilotForwardCompatModel, resolveCopilotRuntimeAuth, resolveCopilotStarterModel, wrapCopilotAnthropicStream, wrapCopilotProviderStream };

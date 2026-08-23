@@ -1,7 +1,7 @@
 import { r as createLazyRuntimeModule } from "../../lazy-runtime-CgCh8H_K.js";
 import { t as defineBundledChannelEntry } from "../../channel-entry-contract-BqXCQUt5.js";
-import { n as registerMatrixCliMetadata } from "../../cli-metadata-OLVAcBi9.js";
-import { t as registerMatrixSubagentHooks } from "../../subagent-hooks-api-DUUJDuhw.js";
+import { n as registerMatrixCliMetadata } from "../../cli-metadata-B0rS91vN.js";
+import { t as registerMatrixSubagentHooks } from "../../subagent-hooks-api-B3dpqPvS.js";
 //#region extensions/matrix/index.ts
 const loadMatrixHandlersRuntimeModule = createLazyRuntimeModule(() => import("./plugin-entry.handlers.runtime.js"));
 function registerMatrixFullRuntime(api) {

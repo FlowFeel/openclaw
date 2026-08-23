@@ -1,5 +1,5 @@
-import { a as buildOllamaProvider, s as capLocalOllamaProviderContext } from "../../provider-base-url-BEtrMUhw.js";
-import { i as resolveOllamaDiscoveryResult, n as OLLAMA_PROVIDER_ID, o as shouldUseSyntheticOllamaAuth, t as OLLAMA_DEFAULT_API_KEY } from "../../discovery-shared-DSzgvtKN.js";
+import { a as buildOllamaProvider, s as capLocalOllamaProviderContext } from "../../provider-base-url-BEal9pmC.js";
+import { i as resolveOllamaDiscoveryResult, n as OLLAMA_PROVIDER_ID, o as shouldUseSyntheticOllamaAuth, t as OLLAMA_DEFAULT_API_KEY } from "../../discovery-shared-DbZpFHRm.js";
 //#region extensions/ollama/provider-discovery.ts
 function resolveOllamaPluginConfig(ctx) {
 	return (ctx.config.plugins?.entries ?? {}).ollama?.config ?? {};

@@ -1,7 +1,7 @@
 import { n as OpenClawConfig } from "../types.openclaw-B-6RRL7F.js";
 import { t as RuntimeEnv } from "../runtime-CxgPx-f8.js";
 import { n as WizardPrompter } from "../types.plugin-CBDARGQD.js";
-import { An as ProviderAuthResult, i as ProviderPlugin } from "../types-DdUyjaEr.js";
+import { An as ProviderAuthResult, i as ProviderPlugin } from "../types-dPYYJRo2.js";
 declare namespace auth_d_exports {
   export { ModelsAuthLoginFlowOptions, ModelsAuthLoginFlowResult, modelsAuthAddCommand, modelsAuthLoginCommand, modelsAuthPasteApiKeyCommand, modelsAuthPasteTokenCommand, modelsAuthSetupTokenCommand, resolveLoginProfiles, resolveRequestedLoginProviderOrThrow, runModelsAuthLoginFlow$1 as runModelsAuthLoginFlow };
 }

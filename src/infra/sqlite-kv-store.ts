@@ -109,10 +109,18 @@ export class SqliteKvStore<T = unknown> {
         const parsed = JSON.parse(row.value) as T;
         results.push({ key: row.key, value: parsed, updatedAt: row.updated_at });
       } catch {
-        // Skip corrupted entries
+        // Skip corrupted rows
       }
     }
     return results;
+  }
+
+  getAll(): Record<string, T> {
+    const result: Record<string, T> = {};
+    for (const entry of this.entries()) {
+      result[entry.key] = entry.value;
+    }
+    return result;
   }
 
   clear(): void {

@@ -13,11 +13,11 @@ import { r as resolveMatrixCredentialsDir } from "../../storage-paths-HvTTKK7M.j
 import { a as isMatrixCredentialRevocation, c as normalizeMatrixStoredCredentials, n as MATRIX_CREDENTIALS_NAMESPACE, s as matrixCredentialsStoreKey } from "../../credentials-read-DxcrTJ_J.js";
 import { n as normalizeCompatibilityConfig, t as legacyConfigRules } from "../../doctor-contract-s-3inccd.js";
 import { C as writeMatrixRecoveryKeyStateToStore, a as hasMatrixRecoveryKeyStateInStore, b as writeMatrixIdbSnapshotJsonToStore, d as openMatrixRecoveryKeyStoreOptions, f as readLegacyMatrixLegacyCryptoMigrationState, g as readMatrixIdbSnapshotJsonFromStore, i as hasMatrixLegacyCryptoMigrationStateInStore, l as openMatrixIdbSnapshotStoreOptions, m as readLegacyMatrixRecoveryKeyState, n as MATRIX_LEGACY_CRYPTO_MIGRATION_FILENAME, r as MATRIX_RECOVERY_KEY_FILENAME, t as MATRIX_IDB_SNAPSHOT_FILENAME, u as openMatrixLegacyCryptoMigrationStoreOptions, x as writeMatrixLegacyCryptoMigrationStateToStore } from "../../crypto-state-store-3ILKBeVs.js";
-import { a as openMatrixStorageMetaStoreOptions, i as normalizeMatrixStorageMetadata, n as hasMatrixStorageMetaStateInStore, u as writeMatrixStorageMetaStateToStore } from "../../storage-CeoUNQh7.js";
-import { a as writeMatrixSyncCacheStateToStore, i as readLegacyMatrixSyncCacheState, n as hasMatrixSyncCacheStateInStore, r as openMatrixSyncCacheStoreOptions } from "../../file-sync-store-BzmdvLZ_.js";
+import { a as openMatrixStorageMetaStoreOptions, i as normalizeMatrixStorageMetadata, n as hasMatrixStorageMetaStateInStore, u as writeMatrixStorageMetaStateToStore } from "../../storage-B0onFYxL.js";
+import { a as writeMatrixSyncCacheStateToStore, i as readLegacyMatrixSyncCacheState, n as hasMatrixSyncCacheStateInStore, r as openMatrixSyncCacheStoreOptions } from "../../file-sync-store-BIBAacnL.js";
 import { n as MATRIX_IDB_SNAPSHOT_LOCK_OPTIONS } from "../../idb-persistence-lock-DAJ49nZX.js";
-import { r as readLegacyMatrixIdbSnapshotStateUnlocked, t as isValidMatrixIdbSnapshotJson } from "../../idb-persistence-CmouBbVX.js";
-import { a as resolveMatrixInboundDedupeStateNamespace, n as MATRIX_INBOUND_DEDUPE_TTL_MS, r as buildMatrixInboundDedupeEventKey } from "../../inbound-dedupe-BhN_W4FK.js";
+import { r as readLegacyMatrixIdbSnapshotStateUnlocked, t as isValidMatrixIdbSnapshotJson } from "../../idb-persistence-hv2CMYPk.js";
+import { a as resolveMatrixInboundDedupeStateNamespace, n as MATRIX_INBOUND_DEDUPE_TTL_MS, r as buildMatrixInboundDedupeEventKey } from "../../inbound-dedupe-BcqZkFmI.js";
 import { createHash, randomUUID } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";

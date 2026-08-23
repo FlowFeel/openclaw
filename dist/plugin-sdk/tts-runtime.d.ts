@@ -1,9 +1,9 @@
 import { p as ReplyPayload } from "../types-zW07lbxl.js";
 import { $ as ResolvedTtsPersona, et as TtsAutoMode, it as TtsProvider, n as OpenClawConfig, rt as TtsModelOverrideConfig } from "../types.openclaw-B-6RRL7F.js";
-import { Ft as TtsDirectiveParseResult, Nt as SpeechVoiceOption, Pt as TtsDirectiveOverrides, dt as ResolvedTtsConfig, ft as ResolvedTtsModelOverrides, pt as TtsConfigResolutionContext, yt as SpeechProviderConfig } from "../types-DdUyjaEr.js";
+import { Ft as TtsDirectiveParseResult, Nt as SpeechVoiceOption, Pt as TtsDirectiveOverrides, dt as ResolvedTtsConfig, ft as ResolvedTtsModelOverrides, pt as TtsConfigResolutionContext, yt as SpeechProviderConfig } from "../types-dPYYJRo2.js";
 import { c as TtsAutoSchema, d as TtsProviderSchema, l as TtsConfigSchema, u as TtsModeSchema } from "../zod-schema.core-mNHdT6J1.js";
-import { t as summarizeText } from "../tts-core-BeypB07v.js";
-import { o as parseTtsDirectives } from "../provider-registry-CsMtQZUl.js";
+import { t as summarizeText } from "../tts-core-BDXSE8cC.js";
+import { o as parseTtsDirectives } from "../provider-registry-DBQrzrR_.js";
 
 //#region src/tts/tts-runtime-types.d.ts
 type TtsAttemptReasonCode = "success" | "no_provider_registered" | "not_configured" | "unsupported_for_streaming" | "unsupported_for_telephony" | "timeout" | "provider_error";

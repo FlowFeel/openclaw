@@ -1,4 +1,4 @@
-import { c as buildSummaryChunks, l as computeAdaptiveChunkRatio, o as buildOversizedFallbackPlan, s as buildStageSplitPlan } from "../compaction-planning-C-JUoUqc.js";
+import { c as buildSummaryChunks, l as computeAdaptiveChunkRatio, o as buildOversizedFallbackPlan, s as buildStageSplitPlan } from "../compaction-planning-CEkjkWXf.js";
 import { parentPort, workerData } from "node:worker_threads";
 //#region src/agents/compaction-planning.worker.ts
 /**
@@ -20,13 +20,15 @@ function createMessageIndexer(source) {
 	const indexByMessage = new Map(source.map((message, index) => [message, index]));
 	const keyMap = /* @__PURE__ */ new Map();
 	for (const [index, message] of source.entries()) {
-		const key = `${message.role}:${message.timestamp}:${JSON.stringify(message.content)}`;
+		const rawContent = "content" in message ? message.content : void 0;
+		const key = `${message.role}:${message.timestamp}:${JSON.stringify(rawContent)}`;
 		if (!keyMap.has(key)) keyMap.set(key, index);
 	}
 	return (selected) => selected.map((message) => {
 		let index = indexByMessage.get(message);
 		if (index === void 0) {
-			const key = `${message.role}:${message.timestamp}:${JSON.stringify(message.content)}`;
+			const rawContent = "content" in message ? message.content : void 0;
+			const key = `${message.role}:${message.timestamp}:${JSON.stringify(rawContent)}`;
 			index = keyMap.get(key);
 		}
 		if (index === void 0) throw new Error("Compaction planning result contains an unknown message");

@@ -1,5 +1,5 @@
-import { r as OpenClawPluginApi, t as OpenClawPluginDefinition } from "../../types-BNfDyER-.js";
-import { n as OpenClawPluginConfigSchema, r as OpenClawPluginDefinition$1 } from "../../plugin-entry-gpekaL9C.js";
+import { r as OpenClawPluginApi, t as OpenClawPluginDefinition } from "../../types-CHzJhI3f.js";
+import { n as OpenClawPluginConfigSchema, r as OpenClawPluginDefinition$1 } from "../../plugin-entry-Ba15Paz9.js";
 //#region extensions/matrix/src/cli-metadata.d.ts
 declare function registerMatrixCliMetadata(api: OpenClawPluginApi): void;
 //#endregion

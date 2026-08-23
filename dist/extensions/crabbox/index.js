@@ -4,7 +4,7 @@ import { r as runCommandWithTimeout } from "../../exec-Bcu-_3pW.js";
 import { t as WorkerProviderError } from "../../capability-provider.types-BtnrpVPK.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
 import "../../process-runtime-dAJSGvJr.js";
-import "../../logging-core-6xI_Qmbn.js";
+import "../../logging-core-BYENfTXr.js";
 import "../../text-utility-runtime-D52Cj1WO.js";
 import { createHash } from "node:crypto";
 import fs from "node:fs";

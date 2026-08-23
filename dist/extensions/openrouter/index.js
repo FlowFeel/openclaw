@@ -2,25 +2,25 @@ import { r as truncateUtf16Safe } from "../../utf16-slice-lH-m0h6-.js";
 import { i as asOptionalRecord } from "../../record-coerce-DHZ4bFlT.js";
 import "../../defaults-CdX9UGcX.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
-import { a as buildProviderReplayFamilyHooks } from "../../provider-model-shared-D9A9VaW7.js";
-import { t as defineSingleProviderPluginEntry } from "../../provider-entry-C9OCgE6N.js";
-import { l as getOpenRouterModelCapabilities, u as loadOpenRouterModelCapabilities } from "../../provider-stream-D3LutjYS.js";
-import "../../provider-stream-family-3-SAZ5iJ.js";
+import { a as buildProviderReplayFamilyHooks } from "../../provider-model-shared-BPWEhHPG.js";
+import { t as defineSingleProviderPluginEntry } from "../../provider-entry-CNsUOk8t.js";
+import { l as getOpenRouterModelCapabilities, u as loadOpenRouterModelCapabilities } from "../../provider-stream-C2-_OrPE.js";
+import "../../provider-stream-family-CAXHHC0Y.js";
 import "../../text-utility-runtime-D52Cj1WO.js";
 import { a as normalizeOpenRouterBaseUrl, i as isOpenRouterProxyReasoningUnsupportedModel, n as buildOpenrouterLiveProvider, o as resolveOpenRouterApiBaseUrl, r as buildOpenrouterProvider } from "../../provider-catalog-DT16V_XN.js";
-import { t as buildOpenRouterImageGenerationProvider } from "../../image-generation-provider-Bo0nLAoD.js";
-import { t as openrouterMediaUnderstandingProvider } from "../../media-understanding-provider-D8ApcDIu.js";
+import { t as buildOpenRouterImageGenerationProvider } from "../../image-generation-provider-D5Nn32x6.js";
+import { t as openrouterMediaUnderstandingProvider } from "../../media-understanding-provider-zX1aMzM4.js";
 import { i as normalizeOpenRouterModelFamilyId, n as isOpenRouterMistralModelId, r as normalizeOpenRouterApiModelId } from "../../models-DUd4uql_.js";
-import { t as buildOpenRouterMusicGenerationProvider } from "../../music-generation-provider-BPZAuuvB.js";
+import { t as buildOpenRouterMusicGenerationProvider } from "../../music-generation-provider-2BYmvNtM.js";
 import { n as applyOpenrouterConfig, t as OPENROUTER_DEFAULT_MODEL_REF } from "../../onboard-CbuiTq7-.js";
-import { t as createOpenRouterOAuthAuthMethod } from "../../oauth-BMzZWzOn.js";
+import { t as createOpenRouterOAuthAuthMethod } from "../../oauth-DhOMlUfP.js";
 import { t as resolveOpenRouterExtraParamsForTransport } from "../../provider-routing-BKidv0ix.js";
-import { t as buildOpenRouterSpeechProvider } from "../../speech-provider-CdFaJBnC.js";
-import { t as wrapOpenRouterProviderStream } from "../../stream-B1JqOjv6.js";
+import { t as buildOpenRouterSpeechProvider } from "../../speech-provider-fGF58A9e.js";
+import { t as wrapOpenRouterProviderStream } from "../../stream-Bo1FJBVf.js";
 import { t as resolveOpenRouterThinkingProfile } from "../../thinking-policy-DBWiNWmu.js";
 import { t as fetchOpenRouterUsage } from "../../usage-DJvchvNc.js";
-import { t as listOpenRouterVideoModelCatalog } from "../../video-model-catalog-Ap36TIgN.js";
-import { t as buildOpenRouterVideoGenerationProvider } from "../../video-generation-provider-COCIecj6.js";
+import { t as listOpenRouterVideoModelCatalog } from "../../video-model-catalog-DlEUbzd5.js";
+import { t as buildOpenRouterVideoGenerationProvider } from "../../video-generation-provider-BxfiYpGZ.js";
 //#region extensions/openrouter/openclaw.plugin.json
 var openclaw_plugin_default = {
 	id: "openrouter",

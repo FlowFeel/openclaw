@@ -1,4 +1,4 @@
-import { B as getProviderEnvVars, N as getVideoGenerationProvider, P as listVideoGenerationProviders, h as GenerateVideoRuntimeResult, m as GenerateVideoParams } from "../../types-SqiTFKjU.js";
+import { B as getProviderEnvVars, N as getVideoGenerationProvider, P as listVideoGenerationProviders, h as GenerateVideoRuntimeResult, m as GenerateVideoParams } from "../../types-B3KbIvCl.js";
 import { n as OpenClawConfig } from "../../types.openclaw-hJEKisz6.js";
 import { m as SubsystemLogger } from "../../types-D4-wxMAX.js";
 import { o as VideoGenerationProvider } from "../../types-aTkU4ToT.js";

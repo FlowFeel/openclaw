@@ -1,2 +1,2 @@
-import { g as definePluginEntry, n as OpenClawPluginApi, o as OpenClawPluginService } from "../../plugin-entry-Cqz1CRwl.js";
+import { g as definePluginEntry, n as OpenClawPluginApi, o as OpenClawPluginService } from "../../plugin-entry-CuznV56Y.js";
 export { type OpenClawPluginApi, type OpenClawPluginService, definePluginEntry };

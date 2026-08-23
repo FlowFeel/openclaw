@@ -1,4 +1,4 @@
-import { r as MigrationItem } from "../../plugin-entry-CHoiSyUn.js";
+import { r as MigrationItem } from "../../plugin-entry-i32wLQY9.js";
 import { HermesProviderConfig } from "./config-provider-contract.js";
 
 //#region extensions/migrate-hermes/config-providers.d.ts

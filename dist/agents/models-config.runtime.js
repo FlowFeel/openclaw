@@ -1,2 +1,2 @@
-import { t as ensureOpenClawModelsJson } from "../models-config-BZgDHX-R.js";
+import { t as ensureOpenClawModelsJson } from "../models-config-BAvyerAS.js";
 export { ensureOpenClawModelsJson };

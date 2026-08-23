@@ -1,2 +1,2 @@
-import { i as testing, n as createThreadBindingManager } from "../../thread-bindings.manager-D6wis9Z7.js";
+import { i as testing, n as createThreadBindingManager } from "../../thread-bindings.manager-2ozP3mZp.js";
 export { createThreadBindingManager, testing as discordThreadBindingTesting };

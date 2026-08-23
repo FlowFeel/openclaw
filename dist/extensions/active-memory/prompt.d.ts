@@ -1,4 +1,4 @@
-import { ot as ResolvedActiveRecallPluginConfig } from "../../types-D4sbWhRg.js";
+import { ot as ResolvedActiveRecallPluginConfig } from "../../types-CDBuSTev.js";
 
 //#region extensions/active-memory/prompt.d.ts
 declare function buildRecallPrompt(params: {

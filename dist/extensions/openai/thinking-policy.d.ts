@@ -1,4 +1,4 @@
-import { O as ProviderThinkingProfile, y as ProviderDefaultThinkingPolicyContext } from "../../plugin-entry-tcwokeHw.js";
+import { O as ProviderThinkingProfile, y as ProviderDefaultThinkingPolicyContext } from "../../plugin-entry-D2U6D_c3.js";
 
 //#region extensions/openai/thinking-policy.d.ts
 type OpenAIThinkingCompat = ProviderDefaultThinkingPolicyContext["compat"];

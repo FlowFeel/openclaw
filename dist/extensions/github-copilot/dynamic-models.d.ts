@@ -1,6 +1,6 @@
 import { n as OpenClawConfig } from "../../types.openclaw-CXX8ljmy.js";
-import { R as ProviderRuntimeModel } from "../../types-CJY5tURi.js";
-import { C as ProviderResolveDynamicModelContext, S as ProviderPrepareDynamicModelContext, b as ProviderCatalogResult, y as ProviderCatalogContext } from "../../plugin-entry-CHoiSyUn.js";
+import { R as ProviderRuntimeModel } from "../../types-CAQ6JuHx.js";
+import { C as ProviderResolveDynamicModelContext, S as ProviderPrepareDynamicModelContext, b as ProviderCatalogResult, y as ProviderCatalogContext } from "../../plugin-entry-i32wLQY9.js";
 
 //#region extensions/github-copilot/dynamic-models.d.ts
 declare function createGithubCopilotDynamicModelHooks(params: {

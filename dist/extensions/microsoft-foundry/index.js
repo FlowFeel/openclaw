@@ -1,6 +1,6 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { t as buildMicrosoftFoundryImageGenerationProvider } from "../../image-generation-provider-Cm0CeNDQ.js";
-import { t as buildMicrosoftFoundryProvider } from "../../provider-DRlDgJp7.js";
+import { t as buildMicrosoftFoundryImageGenerationProvider } from "../../image-generation-provider-mozC0_rQ.js";
+import { t as buildMicrosoftFoundryProvider } from "../../provider-BRDe8r0j.js";
 //#region extensions/microsoft-foundry/index.ts
 var microsoft_foundry_default = definePluginEntry({
 	id: "microsoft-foundry",

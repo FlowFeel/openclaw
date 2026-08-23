@@ -1,5 +1,5 @@
-import { t as OpenClawPluginDefinition } from "../../types-CJY5tURi.js";
-import { c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition$1 } from "../../plugin-entry-CHoiSyUn.js";
+import { t as OpenClawPluginDefinition } from "../../types-CAQ6JuHx.js";
+import { c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition$1 } from "../../plugin-entry-i32wLQY9.js";
 
 //#region extensions/voice-call/setup-api.d.ts
 /** Setup plugin entry that registers voice-call config migrations. */

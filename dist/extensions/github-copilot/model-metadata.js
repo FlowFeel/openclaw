@@ -1,2 +1,2 @@
-import { a as resolveStaticCopilotModelOverride, i as resolveCopilotTransportApi, n as resolveCopilotExtendedThinkingLevels, r as resolveCopilotModelCompat, t as DEFAULT_COPILOT_MODEL } from "../../model-metadata-SjQCPT5v.js";
+import { a as resolveStaticCopilotModelOverride, i as resolveCopilotTransportApi, n as resolveCopilotExtendedThinkingLevels, r as resolveCopilotModelCompat, t as DEFAULT_COPILOT_MODEL } from "../../model-metadata-CrOewaXL.js";
 export { DEFAULT_COPILOT_MODEL, resolveCopilotExtendedThinkingLevels, resolveCopilotModelCompat, resolveCopilotTransportApi, resolveStaticCopilotModelOverride };

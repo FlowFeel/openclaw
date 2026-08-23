@@ -1,4 +1,4 @@
-import { E as SpeechVoiceOption } from "../../types-BNfDyER-.js";
+import { E as SpeechVoiceOption } from "../../types-CHzJhI3f.js";
 import { t as XAI_BASE_URL } from "../../model-definitions-DWN0zuxb.js";
 //#region extensions/xai/tts.d.ts
 declare const XAI_TTS_FALLBACK_VOICES: readonly ["ara", "eve", "leo", "rex", "sal"];

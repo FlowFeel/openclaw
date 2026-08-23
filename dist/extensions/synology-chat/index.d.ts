@@ -1,5 +1,5 @@
 import { n as ChannelPlugin } from "../../types.public-Cwx_p1zT.js";
-import { t as BundledChannelEntryContract } from "../../channel-entry-contract-MzLTUsZd.js";
+import { t as BundledChannelEntryContract } from "../../channel-entry-contract-C7bHtBMM.js";
 
 //#region extensions/synology-chat/index.d.ts
 declare const _default: BundledChannelEntryContract<ChannelPlugin>;

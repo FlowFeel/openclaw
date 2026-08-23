@@ -1,2 +1,2 @@
-import { n as resolveOpenAISystemPromptContribution, t as resolveOpenAIPromptOverlayMode } from "../../prompt-overlay-CaLTQcad.js";
+import { n as resolveOpenAISystemPromptContribution, t as resolveOpenAIPromptOverlayMode } from "../../prompt-overlay-DELVuMuS.js";
 export { resolveOpenAIPromptOverlayMode, resolveOpenAISystemPromptContribution };

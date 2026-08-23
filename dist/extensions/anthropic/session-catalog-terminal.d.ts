@@ -1,5 +1,5 @@
-import { P as SessionCatalogTerminalPlan } from "../../types-odeWQ5Sn.js";
-import { n as OpenClawPluginApi } from "../../plugin-entry-D6tZQojt.js";
+import { P as SessionCatalogTerminalPlan } from "../../types-7SOOE25U.js";
+import { n as OpenClawPluginApi } from "../../plugin-entry-D7C-ld89.js";
 //#region extensions/anthropic/session-catalog-terminal.d.ts
 type ClaudeTerminalDependencies = {
   listClaudeSessions: () => Promise<Array<{

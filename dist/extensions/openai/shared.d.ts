@@ -1,4 +1,4 @@
-import { $ as cloneFirstTemplateModel, P as ProviderPlugin, et as matchesExactOrPrefix } from "../../plugin-entry-tcwokeHw.js";
+import { $ as cloneFirstTemplateModel, P as ProviderPlugin, et as matchesExactOrPrefix } from "../../plugin-entry-D2U6D_c3.js";
 import { n as OpenClawConfig } from "../../types.openclaw-_47ZKysp.js";
 //#region src/plugins/provider-catalog.d.ts
 /** Finds a provider catalog template entry by normalized provider and template id. */

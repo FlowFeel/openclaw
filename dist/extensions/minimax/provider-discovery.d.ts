@@ -1,4 +1,4 @@
-import { i as ProviderPlugin } from "../../types-odeWQ5Sn.js";
+import { i as ProviderPlugin } from "../../types-7SOOE25U.js";
 //#region extensions/minimax/provider-discovery.d.ts
 declare const minimaxProviderDiscovery: ProviderPlugin[];
 //#endregion

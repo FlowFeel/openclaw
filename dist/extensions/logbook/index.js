@@ -7,7 +7,7 @@ import { a as errorShape } from "../../error-codes-P4fBo0lR.js";
 import "../../error-runtime-Nqb-RQG4.js";
 import { t as expectDefined } from "../../expect-runtime--WgnKYXT.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import "../../media-runtime-CLhEwOPy.js";
+import "../../media-runtime-BSg_PCVr.js";
 import "../../gateway-runtime-BOoMLXP7.js";
 import "../../plugin-state-runtime-Bg9BCk2k.js";
 import "../../sqlite-runtime-kT0Fczvb.js";

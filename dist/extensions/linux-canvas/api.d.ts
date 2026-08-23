@@ -1,4 +1,4 @@
-import { a as OpenClawPluginNodeHostCommand } from "../../plugin-entry-D6tZQojt.js";
+import { a as OpenClawPluginNodeHostCommand } from "../../plugin-entry-D7C-ld89.js";
 
 //#region extensions/linux-canvas/src/ipc-client.d.ts
 type LinuxCanvasActionEvent = {

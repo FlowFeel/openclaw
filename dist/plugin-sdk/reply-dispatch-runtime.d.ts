@@ -1,5 +1,5 @@
 import { y as CommandTurnContext } from "../templating-BhJuWyZk.js";
-import { Ao as DispatchReplyWithDispatcher, Do as finalizeInboundContextForSdk, ko as DispatchReplyWithBufferedBlockDispatcher } from "../types-CWvW31qx.js";
+import { Ao as DispatchReplyWithDispatcher, Do as finalizeInboundContextForSdk, ko as DispatchReplyWithBufferedBlockDispatcher } from "../types-BMOPjNqu.js";
 import { m as resolveChunkMode } from "../outbound.types-BsP6frUw.js";
 import { r as ReplyPayload } from "../reply-payload-DSgZ_G6Q.js";
 import { n as generateConversationLabel } from "../conversation-label-generator-CCEp3Tol.js";

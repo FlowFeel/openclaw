@@ -1,6 +1,6 @@
 import { _ as PluginManifestActivation } from "../../manifest-registry-BChEetzl.js";
 import { i as JsonSchemaObject } from "../../types.config-C6_VK-8V.js";
-import { x as definePluginEntry } from "../../plugin-entry-D6tZQojt.js";
+import { x as definePluginEntry } from "../../plugin-entry-D7C-ld89.js";
 import { Static, TSchema } from "typebox";
 
 //#region src/plugin-sdk/tool-plugin.d.ts

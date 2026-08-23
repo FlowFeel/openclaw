@@ -1,7 +1,7 @@
 import { f as mergeTelegramAccountConfig } from "../../accounts-CDFmMDSo.js";
 import { a as normalizeTelegramCommandName, i as normalizeTelegramCommandDescription, o as resolveTelegramCustomCommands, t as TELEGRAM_COMMAND_NAME_PATTERN } from "../../command-config-B5uSKuEF.js";
 import { n as parseTelegramTopicConversation } from "../../topic-conversation-DB0Kpc_a.js";
-import { a as buildTelegramModelsProviderChannelData, i as buildCommandsPaginationKeyboard, n as TelegramInteractiveHandlerRegistration, r as TelegramInteractiveHandlerResult, t as TelegramInteractiveHandlerContext } from "../../interactive-dispatch-Xbb17xr1.js";
+import { a as buildTelegramModelsProviderChannelData, i as buildCommandsPaginationKeyboard, n as TelegramInteractiveHandlerRegistration, r as TelegramInteractiveHandlerResult, t as TelegramInteractiveHandlerContext } from "../../interactive-dispatch-B3CdU4D_.js";
 
 //#region extensions/telegram/src/setup-contract.d.ts
 declare const singleAccountKeysToMove: string[];

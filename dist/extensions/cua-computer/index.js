@@ -4,7 +4,7 @@ import { t as canonicalizeBase64 } from "../../base64-KcXAb-1x.js";
 import { n as buildPluginConfigSchema } from "../../config-schema-Cjz2ed1U.js";
 import "../../temp-path-CVFOBJ6f.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import "../../media-runtime-CLhEwOPy.js";
+import "../../media-runtime-BSg_PCVr.js";
 import { createRequire } from "node:module";
 import { createHash, randomUUID } from "node:crypto";
 import fs from "node:fs";

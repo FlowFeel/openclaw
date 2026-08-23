@@ -1,6 +1,6 @@
-import { a as MigrationProviderContext, r as MigrationItem } from "../../plugin-entry-CHoiSyUn.js";
+import { a as MigrationProviderContext, r as MigrationItem } from "../../plugin-entry-i32wLQY9.js";
 import { HermesSource } from "./source.js";
-import { t as PlannedMigrationTargets } from "../../targets-BWNwgCj_.js";
+import { t as PlannedMigrationTargets } from "../../targets-HF1sqiQe.js";
 
 //#region extensions/migrate-hermes/auth.d.ts
 declare function buildAuthItems(params: {

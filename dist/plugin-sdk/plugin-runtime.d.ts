@@ -1,7 +1,7 @@
 import { r as OpenClawConfig } from "../types.openclaw-DqdTE9e3.js";
 import { t as PluginOrigin } from "../plugin-origin.types-DOQEvsWL.js";
 import { i as ReplyPayload } from "../reply-payload-DdceO6tf.js";
-import { At as OpenClawPluginApi, Dn as PluginCommandResult, En as PluginCommandContext, Et as PluginRegistry, Fa as PluginRuntime, Tn as OpenClawPluginCommandDefinition, _n as PluginInteractiveHandlerRegistration, j as RuntimeLogger, kt as OpenClawPluginConfigSchema, vn as PluginInteractiveRegistration, wn as AgentPromptSurfaceKind } from "../types-CWvW31qx.js";
+import { At as OpenClawPluginApi, Dn as PluginCommandResult, En as PluginCommandContext, Et as PluginRegistry, Fa as PluginRuntime, Tn as OpenClawPluginCommandDefinition, _n as PluginInteractiveHandlerRegistration, j as RuntimeLogger, kt as OpenClawPluginConfigSchema, vn as PluginInteractiveRegistration, wn as AgentPromptSurfaceKind } from "../types-BMOPjNqu.js";
 import { a as GatewayRequestOptions, t as GatewayRequestContext } from "../types-C716i8hP.js";
 import { t as getGlobalHookRunner } from "../hook-runner-global-B0HTZ6t_.js";
 import { n as PluginConversationBindingRequestParams, r as PluginConversationBindingRequestResult, t as PluginConversationBinding } from "../conversation-binding.types-Cf59DwvU.js";

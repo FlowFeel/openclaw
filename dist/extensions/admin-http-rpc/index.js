@@ -2,7 +2,7 @@ import { o as isRecord } from "../../record-coerce-DHZ4bFlT.js";
 import { d as requestBodyErrorToText } from "../../http-body-DhB9daEt.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { t as dispatchGatewayMethod } from "../../gateway-method-runtime-DgTj32Pt.js";
+import { t as dispatchGatewayMethod } from "../../gateway-method-runtime-RBWAvcmU.js";
 import { t as WEBHOOK_BODY_READ_DEFAULTS } from "../../webhook-request-guards-CgiiFJiC.js";
 import { randomUUID } from "node:crypto";
 //#region extensions/admin-http-rpc/src/methods.ts

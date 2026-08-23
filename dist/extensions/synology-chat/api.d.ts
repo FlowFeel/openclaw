@@ -1,4 +1,4 @@
-import { U as PluginRuntime } from "../../types-SqiTFKjU.js";
+import { U as PluginRuntime } from "../../types-B3KbIvCl.js";
 import { t as synologyChatPlugin } from "../../channel-pmcu2Rzc.js";
 import { t as collectSynologyChatSecurityAuditFindings } from "../../security-audit-9EGcNasg.js";
 

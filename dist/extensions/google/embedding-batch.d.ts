@@ -1,4 +1,4 @@
-import { n as GeminiEmbeddingClient, r as GeminiTextEmbeddingRequest } from "../../embedding-provider-RCTxrj4h.js";
+import { n as GeminiEmbeddingClient, r as GeminiTextEmbeddingRequest } from "../../embedding-provider-J2V_ni_8.js";
 
 //#region packages/memory-host-sdk/src/host/batch-runner.d.ts
 /** Execution controls for provider embedding batch submissions and polling. */

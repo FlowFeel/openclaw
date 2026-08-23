@@ -1,2 +1,2 @@
-import { t as prepareFoundryRuntimeAuth } from "../../runtime-B3JNcVOB.js";
+import { t as prepareFoundryRuntimeAuth } from "../../runtime-BJpvmkjN.js";
 export { prepareFoundryRuntimeAuth };

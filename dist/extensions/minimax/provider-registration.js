@@ -1,2 +1,2 @@
-import { t as registerMinimaxProviders } from "../../provider-registration-D7qrUQ97.js";
+import { t as registerMinimaxProviders } from "../../provider-registration-YFRx_gNm.js";
 export { registerMinimaxProviders };

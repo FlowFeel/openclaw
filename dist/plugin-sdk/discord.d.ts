@@ -1,7 +1,7 @@
 import { r as OpenClawConfig } from "../types.openclaw-DqdTE9e3.js";
 import { O as ChannelStatusIssue, d as ChannelGroupContext, h as ChannelMessageActionAdapter, r as ChannelAccountSnapshot } from "../types.core-VzIpsUlT.js";
 import { n as normalizeAccountId, t as DEFAULT_ACCOUNT_ID } from "../account-id-Dh6XMgGH.js";
-import { At as OpenClawPluginApi, Fa as PluginRuntime, nr as emptyPluginConfigSchema } from "../types-CWvW31qx.js";
+import { At as OpenClawPluginApi, Fa as PluginRuntime, nr as emptyPluginConfigSchema } from "../types-BMOPjNqu.js";
 import { t as ChannelPlugin } from "../types.plugin-CaaEEgNZ.js";
 import { S as MessageReceipt } from "../types-DZ4POeRA.js";
 import { t as ChannelMessageActionName } from "../types.public-DbYcOn4c.js";

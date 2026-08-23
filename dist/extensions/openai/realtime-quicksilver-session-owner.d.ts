@@ -1,6 +1,6 @@
-import { g as PluginLogger } from "../../plugin-entry-tcwokeHw.js";
+import { g as PluginLogger } from "../../plugin-entry-D2U6D_c3.js";
 import { n as OpenClawConfig } from "../../types.openclaw-_47ZKysp.js";
-import { r as createOpenAIQuicksilverBrowserSessionBroker } from "../../realtime-quicksilver-session-VjXBKbmt.js";
+import { r as createOpenAIQuicksilverBrowserSessionBroker } from "../../realtime-quicksilver-session-ChR_GnCk.js";
 
 //#region extensions/openai/realtime-quicksilver-session-owner.d.ts
 type BrokerSession = ReturnType<typeof createOpenAIQuicksilverBrowserSessionBroker>;

@@ -1,4 +1,4 @@
-import { Et as SubsystemLogger, K as GenerateImageParams, at as getImageGenerationProvider, mt as getProviderEnvVars, ot as listImageGenerationProviders, q as GenerateImageRuntimeResult } from "../../plugin-entry-tcwokeHw.js";
+import { Et as SubsystemLogger, K as GenerateImageParams, at as getImageGenerationProvider, mt as getProviderEnvVars, ot as listImageGenerationProviders, q as GenerateImageRuntimeResult } from "../../plugin-entry-D2U6D_c3.js";
 import { n as OpenClawConfig } from "../../types.openclaw-_47ZKysp.js";
 import { o as ImageGenerationProvider } from "../../types-CJCX-FF5.js";
 

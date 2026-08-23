@@ -1,4 +1,4 @@
-import { t as MemoryCoreRuntimeHost } from "../../runtime-host-DdI7oozb.js";
+import { t as MemoryCoreRuntimeHost } from "../../runtime-host-Jpfn9JY1.js";
 import { Command } from "commander";
 
 //#region extensions/memory-core/src/cli.d.ts

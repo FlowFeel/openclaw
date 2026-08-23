@@ -1,5 +1,5 @@
 import { n as OpenClawConfig } from "../types.openclaw-B-6RRL7F.js";
-import { Mr as RegisteredMemorySearchManager } from "../types-DdUyjaEr.js";
+import { Mr as RegisteredMemorySearchManager } from "../types-dPYYJRo2.js";
 
 //#region src/plugin-sdk/memory-host-search.d.ts
 type ActiveMemorySearchPurpose = "default" | "status";

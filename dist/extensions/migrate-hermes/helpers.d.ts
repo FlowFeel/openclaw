@@ -1,5 +1,5 @@
 import { et as normalizeOptionalString } from "../../types.openclaw-CXX8ljmy.js";
-import { r as MigrationItem } from "../../plugin-entry-CHoiSyUn.js";
+import { r as MigrationItem } from "../../plugin-entry-i32wLQY9.js";
 
 //#region packages/normalization-core/src/record-coerce.d.ts
 /** Type guard for non-array object records at browser-safe boundaries. */

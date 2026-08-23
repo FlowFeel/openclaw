@@ -3,14 +3,14 @@ import { p as normalizeResolvedSecretInputString } from "../../types.secrets-BvA
 import "../../string-coerce-runtime-CLK2YdzD.js";
 import "../../secret-input-Dsfz4fVL.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { n as createRealtimeVoiceAudioQueue } from "../../realtime-voice-D6uheH7o.js";
+import { n as createRealtimeVoiceAudioQueue } from "../../realtime-voice-DUe3NMvT.js";
 import { t as buildGoogleGeminiCliBackend } from "../../cli-backend-sW66kbAj.js";
-import { n as registerGoogleGeminiCliProvider } from "../../gemini-cli-provider-DtfSV4LY.js";
-import { c as createGoogleMusicGenerationProviderMetadata, l as createGoogleVideoGenerationProviderMetadata } from "../../generation-provider-metadata-C7T8YZKq.js";
-import { t as geminiMemoryEmbeddingProviderAdapter } from "../../memory-embedding-adapter-DdeHPqwD.js";
-import { n as registerGoogleProvider } from "../../provider-registration-66B1rxJx.js";
-import { t as buildGoogleSpeechProvider } from "../../speech-provider-DCqFgzhK.js";
-import { t as createGeminiWebSearchProvider } from "../../gemini-web-search-provider-CXOESb8u.js";
+import { n as registerGoogleGeminiCliProvider } from "../../gemini-cli-provider-8e7y9hqH.js";
+import { c as createGoogleMusicGenerationProviderMetadata, l as createGoogleVideoGenerationProviderMetadata } from "../../generation-provider-metadata-D6TyamyL.js";
+import { t as geminiMemoryEmbeddingProviderAdapter } from "../../memory-embedding-adapter-Cwi-ipud.js";
+import { n as registerGoogleProvider } from "../../provider-registration-FRLuDcIC.js";
+import { t as buildGoogleSpeechProvider } from "../../speech-provider-Dgm70Gr9.js";
+import { t as createGeminiWebSearchProvider } from "../../gemini-web-search-provider-BJGBjw26.js";
 //#region extensions/google/index.ts
 let googleImageGenerationProviderPromise = null;
 let googleMediaUnderstandingProviderPromise = null;

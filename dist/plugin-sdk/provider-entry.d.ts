@@ -1,9 +1,9 @@
 import { C as PluginManifestSetupProvider, b as PluginManifestProviderAuthChoice } from "../manifest-registry-yyab0mBB.js";
-import { On as ProviderAuthMethod, Wn as ProviderPluginCatalog, i as ProviderPlugin, jn as ProviderPluginWizardSetup, t as OpenClawPluginDefinition } from "../types-DdUyjaEr.js";
-import { d as OpenClawPluginDefinition$1, l as OpenClawPluginApi, u as OpenClawPluginConfigSchema } from "../plugin-entry-DuzbjtPT.js";
-import { t as createProviderApiKeyAuthMethod } from "../provider-api-key-auth-9gCNM03U.js";
-import { m as buildSingleProviderApiKeyCatalog } from "../provider-catalog-shared-DvaykgQG.js";
-import { u as OpenAICompatibleModelDiscoveryOptions } from "../provider-catalog-live-runtime-CiG4AWym.js";
+import { On as ProviderAuthMethod, Wn as ProviderPluginCatalog, i as ProviderPlugin, jn as ProviderPluginWizardSetup, t as OpenClawPluginDefinition } from "../types-dPYYJRo2.js";
+import { d as OpenClawPluginDefinition$1, l as OpenClawPluginApi, u as OpenClawPluginConfigSchema } from "../plugin-entry-yoVbiFDY.js";
+import { t as createProviderApiKeyAuthMethod } from "../provider-api-key-auth-DeNaYDwe.js";
+import { m as buildSingleProviderApiKeyCatalog } from "../provider-catalog-shared-oI0geZm9.js";
+import { u as OpenAICompatibleModelDiscoveryOptions } from "../provider-catalog-live-runtime-D3ODh1iA.js";
 
 //#region src/plugin-sdk/provider-entry.d.ts
 type ApiKeyAuthMethodOptions = Parameters<typeof createProviderApiKeyAuthMethod>[0];

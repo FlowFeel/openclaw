@@ -5,8 +5,8 @@ import { a as routeLogsToStderr } from "../console-shoafCYv.js";
 import { _ as resolveToolProfilePolicy, a as collectExplicitDenylist, c as mergeAlsoAllowPolicy, i as collectExplicitAllowlist } from "../tool-policy-CrjVfI-s.js";
 import { n as pickSandboxToolPolicy } from "../sandbox-tool-policy-ClB7s2K0.js";
 import "../config-UtpOr1Uw.js";
-import { a as resolvePluginTools, r as ensureStandalonePluginToolRegistryLoaded } from "../tools-DfrDsxdD.js";
-import { i as resolveToolsMcpAgentSessionKey, n as createToolsMcpServer, r as OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY_ENV, t as connectToolsMcpServerToStdio } from "../tools-stdio-server-C_TGEhic.js";
+import { a as resolvePluginTools, r as ensureStandalonePluginToolRegistryLoaded } from "../tools-CSTIF4SP.js";
+import { i as resolveToolsMcpAgentSessionKey, n as createToolsMcpServer, r as OPENCLAW_TOOLS_MCP_AGENT_SESSION_KEY_ENV, t as connectToolsMcpServerToStdio } from "../tools-stdio-server-CoMeuIrC.js";
 import { pathToFileURL } from "node:url";
 import "@modelcontextprotocol/sdk/server/index.js";
 //#region src/mcp/plugin-tools-serve.ts

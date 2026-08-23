@@ -1,8 +1,8 @@
 import { n as PluginManifestRegistry } from "../manifest-registry-CVXQFOT4.js";
 import { i as InstalledPluginIndex, n as PluginMetadataSnapshot } from "../plugin-metadata-snapshot.types-B7Oza1hi.js";
-import { St as augmentModelCatalogWithProviderPlugins } from "../types-CWvW31qx.js";
-import { t as PluginLoadOptions } from "../loader-Cw9nNSgi.js";
-import { n as resolvePluginProviders, t as isPluginProvidersLoadInFlight } from "../providers.runtime-3o18rYAm.js";
+import { St as augmentModelCatalogWithProviderPlugins } from "../types-BMOPjNqu.js";
+import { t as PluginLoadOptions } from "../loader-omiREMea.js";
+import { n as resolvePluginProviders, t as isPluginProvidersLoadInFlight } from "../providers.runtime-AW2B1kXs.js";
 import { DatabaseSync } from "node:sqlite";
 
 //#region src/plugins/plugin-registry-snapshot.d.ts

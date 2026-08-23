@@ -1,4 +1,4 @@
-import { s as ProviderAuthMethod } from "../../plugin-entry-gpekaL9C.js";
+import { s as ProviderAuthMethod } from "../../plugin-entry-Ba15Paz9.js";
 
 //#region extensions/openrouter/oauth.d.ts
 type OpenRouterOAuthCallbackResult = {

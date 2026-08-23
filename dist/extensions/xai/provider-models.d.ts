@@ -1,2 +1,2 @@
-import { n as normalizeXaiResolvedModel, r as resolveXaiForwardCompatModel, t as isModernXaiModel } from "../../provider-models-D9AnTE5r.js";
+import { n as normalizeXaiResolvedModel, r as resolveXaiForwardCompatModel, t as isModernXaiModel } from "../../provider-models-6YGmGvFB.js";
 export { isModernXaiModel, normalizeXaiResolvedModel, resolveXaiForwardCompatModel };

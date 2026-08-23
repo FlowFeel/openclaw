@@ -44,6 +44,8 @@ import { normalizeFiniteTimestamp } from "./main-session-restart-recovery-shared
 import { loadAgentRuntimePluginRegistryHandle } from "./runtime-plugins.js";
 import { SessionManager, buildSessionContext } from "./sessions/session-manager.js";
 import { repairOrphanToolCalls } from "./session-transcript-repair.js";
+import { getGlobalWorkingStateStore } from "./working-state/working-state-store.js";
+import { formatWorkingStateRecoveryPrompt } from "./working-state/working-state-synthesizer.js";
 
 const log = createSubsystemLogger("main-session-restart-recovery");
 const RESTART_RECOVERY_RESUME_MESSAGE =
@@ -121,15 +123,23 @@ export function resolveRestartRecoveryResumeBlockReason(params: {
   return unsafeHook ? `pre-hook recovery cannot bypass the active ${unsafeHook} hook` : undefined;
 }
 
-function buildResumeMessage(pendingFinalDeliveryText?: string | null): string {
+function buildResumeMessage(pendingFinalDeliveryText?: string | null, sessionId?: string): string {
   const sanitizedPendingText =
     typeof pendingFinalDeliveryText === "string"
       ? sanitizePendingFinalDeliveryText(pendingFinalDeliveryText)
       : "";
+  let baseMessage = RESTART_RECOVERY_RESUME_MESSAGE;
   if (sanitizedPendingText) {
-    return `${RESTART_RECOVERY_RESUME_MESSAGE}\n\nNote: The interrupted final reply was captured: "${sanitizedPendingText}"`;
+    baseMessage = `${RESTART_RECOVERY_RESUME_MESSAGE}\n\nNote: The interrupted final reply was captured: "${sanitizedPendingText}"`;
   }
-  return RESTART_RECOVERY_RESUME_MESSAGE;
+  if (sessionId) {
+    const workingState = getGlobalWorkingStateStore().getWorkingState(sessionId);
+    if (workingState) {
+      const reconstructedBlock = formatWorkingStateRecoveryPrompt(workingState);
+      return `${baseMessage}\n\n${reconstructedBlock}`;
+    }
+  }
+  return baseMessage;
 }
 
 export function resolveRestartRecoveryDeliveryContext(params: {
@@ -530,7 +540,7 @@ export async function resumeMainSession(params: {
         : "skipped";
     }
     const agentParams: Record<string, unknown> = {
-      message: buildResumeMessage(sanitizedPendingText),
+      message: buildResumeMessage(sanitizedPendingText, params.entry.sessionId),
       sessionKey: dispatchSessionKey,
       expectedExistingSessionId: params.entry.sessionId,
       ...(params.sessionWorkAdmissionHandoffId

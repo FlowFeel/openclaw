@@ -1,4 +1,4 @@
-import { s as OpenClawPluginApi } from "../../plugin-entry-tcwokeHw.js";
+import { s as OpenClawPluginApi } from "../../plugin-entry-D2U6D_c3.js";
 import { H as WizardPrompter } from "../../setup-wizard-types-B677hB7z.js";
 import { t as feishuPlugin } from "../../channel-D2RE_GJa.js";
 import { a as parseFeishuDirectConversationId, i as parseFeishuConversationId, n as buildFeishuConversationId, o as parseFeishuTargetId, r as buildFeishuModelOverrideParentCandidates, t as FeishuGroupSessionScope } from "../../conversation-id-CBFuWL3u.js";

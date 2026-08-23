@@ -1,5 +1,5 @@
 import { Y as coerceSecretRef } from "../../types.openclaw-CXX8ljmy.js";
-import { D as listProfilesForProvider, E as ensureAuthProfileStore } from "../../types-CJY5tURi.js";
+import { D as listProfilesForProvider, E as ensureAuthProfileStore } from "../../types-CAQ6JuHx.js";
 import { githubCopilotLoginCommand } from "./login.js";
 import { PROVIDER_ID, resolveCopilotForwardCompatModel } from "./models.js";
 import { DEFAULT_COPILOT_API_BASE_URL, resolveCopilotRuntimeAuth } from "./runtime-auth.js";

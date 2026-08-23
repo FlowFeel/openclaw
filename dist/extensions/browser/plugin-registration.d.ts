@@ -1,4 +1,4 @@
-import { d as OpenClawPluginSecurityAuditCollector, s as OpenClawPluginApi, u as OpenClawPluginNodeHostCommand } from "../../plugin-entry-tcwokeHw.js";
+import { d as OpenClawPluginSecurityAuditCollector, s as OpenClawPluginApi, u as OpenClawPluginNodeHostCommand } from "../../plugin-entry-D2U6D_c3.js";
 
 //#region extensions/browser/plugin-registration.d.ts
 /** Browser plugin reload policy. */

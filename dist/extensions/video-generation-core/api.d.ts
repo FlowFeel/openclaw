@@ -1,4 +1,4 @@
-import { B as getProviderEnvVars, F as resolveAgentModelFallbackValues, H as isFailoverError, I as resolveAgentModelPrimaryValue, L as buildNoCapabilityModelConfiguredMessage, M as parseVideoGenerationModelRef, N as getVideoGenerationProvider, P as listVideoGenerationProviders, R as resolveCapabilityModelCandidates, V as describeFailoverError, rt as FallbackAttempt, u as VideoGenerationProviderPlugin, z as throwCapabilityGenerationFailure } from "../../types-SqiTFKjU.js";
+import { B as getProviderEnvVars, F as resolveAgentModelFallbackValues, H as isFailoverError, I as resolveAgentModelPrimaryValue, L as buildNoCapabilityModelConfiguredMessage, M as parseVideoGenerationModelRef, N as getVideoGenerationProvider, P as listVideoGenerationProviders, R as resolveCapabilityModelCandidates, V as describeFailoverError, rt as FallbackAttempt, u as VideoGenerationProviderPlugin, z as throwCapabilityGenerationFailure } from "../../types-B3KbIvCl.js";
 import { n as OpenClawConfig } from "../../types.openclaw-hJEKisz6.js";
 import { r as AuthProfileStore } from "../../types-BxLxgLBC.js";
 import { h as createSubsystemLogger } from "../../types-D4-wxMAX.js";
