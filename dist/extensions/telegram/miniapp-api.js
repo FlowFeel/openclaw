@@ -1,2 +1,2 @@
-import { t as registerTelegramMiniApp } from "../../miniapp-api-DogT1P9U.js";
+import { t as registerTelegramMiniApp } from "../../miniapp-api-BClgcY3o.js";
 export { registerTelegramMiniApp };

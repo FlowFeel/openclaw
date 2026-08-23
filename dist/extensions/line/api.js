@@ -1,4 +1,4 @@
-import { n as lineChannelPluginCommon, t as linePlugin } from "../../channel-0R7qAWQa.js";
+import { n as lineChannelPluginCommon, t as linePlugin } from "../../channel-b5idlUtb.js";
 import { r as lineSetupContract, t as lineSetupWizard } from "../../setup-surface-ycrTNH4J.js";
 //#region extensions/line/src/channel.setup.ts
 const lineSetupPlugin = {

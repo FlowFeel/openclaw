@@ -7,9 +7,9 @@ import { t as isContainerEnvironment } from "../container-environment-CNsJSTpY.j
 import { n as scheduleDetachedLaunchdRestartHandoff } from "../launchd-restart-handoff-D45Wbag_.js";
 import { n as consumeGatewayRestartIntentPayloadSync, r as consumeGatewayRestartIntentSync } from "../restart-intent-Dwzcdai3.js";
 import { v as waitForActiveGatewayRootWork } from "../gateway-work-admission-D_DdbtmL.js";
-import { a as markGatewaySigusr1RestartHandled, c as resetGatewayRestartStateForInProcessRestart, d as scheduleGatewaySigusr1Restart, i as isGatewaySigusr1RestartExternallyAllowed, l as resolveGatewayRestartDeferralTimeoutMs, m as triggerOpenClawRestart, n as consumeGatewaySigusr1RestartIntent, o as peekGatewaySigusr1RestartReason, s as requestGatewayRestartWithSignalAdmission, t as consumeGatewaySigusr1RestartAuthorization, u as rollbackGatewayRestartSignalAdmission } from "../restart-OrOu_S8O.js";
+import { a as markGatewaySigusr1RestartHandled, c as resetGatewayRestartStateForInProcessRestart, d as scheduleGatewaySigusr1Restart, i as isGatewaySigusr1RestartExternallyAllowed, l as resolveGatewayRestartDeferralTimeoutMs, m as triggerOpenClawRestart, n as consumeGatewaySigusr1RestartIntent, o as peekGatewaySigusr1RestartReason, s as requestGatewayRestartWithSignalAdmission, t as consumeGatewaySigusr1RestartAuthorization, u as rollbackGatewayRestartSignalAdmission } from "../restart-Dto4lDoK.js";
 import { i as writeGatewayRestartHandoffSync } from "../restart-handoff-C0ckZoc8.js";
-import { n as reloadTaskRuntimeStateFromStore } from "../runtime-internal-C3--0WAA.js";
+import { n as reloadTaskRuntimeStateFromStore } from "../runtime-internal-oYS6CaMH.js";
 import { l as writeDiagnosticStabilityBundleForFailureSync } from "../diagnostic-stability-bundle-CM4hzHIx.js";
 import { d as getActiveEmbeddedRunCount, f as listActiveEmbeddedRunSessionIds, p as listActiveEmbeddedRunSessionKeys } from "../run-state-ewY1D1VR.js";
 import { E as waitForActiveEmbeddedRuns, n as abortEmbeddedAgentRun } from "../runs-Bw__iUSb.js";
@@ -19,10 +19,10 @@ import { n as detectGatewayRespawnSupervisor, r as detectRespawnSupervisor } fro
 import { f as resetCronActiveJobs, p as waitForActiveCronJobs, t as advanceCronActiveJobGeneration } from "../active-jobs-BGi1uzPV.js";
 import { a as retireActiveCronTaskRunTracking, s as waitForActiveCronTaskRuns, t as abortActiveCronTaskRuns } from "../active-run-cancellation-DDKkkTKE.js";
 import { _ as waitForActiveTasks, f as markGatewayDraining, i as getActiveTaskCount, m as resetAllLanes } from "../command-queue-Cl58ne2E.js";
-import { n as getInspectableActiveTaskRestartBlockers } from "../task-registry.maintenance-BD4EaM6a.js";
-import { r as resetGatewaySuspendCoordinatorForLifecycleRestart } from "../gateway-suspend-coordinator-8KEKmD8o.js";
+import { n as getInspectableActiveTaskRestartBlockers } from "../task-registry.maintenance-DbzHwhen.js";
+import { r as resetGatewaySuspendCoordinatorForLifecycleRestart } from "../gateway-suspend-coordinator-2BIJrjUU.js";
 import { c as markUpdateRestartSentinelFailure } from "../restart-sentinel-LeBKd1mT.js";
-import { a as abortPendingChannelReloads } from "../server-reload-handlers-B5K0aJdT.js";
+import { a as abortPendingChannelReloads } from "../server-reload-handlers-D7Ug2adx.js";
 import { spawn } from "node:child_process";
 //#region src/infra/process-respawn.ts
 const PNPM_VERSIONED_OPENCLAW_ENTRY_PATTERN = /^(.*?)([\\/])node_modules\2\.pnpm\2openclaw@[^\\/]+\2node_modules\2openclaw\2.+$/;

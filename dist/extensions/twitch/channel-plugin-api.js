@@ -1,2 +1,2 @@
-import { t as twitchPlugin } from "../../plugin-CXv-Db7i.js";
+import { t as twitchPlugin } from "../../plugin-Bqy7_PyO.js";
 export { twitchPlugin };

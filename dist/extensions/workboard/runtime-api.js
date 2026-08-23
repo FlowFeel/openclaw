@@ -1,2 +1,2 @@
-import { t as registerWorkboardGatewayMethods } from "../../runtime-api-DK31MsSP.js";
+import { t as registerWorkboardGatewayMethods } from "../../runtime-api-pmcBndh3.js";
 export { registerWorkboardGatewayMethods };

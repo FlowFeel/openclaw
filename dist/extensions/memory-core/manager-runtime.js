@@ -1,2 +1,2 @@
-import { n as closeAllMemoryIndexManagers, r as closeMemoryIndexManagersForAgent, t as MemoryIndexManager } from "../../manager-8a4-hEB9.js";
+import { n as closeAllMemoryIndexManagers, r as closeMemoryIndexManagersForAgent, t as MemoryIndexManager } from "../../manager-BGg8RqgE.js";
 export { MemoryIndexManager, closeAllMemoryIndexManagers, closeMemoryIndexManagersForAgent };

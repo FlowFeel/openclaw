@@ -1,2 +1,2 @@
-import { t as buildCodexMediaUnderstandingProvider } from "../../media-understanding-provider-DAU-3FGS.js";
+import { t as buildCodexMediaUnderstandingProvider } from "../../media-understanding-provider-BQTOyQ6L.js";
 export { buildCodexMediaUnderstandingProvider };

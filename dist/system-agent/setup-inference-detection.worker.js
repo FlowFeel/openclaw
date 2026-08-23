@@ -1,5 +1,5 @@
 import { t as listRecommendedToolInstalls } from "../recommended-tool-installs-5z2KJP_x.js";
-import { c as listManualSetupInferenceOptions, s as detectSetupInference } from "../setup-inference-B4fiRPOv.js";
+import { c as listManualSetupInferenceOptions, s as detectSetupInference } from "../setup-inference-THRlpv--.js";
 import { parentPort } from "node:worker_threads";
 //#region src/system-agent/setup-inference-detection.worker.ts
 if (!parentPort) throw new Error("setup inference detection worker requires a parent port");

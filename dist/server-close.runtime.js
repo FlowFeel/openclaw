@@ -16,7 +16,7 @@ import { a as isChatAbortControllerEntryAbortable, c as removeChatAbortControlle
 import { n as abortQueuedChatTurns } from "./chat-queued-turns-DWyXqGgL.js";
 import { n as collectGatewayProcessMemoryUsageMb, o as measureGatewayRestartTrace, s as recordGatewayRestartTrace } from "./restart-trace-Cu5YQjxo.js";
 import { n as clearSessionTypingState } from "./session-typing-state-CJxhp501.js";
-import { r as drainActiveSessionsForShutdown } from "./session-reset-service-Cl3SW_vL.js";
+import { r as drainActiveSessionsForShutdown } from "./session-reset-service-DavJPY6v.js";
 import { cleanupSessionResources } from "@openclaw/ai/internal/runtime";
 //#region src/gateway/server-close.ts
 const shutdownLog = createSubsystemLogger("gateway/shutdown");
@@ -466,7 +466,7 @@ function createGatewayCloseHandler(params) {
 				for (const channelId of channelIds) await shutdownStep(`channel/${channelId}`, () => params.stopChannel(channelId), warnings);
 			});
 			await shutdownStep("code-mode-runs", async () => {
-				const { disposeAllCodeModeRuns } = await import("./code-mode-state-idqMd76R.js");
+				const { disposeAllCodeModeRuns } = await import("./code-mode-state-BPBR6Cta.js");
 				return disposeAllCodeModeRuns();
 			}, warnings);
 			await shutdownStep("agent-harnesses", () => disposeRegisteredAgentHarnesses(), warnings);

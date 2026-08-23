@@ -87,7 +87,9 @@ import { createSessionsSpawnTool } from "./tools/sessions-spawn-tool.js";
 import { createSessionsTool } from "./tools/sessions-tool.js";
 import { createSessionsYieldTool } from "./tools/sessions-yield-tool.js";
 import { createConfiguredSkillWorkshopTool } from "./tools/skill-workshop-tool-factory.js";
+import { createSearchIndexTool } from "./tools/search-index-tool.js";
 import { createSubagentsTool } from "./tools/subagents-tool.js";
+import { createSystemCapabilitiesTool } from "./tools/system-capabilities-tool.js";
 import { createSystemProbeTool } from "./tools/system-probe-tool.js";
 import { createTaskSuggestionTools } from "./tools/task-suggestion-tools.js";
 import { createTerminalTool } from "./tools/terminal-tool.js";
@@ -732,6 +734,16 @@ export function createOpenClawTools(
       getConfig: () => resolvedConfig,
       activeProvider: options?.modelProvider,
       activeModel: options?.modelId,
+    }),
+    createSearchIndexTool({
+      workspaceDir,
+    }),
+    createSystemCapabilitiesTool({
+      getTools: () => tools,
+      clientCaps: options?.clientCaps,
+      modelProvider: options?.modelProvider,
+      modelId: options?.modelId,
+      sandboxed: options?.sandboxed,
     }),
     ...collectPresentOpenClawTools([webSearchTool, webFetchTool, imageTool, pdfTool]),
     ...(options?.channelTopics
