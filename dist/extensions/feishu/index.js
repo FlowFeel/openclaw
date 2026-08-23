@@ -1,5 +1,5 @@
 import { r as loadBundledEntryExportSync, t as defineBundledChannelEntry } from "../../channel-entry-contract-BqXCQUt5.js";
-import { t as registerFeishuSubagentHooks } from "../../subagent-hooks-api-Df2q0cD9.js";
+import { t as registerFeishuSubagentHooks } from "../../subagent-hooks-api-5PHQ3gnL.js";
 //#region extensions/feishu/index.ts
 function registerFeishuDocTools(api) {
 	loadBundledEntryExportSync(import.meta.url, {

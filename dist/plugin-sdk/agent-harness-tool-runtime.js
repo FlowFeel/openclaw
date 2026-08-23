@@ -3,7 +3,7 @@ import { a as messageToolOwnsVisibleReply, i as resolveLocalModelLeanPreserveToo
 import { t as resolveConversationCapabilityProfile } from "../conversation-capability-profile-DmJDM--X.js";
 import { S as TOOL_SEARCH_CODE_MODE_TOOL_NAME, b as TOOL_CALL_RAW_TOOL_NAME, g as createToolSearchCatalogRef, p as clearToolSearchCatalog, w as TOOL_SEARCH_RAW_TOOL_NAME, x as TOOL_DESCRIBE_RAW_TOOL_NAME } from "../tool-search-D1Q9v6o7.js";
 import { n as filterRuntimeCompatibleTools } from "../tool-schema-projection-ZrMdwk4s.js";
-import { i as createCodeModeTools, n as resolveAgentToolSurfacePlan, t as applyAgentToolSurfaceCatalog } from "../tool-surface-plan-aspQkP_y.js";
+import { i as createCodeModeTools, n as resolveAgentToolSurfacePlan, t as applyAgentToolSurfaceCatalog } from "../tool-surface-plan-DmUzLMFA.js";
 //#region src/agents/harness/tool-surface-bridge.ts
 const TOOL_SEARCH_CONTROL_ALLOWLIST_NAMES = [
 	TOOL_SEARCH_CODE_MODE_TOOL_NAME,

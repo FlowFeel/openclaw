@@ -1,2 +1,2 @@
-import { t as nextcloudTalkPlugin } from "../../channel-CVdsOMg8.js";
+import { t as nextcloudTalkPlugin } from "../../channel-DxhaNc9H.js";
 export { nextcloudTalkPlugin };

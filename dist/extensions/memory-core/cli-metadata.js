@@ -1,5 +1,5 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import "../../core-COiP2P02.js";
+import "../../core-C_23Rk79.js";
 //#region extensions/memory-core/cli-metadata.ts
 var cli_metadata_default = definePluginEntry({
 	id: "memory-core",

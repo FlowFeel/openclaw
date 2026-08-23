@@ -87,6 +87,8 @@ import { createSessionsSpawnTool } from "./tools/sessions-spawn-tool.js";
 import { createSessionsTool } from "./tools/sessions-tool.js";
 import { createSessionsYieldTool } from "./tools/sessions-yield-tool.js";
 import { createConfiguredSkillWorkshopTool } from "./tools/skill-workshop-tool-factory.js";
+import { createAgentSignalTool } from "./tools/agent-signal-tool.js";
+import { createMemoryAuditTool } from "./tools/memory-audit-tool.js";
 import { createSearchIndexTool } from "./tools/search-index-tool.js";
 import { createSubagentsTool } from "./tools/subagents-tool.js";
 import { createSystemCapabilitiesTool } from "./tools/system-capabilities-tool.js";
@@ -744,6 +746,12 @@ export function createOpenClawTools(
       modelProvider: options?.modelProvider,
       modelId: options?.modelId,
       sandboxed: options?.sandboxed,
+    }),
+    createMemoryAuditTool({
+      workspaceDir,
+    }),
+    createAgentSignalTool({
+      sessionId: options?.agentSessionKey,
     }),
     ...collectPresentOpenClawTools([webSearchTool, webFetchTool, imageTool, pdfTool]),
     ...(options?.channelTopics

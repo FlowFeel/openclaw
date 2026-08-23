@@ -1,2 +1,2 @@
-import { t as msteamsPlugin } from "../../channel-inGshpsV.js";
+import { t as msteamsPlugin } from "../../channel-BG-SjdNF.js";
 export { msteamsPlugin };

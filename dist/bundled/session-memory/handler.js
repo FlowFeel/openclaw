@@ -18,7 +18,7 @@ import { r as sanitizeModelSpecialTokens } from "../../external-content-NkkZExk2
 import { a as hasInterSessionUserProvenance } from "../../input-provenance-CYGbY89H.js";
 import { i as resolveUserTimezone } from "../../date-time-BhYZ-ADP.js";
 import { r as isSessionAutoResetReason } from "../../session-auto-reset-Bs72jkPR.js";
-import { t as generateSlugViaLLM } from "../../llm-slug-generator-B2VBderR.js";
+import { t as generateSlugViaLLM } from "../../llm-slug-generator-D1Kgd-oq.js";
 import { i as resolveHookConfig } from "../../config-CaQnSSBm.js";
 import path from "node:path";
 import fs from "node:fs/promises";

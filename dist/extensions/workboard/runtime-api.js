@@ -1,2 +1,2 @@
-import { t as registerWorkboardGatewayMethods } from "../../runtime-api-pmcBndh3.js";
+import { t as registerWorkboardGatewayMethods } from "../../runtime-api-BMv8TvJ1.js";
 export { registerWorkboardGatewayMethods };
