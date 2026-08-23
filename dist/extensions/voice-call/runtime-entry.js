@@ -1,2 +1,2 @@
-import { t as createVoiceCallRuntime } from "../../runtime-entry-Bc2OQ3l9.js";
+import { t as createVoiceCallRuntime } from "../../runtime-entry-B-pyiCLd.js";
 export { createVoiceCallRuntime };

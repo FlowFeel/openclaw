@@ -9,7 +9,7 @@ import { m as resolveStorePath, s as patchSessionEntry } from "../../session-sto
 import "../../string-coerce-runtime-CLK2YdzD.js";
 import "../../runtime-doctor-9vOSwNaE.js";
 import { n as legacyStateFileExists, t as archiveLegacyStateSource } from "../../doctor-state-migration-fs-CfVap4xL.js";
-import "../../agent-runtime-CD_ce7ap.js";
+import "../../agent-runtime-B07-mD6E.js";
 import "../../security-runtime-Dk7rUwxb.js";
 import { n as CODEX_APP_SERVER_BINDING_NAMESPACE, t as CODEX_APP_SERVER_BINDING_MAX_ENTRIES } from "../../session-binding-meta-B7aEMU7g.js";
 import path from "node:path";
@@ -283,7 +283,7 @@ async function migrateSource(source, candidates, params, store) {
 		return await withFileLock(source.sidecarPath, LEGACY_BINDING_LOCK_OPTIONS, async () => {
 			const [contents, stat] = await Promise.all([fs.readFile(source.sidecarPath, "utf8"), fs.stat(source.sidecarPath)]);
 			const raw = JSON.parse(contents);
-			const [{ bindingStoreKey, createStoredCodexAppServerBinding, normalizeStoredCodexAppServerBindingFingerprints, readStoredCodexAppServerBinding }, { legacyCodexConversationBindingId }] = await Promise.all([import("../../session-binding-DpSe6sRm.js"), import("../../conversation-binding-data-39jYO58F.js")]);
+			const [{ bindingStoreKey, createStoredCodexAppServerBinding, normalizeStoredCodexAppServerBindingFingerprints, readStoredCodexAppServerBinding }, { legacyCodexConversationBindingId }] = await Promise.all([import("../../session-binding-D5lqTsN3.js"), import("../../conversation-binding-data-39jYO58F.js")]);
 			const agentId = owner?.agentId ?? (source.agentIds.size === 1 ? [...source.agentIds][0] : void 0);
 			const baseStored = createStoredCodexAppServerBinding(raw, {
 				now: stat.mtime.toISOString(),

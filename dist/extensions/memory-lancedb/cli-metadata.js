@@ -1,5 +1,5 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import "../../core-C_23Rk79.js";
+import "../../core-BtrHaCcL.js";
 import { t as isMemoryMachineOutput } from "../../cli-output-mode-BP4_Pjh9.js";
 //#region extensions/memory-lancedb/cli-metadata.ts
 var cli_metadata_default = definePluginEntry({

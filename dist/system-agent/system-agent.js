@@ -1,10 +1,10 @@
 import { a as writeRuntimeJson, r as defaultRuntime } from "../runtime-DOr96aVu.js";
 import { i as loadSystemAgentOverview, n as formatSystemAgentOverview } from "../overview-8mY9XHbo.js";
 import { a as resolveSystemAgentVerifiedInferenceRoute } from "../verified-inference-Dm9ykO8f.js";
-import { a as parseSystemAgentOperation, i as isPersistentSystemAgentOperation, t as executeSystemAgentOperation } from "../operations-BgCuJC_9.js";
+import { a as parseSystemAgentOperation, i as isPersistentSystemAgentOperation, t as executeSystemAgentOperation } from "../operations-zI5VAVBt.js";
 import { r as withProgress } from "../progress-BjGUBuxw.js";
 import { t as SystemAgentInferenceUnavailableError } from "../inference-error-ZQMpxTxR.js";
-import { n as resolveSystemAgentOperation } from "../dialogue-3R-vQ2DH.js";
+import { n as resolveSystemAgentOperation } from "../dialogue-Bjvulimi.js";
 import { stdin, stdout } from "node:process";
 //#region src/system-agent/system-agent.ts
 function systemAgentCommandDepsFromOptions(opts) {
@@ -97,7 +97,7 @@ async function runSystemAgent(opts, runtime = defaultRuntime) {
 		runtime.exit(1);
 		return;
 	}
-	const runInteractiveTui = boundOpts.runInteractiveTui ?? (await import("../tui-backend-m0-KA5OA.js")).runSystemAgentTui;
+	const runInteractiveTui = boundOpts.runInteractiveTui ?? (await import("../tui-backend-BfMzbKfr.js")).runSystemAgentTui;
 	boundOpts.onReady?.();
 	await runInteractiveTui(boundOpts, runtime);
 }

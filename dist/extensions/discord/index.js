@@ -1,6 +1,6 @@
 import { t as defineBundledChannelEntry } from "../../channel-entry-contract-BqXCQUt5.js";
-import { t as registerDiscordActivities } from "../../activities-api-CKzHANqx.js";
-import { t as registerDiscordSubagentHooks } from "../../subagent-hooks-api-DT58Lp8P.js";
+import { t as registerDiscordActivities } from "../../activities-api-DMPcrb31.js";
+import { t as registerDiscordSubagentHooks } from "../../subagent-hooks-api-mXHK3g0s.js";
 import { t as discordVoiceTranscriptsSourceProvider } from "../../transcripts-source-PVYIDfuT.js";
 //#region extensions/discord/index.ts
 var discord_default = defineBundledChannelEntry({

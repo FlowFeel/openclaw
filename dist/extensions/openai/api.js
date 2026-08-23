@@ -3,7 +3,7 @@ import { t as openaiMediaUnderstandingProvider } from "../../media-understanding
 import { t as loginOpenAICodexOAuth } from "../../openai-chatgpt-oauth.runtime-C3UMGQZ0.js";
 import { n as buildOpenAIProvider, t as buildOpenAICodexProviderPlugin } from "../../openai-provider-DruAaVuz.js";
 import { t as buildOpenAIRealtimeTranscriptionProvider } from "../../realtime-transcription-provider-CzSZOoDa.js";
-import { t as buildOpenAIRealtimeVoiceProvider } from "../../realtime-voice-provider-DV2shFVq.js";
+import { t as buildOpenAIRealtimeVoiceProvider } from "../../realtime-voice-provider-qTAQBFNc.js";
 import { t as buildOpenAICodexProvider } from "../../openai-chatgpt-catalog-6mudRiFB.js";
 import { t as refreshOpenAICodexToken } from "../../openai-chatgpt-provider.runtime-Bhb3aws7.js";
 export { OPENAI_CODEX_DEFAULT_MODEL, OPENAI_DEFAULT_AUDIO_TRANSCRIPTION_MODEL, OPENAI_DEFAULT_EMBEDDING_MODEL, OPENAI_DEFAULT_IMAGE_MODEL, OPENAI_DEFAULT_MODEL, OPENAI_DEFAULT_TTS_MODEL, OPENAI_DEFAULT_TTS_VOICE, applyOpenAIConfig, applyOpenAIProviderConfig, buildOpenAICodexProvider, buildOpenAICodexProviderPlugin, buildOpenAIProvider, buildOpenAIRealtimeTranscriptionProvider, buildOpenAIRealtimeVoiceProvider, loginOpenAICodexOAuth, openaiMediaUnderstandingProvider, refreshOpenAICodexToken };

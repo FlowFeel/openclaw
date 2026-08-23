@@ -31,39 +31,39 @@ import { t as expectDefined } from "../../expect-runtime--WgnKYXT.js";
 import "../../number-runtime-C6TGSEc_.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import "../../core-C_23Rk79.js";
+import "../../core-BtrHaCcL.js";
 import { n as resolveLivePluginConfigObject, r as resolvePluginConfigObject } from "../../plugin-config-runtime-D33X7huv.js";
 import "../../config-mutation-E7dCq_py.js";
 import "../../exec-approvals-runtime-DYzzWDMM.js";
 import "../../model-session-runtime-TWoFDVNw.js";
-import "../../agent-runtime-CD_ce7ap.js";
+import "../../agent-runtime-B07-mD6E.js";
 import "../../security-runtime-Dk7rUwxb.js";
-import "../../agent-harness-runtime-NLfrsHNE.js";
+import "../../agent-harness-runtime-CsHmWyNb.js";
 import { b as writeMigrationConfigPath, c as hasMigrationConfigPatchConflict, d as markMigrationItemSkipped, f as mergeMigrationConfigValue, i as applyMigrationManualItem, l as markMigrationItemConflict, m as readMigrationConfigPath, n as MIGRATION_REASON_TARGET_EXISTS, o as createMigrationItem, s as createMigrationManualItem, u as markMigrationItemError, v as resolveMigrationConfigRuntime, y as summarizeMigrationItems } from "../../migration-3El4wXfl.js";
 import { a as withCachedMigrationConfigRuntime, n as copyMemoryMigrationFileItem, o as writeMigrationReport, r as copyMigrationFileItem, t as archiveMigrationItem } from "../../migration-runtime-Cd6pSK17.js";
 import { n as readJsonFileWithFallback } from "../../json-store-BVGQY8xv.js";
-import { n as registerCodexCliMetadata } from "../../cli-metadata-D4_dYogT.js";
-import { t as createCodexAppServerAgentHarness } from "../../harness-DjfLJgof.js";
-import { E as assertCodexAppServerConnectionSecurity, I as resolveOpenClawExecPolicyForCodexAppServer, P as readCodexPluginConfig, R as CODEX_PLUGINS_MARKETPLACE_NAME, S as resolveCodexAppServerRuntimeOptions, T as resolveCodexSupervisionAppServerRuntimeOptions, b as codexSandboxPolicyForTurn, k as canUseCodexModelBackedApprovalsReviewerForModel, l as isCodexAppServerNativeAuthProfile, r as assertCodexBindingMayBeReplaced, u as normalizeCodexAppServerBindingModelProvider, v as sessionBindingIdentity, y as codexAppServerStartOptionsKey } from "../../session-binding-BKxRp2lS.js";
-import { $ as isUnsupportedCodexAppServerVersionError, E as resolveCodexAppServerAuthAccountCacheKey, O as resolveCodexAppServerAuthProfileIdForAgent, Y as isCodexAppServerIndeterminateRequestCancellationError, _ as withLeasedCodexAppServerClientStartSelectionRetry, a as clearSharedCodexAppServerClientIfCurrentAndWait, at as isJsonObject, d as releaseLeasedSharedCodexAppServerClient, k as resolveCodexAppServerFallbackApiKeyCacheKey, nt as CODEX_INTERACTIVE_THREAD_SOURCE_KINDS, s as getLeasedSharedCodexAppServerClient, u as releaseCodexAppServerClientLease } from "../../shared-client-B_97KbTJ.js";
+import { n as registerCodexCliMetadata } from "../../cli-metadata-_jZfMMpd.js";
+import { t as createCodexAppServerAgentHarness } from "../../harness-CKA-3N41.js";
+import { E as assertCodexAppServerConnectionSecurity, I as resolveOpenClawExecPolicyForCodexAppServer, P as readCodexPluginConfig, R as CODEX_PLUGINS_MARKETPLACE_NAME, S as resolveCodexAppServerRuntimeOptions, T as resolveCodexSupervisionAppServerRuntimeOptions, b as codexSandboxPolicyForTurn, k as canUseCodexModelBackedApprovalsReviewerForModel, l as isCodexAppServerNativeAuthProfile, r as assertCodexBindingMayBeReplaced, u as normalizeCodexAppServerBindingModelProvider, v as sessionBindingIdentity, y as codexAppServerStartOptionsKey } from "../../session-binding-BxissrW6.js";
+import { $ as isUnsupportedCodexAppServerVersionError, E as resolveCodexAppServerAuthAccountCacheKey, O as resolveCodexAppServerAuthProfileIdForAgent, Y as isCodexAppServerIndeterminateRequestCancellationError, _ as withLeasedCodexAppServerClientStartSelectionRetry, a as clearSharedCodexAppServerClientIfCurrentAndWait, at as isJsonObject, d as releaseLeasedSharedCodexAppServerClient, k as resolveCodexAppServerFallbackApiKeyCacheKey, nt as CODEX_INTERACTIVE_THREAD_SOURCE_KINDS, s as getLeasedSharedCodexAppServerClient, u as releaseCodexAppServerClientLease } from "../../shared-client-CcZVGBOH.js";
 import { n as CODEX_APP_SERVER_BINDING_NAMESPACE, t as CODEX_APP_SERVER_BINDING_MAX_ENTRIES } from "../../session-binding-meta-B7aEMU7g.js";
-import { a as closeCodexStartupClientBestEffort, d as unsubscribeCodexThreadBestEffort, h as isCodexNotificationForTurn, o as interruptCodexTurnAndWaitBestEffort, p as getCodexAppServerTurnRouter, t as resumeCodexAppServerThread, u as retireUnsafeCodexTurnClientBestEffort } from "../../thread-resume-B_Too50_.js";
-import { r as isAssistantCommentaryCompletionNotification } from "../../attempt-notifications-B1ywz3nv.js";
+import { a as closeCodexStartupClientBestEffort, d as unsubscribeCodexThreadBestEffort, h as isCodexNotificationForTurn, o as interruptCodexTurnAndWaitBestEffort, p as getCodexAppServerTurnRouter, t as resumeCodexAppServerThread, u as retireUnsafeCodexTurnClientBestEffort } from "../../thread-resume-BibL9LvP.js";
+import { r as isAssistantCommentaryCompletionNotification } from "../../attempt-notifications-BXyoA87H.js";
 import { a as assertCodexThreadStartResponse } from "../../protocol-validators-Cf6MSlge.js";
-import { i as defaultCodexAppInventoryCache, r as buildCodexPluginAppCacheKey } from "../../plugin-app-cache-key-Bfco8q2R.js";
-import { J as pluginReadParams, K as ensureCodexPluginActivation, _ as CODEX_NATIVE_PERSONALITY_NONE, q as isOpenAiCuratedMarketplace, y as resolveCodexAppServerRequestModelSelection } from "../../thread-lifecycle-CGsTfeRq.js";
+import { i as defaultCodexAppInventoryCache, r as buildCodexPluginAppCacheKey } from "../../plugin-app-cache-key-C_3SW4bV.js";
+import { J as pluginReadParams, K as ensureCodexPluginActivation, _ as CODEX_NATIVE_PERSONALITY_NONE, q as isOpenAiCuratedMarketplace, y as resolveCodexAppServerRequestModelSelection } from "../../thread-lifecycle-g5TH0QDR.js";
 import "../../incognito-session-C8lb8Cnn.js";
-import { t as buildCodexMediaUnderstandingProvider } from "../../media-understanding-provider-DY5m9jzf.js";
-import { n as describeControlFailure, t as CODEX_CONTROL_METHODS } from "../../capabilities-DTuX1zy7.js";
-import { r as formatCodexDisplayText } from "../../command-formatters-UGBxOVi1.js";
-import { t as resolveCodexAppServerForModelProvider } from "../../app-server-policy-CqvH9_YQ.js";
+import { t as buildCodexMediaUnderstandingProvider } from "../../media-understanding-provider-CJJh9X7M.js";
+import { n as describeControlFailure, t as CODEX_CONTROL_METHODS } from "../../capabilities-fBhyQrDr.js";
+import { r as formatCodexDisplayText } from "../../command-formatters-DKUP0Fw-.js";
+import { t as resolveCodexAppServerForModelProvider } from "../../app-server-policy-BbRapupv.js";
 import { n as resolveCodexNativeExecutionBlock, r as resolveCodexNativeSandboxBlock } from "../../sandbox-guard-gphn8P0A.js";
-import { d as CODEX_NATIVE_EXECUTION_AUTH_ERROR, f as canMutateCodexHost, u as trackCodexConversationActiveTurn } from "../../conversation-control-BcwP7Mlz.js";
+import { d as CODEX_NATIVE_EXECUTION_AUTH_ERROR, f as canMutateCodexHost, u as trackCodexConversationActiveTurn } from "../../conversation-control-DOjENGHI.js";
 import { a as readCodexConversationBindingDataRecord, i as readCodexConversationBindingData, n as createCodexConversationBindingData, o as resolveCodexDefaultWorkspaceDir } from "../../conversation-binding-data-zLlQ9-Yq.js";
-import { n as resolveCodexBindingAppServerConnection } from "../../binding-connection-BKqRegnb.js";
-import { d as resumeCodexCliSessionOnNode, l as listCodexCliSessionsOnNode, o as createCodexCliSessionNodeHostCommands, s as createCodexCliSessionNodeInvokePolicies, t as codexControlRequest, u as resolveCodexCliSessionForBindingOnNode } from "../../command-rpc-Di_Vt4iU.js";
-import { i as withCodexAppServerJsonClient, r as requestCodexAppServerJson } from "../../request-C3Dtd66p.js";
-import { i as createCodexSessionCatalogNodeInvokePolicies, n as createCodexSessionCatalogControl, o as assertCodexArchiveDescendantsUnowned, r as createCodexSessionCatalogNodeHostCommands, t as codexSessionCatalogRuntime } from "../../session-catalog-BSf7Z7yF.js";
+import { n as resolveCodexBindingAppServerConnection } from "../../binding-connection-Cbd2-Uin.js";
+import { d as resumeCodexCliSessionOnNode, l as listCodexCliSessionsOnNode, o as createCodexCliSessionNodeHostCommands, s as createCodexCliSessionNodeInvokePolicies, t as codexControlRequest, u as resolveCodexCliSessionForBindingOnNode } from "../../command-rpc-DU8GgikD.js";
+import { i as withCodexAppServerJsonClient, r as requestCodexAppServerJson } from "../../request-BBDB_EVg.js";
+import { i as createCodexSessionCatalogNodeInvokePolicies, n as createCodexSessionCatalogControl, o as assertCodexArchiveDescendantsUnowned, r as createCodexSessionCatalogNodeHostCommands, t as codexSessionCatalogRuntime } from "../../session-catalog-BqcjA8iB.js";
 import { t as createCodexWebSearchProviderBase } from "../../web-search-provider.shared-BXJR1YRC.js";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -198,7 +198,7 @@ function waitForReconnect(delayMs, signal) {
 /** Defers schema compilation and auth loading until the first binding operation. */
 function createLazyCodexAppServerBindingStore(state) {
 	let resolved;
-	const store = () => resolved ??= import("../../session-binding-DpSe6sRm.js").then(({ createCodexAppServerBindingStore }) => createCodexAppServerBindingStore(state));
+	const store = () => resolved ??= import("../../session-binding-D5lqTsN3.js").then(({ createCodexAppServerBindingStore }) => createCodexAppServerBindingStore(state));
 	return {
 		read: async (identity) => (await store()).read(identity),
 		hasOtherThreadOwner: async (threadId, currentIdentity) => (await store()).hasOtherThreadOwner(threadId, currentIdentity),
@@ -226,7 +226,7 @@ async function handleCodexCommand(ctx, options) {
 	}
 }
 async function loadDefaultCodexSubcommandHandler() {
-	const { handleCodexSubcommand } = await import("../../command-handlers-BWFHhJdd.js");
+	const { handleCodexSubcommand } = await import("../../command-handlers-BadkM3G0.js");
 	return handleCodexSubcommand;
 }
 //#endregion
@@ -3845,7 +3845,7 @@ function createCodexSupervisionTools(options) {
 }
 //#endregion
 //#region extensions/codex/src/web-search-provider.ts
-const loadCodexWebSearchRuntime = createLazyRuntimeModule(() => import("../../web-search-provider.runtime-BOImjFcp.js"));
+const loadCodexWebSearchRuntime = createLazyRuntimeModule(() => import("../../web-search-provider.runtime-CMP8RtDJ.js"));
 const CodexWebSearchSchema = {
 	type: "object",
 	properties: { query: {
@@ -4039,7 +4039,7 @@ var codex_default = definePluginEntry({
 			if (!previousSessionId || !sessionId || previousSessionId === sessionId) return;
 			const config = resolveCurrentConfig();
 			const sessionKey = ctx.sessionKey?.trim();
-			const { sessionBindingIdentity } = await import("../../session-binding-DpSe6sRm.js");
+			const { sessionBindingIdentity } = await import("../../session-binding-D5lqTsN3.js");
 			const identity = sessionBindingIdentity({
 				sessionId,
 				...sessionKey ? { sessionKey } : {},
@@ -4057,7 +4057,7 @@ var codex_default = definePluginEntry({
 			if (endedSessionKey && nextSessionKey && nextSessionKey !== endedSessionKey) return;
 			if (event.nextSessionId?.trim() === event.sessionId.trim()) return;
 			const config = resolveCurrentConfig();
-			const { sessionBindingIdentity } = await import("../../session-binding-DpSe6sRm.js");
+			const { sessionBindingIdentity } = await import("../../session-binding-D5lqTsN3.js");
 			await bindingStore.retireSessionGeneration(sessionBindingIdentity({
 				sessionId: event.sessionId,
 				...sessionKey ? { sessionKey } : {},

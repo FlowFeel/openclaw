@@ -2,7 +2,7 @@ import { C as resolveExpiresAtMsFromDurationMs, o as asDateTimestampMs } from ".
 import { l as resolveAgentEntry } from "../agent-scope-config-Dusa8eSA.js";
 import { t as createCorePluginStateSyncKeyedStore } from "../plugin-state-store-aPYaqCXn.js";
 import { H as resolveExecModePolicy } from "../exec-approvals-DpQk_nvk.js";
-import { a as parseSystemAgentOperation, i as isPersistentSystemAgentOperation, r as formatSystemAgentPersistentPlan, t as executeSystemAgentOperation } from "../operations-BgCuJC_9.js";
+import { a as parseSystemAgentOperation, i as isPersistentSystemAgentOperation, r as formatSystemAgentPersistentPlan, t as executeSystemAgentOperation } from "../operations-zI5VAVBt.js";
 import { n as classifySystemAgentApprovalText } from "../approval-intent-i_brHZxo.js";
 import { createHash } from "node:crypto";
 //#region src/system-agent/rescue-policy.ts

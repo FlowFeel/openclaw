@@ -76,4 +76,48 @@ describe("system-capabilities-projector (Pure DFT Verifier)", () => {
       { name: "show_widget", reason: "missing_client_cap: inline-widgets" },
     ]);
   });
+
+  it("parameterizes output detail with summary, compact, and detail modes", () => {
+    const tools = [
+      createMockTool("read"),
+      createMockTool("write"),
+      createMockTool("bash"),
+    ];
+
+    // Summary mode (concise keys)
+    const summaryRes = projectSystemCapabilities({
+      tools,
+      mode: "summary",
+    });
+    expect(summaryRes.tools[0]?.parameters).toEqual({
+      type: "object",
+      keys: ["query"],
+      required: ["query"],
+    });
+
+    // Compact mode (empty parameters)
+    const compactRes = projectSystemCapabilities({
+      tools,
+      mode: "compact",
+    });
+    expect(compactRes.tools[0]?.parameters).toEqual({});
+
+    // Detail mode (full schemas)
+    const detailRes = projectSystemCapabilities({
+      tools,
+      mode: "detail",
+    });
+    expect(detailRes.tools[0]?.parameters).toHaveProperty("type", "object");
+    expect(detailRes.tools[0]?.parameters).toHaveProperty("properties");
+
+    // Filter tools selectively
+    const filteredRes = projectSystemCapabilities({
+      tools,
+      mode: "detail",
+      filterTools: ["write"],
+    });
+    expect(filteredRes.tools.length).toBe(1);
+    expect(filteredRes.tools[0]?.name).toBe("write");
+  });
 });
+

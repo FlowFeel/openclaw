@@ -1,2 +1,2 @@
-import { n as createClaudeSessionNodeInvokePolicies, t as createClaudeSessionNodeHostCommands } from "../../session-catalog-node-commands-6AAAC9i0.js";
+import { n as createClaudeSessionNodeInvokePolicies, t as createClaudeSessionNodeHostCommands } from "../../session-catalog-node-commands-BlM3Y139.js";
 export { createClaudeSessionNodeHostCommands, createClaudeSessionNodeInvokePolicies };

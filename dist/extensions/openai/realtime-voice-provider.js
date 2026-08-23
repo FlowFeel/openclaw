@@ -1,2 +1,2 @@
-import { t as buildOpenAIRealtimeVoiceProvider } from "../../realtime-voice-provider-DV2shFVq.js";
+import { t as buildOpenAIRealtimeVoiceProvider } from "../../realtime-voice-provider-qTAQBFNc.js";
 export { buildOpenAIRealtimeVoiceProvider };

@@ -12,7 +12,21 @@ import {
   type SystemCapabilitiesResult,
 } from "./system-capabilities-projector.js";
 
-export const SystemCapabilitiesToolSchema = Type.Object({}, { additionalProperties: false });
+export const SystemCapabilitiesToolSchema = Type.Object(
+  {
+    mode: Type.Optional(
+      Type.Union([Type.Literal("summary"), Type.Literal("detail"), Type.Literal("compact")], {
+        description: "Projection detail level (default: summary, concise parameter keys).",
+      }),
+    ),
+    filterTools: Type.Optional(
+      Type.Array(Type.String(), {
+        description: "Optional tool names to project selectively.",
+      }),
+    ),
+  },
+  { additionalProperties: false },
+);
 
 export type CreateSystemCapabilitiesToolOptions = {
   getTools?: () => readonly AnyAgentTool[];
@@ -37,7 +51,7 @@ export function createSystemCapabilitiesTool(
     parameters: SystemCapabilitiesToolSchema,
     execute: async (
       _toolCallId: string,
-      _params: unknown,
+      params: { mode?: "summary" | "detail" | "compact"; filterTools?: string[] } = {},
     ): Promise<ReturnType<typeof jsonResult<SystemCapabilitiesResult>>> => {
       const activeTools = options.getTools ? options.getTools() : [];
       const allTools = options.getAllRegisteredTools
@@ -54,9 +68,12 @@ export function createSystemCapabilitiesTool(
         contextWindowTokens: options.contextWindowTokens,
         sandboxed: options.sandboxed,
         defaultTimeoutMs: options.defaultTimeoutMs,
+        mode: params.mode,
+        filterTools: params.filterTools,
       });
 
       return jsonResult(projection);
     },
   };
 }
+

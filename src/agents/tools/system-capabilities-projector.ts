@@ -40,6 +40,8 @@ export type SystemCapabilitiesResult = {
   readonly timestamp: number;
 };
 
+export type CapabilityProjectionMode = "summary" | "detail" | "compact";
+
 export type ProjectCapabilitiesInput = {
   readonly tools: readonly AnyAgentTool[];
   readonly allRegisteredTools?: readonly AnyAgentTool[];
@@ -51,6 +53,8 @@ export type ProjectCapabilitiesInput = {
   readonly sandboxed?: boolean;
   readonly defaultTimeoutMs?: number;
   readonly nowMs?: number;
+  readonly mode?: CapabilityProjectionMode;
+  readonly filterTools?: readonly string[];
 };
 
 /**
@@ -87,22 +91,46 @@ export function projectSystemCapabilities(input: ProjectCapabilitiesInput): Syst
   const nowMs = input.nowMs ?? Date.now();
   const defaultTimeoutMs = input.defaultTimeoutMs ?? 30_000;
   const isGlobalSandboxed = Boolean(input.sandboxed);
+  const mode = input.mode ?? "summary";
+  const filterSet = input.filterTools && input.filterTools.length > 0 ? new Set(input.filterTools) : null;
 
   const activeToolList: ToolCapabilityDescriptor[] = [];
   const deniedToolList: DeniedToolDescriptor[] = [];
 
   for (const tool of input.tools) {
+    if (filterSet && !filterSet.has(tool.name)) {
+      continue;
+    }
+
     const isSandboxed =
       isGlobalSandboxed ||
       tool.name === "write" ||
       tool.name === "edit" ||
       tool.name === "apply_patch";
 
+    let params: Record<string, unknown> = {};
+    const rawParams = (tool.parameters as Record<string, unknown>) ?? {};
+
+    if (mode === "detail") {
+      params = rawParams;
+    } else if (mode === "compact") {
+      params = {};
+    } else {
+      // "summary" mode: concise parameter keys without deep JSON Schema trees
+      const propObj = (rawParams.properties as Record<string, unknown>) ?? {};
+      const requiredList = Array.isArray(rawParams.required) ? rawParams.required : [];
+      params = {
+        type: rawParams.type ?? "object",
+        keys: Object.keys(propObj),
+        required: requiredList,
+      };
+    }
+
     activeToolList.push({
       name: tool.name,
       label: tool.label,
       description: tool.description ?? "",
-      parameters: (tool.parameters as Record<string, unknown>) ?? {},
+      parameters: params,
       isSandboxed,
       timeoutMs: defaultTimeoutMs,
       requiredClientCaps: tool.requiredClientCaps,
@@ -112,6 +140,9 @@ export function projectSystemCapabilities(input: ProjectCapabilitiesInput): Syst
   // Check for denied tools if all registered tools are provided
   if (input.allRegisteredTools) {
     for (const tool of input.allRegisteredTools) {
+      if (filterSet && !filterSet.has(tool.name)) {
+        continue;
+      }
       if (tool.requiredClientCaps && tool.requiredClientCaps.length > 0) {
         const missing = tool.requiredClientCaps.filter((cap) => !clientCapSet.has(cap));
         if (missing.length > 0) {
@@ -138,3 +169,4 @@ export function projectSystemCapabilities(input: ProjectCapabilitiesInput): Syst
     timestamp: nowMs,
   };
 }
+
