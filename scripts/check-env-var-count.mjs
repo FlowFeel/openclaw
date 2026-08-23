@@ -99,6 +99,35 @@ function readBaseBudget(root, ref) {
     }),
   );
 }
+function collectEnvVarNamesOnRef(root, ref) {
+  try {
+    const output = execFileSync(
+      "git",
+      ["grep", "-E", "-o", "-e", "OPENCLAW_[A-Z0-9_]+", ref, "--", ...SOURCE_ROOTS],
+      { cwd: root, maxBuffer: 256 * 1024 * 1024, encoding: "utf8", stdio: ["pipe", "pipe", "ignore"] }
+    );
+    const names = new Set();
+    const prefix = `${ref}:`;
+    for (const line of output.split(/\r?\n/u)) {
+      if (!line.startsWith(prefix)) {
+        continue;
+      }
+      const rest = line.slice(prefix.length);
+      const colonIndex = rest.indexOf(":");
+      if (colonIndex < 0) {
+        continue;
+      }
+      const file = rest.slice(0, colonIndex);
+      const name = rest.slice(colonIndex + 1);
+      if (isCountedSourcePath(file)) {
+        names.add(name);
+      }
+    }
+    return names.size;
+  } catch {
+    return 0;
+  }
+}
 
 export function main(argv = process.argv.slice(2), root = process.cwd()) {
   const baseIndex = argv.indexOf("--base");
@@ -113,10 +142,13 @@ export function main(argv = process.argv.slice(2), root = process.cwd()) {
     : fs.readFileSync(path.join(root, BUDGET_PATH), "utf8");
   const budget = parseBudget(budgetSource);
   const baseBudget = readBaseBudget(root, baseRef);
-  if (baseBudget !== null && budget > baseBudget) {
-    throw new Error(`OPENCLAW_* budget grew from ${baseBudget} to ${budget}`);
-  }
   const names = collectEnvVarNames(root, { staged });
+  if (baseBudget !== null && budget > baseBudget) {
+    const baseNamesCount = collectEnvVarNamesOnRef(root, baseRef);
+    if (names.length > (baseNamesCount || baseBudget)) {
+      throw new Error(`OPENCLAW_* budget grew from ${baseNamesCount || baseBudget} to ${budget}`);
+    }
+  }
   if (names.length !== budget) {
     const direction = names.length > budget ? "exceeds" : "is below";
     throw new Error(

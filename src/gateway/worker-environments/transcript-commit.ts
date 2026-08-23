@@ -7,6 +7,9 @@ import type {
 import type { AgentMessage } from "../../agents/runtime/index.js";
 import { SessionManager } from "../../agents/sessions/session-manager.js";
 import { redactTranscriptMessage } from "../../agents/transcript-redact.js";
+import { validateTurnInvariants } from "../../agents/session-transcript-repair.js";
+import { buildSessionContext } from "../../agents/sessions/session-manager.js";
+import { extractToolCallsFromAssistant, extractToolResultId } from "../../agents/tool-call-id.js";
 import {
   loadSessionEntry,
   publishTranscriptUpdate,
@@ -348,6 +351,55 @@ async function applyWorkerTranscriptCommit(params: {
     });
     if (!prefix.ok) {
       return { ok: false as const, reason: "stale-base-leaf" as const };
+    }
+
+    const prefixMessages = buildSessionContext(manager.getEntries(), manager.getLeafId()).messages;
+    const incomingMessages = redactedMessages.slice(prefix.recoveredMessages.length);
+    const fullMessages = [...prefixMessages, ...incomingMessages];
+
+    const allToolCalls: string[] = [];
+    const allToolResults: string[] = [];
+    for (const msg of fullMessages) {
+      if (msg.role === "assistant") {
+        const calls = extractToolCallsFromAssistant(msg);
+        for (const call of calls) {
+          allToolCalls.push(call.id);
+        }
+      } else if (msg.role === "toolResult") {
+        const resultId = extractToolResultId(msg);
+        if (resultId) {
+          allToolResults.push(resultId);
+        }
+      }
+    }
+
+    const validation = validateTurnInvariants(allToolCalls, allToolResults);
+    if (!validation.valid) {
+      if (validation.orphanResultIds.length > 0) {
+        return { ok: false as const, reason: "invalid-batch" as const };
+      }
+      if (validation.orphanCallIds.length > 0) {
+        const firstOrphanCallId = validation.orphanCallIds[0];
+        let orphanIndex = -1;
+        for (let i = 0; i < fullMessages.length; i++) {
+          const msg = fullMessages[i];
+          if (
+            msg.role === "assistant" &&
+            extractToolCallsFromAssistant(msg).some((c) => c.id === firstOrphanCallId)
+          ) {
+            orphanIndex = i;
+            break;
+          }
+        }
+        if (orphanIndex !== -1) {
+          for (let i = orphanIndex + 1; i < fullMessages.length; i++) {
+            const msg = fullMessages[i];
+            if (msg.role !== "toolResult") {
+              return { ok: false as const, reason: "invalid-batch" as const };
+            }
+          }
+        }
+      }
     }
 
     const messages = [...prefix.recoveredMessages];

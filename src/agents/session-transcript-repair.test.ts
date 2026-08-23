@@ -8,6 +8,7 @@ import {
   stripToolResultDetails,
   validateTurnInvariants,
   isUnrecoverableEnvironmentError,
+  repairOrphanToolCalls,
 } from "./session-transcript-repair.js";
 import { castAgentMessage, castAgentMessages } from "./test-helpers/agent-message-fixtures.js";
 
@@ -1645,4 +1646,56 @@ describe("isUnrecoverableEnvironmentError", () => {
     expect(isUnrecoverableEnvironmentError("HTTP 500 Internal Server Error")).toBe(false);
   });
 });
+
+describe("repairOrphanToolCalls", () => {
+  it("returns empty array when all tool calls are paired", () => {
+    const input = castAgentMessages([
+      {
+        role: "assistant",
+        content: [
+          { type: "toolUse", id: "call_1", name: "tool1", input: {} },
+        ],
+      },
+      {
+        role: "toolResult",
+        toolCallId: "call_1",
+        toolName: "tool1",
+        content: [{ type: "text", text: "result" }],
+      },
+    ]);
+    const added = repairOrphanToolCalls(input);
+    expect(added).toHaveLength(0);
+  });
+
+  it("synthesizes error results for unpaired tool calls at the tail", () => {
+    const input = castAgentMessages([
+      {
+        role: "assistant",
+        content: [
+          { type: "toolUse", id: "call_orphan", name: "tool2", input: {} },
+        ],
+      },
+    ]);
+    const added = repairOrphanToolCalls(input);
+    expect(added).toHaveLength(1);
+    expect(added[0].toolCallId).toBe("call_orphan");
+    expect(added[0].isError).toBe(true);
+    expect(added[0].content[0].text).toContain("missing tool result");
+  });
+
+  it("skips synthesis if the assistant message is marked failed", () => {
+    const input = castAgentMessages([
+      {
+        role: "assistant",
+        stopReason: "error",
+        content: [
+          { type: "toolUse", id: "call_orphan", name: "tool3", input: {} },
+        ],
+      },
+    ]);
+    const added = repairOrphanToolCalls(input);
+    expect(added).toHaveLength(0);
+  });
+});
 /* oxlint-disable max-lines -- TODO: split this grandfathered oversized file. */
+

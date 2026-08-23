@@ -5056,6 +5056,32 @@ describe("main-session-restart-recovery", () => {
     expect(gatewayParams()).toMatchObject({ forceRestartSafeTools: true });
   });
 
+  it("repairs orphaned tool calls on restart recovery dispatch", async () => {
+    const sessionsDir = await writeMainSessionTranscript(
+      [
+        { role: "user", content: "do the thing" },
+        createAssistantToolCallMessage([
+          { type: "thinking", thinking: "I need one more read." },
+          { type: "toolCall", id: "call-read-2", name: "read", arguments: { path: "README.md" } },
+        ]),
+      ],
+      { restartRecoveryForceSafeTools: true },
+    );
+
+    await expectRecovery({ recovered: 1, failed: 0, skipped: 0 });
+
+    const storePath = path.join(sessionsDir, "sessions.json");
+    const transcript = await loadTestTranscript("agent:main:main", storePath);
+
+    const lastMessage = transcript.at(-1)?.message;
+    expect(lastMessage).toMatchObject({
+      role: "toolResult",
+      toolCallId: "call-read-2",
+      isError: true,
+    });
+  });
+
+
   it("does not resume completed assistant output just because the restart-safe guard remains", async () => {
     await writeMainSessionTranscript(
       [

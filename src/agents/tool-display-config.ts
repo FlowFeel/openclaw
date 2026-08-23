@@ -99,6 +99,11 @@ export const TOOL_DISPLAY_CONFIG: ToolDisplayConfig = {
       title: "API",
       detailKeys: ["url", "endpoint", "path", "method", "name"],
     },
+    list_topics: {
+      emoji: "💬",
+      title: "List Topics",
+      detailKeys: ["query"],
+    },
     browser: {
       emoji: "🌐",
       title: "Browser",

@@ -42,6 +42,8 @@ import {
 import { commitMainSessionRecovery } from "./main-session-recovery-store.js";
 import { normalizeFiniteTimestamp } from "./main-session-restart-recovery-shared.js";
 import { loadAgentRuntimePluginRegistryHandle } from "./runtime-plugins.js";
+import { SessionManager, buildSessionContext } from "./sessions/session-manager.js";
+import { repairOrphanToolCalls } from "./session-transcript-repair.js";
 
 const log = createSubsystemLogger("main-session-restart-recovery");
 const RESTART_RECOVERY_RESUME_MESSAGE =
@@ -458,6 +460,27 @@ export async function resumeMainSession(params: {
       await rollbackReservation("cancel_reservation");
       return "skipped";
     }
+
+    try {
+      const manager = SessionManager.open({
+        sessionId: params.entry.sessionId,
+        sessionKey: params.sessionKey,
+        storePath: params.storePath,
+      });
+      const historyContext = buildSessionContext(manager.getEntries(), manager.getLeafId());
+      const syntheticResults = repairOrphanToolCalls(historyContext.messages);
+      if (syntheticResults.length > 0) {
+        log.info(
+          `Found ${syntheticResults.length} orphan tool calls for session ${params.sessionKey}; patching synthetic cancellation results.`,
+        );
+        for (const res of syntheticResults) {
+          manager.appendMessage(res);
+        }
+      }
+    } catch (err) {
+      log.error(`Failed to repair session transcript for ${params.sessionKey}: ${String(err)}`);
+    }
+
     // Persist one stable RPC id before dispatch. A transport rejection is
     // ambiguous; retries must reuse this id so accepted work cannot duplicate.
     const recoveryStatePrepared = await applySessionEntryReplacements({

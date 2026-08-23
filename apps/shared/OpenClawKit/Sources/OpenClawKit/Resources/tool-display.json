@@ -122,6 +122,13 @@
         "name"
       ]
     },
+    "list_topics": {
+      "emoji": "💬",
+      "title": "List Topics",
+      "detailKeys": [
+        "query"
+      ]
+    },
     "browser": {
       "emoji": "🌐",
       "title": "Browser",

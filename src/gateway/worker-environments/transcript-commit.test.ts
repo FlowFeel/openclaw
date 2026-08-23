@@ -701,4 +701,80 @@ describe("worker transcript commit application", () => {
     });
     expect(reopened.getLeafId()).toBe(second.result.newLeafId);
   });
+
+  it("rejects commit when a batch contains orphan tool results", async () => {
+    const orphanResult: WorkerTranscriptMessage = {
+      role: "toolResult",
+      toolCallId: "call-orphan-999",
+      toolName: "read",
+      content: [{ type: "text", text: "Orphan result output." }],
+      isError: false,
+      timestamp: 300,
+    };
+
+    const outcome = await committer.commit({
+      identity: IDENTITY,
+      request: createRequest({
+        messages: [orphanResult],
+      }),
+    });
+
+    expect(outcome.ok).toBe(false);
+    if (!outcome.ok) {
+      expect(outcome.reason).toBe("invalid-batch");
+    }
+  });
+
+  it("rejects commit when a batch attempts to append user message after tool calls without results", async () => {
+    const assistantWithCall: WorkerTranscriptMessage = {
+      role: "assistant",
+      content: [
+        {
+          type: "toolCall",
+          id: "call-unresolved",
+          name: "read",
+          arguments: { path: "README.md" },
+        },
+      ],
+      api: "openai-responses",
+      provider: "openai",
+      model: "gpt-5.5",
+      usage: ZERO_USAGE,
+      stopReason: "toolUse",
+      timestamp: 200,
+    };
+
+    const first = await committer.commit({
+      identity: IDENTITY,
+      request: createRequest({
+        messages: [assistantWithCall],
+      }),
+    });
+
+    expect(first.ok).toBe(true);
+    if (!first.ok) {
+      throw new Error("expected first commit to succeed");
+    }
+
+    const subsequentUser: WorkerTranscriptMessage = {
+      role: "user",
+      content: [{ type: "text", text: "Subsequent user prompt before tool result." }],
+      timestamp: 300,
+    };
+
+    const second = await committer.commit({
+      identity: IDENTITY,
+      request: createRequest({
+        baseLeafId: first.result.newLeafId,
+        messages: [subsequentUser],
+        seq: 2,
+      }),
+    });
+
+    expect(second.ok).toBe(false);
+    if (!second.ok) {
+      expect(second.reason).toBe("invalid-batch");
+    }
+  });
 });
+
