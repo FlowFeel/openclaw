@@ -861,7 +861,7 @@ declare const validateWorkerTranscriptCommitParams: ProtocolValidator<{
         cacheWrite: number;
       };
     };
-    stopReason: "error" | "aborted" | "stop" | "length" | "toolUse";
+    stopReason: "error" | "aborted" | "length" | "stop" | "toolUse";
     api: string;
   } | {
     details?: unknown;

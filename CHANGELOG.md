@@ -4,6 +4,17 @@ All notable changes to the Inferno OpenClaw core fork (`v2026.8.1-inferno`) auth
 
 ---
 
+## [v2026.8.5-phosphene] — 2026-08-24
+
+### 🚀 Key Features & Updates
+
+1. **Hickey-Coordinate Map Subsystem (Epic 15)**:
+   - Implements `InMemoryHickeyMap` adhering strictly to Axioms `M1`–`M5` (`no-schema`, `silent-overwrite`, `null-on-absent`, `prefix-discovery`, `gradient-design`).
+   - Certified Atomic tools (`map_read`, `map_write`, `map_list_keys`, `map_delete`) with $k \le 2$ and 0 base parameter duplications.
+   - 6 Gherkin BDD scenarios verified in Vitest Degree 2.
+
+---
+
 ## [v2026.8.2-inferno] — 2026-08-20
 
 ### 🚀 Key Features & Updates
