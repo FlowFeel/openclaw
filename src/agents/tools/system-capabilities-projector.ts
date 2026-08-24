@@ -11,6 +11,8 @@
  */
 
 import { createHash } from "node:crypto";
+import { projectCertifiedToolArity } from "../../infra/shannon-weaver/tool-arity-projector.js";
+import type { ArityTier } from "../../infra/shannon-weaver/types.js";
 import type { AnyAgentTool } from "./common.js";
 
 export type ToolCapabilityDescriptor = {
@@ -21,6 +23,9 @@ export type ToolCapabilityDescriptor = {
   readonly isSandboxed: boolean;
   readonly timeoutMs: number;
   readonly requiredClientCaps?: readonly string[];
+  readonly arity?: number;
+  readonly tier?: ArityTier;
+  readonly navigationHint?: string;
 };
 
 export type DeniedToolDescriptor = {
@@ -110,6 +115,18 @@ export function projectSystemCapabilities(input: ProjectCapabilitiesInput): Syst
 
     let params: Record<string, unknown> = {};
     const rawParams = (tool.parameters as Record<string, unknown>) ?? {};
+    let arity: number | undefined;
+    let tier: ArityTier | undefined;
+    let navigationHint: string | undefined;
+
+    const arityProj = projectCertifiedToolArity({
+      name: tool.name,
+      description: tool.description,
+      parameters: rawParams,
+    });
+    arity = arityProj.arity;
+    tier = arityProj.tier;
+    navigationHint = arityProj.navigationHint;
 
     if (mode === "detail") {
       params = rawParams;
@@ -123,17 +140,26 @@ export function projectSystemCapabilities(input: ProjectCapabilitiesInput): Syst
         type: rawParams.type ?? "object",
         keys: Object.keys(propObj),
         required: requiredList,
+        slots: arityProj.parameterSlots,
       };
     }
+
+    const description =
+      mode === "summary" && tool.description && tool.description.length > 80
+        ? tool.description.slice(0, 77) + "..."
+        : (tool.description ?? "");
 
     activeToolList.push({
       name: tool.name,
       label: tool.label,
-      description: tool.description ?? "",
+      description,
       parameters: params,
       isSandboxed,
       timeoutMs: defaultTimeoutMs,
       requiredClientCaps: tool.requiredClientCaps,
+      arity,
+      tier,
+      navigationHint,
     });
   }
 

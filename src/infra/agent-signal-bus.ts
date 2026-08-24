@@ -9,6 +9,7 @@
  */
 
 import { randomUUID } from "node:crypto";
+import { createCompactExecutionSignature } from "./shannon-weaver/tool-arity-projector.js";
 
 export type AgentSignalLevel = "info" | "warn" | "error";
 
@@ -71,13 +72,44 @@ export class AgentSignalBus {
   }
 
   /**
+   * Emits a compact tool execution signature to the signal bus without schema bloat.
+   */
+  emitToolExecution(
+    toolName: string,
+    args: Record<string, unknown>,
+    policyHash: string,
+    context: { sessionId?: string; turnIndex?: number; timestamp?: number } = {},
+  ): AgentSignal {
+    const compactSig = createCompactExecutionSignature(
+      toolName,
+      args,
+      policyHash,
+      context.timestamp ?? Date.now(),
+    );
+    return this.emit({
+      level: "info",
+      topic: "tool.execution",
+      message: `Tool ${toolName} (arity ${compactSig.arity}) executed`,
+      payload: compactSig,
+      sessionId: context.sessionId,
+      turnIndex: context.turnIndex,
+      timestamp: compactSig.timestamp,
+    });
+  }
+
+  /**
    * Retrieves recorded signals, newest first.
    */
   getSignals(options: { topic?: string; level?: AgentSignalLevel; limit?: number } = {}): AgentSignal[] {
-    let list = [...this.buffer];
-
-    // Order newest first
-    list.sort((a, b) => b.timestamp - a.timestamp);
+    let list: AgentSignal[] = [];
+    const len = this.buffer.length;
+    if (len > 0) {
+      const start = len < this.capacity ? len - 1 : (this.cursor - 1 + this.capacity) % this.capacity;
+      for (let i = 0; i < len; i++) {
+        const idx = (start - i + this.capacity) % this.capacity;
+        list.push(this.buffer[idx]);
+      }
+    }
 
     if (options.topic) {
       list = list.filter((s) => s.topic === options.topic);

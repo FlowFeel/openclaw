@@ -3,6 +3,6 @@ import { n as listDiscordDirectoryPeersLive, t as listDiscordDirectoryGroupsLive
 import { t as resolveDiscordChannelAllowlist } from "../../resolve-channels-C8gpfycl.js";
 import { t as resolveDiscordUserAllowlist } from "../../resolve-users-DsuPp-0i.js";
 import { i as probeDiscord, n as fetchDiscordApplicationSummary, o as resolveDiscordPrivilegedIntentsFromFlags, r as parseApplicationIdFromToken, t as fetchDiscordApplicationId } from "../../probe-DLAN4-zr.js";
-import { n as collectDiscordAuditChannelIds, t as auditDiscordChannelPermissions } from "../../audit-DTG7T7pA.js";
-import "../../runtime-api.lookup-DE96NyzI.js";
+import { n as collectDiscordAuditChannelIds, t as auditDiscordChannelPermissions } from "../../audit-CXiSEETH.js";
+import "../../runtime-api.lookup-CTZcMvgG.js";
 export { auditDiscordChannelPermissions, collectDiscordAuditChannelIds, fetchDiscordApplicationId, fetchDiscordApplicationSummary, listDiscordDirectoryGroupsLive, listDiscordDirectoryPeersLive, parseApplicationIdFromToken, probeDiscord, resolveDiscordChannelAllowlist, resolveDiscordPrivilegedIntentsFromFlags, resolveDiscordUserAllowlist, setDiscordRuntime };

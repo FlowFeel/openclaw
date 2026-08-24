@@ -82,3 +82,45 @@ export type StalenessSignalResult = {
   readonly freshThresholdDays: number;
   readonly agingThresholdDays: number;
 };
+
+/**
+ * Semantic Arity Tiers as Cognitive Navigation Hints.
+ */
+export type ArityTier = "atomic" | "operator" | "composite";
+
+/**
+ * Universal Base Parameters inherited once from the runtime codebook.
+ */
+export const UNIVERSAL_BASE_PARAM_KEYS = new Set([
+  "timeoutMs",
+  "dryRun",
+  "traceId",
+  "workspaceRoot",
+  "sessionId",
+]);
+
+/**
+ * Certified Tool Arity Projection Descriptor.
+ */
+export type CertifiedToolArityDescriptor = {
+  readonly name: string;
+  readonly arity: number;
+  readonly tier: ArityTier;
+  readonly navigationHint: string;
+  readonly parameterSlots: Readonly<Record<string, string>>;
+  readonly requiredSlots: readonly string[];
+  readonly policyHash: string;
+};
+
+/**
+ * Compact 4-Tuple Tool Execution Signature for Telemetry & Interoception.
+ * Sigma_exec = < tool_name, arity k, policy_hash, values >
+ */
+export type CompactExecutionSignature = {
+  readonly tool: string;
+  readonly arity: number;
+  readonly policyHash: string;
+  readonly args: Readonly<Record<string, unknown>>;
+  readonly timestamp: number;
+};
+

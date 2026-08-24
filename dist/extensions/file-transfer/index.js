@@ -94,19 +94,19 @@ var file_transfer_default = definePluginEntry({
 	register(api) {
 		api.registerNodeInvokePolicy(createLazyFileTransferNodeInvokePolicy());
 		api.registerTool(createLazyTool(FILE_FETCH_TOOL_DESCRIPTOR, async () => {
-			const { createFileFetchTool } = await import("../../file-fetch-tool-DLPjeoZI.js");
+			const { createFileFetchTool } = await import("../../file-fetch-tool-VSsTs9o-.js");
 			return createFileFetchTool();
 		}));
 		api.registerTool(createLazyTool(DIR_LIST_TOOL_DESCRIPTOR, async () => {
-			const { createDirListTool } = await import("../../dir-list-tool-U8OdDeS9.js");
+			const { createDirListTool } = await import("../../dir-list-tool-DwQ3r9sX.js");
 			return createDirListTool();
 		}));
 		api.registerTool(createLazyTool(DIR_FETCH_TOOL_DESCRIPTOR, async () => {
-			const { createDirFetchTool } = await import("../../dir-fetch-tool-CkSIUZzI.js");
+			const { createDirFetchTool } = await import("../../dir-fetch-tool-Dw84KRnr.js");
 			return createDirFetchTool();
 		}));
 		api.registerTool(createLazyTool(FILE_WRITE_TOOL_DESCRIPTOR, async () => {
-			const { createFileWriteTool } = await import("../../file-write-tool-CeafDzQd.js");
+			const { createFileWriteTool } = await import("../../file-write-tool-CwXmqTEs.js");
 			return createFileWriteTool();
 		}));
 	}

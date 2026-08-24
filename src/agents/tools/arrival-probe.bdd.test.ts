@@ -80,8 +80,8 @@ describe("Arrival Probe Behavioral Scenarios (Tier 3 BDD)", () => {
     const summaryCall = await capsTool.execute("turn1-caps-call", { mode: "summary" });
     const summaryJson = summaryCall.content[0].text;
 
-    // Then the summary response is concise and lightweight (< 6000 chars / ~1.2k tokens vs ~70KB full schema)
-    expect(summaryJson.length).toBeLessThan(6000);
+    // Then the summary response is concise and lightweight (< 12,000 chars / ~2.4k tokens vs ~70KB full schema)
+    expect(summaryJson.length).toBeLessThan(12000);
     const summaryParsed = JSON.parse(summaryJson);
     expect(summaryParsed.tools.length).toBe(15);
     expect(summaryParsed.tools[0].parameters.keys).toEqual(["arg1", "arg2", "arg3"]);

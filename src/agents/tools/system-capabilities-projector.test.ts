@@ -93,7 +93,11 @@ describe("system-capabilities-projector (Pure DFT Verifier)", () => {
       type: "object",
       keys: ["query"],
       required: ["query"],
+      slots: { query: "string!" },
     });
+    expect(summaryRes.tools[0]?.arity).toBe(1);
+    expect(summaryRes.tools[0]?.tier).toBe("atomic");
+    expect(summaryRes.tools[0]?.navigationHint).toBeDefined();
 
     // Compact mode (empty parameters)
     const compactRes = projectSystemCapabilities({
