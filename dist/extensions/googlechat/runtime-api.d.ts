@@ -2,7 +2,7 @@ import { Q as GoogleChatConfig, Z as GoogleChatAccountConfig, n as OpenClawConfi
 import { Ct as jsonResult, G as resolveInboundMentionDecision, L as PluginRuntime, St as readStringParam, _t as createActionGate, vt as readNumberParam, yt as readReactionParams, z as createChannelReplyPipeline } from "../../types-7SOOE25U.js";
 import { ot as ChannelStatusIssue, rt as ChannelMessageActionAdapter } from "../../setup-wizard-types-C896ZHgy.js";
 import { t as ChannelMessageActionName } from "../../types.public-CDX1pJx5.js";
-import { _ as PAIRING_APPROVED_MESSAGE, b as DEFAULT_ACCOUNT_ID } from "../../runtime-api-Dg4i3Jkh.js";
+import { _ as PAIRING_APPROVED_MESSAGE, b as DEFAULT_ACCOUNT_ID } from "../../runtime-api-B5Qn2ANq.js";
 import { u as fetchWithSsrFGuard } from "../../provider-request-config-BiXrTO_G.js";
 import { t as isDangerousNameMatchingEnabled } from "../../dangerous-name-matching-BiK-SlwM.js";
 import { S as resolveDefaultGroupPolicy, a as resolveWebhookPath, b as GROUP_POLICY_BLOCKED_LABEL, c as withResolvedWebhookRequestPipeline, f as createWebhookInFlightLimiter, i as registerWebhookTargetWithPluginRoute, o as resolveWebhookTargetWithAuthOrReject, p as readJsonWebhookBodyOrReject, u as WebhookInFlightLimiter, v as chunkTextForOutbound, w as warnMissingProviderGroupPolicyFallbackOnce, x as resolveAllowlistProviderRuntimeGroupPolicy, y as createChannelPairingController } from "../../webhook-ingress-W34OljD9.js";

@@ -1,4 +1,4 @@
-import { M as DispatchReplyWithDispatcher, j as DispatchReplyWithBufferedBlockDispatcher } from "./types-ztqKSd5y2.js";
+import { M as DispatchReplyWithDispatcher, j as DispatchReplyWithBufferedBlockDispatcher } from "./types-Ce3_itvc2.js";
 
 //#region src/auto-reply/reply/provider-dispatcher.d.ts
 /** Dispatch a reply using the buffered block dispatcher path. */
