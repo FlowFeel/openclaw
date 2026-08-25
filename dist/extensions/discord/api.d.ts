@@ -5,22 +5,22 @@ import { r as AgentToolResult } from "../../index-4iyL9Wnl.js";
 import { t as DirectoryConfigParams } from "../../directory-runtime-ocXmTmZt.js";
 import { n as DiscordTokenResolution, t as DiscordCredentialStatus } from "../../token-B6vkupas.js";
 import { n as inspectDiscordAccount, t as InspectedDiscordAccount } from "../../account-inspect-Dbb1JS9D.js";
-import { l as ComponentData } from "../../discord-DX0sZkrt.js";
-import { v as DiscordSendResult } from "../../send.types-BC0suI1X.js";
+import { l as ComponentData } from "../../discord-B3FRtvAS.js";
+import { v as DiscordSendResult } from "../../send.types-BzqJHpNz.js";
 import { t as DiscordMessagingActionOptions } from "../../runtime.messaging.shared-DQQyDD9S.js";
 import { a as mergeDiscordAccountConfig, c as resolveDiscordAccountConfig, i as listEnabledDiscordAccounts, l as resolveDiscordMaxLinesPerMessage, n as createDiscordActionGate, o as resolveDefaultDiscordAccountId, r as listDiscordAccountIds, s as resolveDiscordAccount, t as ResolvedDiscordAccount } from "../../accounts-CMqV_a8j.js";
 import { a as fetchDiscordApplicationId, c as probeDiscord, i as DiscordProbe, l as resolveDiscordPrivilegedIntentsFromFlags, n as DiscordPrivilegedIntentStatus, o as fetchDiscordApplicationSummary, r as DiscordPrivilegedIntentsSummary, s as parseApplicationIdFromToken, t as DiscordApplicationSummary } from "../../probe-D8rtJZYo.js";
 import { t as discordPlugin } from "../../channel-B7uGggob.js";
 import { t as discordSetupPlugin } from "../../channel.setup-3cQfYqGL.js";
 import { m as ThreadBindingTargetKind } from "../../thread-bindings.manager-ES8NtHa0.js";
-import { A as parseDiscordComponentCustomIdForInteraction, C as DiscordModalFieldSpec, D as buildDiscordComponentCustomId, E as DISCORD_MODAL_CUSTOM_ID_KEY, M as parseDiscordModalCustomIdForInteraction, O as buildDiscordModalCustomId, S as DiscordModalFieldDefinition, T as DISCORD_COMPONENT_CUSTOM_ID_KEY, _ as DiscordComponentSectionAccessory, a as DISCORD_COMPONENT_ATTACHMENT_PREFIX, b as DiscordComponentSelectType, c as buildDiscordComponentMessage, d as DiscordComponentBuildResult, f as DiscordComponentButtonSpec, g as DiscordComponentModalFieldType, h as DiscordComponentMessageSpec, i as createDiscordFormModal, j as parseDiscordModalCustomId, k as parseDiscordComponentCustomId, l as buildDiscordComponentMessageFlags, m as DiscordComponentEntry, n as buildDiscordInteractiveComponents, o as readDiscordComponentSpec, p as DiscordComponentButtonStyle, r as DiscordFormModal, s as resolveDiscordComponentAttachmentName, t as formatDiscordComponentEventText, u as DiscordComponentBlock, v as DiscordComponentSelectOption, w as DiscordModalSpec, x as DiscordModalEntry, y as DiscordComponentSelectSpec } from "../../components-CpJTmcsv.js";
+import { A as parseDiscordComponentCustomIdForInteraction, C as DiscordModalFieldSpec, D as buildDiscordComponentCustomId, E as DISCORD_MODAL_CUSTOM_ID_KEY, M as parseDiscordModalCustomIdForInteraction, O as buildDiscordModalCustomId, S as DiscordModalFieldDefinition, T as DISCORD_COMPONENT_CUSTOM_ID_KEY, _ as DiscordComponentSectionAccessory, a as DISCORD_COMPONENT_ATTACHMENT_PREFIX, b as DiscordComponentSelectType, c as buildDiscordComponentMessage, d as DiscordComponentBuildResult, f as DiscordComponentButtonSpec, g as DiscordComponentModalFieldType, h as DiscordComponentMessageSpec, i as createDiscordFormModal, j as parseDiscordModalCustomId, k as parseDiscordComponentCustomId, l as buildDiscordComponentMessageFlags, m as DiscordComponentEntry, n as buildDiscordInteractiveComponents, o as readDiscordComponentSpec, p as DiscordComponentButtonStyle, r as DiscordFormModal, s as resolveDiscordComponentAttachmentName, t as formatDiscordComponentEventText, u as DiscordComponentBlock, v as DiscordComponentSelectOption, w as DiscordModalSpec, x as DiscordModalEntry, y as DiscordComponentSelectSpec } from "../../components-CPk8G0UP.js";
 import { n as listDiscordDirectoryPeersFromConfig, t as listDiscordDirectoryGroupsFromConfig } from "../../directory-config-DYexSY_Q.js";
 import { i as resolveOpenProviderRuntimeGroupPolicy } from "../../runtime-group-policy-DpTIbW_u.js";
 import { i as DISCORD_DEFAULT_LISTENER_TIMEOUT_MS, n as DISCORD_ATTACHMENT_TOTAL_TIMEOUT_MS, r as DISCORD_DEFAULT_INBOUND_WORKER_TIMEOUT_MS, t as DISCORD_ATTACHMENT_IDLE_TIMEOUT_MS } from "../../timeouts-1ztmtKre.js";
 import { n as DiscordInteractiveHandlerRegistration, t as DiscordInteractiveHandlerContext } from "../../interactive-dispatch-Bz16BqLW.js";
 import { t as normalizeExplicitDiscordSessionKey } from "../../session-key-normalization-D-5WIPZD.js";
 import { t as collectDiscordSecurityAuditFindings } from "../../security-audit-B3BF6fh-.js";
-import { n as DiscordSendComponents, r as DiscordSendEmbeds } from "../../send.shared-B5mnafGN.js";
+import { n as DiscordSendComponents, r as DiscordSendEmbeds } from "../../send.shared-trGDW0nb.js";
 
 //#region extensions/discord/src/actions/handle-action.d.ts
 declare function handleDiscordMessageAction$1(ctx: Pick<ChannelMessageActionContext, "action" | "params" | "cfg" | "accountId" | "requesterAccountId" | "requesterSenderId" | "senderIsOwner" | "toolContext" | "mediaAccess" | "mediaLocalRoots" | "mediaReadFile" | "sessionKey" | "inboundEventKind" | "conversationReadOrigin">): Promise<AgentToolResult<unknown>>;
