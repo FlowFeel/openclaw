@@ -97,6 +97,10 @@ import { createTaskSuggestionTools } from "./tools/task-suggestion-tools.js";
 import { createTerminalTool } from "./tools/terminal-tool.js";
 import { createTranscriptsTool } from "./tools/transcripts-tool.js";
 import { createTtsTool } from "./tools/tts-tool.js";
+import { createEnvelopeTools } from "./tools/envelope-tools.js";
+import { createTokenomicsTools } from "./tools/tokenomics-tools.js";
+import { createCompactionMeterTools } from "./tools/compaction-meter-tool.js";
+import { createHickeyMapTools } from "./tools/hickey-map-tools.js";
 import { createUpdatePlanTool } from "./tools/update-plan-tool.js";
 import { createVideoGenerateTool } from "./tools/video-generate-tool.js";
 import { createWebFetchTool, createWebSearchTool } from "./tools/web-tools.js";
@@ -753,6 +757,10 @@ export function createOpenClawTools(
     createAgentSignalTool({
       sessionId: options?.agentSessionKey,
     }),
+    ...createEnvelopeTools(),
+    ...createTokenomicsTools(),
+    ...createCompactionMeterTools(),
+    ...createHickeyMapTools(),
     ...collectPresentOpenClawTools([webSearchTool, webFetchTool, imageTool, pdfTool]),
     ...(options?.channelTopics
       ? [

@@ -62,6 +62,16 @@ const CORE_TOOL_FACTORY_DESCRIPTORS = [
   { name: "video_generate", family: "openclaw" },
   { name: "web_fetch", family: "openclaw" },
   { name: "web_search", family: "openclaw" },
+  { name: "peek", family: "openclaw" },
+  { name: "retransmit", family: "openclaw" },
+  { name: "bandwidth_negotiate", family: "openclaw" },
+  { name: "tokenomics_snr", family: "openclaw" },
+  { name: "noise_inspect", family: "openclaw" },
+  { name: "context_meter", family: "openclaw" },
+  { name: "hickey_map", family: "openclaw" },
+  { name: "topic_lookup", family: "openclaw" },
+  { name: "topic_seed", family: "openclaw" },
+  { name: "topic_inject", family: "openclaw" },
 ] as const satisfies readonly CoreToolFactoryDescriptor[];
 
 const CORE_TOOL_FACTORY_FAMILY_BY_NAME = new Map<string, CoreToolFactoryFamily>(

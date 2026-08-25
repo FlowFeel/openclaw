@@ -97,3 +97,41 @@ export function retransmit_request(
 } {
   return activeEngine.sliceArchive(archiveText, options.query, options.maxTokens ?? 2048);
 }
+
+import { Type } from "typebox";
+import { type AnyAgentTool, jsonResult } from "./common.js";
+
+export function createTokenomicsTools(): AnyAgentTool[] {
+  return [
+    {
+      name: "tokenomics_snr",
+      label: "Tokenomics SNR",
+      description: "Evaluate Shannon-Weaver Signal-to-Noise Ratio (SNR) and tokenomics health for conversation turns.",
+      parameters: Type.Object(
+        {
+          detailed: Type.Optional(Type.Boolean({ description: "Return detailed breakdown per category." })),
+        },
+        { additionalProperties: false },
+      ),
+      execute: async (_toolCallId: string, params: { detailed?: boolean }) => {
+        return jsonResult(tokenomics_snr([], { detailed: params.detailed }));
+      },
+    },
+    {
+      name: "noise_inspect",
+      label: "Noise Inspect",
+      description: "Identify and rank top noise sources in conversation turns.",
+      parameters: Type.Object(
+        {
+          topN: Type.Optional(Type.Number({ description: "Number of top sources to return (default 3)." })),
+          category: Type.Optional(Type.String({ description: "Filter by noise category." })),
+        },
+        { additionalProperties: false },
+      ),
+      execute: async (_toolCallId: string, params: { topN?: number; category?: string }) => {
+        return jsonResult(noise_inspect([], { topN: params.topN, category: params.category }));
+      },
+    },
+  ];
+}
+

@@ -130,3 +130,66 @@ export function bandwidth_negotiate(
     reason,
   };
 }
+
+import { Type } from "typebox";
+import { type AnyAgentTool, jsonResult } from "./common.js";
+
+/**
+ * OpenClaw Agent Tool Factory for Self-State Envelope & Peek interface.
+ */
+export function createEnvelopeTools(): AnyAgentTool[] {
+  return [
+    {
+      name: "peek",
+      label: "Envelope Peek",
+      description: "Query a specific frame or field from the agent self-state envelope on demand (e.g. 'F1.headroom', 'F2.lastEvent', 'F3.route', 'F4.offloaded', 'platform.version'). Returns minimal structured JSON (< 40 tokens).",
+      parameters: Type.Object(
+        {
+          path: Type.Optional(
+            Type.String({ description: "Dotted path expression (e.g. 'F1.headroom', 'F2', 'F3.activeRoute'). Defaults to 'F1'." }),
+          ),
+        },
+        { additionalProperties: false },
+      ),
+      execute: async (_toolCallId: string, params: { path?: string }) => {
+        return jsonResult(peek(params.path));
+      },
+    },
+    {
+      name: "retransmit",
+      label: "Retransmit Dropped Turn",
+      description: "Surgically retrieve a missing pre-compaction turn from the cold session archive without history replay. Bounded to <= 2,000 tokens.",
+      parameters: Type.Object(
+        {
+          turnId: Type.Union([Type.String(), Type.Number()], { description: "ID of the dropped turn to retrieve." }),
+          maxTokens: Type.Optional(Type.Number({ description: "Safety token limit (max 2000)." })),
+        },
+        { additionalProperties: false },
+      ),
+      execute: async (_toolCallId: string, params: { turnId: string | number; maxTokens?: number }) => {
+        return jsonResult(retransmit(params.turnId, { maxTokens: params.maxTokens }));
+      },
+    },
+    {
+      name: "bandwidth_negotiate",
+      label: "Bandwidth Negotiate",
+      description: "Request forward routing mode for subsequent turns (e.g. 'fits', 'truncate_tool_results', 'compact_only', 'stream_lean').",
+      parameters: Type.Object(
+        {
+          route: Type.Union([
+            Type.Literal("fits"),
+            Type.Literal("truncate_tool_results"),
+            Type.Literal("compact_only"),
+            Type.Literal("stream_lean"),
+          ], { description: "Desired forward routing mode." }),
+          reason: Type.Optional(Type.String({ description: "Operational rationale." })),
+        },
+        { additionalProperties: false },
+      ),
+      execute: async (_toolCallId: string, params: { route: RoutingMode; reason?: string }) => {
+        return jsonResult(bandwidth_negotiate(params.route, params.reason));
+      },
+    },
+  ];
+}
+

@@ -6,6 +6,7 @@
 import { randomUUID } from "node:crypto";
 import { readStringValue } from "@openclaw/normalization-core/string-coerce";
 import { Type } from "typebox";
+import { resolveSelfStateEnvelope } from "../../infra/self-state-envelope/index.js";
 import type {
   ElevatedLevel,
   ReasoningLevel,
@@ -1118,6 +1119,9 @@ export function createSessionStatusTool(opts?: {
                   }
                 : {}),
               statusText: visibleStatusText,
+              envelope: resolveSelfStateEnvelope([], {
+                activeRoute: "fits",
+              }),
               ...routeDetails,
             },
           };
