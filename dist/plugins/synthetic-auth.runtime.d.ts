@@ -1,4 +1,4 @@
-import { r as LoadInstalledPluginIndexParams, t as InstalledPluginIndex } from "../installed-plugin-index-types-COVojO1x.js";
+import { r as LoadInstalledPluginIndexParams, t as InstalledPluginIndex } from "../installed-plugin-index-types-e5m9Etn8.js";
 import { t as InstalledPluginIndexStoreOptions } from "../installed-plugin-index-store-path-DHr6siNg.js";
 //#region src/plugins/plugin-registry-snapshot.d.ts
 type PluginRegistrySnapshot = InstalledPluginIndex;
