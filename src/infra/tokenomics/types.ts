@@ -93,3 +93,15 @@ export interface TokenomicsConfig {
   maxHistoryEntries?: number;
   clock?: TokenomicsClock;
 }
+
+export interface ShannonSNROptions {
+  nominalThreshold?: number;
+  warningThreshold?: number;
+}
+
+export interface TokenomicsContextCue {
+  readonly snrPercentage: number;
+  readonly tier: SNRTier;
+  readonly promptDirective: string;
+  readonly tokenOverhead: number;
+}

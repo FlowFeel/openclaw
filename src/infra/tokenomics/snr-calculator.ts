@@ -43,6 +43,23 @@ export function isTurnNoise(msg: TurnMessage, seenToolOutputs: Set<string>): boo
   return false;
 }
 
+export function classifySNRTier(snrPercent: number): SNRTier {
+  if (snrPercent < SNR_WARNING_PERCENT) {
+    return "critical";
+  } else if (snrPercent < SNR_NOMINAL_PERCENT) {
+    return "warning";
+  }
+  return "nominal";
+}
+
+export function calculateRawSNR(totalTokens: number, signalTokens: number): { snrPercentage: number; tier: SNRTier } {
+  const snrPercentage = totalTokens === 0 ? 100 : Math.round((Math.max(0, signalTokens) / totalTokens) * 100);
+  return {
+    snrPercentage,
+    tier: classifySNRTier(snrPercentage),
+  };
+}
+
 export function calculateSNR(turns: TurnMessage[]): SNRReport {
   if (turns.length === 0) {
     return {
@@ -71,15 +88,12 @@ export function calculateSNR(turns: TurnMessage[]): SNRReport {
 
   const signalTokens = Math.max(0, totalTokens - noiseTokens);
   const snrPercent = totalTokens === 0 ? 100 : Math.round((signalTokens / totalTokens) * 100);
+  const tier = classifySNRTier(snrPercent);
 
-  let tier: SNRTier = "nominal";
   let recommendation = "Signal adequate. No compaction required.";
-
-  if (snrPercent < SNR_WARNING_PERCENT) {
-    tier = "critical";
+  if (tier === "critical") {
     recommendation = "Severe noise pollution (<50% SNR). Compaction strongly recommended.";
-  } else if (snrPercent < SNR_NOMINAL_PERCENT) {
-    tier = "warning";
+  } else if (tier === "warning") {
     recommendation = "Degraded signal density (<70% SNR). Consider compaction at next threshold.";
   }
 
@@ -93,3 +107,4 @@ export function calculateSNR(turns: TurnMessage[]): SNRReport {
     recommendation,
   };
 }
+

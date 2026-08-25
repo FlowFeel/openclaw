@@ -1,8 +1,8 @@
 import { $o as SecretRef, i as OpenClawConfig } from "../../types.openclaw-3lPuYQv-.js";
 import { S as SecretRefResolveCache } from "../../types.public-DXXzw640.js";
 import { n as PluginManifestRegistry } from "../../manifest-registry-Dd29F7Rx.js";
-import { xo as WorkerAdmissionHandshake } from "../../index-CceVwJYo.js";
-import { a as WorkerProfile, c as WorkerSshIdentity, o as WorkerProvider, s as WorkerSshEndpoint } from "../../types-Cc8QXjhy2.js";
+import { xo as WorkerAdmissionHandshake } from "../../index-iMuGg8nO.js";
+import { a as WorkerProfile, c as WorkerSshIdentity, o as WorkerProvider, s as WorkerSshEndpoint } from "../../types-mH8T7wAV2.js";
 import { g as CommandOptions, v as SpawnResult } from "../../web-media-D8La7BDA.js";
 
 //#region src/secrets/resolve.d.ts

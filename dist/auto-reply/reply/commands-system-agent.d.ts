@@ -1,4 +1,4 @@
-import { P as CommandHandler } from "../../types-Cc8QXjhy2.js";
+import { P as CommandHandler } from "../../types-mH8T7wAV2.js";
 
 //#region src/auto-reply/reply/commands-system-agent.d.ts
 declare const handleSystemAgentCommand: CommandHandler;

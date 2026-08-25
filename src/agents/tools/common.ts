@@ -157,6 +157,47 @@ export function readStringParam(
   return value;
 }
 
+export function readNormalizedPathTarget(
+  params: Record<string, unknown>,
+  key: string,
+  options: StringParamOptions & { required: true },
+): string;
+export function readNormalizedPathTarget(
+  params: Record<string, unknown>,
+  key: string,
+  options?: StringParamOptions,
+): string | undefined;
+export function readNormalizedPathTarget(
+  params: Record<string, unknown>,
+  key: string,
+  options: StringParamOptions = {},
+): string | undefined {
+  const raw = readStringParam(params, key, options as any);
+  if (!raw) return undefined;
+
+  const cleaned = raw.startsWith("file://") ? raw.slice(7) : raw;
+  const parts = cleaned
+    .replace(/\\+/g, "/")
+    .split("/")
+    .filter((p) => p !== "" && p !== ".");
+  const stack: string[] = [];
+  for (const p of parts) {
+    if (p === "..") {
+      if (stack.length > 0 && stack[stack.length - 1] !== "..") {
+        stack.pop();
+      } else {
+        throw new ToolInputError(`${options.label ?? key} must stay within workspace`);
+      }
+    } else {
+      stack.push(p);
+    }
+  }
+  if (stack.length > 0 && (stack[0]?.toLowerCase() === "workspace" || stack[0]?.toLowerCase() === "inferno-labs")) {
+    stack.shift();
+  }
+  return stack.join("/");
+}
+
 /**
  * Normalize tool model override input.
  * - empty/whitespace => undefined

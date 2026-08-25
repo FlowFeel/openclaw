@@ -5,6 +5,7 @@ import {
   createActionGate,
   readFiniteNumberParam,
   readNonNegativeIntegerParam,
+  readNormalizedPathTarget,
   readPositiveIntegerParam,
   readNumberParam,
   readReactionParams,
@@ -242,5 +243,24 @@ describe("readReactionParams", () => {
     });
     expect(result.remove).toBe(true);
     expect(result.emoji).toBe("✅");
+  });
+});
+
+describe("readNormalizedPathTarget", () => {
+  it("normalizes file:// and redundant /workspace/ prefixes", () => {
+    const params = { path: "file:///workspace/memory/notes.md" };
+    expect(readNormalizedPathTarget(params, "path")).toBe("memory/notes.md");
+  });
+
+  it("handles relative path dot-segments safely", () => {
+    const params = { path: "docs/../memory/notes.md" };
+    expect(readNormalizedPathTarget(params, "path")).toBe("memory/notes.md");
+  });
+
+  it("throws on workspace breakout attempts", () => {
+    const params = { path: "../../etc/passwd" };
+    expect(() => readNormalizedPathTarget(params, "path")).toThrow(
+      /must stay within workspace/,
+    );
   });
 });

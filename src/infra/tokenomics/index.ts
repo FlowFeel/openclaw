@@ -10,3 +10,4 @@ export * from "./token-budget-partitioner.js";
 export * from "./channel-history-store.js";
 export * from "./retransmission-slicer.js";
 export * from "./tokenomics-engine.js";
+export * from "./tokenomics-prompt-injector.js";
