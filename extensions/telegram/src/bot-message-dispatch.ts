@@ -13,6 +13,7 @@ import {
 } from "./bot-message-dispatch-session.js";
 import { createTelegramDispatchStatus } from "./bot-message-dispatch-status.js";
 import { runTelegramDispatchTurn } from "./bot-message-dispatch-turn.js";
+import { globalTelegramSessionGuard } from "./telegram-session-guard.js";
 import {
   findModelInCatalog,
   loadPreparedModelCatalog,
@@ -426,22 +427,37 @@ export const dispatchTelegramMessage = async ({
     if (status.controller && !isRoomEvent) {
       void status.controller.setThinking();
     }
+    const targetSessionKey =
+      dispatchContext.ctxPayload.SessionKey ||
+      `telegram:${dispatchContext.chatId}:${dispatchContext.threadSpec.id ?? "default"}`;
     try {
-      turnDispatched = await runTelegramDispatchTurn({
-        cfg,
-        context: dispatchContext,
-        delivery,
-        draft,
-        turnAdoptionLifecycle,
-        isSuperseded: isDispatchSuperseded,
-        progress,
-        reply,
-        state,
-        statusReactionController: status.controller,
-        streamMode,
-        telegramCfg,
-        telegramDeps,
+      const guardedResult = await globalTelegramSessionGuard.executeGuardedTurn({
+        sessionKey: targetSessionKey,
+        executeTurn: async () => {
+          return await runTelegramDispatchTurn({
+            cfg,
+            context: dispatchContext,
+            delivery,
+            draft,
+            turnAdoptionLifecycle,
+            isSuperseded: isDispatchSuperseded,
+            progress,
+            reply,
+            state,
+            statusReactionController: status.controller,
+            streamMode,
+            telegramCfg,
+            telegramDeps,
+          });
+        },
+        onRetry: (attempt, err, backoffMs) => {
+          loadFreshSessionEntry.clear();
+          logVerbose(
+            `[telegram-session-guard] retrying turn admission (attempt=${attempt}, backoff=${backoffMs}ms): ${String(err)}`,
+          );
+        },
       });
+      turnDispatched = guardedResult.value;
     } catch (err) {
       state.dispatchError = err;
       runtime.error?.(danger(`telegram dispatch failed: ${String(err)}`));

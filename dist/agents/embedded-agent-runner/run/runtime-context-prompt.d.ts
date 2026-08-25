@@ -1,4 +1,4 @@
-import { y as CurrentInboundPromptContext } from "../../../types-mH8T7wAV2.js";
+import { y as CurrentInboundPromptContext } from "../../../types-Cc8QXjhy2.js";
 
 //#region src/agents/embedded-agent-runner/run/runtime-context-prompt.d.ts
 type RuntimeContextPromptParts = {
