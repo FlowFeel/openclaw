@@ -12,6 +12,7 @@ import {
   type RoutingMode,
   type SelfStateEnvelope,
 } from "../../infra/self-state-envelope/index.js";
+import { resolveLivePositionFrame, resolveLiveTelemetrySnapshot } from "../../infra/telemetry-bus/live-session-tap.js";
 import type { TurnMessage } from "../../infra/tokenomics/types.js";
 
 const MAX_RETRANSMIT_BUDGET_TOKENS = 2000;
@@ -51,18 +52,21 @@ export function getCurrentEnvelope(): SelfStateEnvelope {
 
 /**
  * Certified Atomic Tool (k = 1)
- * Queries a specific frame or field on demand (e.g., "F1.headroom", "F2.lastEvent", "F3.route").
+ * Queries a specific frame or field on demand (e.g., "F1.headroom", "F2.lastEvent", "F3.route", "platform.release").
  * Returns terse primitives or minimal records (< 40 tokens).
  */
-export function peek(
+export async function peek(
   path?: string,
-): { path: string; result: unknown } {
+): Promise<{ path: string; result: unknown }> {
   const queryPath = path ?? "F1";
-  const envelope = getCurrentEnvelope();
-  const result = queryEnvelopePath(envelope, queryPath);
+  
+  // Taps live session snapshot (including F1 live breakdown & platform changelog)
+  const liveSnapshot = await resolveLiveTelemetrySnapshot();
+  const result = queryEnvelopePath(liveSnapshot as unknown as SelfStateEnvelope, queryPath);
+  
   return {
     path: queryPath,
-    result,
+    result: result !== undefined ? result : null,
   };
 }
 
@@ -152,7 +156,8 @@ export function createEnvelopeTools(): AnyAgentTool[] {
         { additionalProperties: false },
       ),
       execute: async (_toolCallId: string, params: { path?: string }) => {
-        return jsonResult(peek(params.path));
+        const res = await peek(params.path);
+        return jsonResult(res);
       },
     },
     {

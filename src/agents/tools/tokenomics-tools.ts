@@ -5,10 +5,11 @@
 
 import {
   createTokenomicsEngine,
-  TokenomicsEngine,
-  TurnMessage,
-  ContextItem,
+  type TokenomicsEngine,
+  type TurnMessage,
+  type ContextItem,
 } from "../../infra/tokenomics/index.js";
+import { getActiveSessionTurns } from "../../infra/telemetry-bus/live-session-tap.js";
 
 // Canonical in-memory instance for tool calls
 let activeEngine: TokenomicsEngine = createTokenomicsEngine();
@@ -25,9 +26,10 @@ export function resetTokenomicsEngine(): TokenomicsEngine {
 /**
  * Certified Atomic Tool (k = 2)
  * Evaluates context signal-to-noise ratio.
+ * When turns is omitted or empty, automatically taps active session turns.
  */
 export function tokenomics_snr(
-  turns: TurnMessage[],
+  turns?: TurnMessage[],
   options?: { threshold?: number; detailed?: boolean }
 ): {
   snrPercent: number;
@@ -36,7 +38,8 @@ export function tokenomics_snr(
   recommendation: string;
   report?: any;
 } {
-  const report = activeEngine.calculateSNR(turns);
+  const effectiveTurns = turns && turns.length > 0 ? turns : getActiveSessionTurns();
+  const report = activeEngine.calculateSNR(effectiveTurns);
   return {
     snrPercent: report.snrPercent,
     tier: report.tier,
@@ -49,12 +52,14 @@ export function tokenomics_snr(
 /**
  * Certified Atomic Tool (k = 2)
  * Identifies and ranks top noise sources in conversation turns.
+ * When turns is omitted or empty, automatically taps active session turns.
  */
 export function noise_inspect(
-  turns: TurnMessage[],
+  turns?: TurnMessage[],
   options?: { topN?: number; category?: string }
 ): { topSources: any[]; count: number } {
-  const sources = activeEngine.identifyNoise(turns, options?.topN ?? 3);
+  const effectiveTurns = turns && turns.length > 0 ? turns : getActiveSessionTurns();
+  const sources = activeEngine.identifyNoise(effectiveTurns, options?.topN ?? 3);
   const filtered = options?.category
     ? sources.filter((s) => s.category === options.category)
     : sources;
