@@ -99,6 +99,7 @@ import { createTranscriptsTool } from "./tools/transcripts-tool.js";
 import { createTtsTool } from "./tools/tts-tool.js";
 import { createEnvelopeTools } from "./tools/envelope-tools.js";
 import { createTokenomicsTools } from "./tools/tokenomics-tools.js";
+import { createAttributionTools } from "./tools/attribution-tools.js";
 import { createCompactionMeterTools } from "./tools/compaction-meter-tool.js";
 import { createHickeyMapTools } from "./tools/hickey-map-tools.js";
 import { createUpdatePlanTool } from "./tools/update-plan-tool.js";
@@ -759,6 +760,7 @@ export function createOpenClawTools(
     }),
     ...createEnvelopeTools(),
     ...createTokenomicsTools(),
+    ...createAttributionTools(),
     ...createCompactionMeterTools(),
     ...createHickeyMapTools(),
     ...collectPresentOpenClawTools([webSearchTool, webFetchTool, imageTool, pdfTool]),
