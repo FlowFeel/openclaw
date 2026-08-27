@@ -1,11 +1,11 @@
 import { r as OpenClawConfig } from "../types.openclaw-DqdTE9e3.js";
 import { c as SessionEntry } from "../types-CJ2AFyfH.js";
 import { n as CommandArgs, t as CommandArgValues } from "../commands-args.types-zglMcgeO.js";
-import { Bo as resolveFastModeState, Go as formatFastModeSourceSuffix, Ko as formatFastModeStatusValue, To as resolveControlCommandGate, Uo as formatFastModeCommandOptions, Wo as formatFastModeCurrentStatus, wo as resolveCommandAuthorizedFromAuthorizers } from "../types-BMOPjNqu.js";
+import { Bo as resolveFastModeState, Go as formatFastModeSourceSuffix, Ko as formatFastModeStatusValue, To as resolveControlCommandGate, Uo as formatFastModeCommandOptions, Wo as formatFastModeCurrentStatus, wo as resolveCommandAuthorizedFromAuthorizers } from "../types-CR0scl6B.js";
 import { a as CommandArgsParsing, l as NativeCommandSpec, r as CommandArgDefinition, t as ChatCommandDefinition } from "../commands-registry.types-DW35EQHq.js";
 import { i as shouldComputeCommandAuthorized, t as hasControlCommand } from "../command-detection-B8Gyr1WM.js";
 import { _ as normalizeCommandBody, a as formatCommandArgMenuTitle, b as listChatCommands, c as listNativeCommandSpecsForConfig, d as resolveCommandArgMenu, f as serializeCommandArgs, g as maybeResolveTextAlias, i as findCommandByNativeName, l as parseCommandArgs, r as buildCommandTextFromArgs, s as listNativeCommandSpecs, u as resolveCommandArgChoices } from "../commands-registry-im-llDmt.js";
-import { i as resolveCommandAuthorization, n as resolveStoredModelOverride, o as resolveNativeCommandSessionTargets, r as CommandAuthorization } from "../stored-model-override-DL57ZmKX.js";
+import { i as resolveCommandAuthorization, n as resolveStoredModelOverride, o as resolveNativeCommandSessionTargets, r as CommandAuthorization } from "../stored-model-override-D-5-4W4I.js";
 import { t as ModelsProviderData } from "../commands-models-BxJDX8_j.js";
 import { t as listSkillCommandsForAgents } from "../chat-commands-DJ_dPVox.js";
 import { n as listProviderPluginCommandSpecs } from "../command-specs-V2Zqw-6U.js";

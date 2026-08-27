@@ -1,0 +1,2 @@
+import { a as resolveTailscaleResetOnExitFlag, i as resolveInstallDaemonFlag, n as registerOnboardAuthOptions, o as validateOnboardAuthOptionValues, r as registerOnboardCommand, t as pickOnboardAuthOptionValues } from "./register.onboard-DwS37L_2.js";
+export { pickOnboardAuthOptionValues, registerOnboardAuthOptions, registerOnboardCommand, resolveInstallDaemonFlag, resolveTailscaleResetOnExitFlag, validateOnboardAuthOptionValues };

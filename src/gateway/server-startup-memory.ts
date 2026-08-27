@@ -2,6 +2,7 @@
 // Starts qmd memory boot sync for eligible agents without loading every agent.
 import { listAgentEntries, listAgentIds, resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { resolveMemorySearchConfig } from "../agents/memory-search.js";
+import { globalMemoryDegradationManager } from "../memory-host-sdk/host/memory-search-degradation.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import {
   resolveMemoryBackendConfig,
@@ -113,7 +114,18 @@ export async function startGatewayMemoryBackend(params: {
     try {
       await manager.sync?.({ reason: "boot", force: true });
     } catch (err) {
-      params.log.warn(`qmd memory startup boot sync failed for agent "${agentId}": ${String(err)}`);
+      const searchConfig = resolveMemorySearchConfig(params.cfg, agentId);
+      if (searchConfig?.failOnMissingProvider) {
+        throw new Error(`Fatal: memory.search embedding provider unreachable for agent "${agentId}": ${String(err)}`);
+      }
+      globalMemoryDegradationManager.markDegraded({
+        agentId,
+        reason: String(err),
+        fallbackMode: "fts_bm25",
+      });
+      params.log.warn(
+        `[memory/search] embeddings provider unreachable for agent "${agentId}"; gracefully falling back to BM25 FTS mode: ${String(err)}`,
+      );
       continue;
     } finally {
       await manager.close?.().catch((err: unknown) => {

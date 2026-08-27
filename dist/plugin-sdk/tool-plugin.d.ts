@@ -1,7 +1,7 @@
 import { g as PluginManifestActivation } from "../manifest-registry-CVXQFOT4.js";
 import { i as JsonSchemaObject } from "../types.config-C6_VK-8V.js";
 import { a as AgentToolUpdateCallback } from "../index-B4PKL_IC.js";
-import { N as OpenClawPluginToolContext, a as AnyAgentTool, g as OpenClawPluginApi, wn as definePluginEntry } from "../plugin-entry-BQQzIHs1.js";
+import { N as OpenClawPluginToolContext, a as AnyAgentTool, g as OpenClawPluginApi, wn as definePluginEntry } from "../plugin-entry-D0kjAfRp.js";
 import { Static, TSchema } from "typebox";
 
 //#region src/plugin-sdk/tool-plugin.d.ts

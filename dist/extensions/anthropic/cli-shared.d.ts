@@ -1,4 +1,4 @@
-import { J as CliBackendNormalizeConfigContext, X as CliBackendResolveExecutionArgsContext, q as CliBackendConfig } from "../../types-7SOOE25U.js";
+import { J as CliBackendNormalizeConfigContext, X as CliBackendResolveExecutionArgsContext, q as CliBackendConfig } from "../../types-DOjBC-h-.js";
 import { a as CLAUDE_CLI_DEFAULT_MODEL_REF, c as CLAUDE_CLI_SESSION_ID_FIELDS, i as CLAUDE_CLI_DEFAULT_ALLOWLIST_REFS, n as CLAUDE_CLI_BACKEND_ID, o as CLAUDE_CLI_MODEL_ALIASES } from "../../cli-constants-3GA7CTnr.js";
 
 //#region extensions/anthropic/cli-shared.d.ts

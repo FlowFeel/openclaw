@@ -12,9 +12,9 @@ import "../../ssrf-runtime-B8V5-MiN.js";
 import "../../webhook-request-guards-CgiiFJiC.js";
 import { a as createFixedWindowRateLimiter } from "../../webhook-ingress-CUghIwHZ.js";
 import { n as SimplePool } from "../../esm-B8-t-Wx3.js";
-import "../../runtime-api-CDkcd8n7.js";
+import "../../runtime-api-cP--ra9h.js";
 import { n as NostrProfileSchema } from "../../config-schema-Dh5r5vu_.js";
-import { a as getNostrRuntime, i as contentToProfile, n as nostrPlugin, o as setNostrRuntime, r as publishNostrProfile, t as getNostrProfileState } from "../../channel-DssQmBNj.js";
+import { a as getNostrRuntime, i as contentToProfile, n as nostrPlugin, o as setNostrRuntime, r as publishNostrProfile, t as getNostrProfileState } from "../../channel-BPu3mmtk.js";
 import { o as resolveNostrAccount } from "../../setup-surface-DNpHFrvL.js";
 //#region extensions/nostr/src/nostr-profile-url-safety.ts
 function validateUrlSafety(urlStr) {

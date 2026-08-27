@@ -1,5 +1,5 @@
-import { y as ProviderThinkingProfile } from "../../types-7SOOE25U.js";
-import { p as ProviderDefaultThinkingPolicyContext } from "../../plugin-entry-D7C-ld89.js";
+import { y as ProviderThinkingProfile } from "../../types-DOjBC-h-.js";
+import { p as ProviderDefaultThinkingPolicyContext } from "../../plugin-entry-BCZEsMxf.js";
 //#region extensions/minimax/provider-policy-api.d.ts
 declare function resolveThinkingProfile(context: ProviderDefaultThinkingPolicyContext): ProviderThinkingProfile | undefined;
 //#endregion

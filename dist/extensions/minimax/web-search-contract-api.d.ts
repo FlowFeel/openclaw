@@ -1,4 +1,4 @@
-import { g as WebSearchProviderPlugin } from "../../types-7SOOE25U.js";
+import { g as WebSearchProviderPlugin } from "../../types-DOjBC-h-.js";
 //#region extensions/minimax/web-search-contract-api.d.ts
 declare function createMiniMaxWebSearchProvider(): WebSearchProviderPlugin;
 //#endregion

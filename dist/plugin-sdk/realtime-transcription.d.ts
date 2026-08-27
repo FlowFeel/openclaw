@@ -1,5 +1,5 @@
 import { n as OpenClawConfig } from "../types.openclaw-B-6RRL7F.js";
-import { G as RealtimeTranscriptionSession, H as RealtimeTranscriptionProviderConfiguredContext, K as RealtimeTranscriptionSessionCallbacks, U as RealtimeTranscriptionProviderId, V as RealtimeTranscriptionProviderConfig, W as RealtimeTranscriptionProviderResolveConfigContext, h as RealtimeTranscriptionProviderPlugin, q as RealtimeTranscriptionSessionCreateRequest } from "../types-dPYYJRo2.js";
+import { G as RealtimeTranscriptionSession, H as RealtimeTranscriptionProviderConfiguredContext, K as RealtimeTranscriptionSessionCallbacks, U as RealtimeTranscriptionProviderId, V as RealtimeTranscriptionProviderConfig, W as RealtimeTranscriptionProviderResolveConfigContext, h as RealtimeTranscriptionProviderPlugin, q as RealtimeTranscriptionSessionCreateRequest } from "../types-CrfqAVvH.js";
 
 //#region src/realtime-transcription/provider-registry.d.ts
 declare function normalizeRealtimeTranscriptionProviderId(providerId: string | undefined): RealtimeTranscriptionProviderId | undefined;

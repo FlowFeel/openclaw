@@ -1,5 +1,5 @@
-import { t as OpenClawPluginDefinition } from "../../types-7SOOE25U.js";
-import { i as OpenClawPluginDefinition$1, r as OpenClawPluginConfigSchema } from "../../plugin-entry-D7C-ld89.js";
+import { t as OpenClawPluginDefinition } from "../../types-DOjBC-h-.js";
+import { i as OpenClawPluginDefinition$1, r as OpenClawPluginConfigSchema } from "../../plugin-entry-BCZEsMxf.js";
 
 //#region extensions/talk-voice/index.d.ts
 declare const _default: {

@@ -1,2 +1,2 @@
-import { t as registerPolicyDoctorChecks } from "../../register-BVyAKRx8.js";
+import { t as registerPolicyDoctorChecks } from "../../register-CGajQhGQ.js";
 export { registerPolicyDoctorChecks };

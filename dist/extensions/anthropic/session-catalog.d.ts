@@ -1,4 +1,4 @@
-import { n as OpenClawPluginApi } from "../../plugin-entry-D7C-ld89.js";
+import { n as OpenClawPluginApi } from "../../plugin-entry-BCZEsMxf.js";
 import { CLAUDE_CLI_NODE_RUN_COMMAND, CLAUDE_SESSIONS_LIST_COMMAND, CLAUDE_SESSION_READ_COMMAND, CLAUDE_TERMINAL_RESUME_COMMAND, ClaudeCatalogParamsError, isResumableClaudeSource } from "./session-catalog-shared.js";
 import { ClaudeSessionCatalogPage, ClaudeSessionTranscriptPage } from "./session-catalog-types.js";
 

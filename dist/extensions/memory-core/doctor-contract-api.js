@@ -12,14 +12,14 @@ import "../../routing-BYqzCOl5.js";
 import "../../runtime-doctor-9vOSwNaE.js";
 import { n as legacyStateFileExists, t as archiveLegacyStateSource } from "../../doctor-state-migration-fs-CfVap4xL.js";
 import "../../sqlite-runtime-kT0Fczvb.js";
-import "../../memory-core-host-engine-foundation-cTn58D9H.js";
-import "../../memory-core-host-engine-storage-BSaSUI84.js";
+import "../../memory-core-host-engine-foundation-DCzOSZiP.js";
+import "../../memory-core-host-engine-storage-PRsCOUxC.js";
 import "../../memory-core-host-status-DSYZv50a.js";
 import { n as normalizeMemoryHostEventRecordForStorage } from "../../event-store-CiR7zjXU.js";
 import { i as resolveMemoryHostEventLogPath } from "../../memory-host-events-FjUSRv2H.js";
 import { C as writeMemoryCoreWorkspaceEntry, S as writeMemoryCoreWorkspaceEntries, a as DREAMING_SESSION_INGESTION_SEEN_NAMESPACE, b as readMemoryCoreWorkspaceEntries, d as SHORT_TERM_RECALL_NAMESPACE, i as DREAMING_SESSION_INGESTION_FILES_NAMESPACE, l as SHORT_TERM_META_NAMESPACE, p as configureMemoryCoreDreamingState, t as DREAMING_DAILY_INGESTION_NAMESPACE, u as SHORT_TERM_PHASE_SIGNAL_NAMESPACE } from "../../dreaming-state-CswYxS-h.js";
 import { i as normalizeSessionIngestionState, n as normalizeDailyIngestionState } from "../../dreaming-ingestion-state-BNS21l_z.js";
-import { C as normalizeShortTermRecallStore, S as normalizeShortTermPhaseSignalStore, b as SHORT_TERM_PHASE_SIGNAL_RELATIVE_PATH, x as SHORT_TERM_STORE_RELATIVE_PATH } from "../../short-term-promotion-ByFj77Sc.js";
+import { C as normalizeShortTermRecallStore, S as normalizeShortTermPhaseSignalStore, b as SHORT_TERM_PHASE_SIGNAL_RELATIVE_PATH, x as SHORT_TERM_STORE_RELATIVE_PATH } from "../../short-term-promotion-y5kKzrnP.js";
 import crypto, { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
@@ -1552,8 +1552,8 @@ async function inspectConfiguredProvider(params) {
 	const [{ resolveAgentConfig }, foundation, embeddings, providerState] = await Promise.all([
 		import("../../plugin-sdk/agent-runtime.js"),
 		import("../../plugin-sdk/memory-core-host-engine-foundation.js"),
-		import("../../embeddings-DKWXUYWl.js"),
-		import("../../manager-provider-state-QDDUSfnW.js")
+		import("../../embeddings-DXFA0dfC.js"),
+		import("../../manager-provider-state-C2ehZetx.js")
 	]);
 	let settings;
 	try {

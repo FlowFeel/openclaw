@@ -15,7 +15,7 @@ import "../../ssrf-runtime-B8V5-MiN.js";
 import "../../logging-core-BYENfTXr.js";
 import { r as buildProviderToolCompatFamilyHooks } from "../../provider-tools-mj-Qt8cY.js";
 import { E as LMSTUDIO_DEFAULT_API_KEY_ENV_VAR, I as LMSTUDIO_PROVIDER_ID, L as LMSTUDIO_PROVIDER_LABEL, N as LMSTUDIO_DOCKER_HOST_INFERENCE_BASE_URL, T as resolveLoadedContextWindow, _ as normalizeLmstudioConfiguredCatalogEntries, k as LMSTUDIO_DEFAULT_INFERENCE_BASE_URL, l as resolveLmstudioRuntimeApiKey, n as ensureLmstudioModelLoaded, p as shouldUseLmstudioSyntheticAuth, s as resolveLmstudioProviderHeaders, x as resolveLmstudioInferenceBase, y as normalizeLmstudioProviderConfig } from "../../models.fetch-CW-nWhxg.js";
-import { t as lmstudioMemoryEmbeddingProviderAdapter } from "../../memory-embedding-adapter-DRRP4iLy.js";
+import { t as lmstudioMemoryEmbeddingProviderAdapter } from "../../memory-embedding-adapter-CvtcwR9O.js";
 //#region extensions/lmstudio/src/stream.ts
 const log = createSubsystemLogger("extensions/lmstudio/stream");
 const preloadInFlight = /* @__PURE__ */ new Map();

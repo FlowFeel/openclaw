@@ -1,6 +1,10 @@
 // Memory Host SDK module implements embeddings remote fetch behavior.
 import { postJson } from "./post-json.js";
 import type { SsrFPolicy } from "./ssrf-policy.js";
+import {
+  classifyEmbeddingError,
+  EmbeddingProviderUnreachableError,
+} from "./embedding-error-classifier.js";
 
 // Fetches and validates OpenAI-compatible embedding responses.
 
@@ -45,30 +49,39 @@ export async function fetchRemoteEmbeddingVectors(params: {
   body: unknown;
   errorPrefix: string;
 }): Promise<number[][]> {
-  return await postJson({
-    url: params.url,
-    headers: params.headers,
-    ssrfPolicy: params.ssrfPolicy,
-    fetchImpl: params.fetchImpl,
-    signal: params.signal,
-    body: params.body,
-    errorPrefix: params.errorPrefix,
-    parse: (payload) => {
-      const root = asRecord(payload);
-      if (!root || !Array.isArray(root.data)) {
-        throw malformedEmbeddingResponse(params.errorPrefix);
-      }
-      const expectedCount = resolveExpectedEmbeddingCount(params.body);
-      if (expectedCount !== undefined && root.data.length !== expectedCount) {
-        throw malformedEmbeddingResponse(params.errorPrefix);
-      }
-      return root.data.map((entry) => {
-        const record = asRecord(entry);
-        if (!record) {
+  try {
+    return await postJson({
+      url: params.url,
+      headers: params.headers,
+      ssrfPolicy: params.ssrfPolicy,
+      fetchImpl: params.fetchImpl,
+      signal: params.signal,
+      body: params.body,
+      errorPrefix: params.errorPrefix,
+      parse: (payload) => {
+        const root = asRecord(payload);
+        if (!root || !Array.isArray(root.data)) {
           throw malformedEmbeddingResponse(params.errorPrefix);
         }
-        return readEmbeddingVector(record.embedding, params.errorPrefix);
-      });
-    },
-  });
+        const expectedCount = resolveExpectedEmbeddingCount(params.body);
+        if (expectedCount !== undefined && root.data.length !== expectedCount) {
+          throw malformedEmbeddingResponse(params.errorPrefix);
+        }
+        return root.data.map((entry) => {
+          const record = asRecord(entry);
+          if (!record) {
+            throw malformedEmbeddingResponse(params.errorPrefix);
+          }
+          return readEmbeddingVector(record.embedding, params.errorPrefix);
+        });
+      },
+    });
+  } catch (error) {
+    const classified = classifyEmbeddingError(error);
+    if (classified.isTerminal) {
+      throw new EmbeddingProviderUnreachableError(classified.message, classified.code);
+    }
+    throw error;
+  }
 }
+

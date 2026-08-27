@@ -1,4 +1,4 @@
-import { n as OpenClawPluginApi } from "../../plugin-entry-D7C-ld89.js";
+import { n as OpenClawPluginApi } from "../../plugin-entry-BCZEsMxf.js";
 
 //#region extensions/telegram/miniapp-api.d.ts
 declare function registerTelegramMiniApp(api: OpenClawPluginApi): void;

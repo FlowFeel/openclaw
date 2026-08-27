@@ -1,4 +1,4 @@
-import { i as ProviderPlugin } from "../../types-7SOOE25U.js";
+import { i as ProviderPlugin } from "../../types-DOjBC-h-.js";
 //#region extensions/microsoft-foundry/provider.d.ts
 declare function buildMicrosoftFoundryProvider(): ProviderPlugin;
 //#endregion

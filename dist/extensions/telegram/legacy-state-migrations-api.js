@@ -1,2 +1,2 @@
-import { t as detectTelegramLegacyStateMigrations } from "../../state-migrations-FafQkY1N.js";
+import { t as detectTelegramLegacyStateMigrations } from "../../state-migrations-Y6cxpVpR.js";
 export { detectTelegramLegacyStateMigrations };

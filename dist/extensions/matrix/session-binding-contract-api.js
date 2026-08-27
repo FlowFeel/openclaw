@@ -1,4 +1,4 @@
 import { r as setMatrixRuntime } from "../../runtime-Drg4hYqm.js";
 import { s as resetMatrixThreadBindingsForTests } from "../../thread-bindings-shared-DK1Xgc7-.js";
-import { t as createMatrixThreadBindingManager } from "../../thread-bindings-DV9XLflT.js";
+import { t as createMatrixThreadBindingManager } from "../../thread-bindings-D800Hhv-.js";
 export { createMatrixThreadBindingManager, resetMatrixThreadBindingsForTests, setMatrixRuntime };

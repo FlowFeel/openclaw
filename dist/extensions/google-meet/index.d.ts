@@ -1,7 +1,7 @@
-import { t as OpenClawPluginDefinition } from "../../types-7SOOE25U.js";
+import { t as OpenClawPluginDefinition } from "../../types-DOjBC-h-.js";
 import { _t as GatewayClientMode, vt as GatewayClientName } from "../../setup-wizard-types-C896ZHgy.js";
 import { r as OperatorScope } from "../../types.public-CDX1pJx5.js";
-import { i as OpenClawPluginDefinition$1, r as OpenClawPluginConfigSchema } from "../../plugin-entry-D7C-ld89.js";
+import { i as OpenClawPluginDefinition$1, r as OpenClawPluginConfigSchema } from "../../plugin-entry-BCZEsMxf.js";
 import { IncomingMessage } from "node:http";
 import { Command } from "commander";
 

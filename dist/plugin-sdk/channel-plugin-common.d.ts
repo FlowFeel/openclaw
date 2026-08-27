@@ -1,6 +1,6 @@
 import { g as ChannelMessageActionContext } from "../types.core-VzIpsUlT.js";
 import { n as normalizeAccountId, t as DEFAULT_ACCOUNT_ID } from "../account-id-Dh6XMgGH.js";
-import { At as OpenClawPluginApi, Fa as PluginRuntime, nr as emptyPluginConfigSchema } from "../types-BMOPjNqu.js";
+import { At as OpenClawPluginApi, Fa as PluginRuntime, nr as emptyPluginConfigSchema } from "../types-CR0scl6B.js";
 import { t as ChannelPlugin } from "../types.plugin-CaaEEgNZ.js";
 import { i as buildChannelConfigSchema } from "../config-schema-B5b9P4G2.js";
 import { o as migrateBaseNameToDefaultAccount, t as applyAccountNameToChannelSection } from "../setup-helpers-DUkPShc3.js";

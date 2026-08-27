@@ -24,6 +24,9 @@ import { runtimeMemorySecretOwnerId } from "../secrets/runtime-memory-secret-own
 import { resolveOpenClawAgentSqlitePath } from "../state/openclaw-agent-db.paths.js";
 import { clampInt, clampNumber } from "../utils.js";
 import { resolveAgentConfig } from "./agent-scope.js";
+import { globalMemoryDegradationManager } from "../memory-host-sdk/host/memory-search-degradation.js";
+
+export { globalMemoryDegradationManager } from "../memory-host-sdk/host/memory-search-degradation.js";
 
 export type ResolvedMemorySearchConfig = {
   enabled: boolean;
@@ -51,6 +54,9 @@ export type ResolvedMemorySearchConfig = {
   experimental: {
     sessionMemory: boolean;
   };
+  failOnMissingProvider?: boolean;
+  fallbackToFtsOnFailure?: boolean;
+  embeddingConnectTimeoutMs?: number;
   fallback: string;
   model: string;
   inputType?: string;
@@ -353,6 +359,13 @@ function mergeConfig(
     experimental: {
       sessionMemory,
     },
+    failOnMissingProvider:
+      (overrides as Record<string, unknown> | undefined)?.failOnMissingProvider === true ||
+      (defaults as Record<string, unknown> | undefined)?.failOnMissingProvider === true,
+    fallbackToFtsOnFailure:
+      (overrides as Record<string, unknown> | undefined)?.fallbackToFtsOnFailure !== false &&
+      (defaults as Record<string, unknown> | undefined)?.fallbackToFtsOnFailure !== false,
+    embeddingConnectTimeoutMs: 3000,
     fallback,
     model,
     inputType,
@@ -398,6 +411,7 @@ function mergeConfig(
           : undefined,
     },
   };
+  return globalMemoryDegradationManager.applyRuntimeDegradation(result, agentId);
 }
 
 function resolveSyncConfig(
@@ -452,7 +466,7 @@ export function resolveMemorySearchConfig(
       'memory.search.multimodal does not support memory.search.fallback. Set fallback to "none".',
     );
   }
-  return resolved;
+  return globalMemoryDegradationManager.applyRuntimeDegradation(resolved, agentId);
 }
 
 export function resolveMemorySearchSyncConfig(
