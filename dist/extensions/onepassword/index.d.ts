@@ -1,5 +1,5 @@
-import { t as OpenClawPluginDefinition } from "../../types-BtZjyB2V.js";
-import { n as OpenClawPluginConfigSchema, r as OpenClawPluginDefinition$1 } from "../../plugin-entry-CnFsf3yf.js";
+import { t as OpenClawPluginDefinition } from "../../types-i_xbZp0W.js";
+import { n as OpenClawPluginConfigSchema, r as OpenClawPluginDefinition$1 } from "../../plugin-entry-C6mhVz2t.js";
 
 //#region extensions/onepassword/index.d.ts
 declare const _default: {

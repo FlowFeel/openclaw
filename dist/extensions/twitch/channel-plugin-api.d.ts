@@ -1,2 +1,2 @@
-import { t as twitchPlugin } from "../../plugin-Dtqs_ns3.js";
+import { t as twitchPlugin } from "../../plugin-DAJOdoGU.js";
 export { twitchPlugin };

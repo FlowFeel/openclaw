@@ -1,2 +1,2 @@
-import { t as discordSetupPlugin } from "../../channel.setup-Bi_ptzag.js";
+import { t as discordSetupPlugin } from "../../channel.setup-CmRpuSqd.js";
 export { discordSetupPlugin };

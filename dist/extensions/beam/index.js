@@ -4,7 +4,7 @@ import { k as getPluginRuntimeGatewayRequestScope } from "../../runtime-CaoLFEzk
 import { t as resolveConfiguredSecretInputString } from "../../resolve-configured-secret-input-string-DxIa9XNX.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import "../../plugin-runtime-WzMn37kT.js";
+import "../../plugin-runtime-BFj115mC.js";
 import { t as listActiveSessionCatalogs } from "../../session-catalog-runtime-DBR-2wP0.js";
 import "../../secret-input-runtime-Btgz9yT4.js";
 import "../../text-utility-runtime-D52Cj1WO.js";

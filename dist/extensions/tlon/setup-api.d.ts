@@ -1,4 +1,4 @@
-import { t as ChannelSetupWizard } from "../../setup-wizard-types-BkzT-fEX.js";
+import { t as ChannelSetupWizard } from "../../setup-wizard-types-CPFgdzIT.js";
 import { u as ChannelSetupAdapter } from "../../manifest-registry-DvSIzEBz.js";
 //#region extensions/tlon/src/setup-core.d.ts
 declare const tlonSetupAdapter: ChannelSetupAdapter;

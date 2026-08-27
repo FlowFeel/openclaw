@@ -1,4 +1,4 @@
-import { r as MigrationItem } from "../../plugin-entry-V3twzgF5.js";
+import { r as MigrationItem } from "../../plugin-entry-CS8C3z51.js";
 
 //#region extensions/migrate-hermes/items.d.ts
 declare const HERMES_REASON_ALREADY_CONFIGURED = "already configured";

@@ -1,7 +1,7 @@
 import { i as assertOkOrThrowProviderError, m as readProviderJsonResponse } from "../../provider-http-errors-Dm9G78mz.js";
 import { c as postJsonRequest } from "../../shared-Ck9SyaVQ.js";
-import { r as describeImagesWithModel, t as describeImageWithModel } from "../../image-runtime-LT9BKZ3N.js";
-import "../../media-understanding-C3rd2R7g.js";
+import { r as describeImagesWithModel, t as describeImageWithModel } from "../../image-runtime-2KuDgy0o.js";
+import "../../media-understanding-DpwESVRO.js";
 import "../../provider-http-C8bsuM26.js";
 import { n as normalizeGoogleModelId } from "../../model-id-CAmKILzd.js";
 import { s as DEFAULT_GOOGLE_API_BASE_URL } from "../../provider-policy-Ck-c3EWi.js";

@@ -1,5 +1,5 @@
 import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
-import { i as ChannelDoctorLegacyConfigRule, r as ChannelDoctorConfigMutation } from "../../types.public-DAdSmWXH.js";
+import { i as ChannelDoctorLegacyConfigRule, r as ChannelDoctorConfigMutation } from "../../types.public-Cbcwotuf.js";
 import { t as PluginDoctorStateMigration } from "../../runtime-doctor-C5vGzI3l.js";
 //#region extensions/zalouser/src/doctor-contract.d.ts
 declare const legacyConfigRules: ChannelDoctorLegacyConfigRule[];

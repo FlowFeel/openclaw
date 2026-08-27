@@ -1,2 +1,2 @@
-import { t as googlechatPlugin } from "../../channel-BfPyg0z-.js";
+import { t as googlechatPlugin } from "../../channel-BcGFbgvG.js";
 export { googlechatPlugin };

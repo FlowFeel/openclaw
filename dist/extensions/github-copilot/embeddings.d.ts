@@ -1,4 +1,4 @@
-import { Z as MemoryEmbeddingProviderAdapter } from "../../types-DXevx49n.js";
+import { Z as MemoryEmbeddingProviderAdapter } from "../../types-BNrl3zyK.js";
 //#region extensions/github-copilot/embeddings.d.ts
 declare const githubCopilotMemoryEmbeddingProviderAdapter: MemoryEmbeddingProviderAdapter;
 //#endregion

@@ -1,4 +1,4 @@
-import { i as ProviderPlugin } from "../../types-DJ09K2Ui.js";
+import { i as ProviderPlugin } from "../../types-kmCR57lP.js";
 //#region extensions/google/provider-discovery.d.ts
 declare const googleProviderDiscovery: ProviderPlugin;
 //#endregion

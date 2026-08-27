@@ -1,5 +1,5 @@
 import { n as OpenClawConfig } from "../../types.openclaw-rejpcq0R.js";
-import { m as ChannelDoctorLegacyConfigRule, p as ChannelDoctorConfigMutation } from "../../setup-wizard-types-v6t8q2zs.js";
+import { m as ChannelDoctorLegacyConfigRule, p as ChannelDoctorConfigMutation } from "../../setup-wizard-types-D2FWxWEi.js";
 //#region extensions/feishu/src/doctor-contract.d.ts
 declare const legacyConfigRules: ChannelDoctorLegacyConfigRule[];
 declare function normalizeCompatibilityConfig({

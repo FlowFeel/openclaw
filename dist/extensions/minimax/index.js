@@ -1,9 +1,9 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { n as buildMinimaxPortalImageGenerationProvider, t as buildMinimaxImageGenerationProvider } from "../../image-generation-provider-DGAGRijt.js";
-import { n as minimaxPortalMediaUnderstandingProvider, t as minimaxMediaUnderstandingProvider } from "../../media-understanding-provider-CRL3Gj1T.js";
+import { n as buildMinimaxPortalImageGenerationProvider, t as buildMinimaxImageGenerationProvider } from "../../image-generation-provider-DZPTn-w9.js";
+import { n as minimaxPortalMediaUnderstandingProvider, t as minimaxMediaUnderstandingProvider } from "../../media-understanding-provider-BOdvWf8u.js";
 import { n as buildMinimaxPortalMusicGenerationProvider, t as buildMinimaxMusicGenerationProvider } from "../../music-generation-provider-DtH15lxX.js";
 import { t as registerMinimaxProviders } from "../../provider-registration-CpQPbhQC.js";
-import { t as buildMinimaxSpeechProvider } from "../../speech-provider-Dfh4lNnO.js";
+import { t as buildMinimaxSpeechProvider } from "../../speech-provider-B35R3LyX.js";
 import { t as createMiniMaxWebSearchProvider } from "../../minimax-web-search-provider-DQ_PtpK8.js";
 import { n as buildMinimaxVideoGenerationProvider, t as buildMinimaxPortalVideoGenerationProvider } from "../../video-generation-provider-Dj3lqE7t.js";
 //#region extensions/minimax/index.ts

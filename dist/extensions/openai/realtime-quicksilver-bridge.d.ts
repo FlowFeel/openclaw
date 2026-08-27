@@ -1,4 +1,4 @@
-import { B as RealtimeVoiceBridge, G as RealtimeVoiceToolResultOptions, V as RealtimeVoiceBridgeCreateRequest } from "../../plugin-entry-DZ50A-uD.js";
+import { B as RealtimeVoiceBridge, G as RealtimeVoiceToolResultOptions, V as RealtimeVoiceBridgeCreateRequest } from "../../plugin-entry-DICCbWcY.js";
 import { t as OpenAIQuicksilverAuth } from "../../realtime-quicksilver-wire-D5CFFb_y.js";
 import { n as OpenAIQuicksilverSocketFactory } from "../../realtime-quicksilver-sideband-Dz6zybpI.js";
 

@@ -13,8 +13,8 @@ import { n as buildApiKeyCredential } from "../../provider-auth-helpers-JRB4OGdH
 import { s as stringEnum } from "../../typebox-ktRHOCRA.js";
 import "../../provider-auth-hyoglKV8.js";
 import { t as createProviderApiKeyAuthMethod } from "../../provider-api-key-auth-B4bN3XkF.js";
-import { r as describeImagesWithModel, t as describeImageWithModel } from "../../image-runtime-LT9BKZ3N.js";
-import "../../media-understanding-C3rd2R7g.js";
+import { r as describeImagesWithModel, t as describeImageWithModel } from "../../image-runtime-2KuDgy0o.js";
+import "../../media-understanding-DpwESVRO.js";
 import { a as buildOpenAICompatibleReplayPolicy } from "../../provider-replay-helpers-DtVD32X4.js";
 import "../../error-runtime-Nqb-RQG4.js";
 import "../../runtime-env-Cah9m5gV.js";

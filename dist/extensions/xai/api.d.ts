@@ -4,7 +4,7 @@ import { i as buildXaiProvider } from "../../provider-catalog-DCyfq9o-.js";
 import { a as applyXaiProviderConfig, r as applyXaiConfig, t as XAI_DEFAULT_MODEL_REF } from "../../onboard-B5ix10xt.js";
 import { t as buildXaiImageGenerationProvider } from "../../image-generation-provider-C4PqJcX0.js";
 import { a as XAI_DEFAULT_MODEL_ID, c as buildXaiModelDefinition, i as XAI_DEFAULT_MAX_TOKENS, n as XAI_DEFAULT_CONTEXT_WINDOW, o as XAI_IMAGE_MODELS, r as XAI_DEFAULT_IMAGE_MODEL, s as buildXaiCatalogModels, t as XAI_BASE_URL, u as resolveXaiCatalogEntry } from "../../model-definitions-CSbtc5oH.js";
-import { r as resolveXaiForwardCompatModel, t as isModernXaiModel } from "../../provider-models-B6TDSfUT.js";
+import { r as resolveXaiForwardCompatModel, t as isModernXaiModel } from "../../provider-models-dmn9D2gZ.js";
 import { t as applyXaiRuntimeModelCompat } from "../../runtime-model-compat-C_17pCLE.js";
 
 //#region extensions/xai/api.d.ts

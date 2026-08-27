@@ -1,6 +1,6 @@
-import { v as ProviderThinkingProfile } from "../../types-DJ09K2Ui.js";
+import { v as ProviderThinkingProfile } from "../../types-kmCR57lP.js";
 import { l as ModelProviderConfig } from "../../types.openclaw-Becy5MdM.js";
-import { c as ProviderDefaultThinkingPolicyContext } from "../../plugin-entry-CC26Si1X.js";
+import { c as ProviderDefaultThinkingPolicyContext } from "../../plugin-entry-Bcv4dwhw.js";
 //#region extensions/google/provider-policy-api.d.ts
 declare function normalizeConfig(params: {
   provider: string;

@@ -1,4 +1,4 @@
-import { p as ReplyPayload } from "../types-Cg5L90mm.js";
+import { p as ReplyPayload } from "../types-KopZMiGd.js";
 import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
 
 //#region src/plugin-sdk/command-status.runtime.d.ts

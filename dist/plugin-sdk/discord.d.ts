@@ -1,16 +1,16 @@
 import { r as OpenClawConfig } from "../types.openclaw-BwKjboya.js";
-import { O as ChannelStatusIssue, d as ChannelGroupContext, h as ChannelMessageActionAdapter, r as ChannelAccountSnapshot } from "../types.core-CSYqXgCB.js";
+import { O as ChannelStatusIssue, d as ChannelGroupContext, h as ChannelMessageActionAdapter, r as ChannelAccountSnapshot } from "../types.core-D0Io7PdJ.js";
 import { n as normalizeAccountId, t as DEFAULT_ACCOUNT_ID } from "../account-id-Dh6XMgGH.js";
-import { At as OpenClawPluginApi, Fa as PluginRuntime, nr as emptyPluginConfigSchema } from "../types-CaDBLrp9.js";
-import { t as ChannelPlugin } from "../types.plugin-BGHQY4iG.js";
+import { At as OpenClawPluginApi, Fa as PluginRuntime, nr as emptyPluginConfigSchema } from "../types-CtE8kx2y.js";
+import { t as ChannelPlugin } from "../types.plugin-DN0RwfWE.js";
 import { S as MessageReceipt } from "../types-C6GVpLYk.js";
-import { t as ChannelMessageActionName } from "../types.public-BMR8QlXS.js";
+import { t as ChannelMessageActionName } from "../types.public-by8ltgNs.js";
 import { i as buildChannelConfigSchema } from "../config-schema-B5b9P4G2.js";
 import { o as migrateBaseNameToDefaultAccount, t as applyAccountNameToChannelSection } from "../setup-helpers-Cs_I-bc4.js";
 import { t as PAIRING_APPROVED_MESSAGE } from "../pairing-message-CFjlYpMw.js";
-import { t as getChatChannelMeta } from "../channel-plugin-common-CNl0xIP1.js";
-import { n as resolveConfiguredFromCredentialStatuses, t as projectCredentialSnapshotFields } from "../channel-status-yleZkfAz.js";
-import { i as buildComputedAccountStatusSnapshot, s as buildTokenChannelStatusSummary } from "../status-helpers-wWO2hjiQ.js";
+import { t as getChatChannelMeta } from "../channel-plugin-common-7GMmQMp2.js";
+import { n as resolveConfiguredFromCredentialStatuses, t as projectCredentialSnapshotFields } from "../channel-status-DD55BAxG.js";
+import { i as buildComputedAccountStatusSnapshot, s as buildTokenChannelStatusSummary } from "../status-helpers-C-JZg2lb.js";
 //#region src/plugin-sdk/discord.d.ts
 /** Discord channel config shape for one account in OpenClaw config. */
 type DiscordAccountConfig = NonNullable<NonNullable<OpenClawConfig["channels"]>["discord"]>;

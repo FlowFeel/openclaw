@@ -1,8 +1,8 @@
 import { r as OpenClawConfig } from "../types.openclaw-BwKjboya.js";
-import { l as ChannelDirectoryEntry, u as ChannelDirectoryEntryKind } from "../types.core-CSYqXgCB.js";
+import { l as ChannelDirectoryEntry, u as ChannelDirectoryEntryKind } from "../types.core-D0Io7PdJ.js";
 import { t as ChannelId } from "../channel-id.types-CjcGKHk0.js";
-import { f as ChannelDirectoryAdapter } from "../types.adapters-lflNuFyn.js";
-import { t as createRuntimeDirectoryLiveAdapter } from "../runtime-forwarders-BXZyhqWs.js";
+import { f as ChannelDirectoryAdapter } from "../types.adapters-DUUZw4P7.js";
+import { t as createRuntimeDirectoryLiveAdapter } from "../runtime-forwarders-l6fZz_kV.js";
 
 //#region src/channels/plugins/directory-types.d.ts
 /**

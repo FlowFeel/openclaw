@@ -1,5 +1,5 @@
 import { t as ChannelId } from "../channel-id.types-CjcGKHk0.js";
-import { Fa as PluginRuntime } from "../types-CaDBLrp9.js";
+import { Fa as PluginRuntime } from "../types-CtE8kx2y.js";
 import { t as ChannelPairingAdapter } from "../pairing.types-DuBlS2J8.js";
 import { n as readChannelAllowFromStoreSync, t as readChannelAllowFromStore } from "../pairing-store-DEMQHF7W.js";
 

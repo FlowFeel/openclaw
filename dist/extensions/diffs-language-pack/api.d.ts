@@ -1,2 +1,2 @@
-import { a as OpenClawPluginHttpRouteHandler, g as definePluginEntry, n as OpenClawPluginApi, s as PluginLogger } from "../../plugin-entry-CC26Si1X.js";
+import { a as OpenClawPluginHttpRouteHandler, g as definePluginEntry, n as OpenClawPluginApi, s as PluginLogger } from "../../plugin-entry-Bcv4dwhw.js";
 export { type OpenClawPluginApi, type OpenClawPluginHttpRouteHandler, type PluginLogger, definePluginEntry };

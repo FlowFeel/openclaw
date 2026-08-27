@@ -1,3 +1,3 @@
-import { n as ChannelPlugin } from "../../types.public-CsbJ5efK.js";
-import { t as msteamsPlugin } from "../../channel-Culuj8NR.js";
+import { n as ChannelPlugin } from "../../types.public-Dm-aI6U0.js";
+import { t as msteamsPlugin } from "../../channel-B-8BkBo2.js";
 export { type ChannelPlugin, msteamsPlugin };

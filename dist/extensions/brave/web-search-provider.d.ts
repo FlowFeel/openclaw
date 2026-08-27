@@ -1,4 +1,4 @@
-import { p as WebSearchProviderPlugin } from "../../types-DJ09K2Ui.js";
+import { p as WebSearchProviderPlugin } from "../../types-kmCR57lP.js";
 //#region extensions/brave/src/brave-web-search-provider.d.ts
 /** Create the runtime Brave Search provider descriptor. */
 declare function createBraveWebSearchProvider(): WebSearchProviderPlugin;

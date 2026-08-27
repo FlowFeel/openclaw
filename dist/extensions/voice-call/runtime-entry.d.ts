@@ -1,9 +1,9 @@
-import { s as SessionScope } from "../../types-CQPY6xqg.js";
+import { s as SessionScope } from "../../types-COxVeYYx.js";
 import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
 import { S as $strip, _ as ZodUnion, b as $catchall, c as ZodNull, d as ZodOptional, f as ZodRecord, i as ZodDiscriminatedUnion, l as ZodNumber, n as ZodBoolean, o as ZodEnum, p as ZodString, r as ZodDefault, s as ZodLiteral, t as ZodArray, u as ZodObject, v as ZodUnknown, x as $strict, y as output } from "../../schemas-Cd6yayeo.js";
-import { C as TtsDirectiveParseResult, S as TtsDirectiveOverrides, V as PluginRuntime, f as RealtimeTranscriptionProviderPlugin, g as RealtimeTranscriptionProviderConfig, h as RealtimeVoiceProviderConfig, p as RealtimeVoiceProviderPlugin, x as TalkEvent } from "../../types-DXevx49n.js";
+import { C as TtsDirectiveParseResult, S as TtsDirectiveOverrides, V as PluginRuntime, f as RealtimeTranscriptionProviderPlugin, g as RealtimeTranscriptionProviderConfig, h as RealtimeVoiceProviderConfig, p as RealtimeVoiceProviderPlugin, x as TalkEvent } from "../../types-BNrl3zyK.js";
 import { n as TtsConfigSchema } from "../../runtime-api-CiV-cZUf.js";
-import { s as OpenClawPluginApi } from "../../plugin-entry-V3twzgF5.js";
+import { s as OpenClawPluginApi } from "../../plugin-entry-CS8C3z51.js";
 import { Duplex } from "node:stream";
 import http, { IncomingMessage } from "node:http";
 

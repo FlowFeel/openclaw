@@ -1,4 +1,4 @@
-import { n as OpenClawPluginApi } from "../../plugin-entry-B5PMaQG5.js";
+import { n as OpenClawPluginApi } from "../../plugin-entry-DoQDAyTc.js";
 
 //#region extensions/minimax/provider-registration.d.ts
 declare function registerMinimaxProviders(api: OpenClawPluginApi): void;

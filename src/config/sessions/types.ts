@@ -22,6 +22,7 @@ import type {
   SessionCreatedVia,
   SessionEntryProvenance,
 } from "./session-entry-provenance.js";
+import type { PromptMode } from "../../agents/system-prompt.types.js";
 import type { AgentPatchedSessionModelFallback } from "./session-model-fallback.js";
 
 export type SessionScope = "per-sender" | "global";
@@ -547,6 +548,8 @@ type SessionEntryCore = SessionRestartRecoveryState &
     cacheWrite?: number;
     modelProvider?: string;
     model?: string;
+    /** Active prompt rendering mode override for this session ('full' | 'minimal' | 'scaffold' | 'bare'). */
+    promptMode?: PromptMode;
     /**
      * Prevents OpenClaw model changes and automatic maintenance eviction until
      * the owning harness explicitly retires the session.

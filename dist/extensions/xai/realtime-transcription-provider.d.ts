@@ -1,4 +1,4 @@
-import { c as RealtimeTranscriptionProviderPlugin } from "../../types-BtZjyB2V.js";
+import { c as RealtimeTranscriptionProviderPlugin } from "../../types-i_xbZp0W.js";
 
 //#region extensions/xai/realtime-transcription-provider.d.ts
 declare function buildXaiRealtimeTranscriptionProvider(): RealtimeTranscriptionProviderPlugin;

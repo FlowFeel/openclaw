@@ -43,6 +43,7 @@ import { prepareWatchedSessionsPrompt } from "../../watched-sessions-prompt.js";
 import { buildEmbeddedMessageActionDiscoveryInput } from "../message-action-discovery-input.js";
 import { buildEmbeddedSandboxInfo, resolveEmbeddedSandboxInfoExecPolicy } from "../sandbox-info.js";
 import { buildEmbeddedSystemPrompt } from "../system-prompt.js";
+import { loadSessionEntry } from "../../../config/sessions/session-accessor.js";
 import type { prepareEmbeddedAttemptBootstrap } from "./attempt-bootstrap-prepare.js";
 import { buildAttemptSystemPrompt } from "./attempt-system-prompt.js";
 import {
@@ -198,7 +199,14 @@ export async function prepareEmbeddedAttemptSystemPrompt(params: {
   });
   const isDefaultAgent = params.sessionAgentId === params.defaultAgentId;
   const configPromptMode = attempt.config?.agents?.defaults?.promptMode;
+  const sessionEntry = attempt.sessionKey
+    ? loadSessionEntry({
+        agentId: params.sessionAgentId,
+        sessionKey: attempt.sessionKey,
+      })
+    : undefined;
   const promptMode =
+    sessionEntry?.promptMode ??
     attempt.promptMode ??
     (params.isRawModelRun
       ? "none"

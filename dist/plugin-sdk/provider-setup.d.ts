@@ -1,9 +1,9 @@
-import { c as defineSelfHostedOpenAICompatibleProvider, o as SelfHostedOpenAICompatibleProviderOptions } from "../provider-model-shared-Civ3x6id.js";
+import { c as defineSelfHostedOpenAICompatibleProvider, o as SelfHostedOpenAICompatibleProviderOptions } from "../provider-model-shared-B4Uw4Woi.js";
 import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
 import { i as ModelDefinitionConfig } from "../types.models-Cbb-WeIa.js";
 import { n as AuthProfileCredential } from "../types-BqfkEFeu.js";
-import { n as WizardPrompter } from "../types.plugin-BvKdinQs.js";
-import { An as ProviderAuthResult, Bn as ProviderRuntimeModel, Dn as ProviderAuthContext, Hn as ProviderCatalogContext, kn as ProviderAuthMethodNonInteractiveContext, r as OpenClawPluginApi, wn as ProviderPrepareDynamicModelContext } from "../types-DlorAczx.js";
+import { n as WizardPrompter } from "../types.plugin-BR9BEK0e.js";
+import { An as ProviderAuthResult, Bn as ProviderRuntimeModel, Dn as ProviderAuthContext, Hn as ProviderCatalogContext, kn as ProviderAuthMethodNonInteractiveContext, r as OpenClawPluginApi, wn as ProviderPrepareDynamicModelContext } from "../types-fxGJj6Ov.js";
 
 //#region src/agents/self-hosted-provider-defaults.d.ts
 /**

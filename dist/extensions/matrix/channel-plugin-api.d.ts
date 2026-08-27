@@ -1,2 +1,2 @@
-import { t as matrixPlugin } from "../../channel-DTt_EER8.js";
+import { t as matrixPlugin } from "../../channel-DHpiYOtR.js";
 export { matrixPlugin };

@@ -1,5 +1,5 @@
-import { t as ChannelPlugin } from "../../types.public-DAdSmWXH.js";
-import { t as BundledChannelEntryContract } from "../../channel-entry-contract-B-jvlzKA.js";
+import { t as ChannelPlugin } from "../../types.public-Cbcwotuf.js";
+import { t as BundledChannelEntryContract } from "../../channel-entry-contract-KfStDOiL.js";
 
 //#region extensions/zalouser/index.d.ts
 declare const _default: BundledChannelEntryContract<ChannelPlugin>;

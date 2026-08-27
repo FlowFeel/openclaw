@@ -1,4 +1,4 @@
-import { f as ActiveMemoryMode } from "../../types-C2eFlfUM.js";
+import { f as ActiveMemoryMode } from "../../types-C-rq0q5B.js";
 
 //#region extensions/active-memory/escalation.d.ts
 declare function hasRecallIntent(message: string): boolean;

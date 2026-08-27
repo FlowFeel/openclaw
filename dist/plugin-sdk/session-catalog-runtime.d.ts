@@ -1,4 +1,4 @@
-import { Yn as SessionCatalogProvider } from "../types-DlorAczx.js";
+import { Yn as SessionCatalogProvider } from "../types-fxGJj6Ov.js";
 
 //#region src/plugins/session-catalog-active.d.ts
 type ActiveSessionCatalog = {

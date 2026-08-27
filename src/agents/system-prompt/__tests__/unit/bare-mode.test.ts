@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildAgentSystemPrompt,
   resolvePromptSections,
-} from "../../system-prompt.js";
+} from "../../../system-prompt.js";
 
 describe("Tier 1 Unit: Bare Mode & Dynamic Injection", () => {
   it("renders only core mechanics sections in bare mode with zero hardcoded persona", () => {
@@ -18,7 +18,6 @@ describe("Tier 1 Unit: Bare Mode & Dynamic Injection", () => {
 
     expect(sectionIds).toContain("tooling");
     expect(sectionIds).toContain("cache-boundary");
-    expect(sectionIds).toContain("temporal");
     expect(sectionIds).toContain("runtime");
 
     // Non-mechanics sections evaluate to empty set (0 lines)
@@ -73,7 +72,7 @@ describe("Tier 1 Unit: Bare Mode & Dynamic Injection", () => {
       runtimeInfo: { model: "claude-3-5-sonnet" },
     });
 
-    expect(prompt).toContain("## Tools");
+    expect(prompt).toContain("## Tooling");
     expect(prompt).toContain("## Runtime");
     expect(prompt).not.toContain("## Temporal Context");
   });

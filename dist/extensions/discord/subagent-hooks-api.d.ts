@@ -1,4 +1,4 @@
-import { r as OpenClawPluginApi } from "../../channel-entry-contract-DYLp7rA0.js";
+import { r as OpenClawPluginApi } from "../../channel-entry-contract-BfwEggpZ.js";
 
 //#region extensions/discord/subagent-hooks-api.d.ts
 declare function registerDiscordSubagentHooks(api: OpenClawPluginApi): void;

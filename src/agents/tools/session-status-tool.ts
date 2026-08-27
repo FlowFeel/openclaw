@@ -63,6 +63,8 @@ import {
 import { createModelVisibilityPolicy } from "../model-visibility-policy.js";
 import { loadPreparedModelCatalog } from "../prepared-model-catalog.js";
 import { resolveSessionModelIdentityRef } from "../session-model-ref.js";
+import type { PromptMode } from "../system-prompt.types.js";
+import { resolvePromptModeForSession } from "../embedded-agent-runner/run/attempt.prompt-helpers.js";
 import {
   describeSessionStatusTool,
   SESSION_STATUS_TOOL_DISPLAY_SUMMARY,
@@ -94,6 +96,7 @@ import {
 const SessionStatusToolSchema = Type.Object({
   sessionKey: Type.Optional(Type.String()),
   model: Type.Optional(Type.String()),
+  promptMode: Type.Optional(Type.String()),
   changesSince: Type.Optional(Type.Integer({ minimum: 0 })),
 });
 
@@ -146,6 +149,8 @@ const SessionStatusOutputSchema = Type.Object(
     ok: Type.Literal(true),
     sessionKey: Type.String(),
     changedModel: Type.Boolean(),
+    changedPromptMode: Type.Optional(Type.Boolean()),
+    promptMode: Type.Optional(Type.String()),
     stateVersion: Type.Integer(),
     statusText: Type.String(),
     stateChanges: Type.Optional(
@@ -948,6 +953,67 @@ export function createSessionStatusTool(opts?: {
             }
           }
 
+          const promptModeRaw = readStringParam(params, "promptMode");
+          let changedPromptMode = false;
+          if (typeof promptModeRaw === "string") {
+            const normalized = promptModeRaw.trim().toLowerCase();
+            if (normalized === "none") {
+              throw new Error("promptMode 'none' is production-guarded and cannot be set via runtime tool call.");
+            }
+            let targetPromptMode: PromptMode | undefined;
+            if (normalized === "reset" || normalized === "default") {
+              targetPromptMode = undefined;
+            } else if (
+              normalized === "full" ||
+              normalized === "minimal" ||
+              normalized === "scaffold" ||
+              normalized === "bare"
+            ) {
+              targetPromptMode = normalized as PromptMode;
+            } else {
+              throw new Error(
+                `Unrecognized promptMode "${promptModeRaw}". Allowed: "full", "minimal", "scaffold", "bare", "reset", "default".`,
+              );
+            }
+
+            if (scopedResolved.entry.promptMode !== targetPromptMode) {
+              const patchResult = await patchSessionEntryWithKey(
+                {
+                  agentId,
+                  sessionKey: scopedResolved.key,
+                  storePath,
+                },
+                (entry, context) => {
+                  const persistedPatch: SessionEntry = { ...entry };
+                  if (targetPromptMode === undefined) {
+                    delete persistedPatch.promptMode;
+                  } else {
+                    persistedPatch.promptMode = targetPromptMode;
+                  }
+                  if (
+                    !persistedPatch.sessionId.trim() &&
+                    !context.existingEntry?.sessionId?.trim()
+                  ) {
+                    persistedPatch.sessionId = randomUUID();
+                  }
+                  return persistedPatch;
+                },
+                {
+                  fallbackEntry: scopedResolved.persisted ? undefined : scopedResolved.entry,
+                  replaceEntry: true,
+                },
+              );
+              if (patchResult) {
+                scopedResolved = {
+                  entry: patchResult.entry,
+                  key: patchResult.sessionKey,
+                  persisted: true,
+                };
+                changedPromptMode = true;
+              }
+            }
+          }
+
           const activeModelId = opts?.activeModelId?.trim();
           const activeModelProvider = opts?.activeModelProvider?.trim();
           const isImplicitCurrentRequest = requestedKeyParam === undefined;
@@ -1107,6 +1173,11 @@ export function createSessionStatusTool(opts?: {
               ok: true,
               sessionKey: scopedResolved.key,
               changedModel,
+              promptMode:
+                scopedResolved.entry.promptMode ??
+                cfg.agents?.defaults?.promptMode ??
+                resolvePromptModeForSession(scopedResolved.key),
+              ...(changedPromptMode ? { changedPromptMode: true } : {}),
               stateVersion,
               ...(stateChanges ? { stateChanges } : {}),
               ...(modelRaw !== undefined
@@ -1119,9 +1190,6 @@ export function createSessionStatusTool(opts?: {
                   }
                 : {}),
               statusText: visibleStatusText,
-              envelope: resolveSelfStateEnvelope([], {
-                activeRoute: "fits",
-              }),
               ...routeDetails,
             },
           };

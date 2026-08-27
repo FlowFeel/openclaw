@@ -1,7 +1,7 @@
-import { f as normalizeGooglePreviewModelId } from "../provider-model-shared-Civ3x6id.js";
+import { f as normalizeGooglePreviewModelId } from "../provider-model-shared-B4Uw4Woi.js";
 import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
 import { r as AuthProfileStore } from "../types-BqfkEFeu.js";
-import { hn as resolveApiKeyForProvider$1, m as ImageGenerationProviderPlugin } from "../types-DlorAczx.js";
+import { hn as resolveApiKeyForProvider$1, m as ImageGenerationProviderPlugin } from "../types-fxGJj6Ov.js";
 import { t as FallbackAttempt } from "../model-fallback.types-97WZcYrx.js";
 import { n as createSubsystemLogger } from "../subsystem-RmDRaRJV.js";
 import { _ as ImageGenerationSourceImage, d as ImageGenerationProviderConfiguredContext, f as ImageGenerationProviderOptions, g as ImageGenerationResult, h as ImageGenerationResolution, l as ImageGenerationProvider, m as ImageGenerationRequest, t as GeneratedImageAsset } from "../types-Dgl6wS7O.js";
@@ -9,7 +9,7 @@ import { n as getProviderEnvVars } from "../provider-env-vars-FZEzpQ8b.js";
 import { n as isFailoverError, t as describeFailoverError } from "../failover-error-C39zfedP.js";
 import { i as throwCapabilityGenerationFailure, n as resolveCapabilityModelCandidates, t as buildNoCapabilityModelConfiguredMessage } from "../runtime-shared-B2sffNvU.js";
 import { n as resolveAgentModelPrimaryValue, t as resolveAgentModelFallbackValues } from "../model-input-0hu-ONGj.js";
-import { n as listImageGenerationProviders, t as getImageGenerationProvider } from "../provider-registry-bq7WcmOg.js";
+import { n as listImageGenerationProviders, t as getImageGenerationProvider } from "../provider-registry-TK3dA2l_.js";
 
 //#region src/plugin-sdk/image-generation-core.auth.runtime.d.ts
 declare namespace image_generation_core_auth_runtime_d_exports {

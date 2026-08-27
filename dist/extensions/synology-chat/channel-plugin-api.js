@@ -1,2 +1,2 @@
-import { t as synologyChatPlugin } from "../../channel-D7kUgfTS.js";
+import { t as synologyChatPlugin } from "../../channel-DEzHPx_z.js";
 export { synologyChatPlugin };

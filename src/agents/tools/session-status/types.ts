@@ -51,6 +51,8 @@ export const SessionStatusOutputSchema = Type.Object(
     model: Type.Optional(Type.String()),
     modelProvider: Type.Optional(Type.String()),
     modelOverride: Type.Optional(Type.Union([Type.String(), Type.Null()])),
+    promptMode: Type.Optional(Type.String()),
+    changedPromptMode: Type.Optional(Type.Boolean()),
   },
   { additionalProperties: false },
 );
@@ -67,6 +69,12 @@ export const SessionStatusParamsSchema = Type.Object(
       Type.String({
         description:
           "Optional model override for the target session (e.g., 'anthropic/claude-3-7-sonnet', 'openai/gpt-4.5-preview', 'default', or 'reset').",
+      }),
+    ),
+    promptMode: Type.Optional(
+      Type.String({
+        description:
+          "Optional prompt mode override for the target session ('full', 'minimal', 'scaffold', 'bare', 'reset', or 'default'). 'none' is blocked at runtime.",
       }),
     ),
     changesSince: Type.Optional(

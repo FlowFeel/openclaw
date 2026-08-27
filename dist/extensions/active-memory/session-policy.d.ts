@@ -1,6 +1,6 @@
 import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
-import { s as OpenClawPluginApi } from "../../plugin-entry-V3twzgF5.js";
-import { ot as ResolvedActiveRecallPluginConfig } from "../../types-C2eFlfUM.js";
+import { s as OpenClawPluginApi } from "../../plugin-entry-CS8C3z51.js";
+import { ot as ResolvedActiveRecallPluginConfig } from "../../types-C-rq0q5B.js";
 
 //#region extensions/active-memory/session-policy.d.ts
 declare function isSessionActiveMemoryDisabled(params: {

@@ -1,2 +1,2 @@
-import { t as openaiMediaUnderstandingProvider } from "../../media-understanding-provider-D4rjILEV.js";
+import { t as openaiMediaUnderstandingProvider } from "../../media-understanding-provider-BygGs2Po.js";
 export { openaiMediaUnderstandingProvider };

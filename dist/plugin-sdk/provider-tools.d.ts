@@ -1,4 +1,4 @@
-import { f as ProviderNormalizeToolSchemasContext, p as ProviderToolSchemaDiagnostic, t as AnyAgentTool } from "../plugin-entry-Bt9dbSvm.js";
+import { f as ProviderNormalizeToolSchemasContext, p as ProviderToolSchemaDiagnostic, t as AnyAgentTool } from "../plugin-entry-BIufdQKu.js";
 import { GEMINI_UNSUPPORTED_SCHEMA_KEYWORDS, cleanSchemaForGemini, cleanSchemaForLlamacppGbnf, findLlamacppGbnfSchemaViolations, findOpenAIStrictSchemaViolations, stripUnsupportedSchemaKeywords } from "@openclaw/ai/internal/openai";
 
 //#region src/plugin-sdk/provider-tools.d.ts

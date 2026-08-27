@@ -1,4 +1,4 @@
-import { n as ChannelPlugin } from "../../types.public-CsbJ5efK.js";
+import { n as ChannelPlugin } from "../../types.public-Dm-aI6U0.js";
 import { t as ResolvedMSTeamsAccount } from "../../channel-config-DUdFLYdP.js";
 
 //#region extensions/msteams/src/channel.setup.d.ts

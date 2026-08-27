@@ -1,2 +1,2 @@
-import { t as buildOpenAISpeechProvider } from "../../speech-provider-idh20Mjy.js";
+import { t as buildOpenAISpeechProvider } from "../../speech-provider-CWTzOTXS.js";
 export { buildOpenAISpeechProvider };

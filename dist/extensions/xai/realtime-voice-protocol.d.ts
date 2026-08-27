@@ -1,2 +1,2 @@
-import { n as XaiRealtimeVoiceProtocol, t as XaiRealtimePlaybackMarkOverflowError } from "../../realtime-voice-protocol-BrTs6tSr.js";
+import { n as XaiRealtimeVoiceProtocol, t as XaiRealtimePlaybackMarkOverflowError } from "../../realtime-voice-protocol-kLIfn4m4.js";
 export { XaiRealtimePlaybackMarkOverflowError, XaiRealtimeVoiceProtocol };

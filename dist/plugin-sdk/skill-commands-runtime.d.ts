@@ -1,2 +1,2 @@
-import { n as listSkillCommandsForWorkspace, t as listSkillCommandsForAgents } from "../chat-commands-pmWFtrj8.js";
+import { n as listSkillCommandsForWorkspace, t as listSkillCommandsForAgents } from "../chat-commands-ChZOtZCW.js";
 export { listSkillCommandsForAgents, listSkillCommandsForWorkspace };

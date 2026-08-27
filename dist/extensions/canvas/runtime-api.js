@@ -2,8 +2,8 @@ import { t as resolveHostedPluginSurfaceUrl } from "../../hosted-plugin-surface-
 import "../../gateway-runtime-w2Zuxd4x.js";
 import { c as isCanvasPluginEnabled, l as parseCanvasPluginConfig, n as CANVAS_HOST_PATH, o as canvasConfigSchema, r as CANVAS_WS_PATH, s as isCanvasHostEnabled, t as A2UI_PATH, u as resolveCanvasHostConfig } from "../../a2ui-shared-C-Nk2LFW.js";
 import { n as handleA2uiHttpRequest, t as createCanvasHostHandler } from "../../server-DzOiDrYK.js";
-import { r as parseCanvasSnapshotPayload, t as canvasSnapshotTempPath } from "../../cli-helpers-B_mRBdFx.js";
-import { n as registerNodesCanvasCommands } from "../../cli-DjVU0X9Q.js";
+import { r as parseCanvasSnapshotPayload, t as canvasSnapshotTempPath } from "../../cli-helpers-ChEiWxJY.js";
+import { n as registerNodesCanvasCommands } from "../../cli-RrIRPA_v.js";
 //#region extensions/canvas/src/host-url.ts
 /**
 * Canvas hosted-surface URL resolver.

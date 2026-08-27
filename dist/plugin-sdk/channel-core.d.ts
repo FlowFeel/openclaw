@@ -1,12 +1,12 @@
 import { r as OpenClawConfig } from "../types.openclaw-BwKjboya.js";
 import { r as ChannelConfigUiHint } from "../types.config-C6_VK-8V.js";
-import { Fa as PluginRuntime } from "../types-CaDBLrp9.js";
-import { t as ChannelPlugin } from "../types.plugin-BGHQY4iG.js";
+import { Fa as PluginRuntime } from "../types-CtE8kx2y.js";
+import { t as ChannelPlugin } from "../types.plugin-DN0RwfWE.js";
 import { r as tryReadSecretFileSync } from "../secret-file-hSV0cot8.js";
-import { a as buildThreadAwareOutboundSessionRoute, c as defineChannelPluginEntry, f as recoverCurrentThreadSessionId, i as buildChannelOutboundSessionRoute, l as defineSetupPluginEntry, m as stripTargetKindPrefix, p as stripChannelTargetPrefix, s as createChatChannelPlugin, t as ChannelOutboundSessionRouteParams } from "../core-Cfzbvqz-.js";
-import { B as PluginCommandContext, g as OpenClawPluginApi } from "../plugin-entry-CMk4fx6_.js";
+import { a as buildThreadAwareOutboundSessionRoute, c as defineChannelPluginEntry, f as recoverCurrentThreadSessionId, i as buildChannelOutboundSessionRoute, l as defineSetupPluginEntry, m as stripTargetKindPrefix, p as stripChannelTargetPrefix, s as createChatChannelPlugin, t as ChannelOutboundSessionRouteParams } from "../core-W0Q6wwti.js";
+import { B as PluginCommandContext, g as OpenClawPluginApi } from "../plugin-entry-DDIjUd7t.js";
 import { i as buildChannelConfigSchema } from "../config-schema-B5b9P4G2.js";
 import { t as clearAccountEntryFields } from "../config-helpers-DAnowdw-.js";
-import { r as parseOptionalDelimitedEntries } from "../helpers-C2BioSIT.js";
-import { n as createChannelConfigUiHints, t as createChannelPluginBase } from "../channel-core-C_O5R-og.js";
+import { r as parseOptionalDelimitedEntries } from "../helpers-CcVYhuUN.js";
+import { n as createChannelConfigUiHints, t as createChannelPluginBase } from "../channel-core-BSwpG-W8.js";
 export { type ChannelConfigUiHint, type ChannelOutboundSessionRouteParams, type ChannelPlugin, type OpenClawConfig, type OpenClawPluginApi, type PluginCommandContext, type PluginRuntime, buildChannelConfigSchema, buildChannelOutboundSessionRoute, buildThreadAwareOutboundSessionRoute, clearAccountEntryFields, createChannelConfigUiHints, createChannelPluginBase, createChatChannelPlugin, defineChannelPluginEntry, defineSetupPluginEntry, parseOptionalDelimitedEntries, recoverCurrentThreadSessionId, stripChannelTargetPrefix, stripTargetKindPrefix, tryReadSecretFileSync };

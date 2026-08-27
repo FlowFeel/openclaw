@@ -1,7 +1,7 @@
-import { $t as WebSearchProviderToolDefinition, Qt as WebSearchProviderSetupContext, Xt as WebSearchCredentialResolutionSource, Zt as WebSearchProviderPlugin, en as WebSearchProviderToolExecutionContext } from "../types-DlorAczx.js";
+import { $t as WebSearchProviderToolDefinition, Qt as WebSearchProviderSetupContext, Xt as WebSearchCredentialResolutionSource, Zt as WebSearchProviderPlugin, en as WebSearchProviderToolExecutionContext } from "../types-fxGJj6Ov.js";
 import { t as enablePluginInConfig } from "../provider-enable-config-Boz7XZ64.js";
 import { a as setProviderWebSearchPluginConfigValue, i as resolveProviderWebSearchPluginConfig, n as getTopLevelCredentialValue, o as setScopedCredentialValue, r as mergeScopedSearchConfig, s as setTopLevelCredentialValue, t as getScopedCredentialValue } from "../web-search-provider-config-BfNR03hE.js";
-import { i as WebSearchProviderContractFields, n as WebSearchProviderConfiguredCredential, r as WebSearchProviderContractCredential, t as CreateWebSearchProviderContractFieldsOptions } from "../provider-web-search-contract-fields-ByWAClAS.js";
+import { i as WebSearchProviderContractFields, n as WebSearchProviderConfiguredCredential, r as WebSearchProviderContractCredential, t as CreateWebSearchProviderContractFieldsOptions } from "../provider-web-search-contract-fields-LEpao-eb.js";
 
 //#region src/plugin-sdk/provider-web-search-contract.d.ts
 type CreateWebSearchProviderSelectionOptions = CreateWebSearchProviderContractFieldsOptions & {

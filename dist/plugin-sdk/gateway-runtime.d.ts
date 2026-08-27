@@ -1,10 +1,10 @@
 import { d as GatewayAuthConfig, f as GatewayTailscaleConfig, m as GatewayTrustedProxyConfig, p as GatewayTailscaleMode, r as OpenClawConfig } from "../types.openclaw-BwKjboya.js";
-import { r as ChannelAccountSnapshot } from "../types.core-CSYqXgCB.js";
-import { d as NormalizedPluginNodeCapabilityUrl, f as PLUGIN_NODE_CAPABILITY_PATH_PREFIX, h as normalizePluginNodeCapabilityScopedUrl, i as GatewayRequestHandlers, l as NodeSession, m as mintPluginNodeCapabilityToken, o as RespondFn, p as buildPluginNodeCapabilityScopedHostUrl, r as GatewayRequestHandlerOptions, u as DEFAULT_PLUGIN_NODE_CAPABILITY_TTL_MS } from "../types-C_C0hPvG.js";
+import { r as ChannelAccountSnapshot } from "../types.core-D0Io7PdJ.js";
+import { d as NormalizedPluginNodeCapabilityUrl, f as PLUGIN_NODE_CAPABILITY_PATH_PREFIX, h as normalizePluginNodeCapabilityScopedUrl, i as GatewayRequestHandlers, l as NodeSession, m as mintPluginNodeCapabilityToken, o as RespondFn, p as buildPluginNodeCapabilityScopedHostUrl, r as GatewayRequestHandlerOptions, u as DEFAULT_PLUGIN_NODE_CAPABILITY_TTL_MS } from "../types-Daqn4msP.js";
 import { o as errorShape, v as ErrorCodes } from "../index-Cxqmod1M.js";
 import { t as isLoopbackHost } from "../net-F7HGAsK5.js";
-import { n as GatewayClientStartReadinessOptions, r as GatewayClientStartable, t as GatewayClient } from "../client-CB46zTMm.js";
-import { n as callGatewayFromCli, r as GatewayRpcOpts, t as addGatewayClientOptions } from "../gateway-rpc-BOhIMXZ9.js";
+import { n as GatewayClientStartReadinessOptions, r as GatewayClientStartable, t as GatewayClient } from "../client-BaXJ-a1J.js";
+import { n as callGatewayFromCli, r as GatewayRpcOpts, t as addGatewayClientOptions } from "../gateway-rpc-DXm8gW4s.js";
 import { IncomingMessage } from "node:http";
 
 //#region packages/gateway-client/src/event-loop-ready.d.ts

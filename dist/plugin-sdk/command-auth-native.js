@@ -1,7 +1,7 @@
 import { a as formatFastModeSourceSuffix, i as formatFastModeCurrentStatus, o as formatFastModeStatusValue, r as formatFastModeCommandOptions } from "../fast-mode-BORk623r.js";
 import { n as listChatCommands } from "../commands-registry-list-DXrd7jpp.js";
 import { n as maybeResolveTextAlias, r as normalizeCommandBody } from "../commands-registry-normalize-CdLMZZiE.js";
-import { a as shouldComputeCommandAuthorized, t as hasControlCommand } from "../command-detection-PV84iBEn.js";
+import { a as shouldComputeCommandAuthorized, t as hasControlCommand } from "../command-detection-DbewURUs.js";
 import { a as resolveEffectiveAgentRuntime } from "../thinking-runtime-u4xjoT-t.js";
 import { t as resolveFastModeState } from "../fast-mode-DRb2pnqM.js";
 import { i as resolveStoredModelOverride } from "../stored-model-override-TTdku-OB.js";
@@ -11,5 +11,5 @@ import { i as listProviderPluginCommandSpecs } from "../command-specs-CjY2jEqU.j
 import { n as resolveControlCommandGate, t as resolveCommandAuthorizedFromAuthorizers } from "../command-gating-65fgTdwb.js";
 import { t as listSkillCommandsForAgents } from "../chat-commands-6aLfYVww.js";
 import { t as resolveNativeCommandSessionTargets } from "../native-command-session-targets-8iIUPPYo.js";
-import "../command-auth-native-Cm9Dm3kE.js";
+import "../command-auth-native-Ct0fINeQ.js";
 export { buildCommandTextFromArgs, findCommandByNativeName, formatCommandArgMenuTitle, formatFastModeCommandOptions, formatFastModeCurrentStatus, formatFastModeSourceSuffix, formatFastModeStatusValue, hasControlCommand, listChatCommands, listNativeCommandSpecs, listNativeCommandSpecsForConfig, listProviderPluginCommandSpecs, listSkillCommandsForAgents, maybeResolveTextAlias, normalizeCommandBody, parseCommandArgs, resolveCommandArgChoices, resolveCommandArgMenu, resolveCommandAuthorization, resolveCommandAuthorizedFromAuthorizers, resolveControlCommandGate, resolveEffectiveAgentRuntime, resolveFastModeState, resolveNativeCommandSessionTargets, resolveStoredModelOverride, serializeCommandArgs, shouldComputeCommandAuthorized };

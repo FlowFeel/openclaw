@@ -1,5 +1,5 @@
 import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
-import { G as ConfigWriteTargetLike, U as ConfigWriteAuthorizationResultLike, W as ConfigWriteScopeLike } from "../types.adapters-DWRC742B.js";
+import { G as ConfigWriteTargetLike, U as ConfigWriteAuthorizationResultLike, W as ConfigWriteScopeLike } from "../types.adapters-lTbIcsoc.js";
 //#region src/plugin-sdk/channel-config-helpers.d.ts
 /** Origin scope used when authorizing channel config writes. */
 type ConfigWriteScope = ConfigWriteScopeLike;

@@ -1,8 +1,8 @@
 import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
 import { _ as SecretInput, v as SecretRef } from "../types.models-Cbb-WeIa.js";
-import { n as WizardPrompter } from "../types.plugin-BvKdinQs.js";
-import { Vi as SecretInputMode, bn as upsertAuthProfile, xn as upsertAuthProfileWithLock } from "../types-DlorAczx.js";
-import { t as createProviderApiKeyAuthMethod } from "../provider-api-key-auth-DuYUFNEi.js";
+import { n as WizardPrompter } from "../types.plugin-BR9BEK0e.js";
+import { Vi as SecretInputMode, bn as upsertAuthProfile, xn as upsertAuthProfileWithLock } from "../types-fxGJj6Ov.js";
+import { t as createProviderApiKeyAuthMethod } from "../provider-api-key-auth-Du2D5rpq.js";
 
 //#region src/plugins/provider-auth-ref.d.ts
 /** Copy overrides used while prompting for provider secret-ref setup. */

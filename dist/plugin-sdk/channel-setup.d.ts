@@ -1,7 +1,7 @@
 import { d as ChannelSetupInput, l as defineChannelSetupContract, u as ChannelSetupAdapter } from "../manifest-registry-VETZVwE7.js";
 import { t as DEFAULT_ACCOUNT_ID } from "../account-id-Dh6XMgGH.js";
-import { n as ChannelSetupWizard, t as ChannelSetupDmPolicy } from "../setup-wizard-types-zgGBpcvW.js";
-import { L as setSetupChannelEnabled, g as createTopLevelChannelDmPolicy, n as defineTokenCredential, t as baseUrlTextInput, z as splitSetupEntries } from "../setup-credential-DzM70yId.js";
+import { n as ChannelSetupWizard, t as ChannelSetupDmPolicy } from "../setup-wizard-types-C9Z3i9X9.js";
+import { L as setSetupChannelEnabled, g as createTopLevelChannelDmPolicy, n as defineTokenCredential, t as baseUrlTextInput, z as splitSetupEntries } from "../setup-credential-BBQZEhdl.js";
 import { t as formatDocsLink } from "../links-CUrut3Wv.js";
 //#region src/plugin-sdk/optional-channel-setup.d.ts
 type OptionalChannelSetupParams$1 = {

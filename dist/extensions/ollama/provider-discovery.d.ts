@@ -1,4 +1,4 @@
-import { j as ProviderCatalogContext } from "../../types-DJ09K2Ui.js";
+import { j as ProviderCatalogContext } from "../../types-kmCR57lP.js";
 import { u as ModelProviderDeclarationConfig } from "../../types.openclaw-Becy5MdM.js";
 //#region extensions/ollama/provider-discovery.d.ts
 type OllamaProviderPlugin = {

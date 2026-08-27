@@ -1,4 +1,4 @@
-import { n as ChannelPlugin } from "../../types.public-K9GBMW37.js";
+import { n as ChannelPlugin } from "../../types.public-C-GyYkfN.js";
 import { t as ResolvedNostrAccount } from "../../types-CtaOX66Q.js";
 
 //#region extensions/nostr/src/channel.setup.d.ts

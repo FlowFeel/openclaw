@@ -1,4 +1,4 @@
-import { a as ExtensionAPI, c as formatSkillsForPrompt, d as generateSummary, f as createEventBus, i as loadExtensionFromFactory, l as ModelRegistry, n as ExtensionRunner, o as ExtensionContext, r as createExtensionRuntime, t as createReadTool, u as AuthStorage } from "../index-tPM5s5Rj.js";
+import { a as ExtensionAPI, c as formatSkillsForPrompt, d as generateSummary, f as createEventBus, i as loadExtensionFromFactory, l as ModelRegistry, n as ExtensionRunner, o as ExtensionContext, r as createExtensionRuntime, t as createReadTool, u as AuthStorage } from "../index-crYyrPOx.js";
 import { a as parseSessionEntries, c as SessionEntry, i as migrateSessionEntries, n as SessionManager, r as buildSessionContext } from "../session-manager-DHJiABRh.js";
 
 //#region src/config/sessions/version.d.ts

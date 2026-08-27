@@ -1,16 +1,16 @@
 import { f as AgentToolResult, p as AgentToolUpdateCallback } from "../types-BzdPB1fv.js";
-import { s as ToolDefinition } from "../index-tPM5s5Rj.js";
-import { a as TaskSuggestionDeliveryMode } from "../types-Cg5L90mm.js";
+import { s as ToolDefinition } from "../index-crYyrPOx.js";
+import { a as TaskSuggestionDeliveryMode } from "../types-KopZMiGd.js";
 import { Gt as ChatType, mt as PromptMode, n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
-import { g as SourceReplyDeliveryMode } from "../types-BtRhyP-i.js";
-import { _ as InboundEventKind, f as PluginHookChannelContext } from "../templating-BZpHUwd2.js";
+import { g as SourceReplyDeliveryMode } from "../types-C6J_hWyQ.js";
+import { _ as InboundEventKind, f as PluginHookChannelContext } from "../templating-BUvlkIZU.js";
 import { r as ModelCompatConfig } from "../types.models-Cbb-WeIa.js";
 import { r as AuthProfileStore } from "../types-BqfkEFeu.js";
-import { n as InputProvenance } from "../user-turn-transcript.types-kXOAyaJt.js";
-import { Bi as SystemAgentOperation, Hi as AnyAgentTool, Qi as RuntimePluginToolGrant, X as HookContext, Y as DelegationCapability, Z as ToolOutcomeObserver, Zi as SkillWorkshopRunOptions, Zn as ScheduledToolPolicyContext, cn as TrustedSubagentCompletionHandoff, ln as ConversationRecallContext, mn as ModelAuthMode, un as ExecToolDefaults, vr as ProcessToolDefaults, zn as PreparedModelRuntimeSnapshot } from "../types-DlorAczx.js";
-import { F as DiagnosticTraceContext } from "../hook-types-Btqa1BTP.js";
-import { g as SkillUsagePath, m as SkillSnapshot } from "../exec-defaults-BxYms05q.js";
-import { g as SandboxToolPolicy, m as SandboxContext } from "../sandbox-C0R3BsBQ.js";
+import { n as InputProvenance } from "../user-turn-transcript.types-Texojioe.js";
+import { Bi as SystemAgentOperation, Hi as AnyAgentTool, Qi as RuntimePluginToolGrant, X as HookContext, Y as DelegationCapability, Z as ToolOutcomeObserver, Zi as SkillWorkshopRunOptions, Zn as ScheduledToolPolicyContext, cn as TrustedSubagentCompletionHandoff, ln as ConversationRecallContext, mn as ModelAuthMode, un as ExecToolDefaults, vr as ProcessToolDefaults, zn as PreparedModelRuntimeSnapshot } from "../types-fxGJj6Ov.js";
+import { F as DiagnosticTraceContext } from "../hook-types-DjaDkUjy.js";
+import { g as SkillUsagePath, m as SkillSnapshot } from "../exec-defaults-DbLQOZg7.js";
+import { g as SandboxToolPolicy, m as SandboxContext } from "../sandbox-Cyc7GkwN.js";
 import { TSchema } from "typebox";
 //#region src/agents/requester-tool-policy.d.ts
 type RequesterToolPolicySource = "current-request" | "persisted-child" | "completion-handoff";

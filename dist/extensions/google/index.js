@@ -9,7 +9,7 @@ import { n as registerGoogleGeminiCliProvider } from "../../gemini-cli-provider-
 import { c as createGoogleMusicGenerationProviderMetadata, l as createGoogleVideoGenerationProviderMetadata } from "../../generation-provider-metadata-ByiiHg6d.js";
 import { t as geminiMemoryEmbeddingProviderAdapter } from "../../memory-embedding-adapter-DaJJM94D.js";
 import { n as registerGoogleProvider } from "../../provider-registration-B41BbK30.js";
-import { t as buildGoogleSpeechProvider } from "../../speech-provider-Bvam83AI.js";
+import { t as buildGoogleSpeechProvider } from "../../speech-provider-weM00Gv1.js";
 import { t as createGeminiWebSearchProvider } from "../../gemini-web-search-provider-BeWKZiyL.js";
 //#region extensions/google/index.ts
 let googleImageGenerationProviderPromise = null;

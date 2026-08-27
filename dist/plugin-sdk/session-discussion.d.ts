@@ -1,4 +1,4 @@
-import { Gn as SessionDiscussionInfo, Kn as SessionDiscussionProvider, qn as SessionDiscussionState } from "../types-CaDBLrp9.js";
+import { Gn as SessionDiscussionInfo, Kn as SessionDiscussionProvider, qn as SessionDiscussionState } from "../types-CtE8kx2y.js";
 
 //#region src/plugins/session-discussion-registry.d.ts
 declare function registerSessionDiscussionProvider(provider: SessionDiscussionProvider): void;

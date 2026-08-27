@@ -1,2 +1,2 @@
-import { t as setDiscordRuntime } from "../../runtime-B0PRgpfj.js";
+import { t as setDiscordRuntime } from "../../runtime-ChBZ1mON.js";
 export { setDiscordRuntime };

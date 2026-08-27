@@ -1,5 +1,5 @@
 import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
-import { S as LegacyConfigRule, i as ChannelDoctorLegacyConfigRule } from "../../types.public-DAdSmWXH.js";
+import { S as LegacyConfigRule, i as ChannelDoctorLegacyConfigRule } from "../../types.public-Cbcwotuf.js";
 import { ELEVENLABS_TALK_PROVIDER_ID } from "./config-compat.js";
 
 //#region extensions/elevenlabs/doctor-contract.d.ts

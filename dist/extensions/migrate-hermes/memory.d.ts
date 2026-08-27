@@ -1,4 +1,4 @@
-import { a as MigrationProviderContext, i as MigrationPlan } from "../../plugin-entry-V3twzgF5.js";
+import { a as MigrationProviderContext, i as MigrationPlan } from "../../plugin-entry-CS8C3z51.js";
 import { HermesSource } from "./source.js";
 
 //#region extensions/migrate-hermes/memory.d.ts

@@ -1,2 +1,2 @@
-import { a as createGeminiEmbeddingProvider, i as buildGeminiEmbeddingRequest, n as GeminiEmbeddingClient, r as GeminiTextEmbeddingRequest, t as DEFAULT_GEMINI_EMBEDDING_MODEL } from "../../embedding-provider-BcZxF1uv.js";
+import { a as createGeminiEmbeddingProvider, i as buildGeminiEmbeddingRequest, n as GeminiEmbeddingClient, r as GeminiTextEmbeddingRequest, t as DEFAULT_GEMINI_EMBEDDING_MODEL } from "../../embedding-provider-qc5iMK4C.js";
 export { DEFAULT_GEMINI_EMBEDDING_MODEL, GeminiEmbeddingClient, GeminiTextEmbeddingRequest, buildGeminiEmbeddingRequest, createGeminiEmbeddingProvider };

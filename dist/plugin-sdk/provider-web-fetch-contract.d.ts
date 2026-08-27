@@ -1,3 +1,3 @@
-import { Jt as WebFetchProviderPlugin } from "../types-DlorAczx.js";
+import { Jt as WebFetchProviderPlugin } from "../types-fxGJj6Ov.js";
 import { t as enablePluginInConfig } from "../provider-enable-config-Boz7XZ64.js";
 export { type WebFetchProviderPlugin, enablePluginInConfig };

@@ -6,7 +6,7 @@ import { t as jsonResult } from "../../tool-results-BCM3fdVS.js";
 import { r as missingTargetError } from "../../target-errors-CZ0A80hz.js";
 import { a as warnMissingProviderGroupPolicyFallbackOnce, n as resolveAllowlistProviderRuntimeGroupPolicy, r as resolveDefaultGroupPolicy, t as GROUP_POLICY_BLOCKED_LABEL } from "../../runtime-group-policy-Jz0Hco1h.js";
 import { r as resolveInboundMentionDecision } from "../../mention-gating-Cqy7URJJ.js";
-import { t as createChannelReplyPipeline } from "../../reply-pipeline-DxNPdJSn.js";
+import { t as createChannelReplyPipeline } from "../../reply-pipeline-B7RhuRC9.js";
 import { n as isDangerousNameMatchingEnabled } from "../../dangerous-name-matching-BzFYQ0Ix.js";
 import { t as chunkTextForOutbound } from "../../text-chunking-nhEIGrpB.js";
 import { t as PAIRING_APPROVED_MESSAGE } from "../../pairing-message-DNhqI-OE.js";
@@ -16,5 +16,5 @@ import { n as createChannelPairingController } from "../../channel-pairing-4q52v
 import { t as extractToolSend } from "../../tool-send-DlIp2cBO.js";
 import { a as createWebhookInFlightLimiter, s as readJsonWebhookBodyOrReject } from "../../webhook-request-guards-CgiiFJiC.js";
 import { c as resolveWebhookPath, f as withResolvedWebhookRequestPipeline, i as registerWebhookTargetWithPluginRoute, l as resolveWebhookTargetWithAuthOrReject } from "../../webhook-targets-D_vi27V9.js";
-import { n as setGoogleChatRuntime } from "../../runtime-api-BWkaPZio.js";
+import { n as setGoogleChatRuntime } from "../../runtime-api-C6yMex5f.js";
 export { DEFAULT_ACCOUNT_ID, GROUP_POLICY_BLOCKED_LABEL, GoogleChatConfigSchema, PAIRING_APPROVED_MESSAGE, buildChannelConfigSchema, chunkTextForOutbound, createAccountStatusSink, createActionGate, createChannelReplyPipeline as createChannelMessageReplyPipeline, createChannelPairingController, createWebhookInFlightLimiter, extractToolSend, fetchWithSsrFGuard, isDangerousNameMatchingEnabled, jsonResult, missingTargetError, readJsonWebhookBodyOrReject, readNumberParam, readReactionParams, readStringParam, registerWebhookTargetWithPluginRoute, resolveAllowlistProviderRuntimeGroupPolicy, resolveDefaultGroupPolicy, resolveInboundMentionDecision, resolveWebhookPath, resolveWebhookTargetWithAuthOrReject, runPassiveAccountLifecycle, setGoogleChatRuntime, warnMissingProviderGroupPolicyFallbackOnce, withResolvedWebhookRequestPipeline };

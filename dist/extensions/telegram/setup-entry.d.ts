@@ -1,5 +1,5 @@
-import { n as ChannelPlugin } from "../../types.public-0WXnXOFj.js";
-import { n as BundledChannelSetupEntryContract } from "../../channel-entry-contract-CLoGV74H.js";
+import { n as ChannelPlugin } from "../../types.public-DldgAsrd.js";
+import { n as BundledChannelSetupEntryContract } from "../../channel-entry-contract-4SDh0Zed.js";
 
 //#region extensions/telegram/setup-entry.d.ts
 declare const _default: BundledChannelSetupEntryContract<ChannelPlugin>;

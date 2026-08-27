@@ -9,7 +9,7 @@ import "../../security-runtime-Dk7rUwxb.js";
 import { a as createWebhookInFlightLimiter, n as WEBHOOK_IN_FLIGHT_DEFAULTS, s as readJsonWebhookBodyOrReject } from "../../webhook-request-guards-CgiiFJiC.js";
 import { a as createFixedWindowRateLimiter, r as WEBHOOK_RATE_LIMIT_DEFAULTS } from "../../webhook-ingress-DJwgtBl3.js";
 import { f as withResolvedWebhookRequestPipeline, n as normalizeWebhookPath, u as resolveWebhookTargetWithAuthOrRejectSync } from "../../webhook-targets-D_vi27V9.js";
-import "../../api-D6PhuCLT.js";
+import "../../api-CE5QFYkt.js";
 import "../../runtime-api-DKyb_hdo.js";
 //#region extensions/webhooks/src/config.ts
 const secretRefSchema = object({

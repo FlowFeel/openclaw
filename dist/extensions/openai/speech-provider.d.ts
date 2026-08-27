@@ -1,4 +1,4 @@
-import { R as SpeechProviderPlugin } from "../../plugin-entry-DZ50A-uD.js";
+import { R as SpeechProviderPlugin } from "../../plugin-entry-DICCbWcY.js";
 //#region extensions/openai/speech-provider.d.ts
 declare function buildOpenAISpeechProvider(): SpeechProviderPlugin;
 //#endregion

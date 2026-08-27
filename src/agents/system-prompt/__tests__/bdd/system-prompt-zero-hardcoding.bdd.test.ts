@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import {
   buildAgentSystemPrompt,
   resolvePromptSections,
-} from "../../system-prompt.js";
-import { getAvailablePromptSections } from "../../system-prompt/registry.js";
+} from "../../../system-prompt.js";
+import { getAvailablePromptSections } from "../../../system-prompt/registry.js";
 
 describe("Tier 2 BDD: Zero-Hardcoding Prompt Architecture Behavioral Contracts", () => {
   /**
@@ -24,7 +24,7 @@ describe("Tier 2 BDD: Zero-Hardcoding Prompt Architecture Behavioral Contracts",
     expect(prompt).not.toContain("Routine low-risk: call silently.");
     expect(prompt).not.toContain("Model question: answer this current-run value.");
     expect(prompt).not.toContain("## Safety");
-    expect(prompt).toContain("## Tools");
+    expect(prompt).toContain("## Tooling");
     expect(prompt).toContain("## Runtime");
   });
 

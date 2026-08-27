@@ -1,4 +1,4 @@
-import { y as ProviderThinkingProfile } from "../../plugin-entry-B5PMaQG5.js";
+import { y as ProviderThinkingProfile } from "../../plugin-entry-DoQDAyTc.js";
 
 //#region extensions/minimax/thinking.d.ts
 declare function resolveMinimaxThinkingProfile(modelId: string): ProviderThinkingProfile | undefined;

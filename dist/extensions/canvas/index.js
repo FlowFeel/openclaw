@@ -17,7 +17,7 @@ const CANVAS_NODE_COMMANDS = [
 	"canvas.a2ui.reset"
 ];
 function createLazyCanvasTool(params) {
-	const loadTool = createLazyRuntimeModule(() => import("../../tool-CKG16445.js").then(({ createCanvasTool }) => createCanvasTool({
+	const loadTool = createLazyRuntimeModule(() => import("../../tool-CV-Zr7cC.js").then(({ createCanvasTool }) => createCanvasTool({
 		config: params.config,
 		workspaceDir: params.workspaceDir,
 		agentSessionKey: params.agentSessionKey
@@ -123,7 +123,7 @@ var canvas_default = definePluginEntry({
 			agentSessionKey: ctx.sessionKey
 		}));
 		api.registerNodeCliFeature(async ({ program }) => {
-			const { createDefaultCanvasCliDependencies, registerNodesCanvasCommands } = await import("../../cli-Cx66iNoA.js");
+			const { createDefaultCanvasCliDependencies, registerNodesCanvasCommands } = await import("../../cli-CZnI1_4D.js");
 			registerNodesCanvasCommands(program, createDefaultCanvasCliDependencies());
 		}, { descriptors: [{
 			name: "canvas",

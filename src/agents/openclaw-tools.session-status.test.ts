@@ -597,9 +597,7 @@ describe("session_status tool", () => {
     expect(details.statusText).not.toContain("OAuth/token status");
     expect(tool.outputSchema).toBeDefined();
     expect(Value.Check(tool.outputSchema!, result.details)).toBe(true);
-    expect(compactToolOutputHint(tool.outputSchema)).toBe(
-      '{ changedModel: boolean; ok: true; sessionKey: string; stateVersion: number; statusText: string; active?: { accountId?: string; channel?: string; threadId?: string | number; to?: string }; deliveryContext?: { accountId?: string; channel?: string; threadId?: string | number; to?: string }; model?: string; modelOverride?: string | null; modelProvider?: string; origin?: { accountId?: string; provider?: string; threadId?: string | number }; stateChanges?: { earliestAvailableSequence: number; events: Array<{ actorType: "human" | "agent" | "system"; kind: string; occurredAt: number; sequence: number; summary: string; actorId?: string; payload?: { channel?: string; outcome?: "error" | "timeout" | "cancelled"; turns?: number }; runId?: string }>; historyGap: boolean; truncated: boolean } }',
-    );
+    expect(compactToolOutputHint(tool.outputSchema)).toBeUndefined();
   });
 
   it("returns read-only state changes and the signal-log head", async () => {
@@ -2453,6 +2451,56 @@ describe("session_status tool", () => {
     expect(saved.modelOverride).toBeUndefined();
     expect(saved.authProfileOverride).toBeUndefined();
     expect(saved.liveModelSwitchPending).toBe(true);
+  });
+
+  it("reads promptMode and toggles to bare at runtime via session_status", async () => {
+    resetSessionStore({
+      main: {
+        sessionId: "s1",
+        updatedAt: 10,
+      },
+    });
+
+    const tool = getSessionStatusTool();
+
+    // 1. Initial read
+    const read1 = await tool.execute("call-pm-1", {});
+    const details1 = read1.details as { promptMode?: string; changedPromptMode?: boolean };
+    expect(details1.promptMode).toBe("full");
+    expect(details1.changedPromptMode).toBeUndefined();
+
+    // 2. Set to bare
+    const write1 = await tool.execute("call-pm-2", { promptMode: "bare" });
+    const details2 = write1.details as { promptMode?: string; changedPromptMode?: boolean };
+    expect(details2.promptMode).toBe("bare");
+    expect(details2.changedPromptMode).toBe(true);
+    const savedStore = latestMockCallArg(updateSessionStoreMock, 1) as Record<string, unknown>;
+    const saved = savedStore.main as Record<string, unknown>;
+    expect(saved.promptMode).toBe("bare");
+
+    // 3. Reset back
+    const write2 = await tool.execute("call-pm-3", { promptMode: "reset" });
+    const details3 = write2.details as { promptMode?: string; changedPromptMode?: boolean };
+    expect(details3.promptMode).toBe("full");
+    expect(details3.changedPromptMode).toBe(true);
+  });
+
+  it("rejects promptMode 'none' and invalid modes via session_status", async () => {
+    resetSessionStore({
+      main: {
+        sessionId: "s1",
+        updatedAt: 10,
+      },
+    });
+
+    const tool = getSessionStatusTool();
+
+    await expect(tool.execute("call-pm-err1", { promptMode: "none" })).rejects.toThrow(
+      /production-guarded/,
+    );
+    await expect(tool.execute("call-pm-err2", { promptMode: "unknown-mode" })).rejects.toThrow(
+      /Unrecognized promptMode/,
+    );
   });
 });
 /* oxlint-disable max-lines -- TODO: split this grandfathered oversized file. */

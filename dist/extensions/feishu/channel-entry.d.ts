@@ -1,5 +1,5 @@
-import { n as ChannelPlugin } from "../../types.public-K9GBMW37.js";
-import { t as BundledChannelEntryContract } from "../../channel-entry-contract-BVRVVVev.js";
+import { n as ChannelPlugin } from "../../types.public-C-GyYkfN.js";
+import { t as BundledChannelEntryContract } from "../../channel-entry-contract-CJoWbBL8.js";
 
 //#region extensions/feishu/channel-entry.d.ts
 declare const _default: BundledChannelEntryContract<ChannelPlugin>;

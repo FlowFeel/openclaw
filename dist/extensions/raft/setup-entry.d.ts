@@ -1,5 +1,5 @@
-import { n as ChannelPlugin } from "../../types.public-CsbJ5efK.js";
-import { n as BundledChannelSetupEntryContract } from "../../channel-entry-contract-CEXvrpVW.js";
+import { n as ChannelPlugin } from "../../types.public-Dm-aI6U0.js";
+import { n as BundledChannelSetupEntryContract } from "../../channel-entry-contract-KX59A9Nz.js";
 
 //#region extensions/raft/setup-entry.d.ts
 declare const _default: BundledChannelSetupEntryContract<ChannelPlugin>;

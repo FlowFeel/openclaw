@@ -1,4 +1,4 @@
-import { r as MigrationItem } from "../../plugin-entry-V3twzgF5.js";
+import { r as MigrationItem } from "../../plugin-entry-CS8C3z51.js";
 import { HermesSource } from "./source.js";
 
 //#region extensions/migrate-hermes/auth-source.d.ts

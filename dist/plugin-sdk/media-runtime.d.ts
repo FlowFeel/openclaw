@@ -1,11 +1,11 @@
 import { r as OpenClawConfig } from "../types.openclaw-BwKjboya.js";
-import { c as RuntimeMsgContext } from "../templating-RcIMvz09.js";
+import { c as RuntimeMsgContext } from "../templating-DvDDlopJ.js";
 import { a as mediaKindFromMime, i as maxBytesForKind, n as MAX_IMAGE_BYTES, r as MediaKind, t as MAX_AUDIO_BYTES } from "../constants-BCpSHoXd.js";
 import { c as MediaUnderstandingCapability, d as MediaUnderstandingProvider } from "../types-GEWvtd2r.js";
 import { n as OutboundMediaReadFile, r as buildOutboundMediaLoadOptions, t as OutboundMediaAccess } from "../load-options-63mp15In.js";
 import { n as normalizePollDurationHours, r as normalizePollInput, t as PollInput } from "../polls-sXqxREW1.js";
 import { k as OutboundSendDeps } from "../types-C6GVpLYk.js";
-import { n as ChannelOutboundAdapter } from "../outbound.types-BuHE57eo.js";
+import { n as ChannelOutboundAdapter } from "../outbound.types-Jv5C_h9H.js";
 import { c as saveMediaSource, i as getMediaDir, n as ensureMediaDir, r as extractOriginalFilename, s as saveMediaBuffer, t as SavedMedia } from "../store-CU-s5VWG.js";
 import { a as SavedRemoteMedia, c as saveRemoteMedia, i as MediaFetchError, l as saveResponseMedia, n as isVoiceMessageCompatibleAudio, o as fetchRemoteMedia, r as FetchLike, s as readRemoteMediaBuffer, t as isVoiceCompatibleAudio } from "../audio-DoqCH0Nc.js";
 import { a as kindFromMime, i as isGifMedia, n as extensionForMime, r as getFileExtension, t as detectMime } from "../mime-DtZxEM55.js";

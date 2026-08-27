@@ -1,4 +1,4 @@
-import { Et as SubsystemLogger, K as GenerateImageParams, at as getImageGenerationProvider, mt as getProviderEnvVars, ot as listImageGenerationProviders, q as GenerateImageRuntimeResult } from "../../plugin-entry-DZ50A-uD.js";
+import { Et as SubsystemLogger, K as GenerateImageParams, at as getImageGenerationProvider, mt as getProviderEnvVars, ot as listImageGenerationProviders, q as GenerateImageRuntimeResult } from "../../plugin-entry-DICCbWcY.js";
 import { n as OpenClawConfig } from "../../types.openclaw-rejpcq0R.js";
 import { o as ImageGenerationProvider } from "../../types-D1h-a2o8.js";
 

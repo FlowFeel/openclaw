@@ -1,5 +1,5 @@
-import { t as OpenClawPluginDefinition } from "../../types-DXevx49n.js";
-import { c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition$1 } from "../../plugin-entry-V3twzgF5.js";
+import { t as OpenClawPluginDefinition } from "../../types-BNrl3zyK.js";
+import { c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition$1 } from "../../plugin-entry-CS8C3z51.js";
 
 //#region extensions/copilot-proxy/index.d.ts
 declare const _default: {

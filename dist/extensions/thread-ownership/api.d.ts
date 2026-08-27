@@ -1,6 +1,6 @@
 import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
 import { l as fetchWithSsrFGuard } from "../../provider-request-config-od1CXgLX.js";
-import { E as definePluginEntry, s as OpenClawPluginApi } from "../../plugin-entry-V3twzgF5.js";
+import { E as definePluginEntry, s as OpenClawPluginApi } from "../../plugin-entry-CS8C3z51.js";
 import { t as ReadResponseTextPrefixOptions } from "../../http-body-6-lYGEU6.js";
 import { t as ssrfPolicyFromDangerouslyAllowPrivateNetwork } from "../../ssrf-runtime-uM1e48ep.js";
 //#region src/agents/provider-http-errors.d.ts

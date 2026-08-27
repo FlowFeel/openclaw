@@ -1,4 +1,4 @@
-import { i as ProviderPlugin } from "../../types-BNarcMbg.js";
+import { i as ProviderPlugin } from "../../types-BykvrQHR.js";
 //#region extensions/minimax/provider-contract-api.d.ts
 declare function createMinimaxProvider(): ProviderPlugin;
 declare function createMinimaxPortalProvider(): ProviderPlugin;

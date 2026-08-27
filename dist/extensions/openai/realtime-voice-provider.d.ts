@@ -1,5 +1,5 @@
-import { L as RealtimeVoiceProviderPlugin, g as PluginLogger } from "../../plugin-entry-DZ50A-uD.js";
-import { r as createOpenAIQuicksilverBrowserSessionBroker } from "../../realtime-quicksilver-session-BMhTbsDl.js";
+import { L as RealtimeVoiceProviderPlugin, g as PluginLogger } from "../../plugin-entry-DICCbWcY.js";
+import { r as createOpenAIQuicksilverBrowserSessionBroker } from "../../realtime-quicksilver-session-D1_PEm_e.js";
 
 //#region extensions/openai/realtime-voice-provider.d.ts
 type OpenAIQuicksilverBrowserSessionBroker = ReturnType<typeof createOpenAIQuicksilverBrowserSessionBroker>["broker"];

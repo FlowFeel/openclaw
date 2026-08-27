@@ -1,4 +1,4 @@
-import { A as ProviderRuntimeModel } from "../../types-DJ09K2Ui.js";
+import { A as ProviderRuntimeModel } from "../../types-kmCR57lP.js";
 import { u as ModelProviderDeclarationConfig } from "../../types.openclaw-Becy5MdM.js";
 import { t as LiveModelCatalogFetchGuard } from "../../provider-catalog-live-runtime-4zY-OGQF.js";
 //#region extensions/clawrouter/provider-catalog.d.ts

@@ -1,9 +1,9 @@
 import { $o as SecretRef, i as OpenClawConfig } from "../../types.openclaw-DvmDDNUn.js";
-import { S as SecretRefResolveCache } from "../../types.public-CuLUcBSd.js";
+import { S as SecretRefResolveCache } from "../../types.public-CiGnkx6P.js";
 import { n as PluginManifestRegistry } from "../../manifest-registry-B-JIIM0O.js";
-import { xo as WorkerAdmissionHandshake } from "../../index-UYAznoh9.js";
-import { a as WorkerProfile, c as WorkerSshIdentity, o as WorkerProvider, s as WorkerSshEndpoint } from "../../types-Ma6iYIWk2.js";
-import { g as CommandOptions, v as SpawnResult } from "../../web-media-CZSCbhhu.js";
+import { xo as WorkerAdmissionHandshake } from "../../index-Bm89c6Pn.js";
+import { a as WorkerProfile, c as WorkerSshIdentity, o as WorkerProvider, s as WorkerSshEndpoint } from "../../types-B1Rbk8gg2.js";
+import { g as CommandOptions, v as SpawnResult } from "../../web-media-bNFq1yRi.js";
 
 //#region src/secrets/resolve.d.ts
 type ResolveSecretRefOptions = {

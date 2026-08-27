@@ -1,4 +1,4 @@
-import { a as MigrationProviderContext, i as MigrationPlan, n as MigrationApplyResult } from "../../plugin-entry-DZ50A-uD.js";
+import { a as MigrationProviderContext, i as MigrationPlan, n as MigrationApplyResult } from "../../plugin-entry-DICCbWcY.js";
 
 //#region extensions/migrate-claude/apply.d.ts
 declare function applyClaudePlan(params: {

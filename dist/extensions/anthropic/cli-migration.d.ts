@@ -1,5 +1,5 @@
 import { n as OpenClawConfig } from "../../types.openclaw-C0MxgyRv.js";
-import { k as ProviderAuthResult } from "../../types-BNarcMbg.js";
+import { k as ProviderAuthResult } from "../../types-BykvrQHR.js";
 import { readClaudeCliCredentialsForSetup } from "./cli-auth-seam.js";
 //#region extensions/anthropic/cli-migration.d.ts
 type ClaudeCliCredential = NonNullable<ReturnType<typeof readClaudeCliCredentialsForSetup>>;

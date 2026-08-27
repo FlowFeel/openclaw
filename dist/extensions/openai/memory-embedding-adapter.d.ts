@@ -1,4 +1,4 @@
-import { yt as MemoryEmbeddingProviderAdapter } from "../../plugin-entry-DZ50A-uD.js";
+import { yt as MemoryEmbeddingProviderAdapter } from "../../plugin-entry-DICCbWcY.js";
 //#region extensions/openai/memory-embedding-adapter.d.ts
 declare const openAiMemoryEmbeddingProviderAdapter: MemoryEmbeddingProviderAdapter;
 //#endregion

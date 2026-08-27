@@ -1,4 +1,4 @@
-import { M as OpenClawPluginDefinition$1, c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition } from "../../plugin-entry-DZ50A-uD.js";
+import { M as OpenClawPluginDefinition$1, c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition } from "../../plugin-entry-DICCbWcY.js";
 
 //#region extensions/migrate-claude/index.d.ts
 declare const _default: {

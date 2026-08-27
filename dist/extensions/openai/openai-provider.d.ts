@@ -1,4 +1,4 @@
-import { P as ProviderPlugin } from "../../plugin-entry-DZ50A-uD.js";
+import { P as ProviderPlugin } from "../../plugin-entry-DICCbWcY.js";
 
 //#region extensions/openai/openai-provider.d.ts
 declare function buildOpenAIProvider(): ProviderPlugin;

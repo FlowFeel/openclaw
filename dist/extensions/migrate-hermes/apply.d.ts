@@ -1,4 +1,4 @@
-import { a as MigrationProviderContext, i as MigrationPlan, n as MigrationApplyResult } from "../../plugin-entry-V3twzgF5.js";
+import { a as MigrationProviderContext, i as MigrationPlan, n as MigrationApplyResult } from "../../plugin-entry-CS8C3z51.js";
 
 //#region extensions/migrate-hermes/apply.d.ts
 declare function applyHermesPlan(params: {

@@ -1,4 +1,4 @@
-import { s as OpenClawPluginApi } from "../../plugin-entry-DZ50A-uD.js";
+import { s as OpenClawPluginApi } from "../../plugin-entry-DICCbWcY.js";
 
 //#region extensions/oc-path/cli-registration.d.ts
 declare function registerOcPathCli(api: OpenClawPluginApi): void;

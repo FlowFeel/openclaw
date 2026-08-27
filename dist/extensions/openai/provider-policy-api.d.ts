@@ -1,4 +1,4 @@
-import { Q as ProviderThinkingProfile, x as ProviderNormalizeResolvedModelContext, y as ProviderDefaultThinkingPolicyContext } from "../../plugin-entry-DZ50A-uD.js";
+import { Q as ProviderThinkingProfile, x as ProviderNormalizeResolvedModelContext, y as ProviderDefaultThinkingPolicyContext } from "../../plugin-entry-DICCbWcY.js";
 import { o as ModelProviderConfig } from "../../types.models-BEJn4TTJ.js";
 import { a as ProviderResolveModelRoutesContext, i as ProviderNormalizeModelCatalogIdContext, n as ProviderModelRouteResolution } from "../../provider-model-types-Be5uEMwN.js";
 //#region extensions/openai/provider-policy-api.d.ts

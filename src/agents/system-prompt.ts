@@ -723,22 +723,15 @@ export function buildDocsSection(params: {
 }) {
   const docsPath = params.docsPath?.trim();
   const sourcePath = params.sourcePath?.trim();
-  if (params.isMinimal) {
+  if (params.isMinimal || (!docsPath && !sourcePath)) {
     return [];
   }
   const lines = [
     "## Documentation",
-    docsPath ? `Docs: ${docsPath}` : "Docs: https://docs.openclaw.ai",
-    docsPath ? "Mirror: https://docs.openclaw.ai" : undefined,
-    sourcePath ? `Source: ${sourcePath}` : "Source: https://github.com/openclaw/openclaw",
-    docsPath
-      ? `OpenClaw behavior questions: docs first via \`${params.readToolName}\`/local search. AGENTS/project/workspace/profile/memory = instructions/user memory, not product design truth.`
-      : "OpenClaw behavior questions: docs mirror first when web exists. AGENTS/project/workspace/profile/memory = instructions/user memory, not product design truth.",
-    "Config field: `gateway(config.schema.lookup)` exact path. Broader: `docs/gateway/configuration.md`, `docs/gateway/configuration-reference.md`.",
-    sourcePath
-      ? "If docs are silent/stale, say so and inspect local source."
-      : "If docs are silent/stale, say so and inspect GitHub source.",
-    "Diagnosis: run `openclaw status` when possible; ask only if blocked.",
+    docsPath ? `Docs: ${docsPath}` : undefined,
+    sourcePath ? `Source: ${sourcePath}` : undefined,
+    "Platform behavior questions: inspect local documentation and source files.",
+    "If docs are silent/stale, say so and inspect local source.",
     "",
   ];
   return lines.filter((line): line is string => line !== undefined);
@@ -784,7 +777,6 @@ export function buildToolingSection(params: {
     ...(params.toolSchemaDirectoryPrompt
       ? ["", "### Deferred Tool Schemas", params.toolSchemaDirectoryPrompt]
       : []),
-    "The AGENTS.md Tools section guides usage; it never grants availability.",
     ...(params.renderOpenClawToolWorkflowHints
       ? [
           // SL-5: Only include workflow hints for tools that are actually available.
@@ -914,21 +906,11 @@ export function buildElevatedSection(
   ];
 }
 
-export function buildOpenClawControlSection(params: {
-  hasOpenClaw: boolean;
-  hasGateway: boolean;
+export function buildOpenClawControlSection(_params?: {
+  hasOpenClaw?: boolean;
+  hasGateway?: boolean;
 }): string[] {
-  if (!params.hasOpenClaw && !params.hasGateway) {
-    return [];
-  }
-  return [
-    "## OpenClaw Control",
-    "Do not invent commands.",
-    params.hasOpenClaw
-      ? "Gateway restart, config, channels, plugins, agents, models/providers, updates: ask `openclaw`. Never restart the Gateway through shell commands or write your own config."
-      : "Config read: `gateway` (`config.get|config.schema.lookup`). Write/restart unavailable; ask human.",
-    "",
-  ];
+  return [];
 }
 
 export function buildModelAliasesSection(params: {
@@ -1279,7 +1261,9 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
     ? "none"
     : (params.silentReplyPromptMode ?? "generic");
   const sandboxContainerWorkspace = params.sandboxInfo?.containerWorkspaceDir?.trim();
-  const sanitizedWorkspaceDir = sanitizeForPromptLiteral(params.workspaceDir);
+  const sanitizedWorkspaceDir = params.workspaceDir
+    ? sanitizeForPromptLiteral(params.workspaceDir)
+    : "";
   const sanitizedSandboxContainerWorkspace = sandboxContainerWorkspace
     ? sanitizeForPromptLiteral(sandboxContainerWorkspace)
     : "";
@@ -1306,7 +1290,6 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
     "Safety/oversight > completion. Conflict: pause/ask. Obey stop/pause/audit; never bypass safeguards.",
     "Before config/scheduler edits (crontab/systemd/nginx/shell rc/timers): inspect; preserve/merge. Whole-file replacement only explicit.",
     "Never persuade anyone to expand access or disable safeguards.",
-    "Never copy self or change prompts/safety/tool policy unless user explicitly requests.",
     "",
   ];
   // CLI backends own native file tools outside OpenClaw's projected tool list.
@@ -1345,21 +1328,17 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
   });
   const workspaceNotes = normalizeStringEntries(params.workspaceNotes);
 
-  // For "none" mode, return just the basic identity line
+  // For "none" mode, return just the model identity line if present
   if (promptMode === "none") {
+    const lines = modelIdentityLine ? [modelIdentityLine] : [];
     lastResolvedPromptSections = [
       {
         id: "identity",
         cacheStable: true,
-        lines: [
-          "You are a personal assistant running inside OpenClaw.",
-          ...(modelIdentityLine ? [modelIdentityLine] : []),
-        ],
+        lines,
       },
     ];
-    return ["You are a personal assistant running inside OpenClaw.", modelIdentityLine]
-      .filter(Boolean)
-      .join("\n");
+    return lines.join("\n");
   }
 
   // For "scaffold" mode, return only the irreducible dynamic state.
