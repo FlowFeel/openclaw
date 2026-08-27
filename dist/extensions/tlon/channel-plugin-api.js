@@ -1,2 +1,2 @@
-import { t as tlonPlugin } from "../../channel-UGE9pxWi.js";
+import { t as tlonPlugin } from "../../channel-CESaANGU.js";
 export { tlonPlugin };

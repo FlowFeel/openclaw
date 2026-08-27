@@ -1,5 +1,5 @@
 import { i as OpenClawConfig } from "../types.openclaw-3lPuYQv-.js";
-import { _ as WebFetchProviderToolDefinition, g as PluginWebFetchProviderEntry, v as RuntimeWebFetchMetadata } from "../types-BpqLjBXi2.js";
+import { _ as WebFetchProviderToolDefinition, g as PluginWebFetchProviderEntry, v as RuntimeWebFetchMetadata } from "../types-hRTmda2f2.js";
 
 //#region src/web-fetch/runtime.d.ts
 type ResolveWebFetchDefinitionParams = {

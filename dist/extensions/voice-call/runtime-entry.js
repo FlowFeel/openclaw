@@ -1,2 +1,2 @@
-import { t as createVoiceCallRuntime } from "../../runtime-entry-i71kqC2F.js";
+import { t as createVoiceCallRuntime } from "../../runtime-entry-BQPwXGpa.js";
 export { createVoiceCallRuntime };

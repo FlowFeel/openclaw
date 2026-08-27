@@ -50,12 +50,12 @@ describe("AttributionRingBuffer (Tier 1 Unit)", () => {
 
   it("calculates discrete concurrency time-series buckets", () => {
     const ring = new AttributionRingBuffer(100);
-    const baseTime = Date.now();
+    const baseTime = Math.floor(Date.now() / 60000) * 60000;
 
     ring.recordTurn({
       id: "t1",
       sessionKey: "s1",
-      timestamp: baseTime,
+      timestamp: baseTime + 1000,
       promptTokens: 100,
       completionTokens: 50,
       totalTokens: 150,
@@ -99,6 +99,7 @@ describe("AttributionRingBuffer (Tier 1 Unit)", () => {
       queueDwellMs: 10,
       modelInferenceMs: 390,
       cacheHit: true,
+      compactionFired: true,
     });
     ring.recordTurn({
       id: "t2",
@@ -111,6 +112,7 @@ describe("AttributionRingBuffer (Tier 1 Unit)", () => {
       queueDwellMs: 15,
       modelInferenceMs: 585,
       cacheHit: true,
+      compactionFired: false,
     });
     ring.recordTurn({
       id: "t3",
@@ -123,6 +125,7 @@ describe("AttributionRingBuffer (Tier 1 Unit)", () => {
       queueDwellMs: 5,
       modelInferenceMs: 295,
       cacheHit: false,
+      compactionFired: false,
     });
 
     const breakdown = ring.getSessionPerformanceBreakdown(60);
@@ -134,11 +137,13 @@ describe("AttributionRingBuffer (Tier 1 Unit)", () => {
     expect(sessA!.meanLatencyMs).toBe(500);
     expect(sessA!.cacheHitRatio).toBe(1.0);
     expect(sessA!.totalTokens).toBe(3000);
+    expect(sessA!.compactionEvents).toBe(1);
 
     const sessB = breakdown.find((s) => s.sessionKey === "session_B");
     expect(sessB).toBeDefined();
     expect(sessB!.turnCount).toBe(1);
     expect(sessB!.cacheHitRatio).toBe(0.0);
+    expect(sessB!.compactionEvents).toBe(0);
   });
 });
 

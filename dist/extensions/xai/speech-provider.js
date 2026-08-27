@@ -1,2 +1,2 @@
-import { t as buildXaiSpeechProvider } from "../../speech-provider-D0PXhBT9.js";
+import { t as buildXaiSpeechProvider } from "../../speech-provider-BiHad2xV.js";
 export { buildXaiSpeechProvider };

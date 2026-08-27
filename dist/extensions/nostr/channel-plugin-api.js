@@ -1,2 +1,2 @@
-import { n as nostrPlugin } from "../../channel-FBCy6bbB.js";
+import { n as nostrPlugin } from "../../channel-DssQmBNj.js";
 export { nostrPlugin };

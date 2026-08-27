@@ -124,35 +124,36 @@ export class AttributionRingBuffer {
     const { records } = this.querySlice({ windowMinutes });
     if (records.length === 0) return [];
 
-    const groups = new Map<string, TurnLatencyRecord[]>();
+    const sessions = new Map<string, TurnLatencyRecord[]>();
     for (const r of records) {
-      const list = groups.get(r.sessionKey) ?? [];
+      const list = sessions.get(r.sessionKey) ?? [];
       list.push(r);
-      groups.set(r.sessionKey, list);
+      sessions.set(r.sessionKey, list);
     }
 
-    const breakdowns: SessionPerformanceBreakdown[] = [];
-    for (const [sessionKey, items] of groups.entries()) {
-      const count = items.length;
+    const breakdowns: SessionPerformanceBreakdown[] = Array.from(sessions.entries()).map(([sessionKey, items]) => {
       const latencies = items.map((r) => r.wallClockMs).sort((a, b) => a - b);
-      const mean = Math.round(latencies.reduce((a, b) => a + b, 0) / count);
-      const p95Idx = Math.min(count - 1, Math.floor(count * 0.95));
-      const p95 = latencies[p95Idx] ?? 0;
-      const hits = items.filter((r) => r.cacheHit).length;
-      const promptTok = items.reduce((sum, r) => sum + r.promptTokens, 0);
-      const compTok = items.reduce((sum, r) => sum + r.completionTokens, 0);
+      const meanLatencyMs = Math.round(latencies.reduce((a, b) => a + b, 0) / latencies.length);
+      const p95Idx = Math.min(latencies.length - 1, Math.floor(latencies.length * 0.95));
+      const p95LatencyMs = latencies[p95Idx] ?? 0;
+      const cacheHits = items.filter((r) => r.cacheHit).length;
+      const compactionEvents = items.filter((r) => r.compactionFired).length;
+      const totalTokens = items.reduce((acc, r) => acc + r.totalTokens, 0);
+      const promptTokens = items.reduce((acc, r) => acc + r.promptTokens, 0);
+      const completionTokens = items.reduce((acc, r) => acc + r.completionTokens, 0);
 
-      breakdowns.push({
+      return {
         sessionKey,
-        turnCount: count,
-        meanLatencyMs: mean,
-        p95LatencyMs: p95,
-        cacheHitRatio: parseFloat((hits / count).toFixed(2)),
-        totalTokens: promptTok + compTok,
-        promptTokens: promptTok,
-        completionTokens: compTok,
-      });
-    }
+        turnCount: items.length,
+        meanLatencyMs,
+        p95LatencyMs,
+        cacheHitRatio: Math.round((cacheHits / items.length) * 100) / 100,
+        totalTokens,
+        promptTokens,
+        completionTokens,
+        compactionEvents,
+      };
+    });
 
     return breakdowns.sort((a, b) => b.turnCount - a.turnCount);
   }

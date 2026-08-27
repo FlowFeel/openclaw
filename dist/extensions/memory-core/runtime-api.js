@@ -10,10 +10,10 @@ import "../../memory-core-host-status-DSYZv50a.js";
 import "../../provider-env-vars-5Bj-Xf2G.js";
 import { p as configureMemoryCoreDreamingState } from "../../dreaming-state-CswYxS-h.js";
 import { i as repairShortTermPromotionArtifacts, n as auditShortTermPromotionArtifacts, p as loadShortTermPromotionDreamingStats, r as removeGroundedShortTermCandidates } from "../../short-term-promotion-ByFj77Sc.js";
-import { t as MemoryIndexManager } from "../../manager-C4RZsXxn.js";
+import { t as MemoryIndexManager } from "../../manager-CaDJHDwo.js";
 import { t as createEmbeddingProvider } from "../../embeddings-f9KxNIrL.js";
-import { r as getMemorySearchManager } from "../../memory-BcwqSA-B.js";
-import { n as memoryRuntime } from "../../runtime-provider-CZ2lkqNM.js";
+import { r as getMemorySearchManager } from "../../memory-8jupnkp1.js";
+import { n as memoryRuntime } from "../../runtime-provider-Cu7-1VKr.js";
 import { n as repairDreamingArtifacts, t as auditDreamingArtifacts } from "../../dreaming-repair-D7G77EgD.js";
 //#region extensions/memory-core/src/memory/provider-adapters.ts
 function getBuiltinMemoryEmbeddingProviderAdapter(id) {

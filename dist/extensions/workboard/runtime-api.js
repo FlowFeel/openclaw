@@ -1,2 +1,2 @@
-import { t as registerWorkboardGatewayMethods } from "../../runtime-api-BSqLw2S1.js";
+import { t as registerWorkboardGatewayMethods } from "../../runtime-api-Dd95ptyx.js";
 export { registerWorkboardGatewayMethods };

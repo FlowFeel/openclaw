@@ -74,6 +74,7 @@ export interface SessionPerformanceBreakdown {
   readonly totalTokens: number;
   readonly promptTokens: number;
   readonly completionTokens: number;
+  readonly compactionEvents: number;
   readonly transcriptBytes?: number;
   readonly accumulatedLogGrowth?: number;
 }
