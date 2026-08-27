@@ -11,11 +11,11 @@ import {
   AttributionRingBuffer,
   getAllSessionResourceUsage,
   getChannelQueueDepths,
+  globalAttributionRing,
   queryToolIntelligence,
 } from "../../infra/attribution-telemetry/index.js";
 
-// Global in-memory instance
-export const globalAttributionRing = new AttributionRingBuffer(1000);
+export { globalAttributionRing };
 
 export function createAttributionTools(): AnyAgentTool[] {
   return [

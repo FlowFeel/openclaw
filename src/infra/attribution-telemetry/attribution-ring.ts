@@ -221,3 +221,7 @@ export class AttributionRingBuffer {
     };
   }
 }
+
+// Export singleton instance for platform-wide turn attribution
+export const globalAttributionRing = new AttributionRingBuffer(1000);
+

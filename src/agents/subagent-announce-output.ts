@@ -23,6 +23,7 @@ import {
   resolveAgentIdFromSessionKey,
   resolveStorePath,
 } from "./subagent-announce.runtime.js";
+import { globalAttributionRing } from "../infra/attribution-telemetry/attribution-ring.js";
 import { compareSubagentRunGeneration } from "./subagent-run-generation.js";
 import { assistantCallsSessionsYield, isSessionsYieldToolResult } from "./subagent-yield-output.js";
 import { extractAssistantText, sanitizeTextContent } from "./tools/chat-history-text.js";
@@ -492,12 +493,20 @@ export function buildChildCompletionFindings(
       child.childSessionKey.trim() ||
       `child ${index + 1}`;
     const displayIndex = sections.length + 1;
+    const childTurns = globalAttributionRing.querySlice({ sessionKey: child.childSessionKey }).records;
+    const totalTok = childTurns.reduce((acc, t) => acc + t.totalTokens, 0);
+    const totalMs = childTurns.reduce((acc, t) => acc + t.wallClockMs, 0);
+    const telemetryStats = childTurns.length > 0
+      ? `telemetry: ${childTurns.length} turn(s), ${totalTok} tokens, ${totalMs}ms`
+      : undefined;
+
     sections.push({
       index: displayIndex,
       actionable: child.execution.outcome?.status !== "ok",
       text: [
         `${displayIndex}. ${truncateChildCompletionField(title)}`,
         `status: ${truncateChildCompletionField(outcome)}`,
+        ...(telemetryStats ? [telemetryStats] : []),
         formatChildResultData(resultText),
       ].join("\n"),
     });

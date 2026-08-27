@@ -19,6 +19,7 @@ import { refreshQueuedFollowupSession } from "./queue.js";
 import { buildReplyUsageState, recordReplyUsageState } from "./reply-usage-state.js";
 import { persistRunSessionUsage } from "./session-run-accounting.js";
 import { incrementRunCompactionCount } from "./session-run-accounting.js";
+import { globalAttributionRing } from "../../infra/attribution-telemetry/attribution-ring.js";
 
 type AgentTurnAccountingContext = Pick<
   FinalizeReplyAgentRunInput,
@@ -264,6 +265,37 @@ export async function accountAgentTurn(context: AgentTurnAccountingContext) {
     clearCliSessionBinding,
     preserveFreshTotalTokensOnStaleUsage: preflightCompactionApplied,
   });
+
+  if (sessionKey) {
+    const promptTok = typeof promptTokens === "number" ? promptTokens : (usage?.prompt_tokens ?? 0);
+    const compTok = typeof usage?.completion_tokens === "number" ? usage.completion_tokens : 0;
+    const totTok = typeof usage?.total_tokens === "number" ? usage.total_tokens : (promptTok + compTok);
+    const wallClockMs = Math.max(1, Date.now() - runStartedAt);
+    const lastCall = (lastCallUsage ?? runResult.meta?.agentMeta?.lastCallUsage) as Record<string, unknown> | undefined;
+    const cacheHit = Boolean(
+      (lastCall && Boolean(lastCall.cacheRead)) ||
+      (lastCall && typeof lastCall.cachedPromptTokens === "number" && lastCall.cachedPromptTokens > 0)
+    );
+    const compactionFired = Boolean(
+      preflightCompactionApplied ||
+      (typeof autoCompactionCount === "number" && autoCompactionCount > 0) ||
+      (typeof compactions === "number" && compactions > 0)
+    );
+
+    globalAttributionRing.recordTurn({
+      id: runId || `turn_${Date.now()}`,
+      sessionKey,
+      timestamp: Date.now(),
+      promptTokens: promptTok,
+      completionTokens: compTok,
+      totalTokens: totTok,
+      wallClockMs,
+      queueDwellMs: 0,
+      modelInferenceMs: wallClockMs,
+      cacheHit,
+      compactionFired,
+    });
+  }
   if (!isHeartbeat && !preserveUserFacingSessionState && !fallbackExhausted) {
     // A completed run that executed the persisted selection consumes the
     // pending live-switch flag; CLI harness runs never hit the embedded
