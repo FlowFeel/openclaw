@@ -1,2 +1,2 @@
-import { t as collectDiscordSecurityAuditFindings } from "../../security-audit-mCoAhR2W.js";
+import { t as collectDiscordSecurityAuditFindings } from "../../security-audit-CQ4OclRF.js";
 export { collectDiscordSecurityAuditFindings };

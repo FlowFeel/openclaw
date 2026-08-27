@@ -1,3 +1,3 @@
-import { a as shouldComputeCommandAuthorized, n as hasInlineCommandTokens, r as isControlCommandMessage, t as hasControlCommand } from "../command-detection-5NC1E5MR.js";
-import "../command-detection-C2KTPmCh.js";
+import { a as shouldComputeCommandAuthorized, n as hasInlineCommandTokens, r as isControlCommandMessage, t as hasControlCommand } from "../command-detection-lFmSYiNP.js";
+import "../command-detection-CXG4EAQY.js";
 export { hasControlCommand, hasInlineCommandTokens, isControlCommandMessage, shouldComputeCommandAuthorized };

@@ -1,2 +1,2 @@
-import { t as createXaiWebSearchProvider } from "../../web-search-CP8OPhB3.js";
+import { t as createXaiWebSearchProvider } from "../../web-search-C2p1_xG3.js";
 export { createXaiWebSearchProvider };

@@ -1,2 +1,2 @@
-import { o as resetTelegramThreadBindingsForTests, r as createTelegramThreadBindingManager } from "../../thread-bindings-CfTdQ7GR.js";
+import { o as resetTelegramThreadBindingsForTests, r as createTelegramThreadBindingManager } from "../../thread-bindings-flJZsP1M.js";
 export { createTelegramThreadBindingManager, resetTelegramThreadBindingsForTests };

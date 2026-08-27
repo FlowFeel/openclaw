@@ -1,3 +1,3 @@
 import { k as getPluginRuntimeGatewayRequestScope } from "../../runtime-yJAYArQt.js";
-import "../../runtime-api-cP--ra9h.js";
+import "../../runtime-api-BJar3VOZ.js";
 export { getPluginRuntimeGatewayRequestScope };

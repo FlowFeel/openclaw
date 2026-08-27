@@ -1,6 +1,6 @@
 import { n as parseModelRef } from "../../model-selection-normalize-Bae-aoqX.js";
-import { u as asObjectRecord } from "../../runtime-doctor-9vOSwNaE.js";
-import "../../agent-runtime-CVIwE66V.js";
+import { u as asObjectRecord } from "../../runtime-doctor-DgQNxy3X.js";
+import "../../agent-runtime-COD4z7RW.js";
 //#region extensions/llm-task/doctor-contract-api.ts
 const ENTRY_PATH = "plugins.entries.llm-task";
 function preserveLiteralLegacyModelRefs(values) {

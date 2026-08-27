@@ -107,6 +107,9 @@ export class AttributionRingBuffer {
       buckets.set(bucketKey, b);
     }
 
+    const mem = typeof process !== "undefined" && process.memoryUsage ? process.memoryUsage() : undefined;
+    const currentHeapPct = mem && mem.heapTotal > 0 ? Math.round((mem.heapUsed / mem.heapTotal) * 1000) / 10 : undefined;
+
     return Array.from(buckets.entries())
       .sort(([a], [b]) => a - b)
       .map(([timestamp, data]) => ({
@@ -114,6 +117,7 @@ export class AttributionRingBuffer {
         activeSessions: data.sessionKeys.size,
         inFlightTurns: data.count,
         meanQueueDwellMs: data.dwells.length > 0 ? Math.round(data.dwells.reduce((a, b) => a + b, 0) / data.dwells.length) : 0,
+        ...(typeof currentHeapPct === "number" ? { heapPct: currentHeapPct } : {}),
       }));
   }
 

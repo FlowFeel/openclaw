@@ -1,4 +1,4 @@
-import { t as googlechatDirectoryAdapter } from "../../channel.adapters-CB760wJ5.js";
+import { t as googlechatDirectoryAdapter } from "../../channel.adapters-BH17Qixd.js";
 //#region extensions/googlechat/directory-contract-api.ts
 const googlechatDirectoryContractPlugin = {
 	id: "googlechat",

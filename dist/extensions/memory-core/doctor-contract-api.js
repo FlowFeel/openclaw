@@ -9,7 +9,7 @@ import { B as MEMORY_INDEX_CHUNKS_TABLE, F as ensureMemoryIndexSchema, I as MEMO
 import { t as loadSqliteVecExtension } from "../../sqlite-vec-U_Koo0d5.js";
 import "../../error-runtime-Nqb-RQG4.js";
 import "../../routing-BYqzCOl5.js";
-import "../../runtime-doctor-9vOSwNaE.js";
+import "../../runtime-doctor-DgQNxy3X.js";
 import { n as legacyStateFileExists, t as archiveLegacyStateSource } from "../../doctor-state-migration-fs-CfVap4xL.js";
 import "../../sqlite-runtime-kT0Fczvb.js";
 import "../../memory-core-host-engine-foundation-DCzOSZiP.js";

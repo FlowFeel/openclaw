@@ -1,2 +1,2 @@
-import { t as zalouserSetupPlugin } from "../../channel.setup-NRUBu4WS.js";
+import { t as zalouserSetupPlugin } from "../../channel.setup-BTiAgjay.js";
 export { zalouserSetupPlugin };

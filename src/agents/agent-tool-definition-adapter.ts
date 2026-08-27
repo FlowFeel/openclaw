@@ -32,6 +32,10 @@ import type { ToolDefinition } from "./sessions/index.js";
 import { normalizeToolName } from "./tool-policy.js";
 import { jsonResult, payloadTextResult, ToolInputError } from "./tools/common.js";
 import { resolveToolCallTimeoutMs } from "./tools/tool-call-timeout-policy.js";
+import {
+  condenseToolParameters,
+  globalToolCommandLogger,
+} from "../infra/tool-command-log/index.js";
 
 type AnyAgentTool = AgentTool;
 
@@ -419,6 +423,23 @@ export function toToolDefinitions(
             const timeoutSignal = AbortSignal.timeout(perCallTimeout.timeoutMs);
             effectiveSignal = signal ? AbortSignal.any([signal, timeoutSignal]) : timeoutSignal;
           }
+          // ── Gateway Tool Flight Recorder (Epic 19) ──────────────────────
+          try {
+            const mem = typeof process !== "undefined" && process.memoryUsage ? process.memoryUsage() : undefined;
+            const heapPct = mem && mem.heapTotal > 0 ? (mem.heapUsed / mem.heapTotal) * 100 : undefined;
+            globalToolCommandLogger.record({
+              tool: name,
+              paramsSummary: condenseToolParameters(name, executeParams),
+              ts: Date.now(),
+              sessionKey: hookContext?.sessionKey ?? "unknown",
+              turn: hookContext?.turn ?? 0,
+              callId: toolCallId,
+              heapPct,
+            });
+          } catch {
+            // Non-blocking flight recorder guarantee
+          }
+
           const rawResult = await tool.execute(
             toolCallId,
             executeParams,

@@ -1,1 +1,1 @@
-export * from "./bot-native-commands.runtime-C-dbGIMT.js";
+export * from "./bot-native-commands.runtime-ClkZ0TzB.js";

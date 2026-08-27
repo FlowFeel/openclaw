@@ -1,2 +1,2 @@
-import { t as discordPlugin } from "../../channel-Zp9i0BT-.js";
+import { t as discordPlugin } from "../../channel-aVvge22Z.js";
 export { discordPlugin };

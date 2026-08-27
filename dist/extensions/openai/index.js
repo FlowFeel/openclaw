@@ -9,7 +9,7 @@ import { n as resolveOpenAISystemPromptContribution, t as resolveOpenAIPromptOve
 import { n as OPENAI_QUICKSILVER_OFFER_PATH } from "../../realtime-quicksilver-session-Cjg-lmYc.js";
 import { n as releaseOpenAIQuicksilverBrowserSessionBroker, t as acquireOpenAIQuicksilverBrowserSessionBroker } from "../../realtime-quicksilver-session-owner-G2WMtDTv.js";
 import { t as buildOpenAIRealtimeTranscriptionProvider } from "../../realtime-transcription-provider-CzSZOoDa.js";
-import { t as buildOpenAIRealtimeVoiceProvider } from "../../realtime-voice-provider-Bueq8ztB.js";
+import { t as buildOpenAIRealtimeVoiceProvider } from "../../realtime-voice-provider-BQs4O-iQ.js";
 import { t as buildOpenAISpeechProvider } from "../../speech-provider-DnnzlIZy.js";
 import { t as buildOpenAIVideoGenerationProvider } from "../../video-generation-provider-CDsNDSiE.js";
 //#region extensions/openai/index.ts

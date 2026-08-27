@@ -56,6 +56,7 @@ export interface ConcurrencyTimeSeriesPoint {
   readonly activeSessions: number;
   readonly inFlightTurns: number;
   readonly meanQueueDwellMs: number;
+  readonly heapPct?: number;
 }
 
 export interface ChannelQueueDepthRecord {

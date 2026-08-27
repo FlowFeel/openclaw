@@ -1,2 +1,2 @@
-import { n as normalizeCompatibilityConfig, t as legacyConfigRules } from "../../doctor-contract-B1YA0-tZ.js";
+import { n as normalizeCompatibilityConfig, t as legacyConfigRules } from "../../doctor-contract-B7gdatcX.js";
 export { legacyConfigRules, normalizeCompatibilityConfig };
