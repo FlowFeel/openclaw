@@ -3,7 +3,10 @@
  * Pure Channel History Store (Append-Only Journal)
  */
 
-import { ChannelHistoryEntry, TokenomicsClock } from "./types.js";
+import {
+  type ChannelHistoryEntry,
+  type TokenomicsClock,
+} from "./types.js";
 
 export class ChannelHistoryStore {
   private entries: ChannelHistoryEntry[];

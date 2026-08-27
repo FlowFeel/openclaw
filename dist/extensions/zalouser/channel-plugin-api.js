@@ -1,2 +1,2 @@
-import { t as zalouserPlugin } from "../../channel-DdEp1lD3.js";
+import { t as zalouserPlugin } from "../../channel-314qCd-5.js";
 export { zalouserPlugin };

@@ -4,9 +4,9 @@
  */
 
 import {
-  TurnMessage,
-  SNRReport,
-  SNRTier,
+  type TurnMessage,
+  type SNRReport,
+  type SNRTier,
   SNR_NOMINAL_PERCENT,
   SNR_WARNING_PERCENT,
 } from "./types.js";

@@ -1,2 +1,2 @@
-import { t as twitchPlugin } from "../../plugin-DlkAWDzP.js";
+import { t as twitchPlugin } from "../../plugin-DMheV7lE.js";
 export { twitchPlugin };

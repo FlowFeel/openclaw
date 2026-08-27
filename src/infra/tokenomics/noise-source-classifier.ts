@@ -3,7 +3,11 @@
  * Pure Noise Source Identifier & Classifier
  */
 
-import { TurnMessage, NoiseSource, NoiseCategory } from "./types.js";
+import {
+  type TurnMessage,
+  type NoiseSource,
+  type NoiseCategory,
+} from "./types.js";
 import { estimateTokens } from "./snr-calculator.js";
 
 const RETRACTION_PATTERN = /let me clarify|actually,|i was wrong|correction:/i;

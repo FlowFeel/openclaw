@@ -3,7 +3,7 @@
  * Pure Compaction Yield Report Calculator (Check-Result)
  */
 
-import { CompactionYieldReport } from "./types.js";
+import { type CompactionYieldReport } from "./types.js";
 
 export interface YieldCalculationInput {
   tokensBefore: number;

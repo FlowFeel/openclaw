@@ -3,7 +3,10 @@
  * Pure Token Budget Breakdown & Coverage Partitioner
  */
 
-import { BudgetBreakdown, TokenBudgetCategory } from "./types.js";
+import {
+  type BudgetBreakdown,
+  type TokenBudgetCategory,
+} from "./types.js";
 
 export interface ContextItem {
   category:

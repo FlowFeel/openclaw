@@ -1,2 +1,2 @@
-import { n as dispatchReplyWithDispatcher, t as dispatchReplyWithBufferedBlockDispatcher } from "./provider-dispatcher-04Y9oSO-.js";
+import { n as dispatchReplyWithDispatcher, t as dispatchReplyWithBufferedBlockDispatcher } from "./provider-dispatcher-BKbr2oCz.js";
 export { dispatchReplyWithBufferedBlockDispatcher, dispatchReplyWithDispatcher };

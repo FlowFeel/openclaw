@@ -5,7 +5,13 @@
  * Satisfies B1 (Vacuum), B2 (Nominal), and B6 (FIFO wrap-around closure).
  */
 
-import type { ConcurrencySnapshot, FleetCacheSummary, TurnLatencyRecord } from "./types.js";
+import type {
+  ConcurrencySnapshot,
+  ConcurrencyTimeSeriesPoint,
+  FleetCacheSummary,
+  SessionPerformanceBreakdown,
+  TurnLatencyRecord,
+} from "./types.js";
 
 export class AttributionRingBuffer {
   private readonly capacity: number;
@@ -82,16 +88,88 @@ export class AttributionRingBuffer {
   }
 
   /**
+   * Discretizes the historical window into 1-minute time-series buckets.
+   */
+  public getConcurrencyTimeSeries(options?: { windowMinutes?: number; nowMs?: number } | number): ConcurrencyTimeSeriesPoint[] {
+    const windowMinutes = typeof options === "number" ? options : options?.windowMinutes ?? 15;
+    const { records } = this.querySlice({ windowMinutes });
+    if (records.length === 0) return [];
+
+    const bucketMs = 60 * 1000;
+    const buckets = new Map<number, { sessionKeys: Set<string>; dwells: number[]; count: number }>();
+
+    for (const r of records) {
+      const bucketKey = Math.floor(r.timestamp / bucketMs) * bucketMs;
+      const b = buckets.get(bucketKey) ?? { sessionKeys: new Set(), dwells: [], count: 0 };
+      b.sessionKeys.add(r.sessionKey);
+      b.dwells.push(r.queueDwellMs);
+      b.count++;
+      buckets.set(bucketKey, b);
+    }
+
+    return Array.from(buckets.entries())
+      .sort(([a], [b]) => a - b)
+      .map(([timestamp, data]) => ({
+        timestamp,
+        activeSessions: data.sessionKeys.size,
+        inFlightTurns: data.count,
+        meanQueueDwellMs: data.dwells.length > 0 ? Math.round(data.dwells.reduce((a, b) => a + b, 0) / data.dwells.length) : 0,
+      }));
+  }
+
+  /**
+   * Aggregates turn latency and token throughput per session.
+   */
+  public getSessionPerformanceBreakdown(windowMinutes = 60): SessionPerformanceBreakdown[] {
+    const { records } = this.querySlice({ windowMinutes });
+    if (records.length === 0) return [];
+
+    const groups = new Map<string, TurnLatencyRecord[]>();
+    for (const r of records) {
+      const list = groups.get(r.sessionKey) ?? [];
+      list.push(r);
+      groups.set(r.sessionKey, list);
+    }
+
+    const breakdowns: SessionPerformanceBreakdown[] = [];
+    for (const [sessionKey, items] of groups.entries()) {
+      const count = items.length;
+      const latencies = items.map((r) => r.wallClockMs).sort((a, b) => a - b);
+      const mean = Math.round(latencies.reduce((a, b) => a + b, 0) / count);
+      const p95Idx = Math.min(count - 1, Math.floor(count * 0.95));
+      const p95 = latencies[p95Idx] ?? 0;
+      const hits = items.filter((r) => r.cacheHit).length;
+      const promptTok = items.reduce((sum, r) => sum + r.promptTokens, 0);
+      const compTok = items.reduce((sum, r) => sum + r.completionTokens, 0);
+
+      breakdowns.push({
+        sessionKey,
+        turnCount: count,
+        meanLatencyMs: mean,
+        p95LatencyMs: p95,
+        cacheHitRatio: parseFloat((hits / count).toFixed(2)),
+        totalTokens: promptTok + compTok,
+        promptTokens: promptTok,
+        completionTokens: compTok,
+      });
+    }
+
+    return breakdowns.sort((a, b) => b.turnCount - a.turnCount);
+  }
+
+  /**
    * Calculates Fleet Concurrency Snapshot.
    */
   public getConcurrencySnapshot(): ConcurrencySnapshot {
     const { records } = this.querySlice({ windowMinutes: 15 });
+    const timeSeries = this.getConcurrencyTimeSeries(15);
     if (records.length === 0) {
       return {
         activeSessions: 0,
         meanQueueDwellMs: 0,
         p95QueueDwellMs: 0,
         contentionDragIndex: 1.0,
+        timeSeries,
       };
     }
 
@@ -100,8 +178,6 @@ export class AttributionRingBuffer {
     const meanDwell = Math.round(dwells.reduce((a, b) => a + b, 0) / dwells.length);
     const p95Index = Math.min(dwells.length - 1, Math.floor(dwells.length * 0.95));
     const p95Dwell = dwells[p95Index] ?? 0;
-
-    // Contention index: baseline 1.0; scales up when p95 dwell exceeds 30ms
     const contentionDragIndex = Math.max(1.0, parseFloat((1.0 + p95Dwell / 50).toFixed(2)));
 
     return {
@@ -109,6 +185,7 @@ export class AttributionRingBuffer {
       meanQueueDwellMs: meanDwell,
       p95QueueDwellMs: p95Dwell,
       contentionDragIndex,
+      timeSeries,
     };
   }
 

@@ -1,2 +1,2 @@
-import { t as registerMatrixSubagentHooks } from "../../subagent-hooks-api-BxLQSDoE.js";
+import { t as registerMatrixSubagentHooks } from "../../subagent-hooks-api-oqQmZXVk.js";
 export { registerMatrixSubagentHooks };

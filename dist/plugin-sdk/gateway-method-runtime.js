@@ -1,2 +1,2 @@
-import { t as dispatchGatewayMethod } from "../gateway-method-runtime-D9dtzbNT.js";
+import { t as dispatchGatewayMethod } from "../gateway-method-runtime-BTbYdYAK.js";
 export { dispatchGatewayMethod };

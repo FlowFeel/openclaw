@@ -3,5 +3,5 @@ import { r as fetchWithSsrFGuard } from "../../fetch-guard-CPWMHcWe.js";
 import { t as createDedupeCache } from "../../dedupe-B4sBOca4.js";
 import { t as createLoggerBackedRuntime } from "../../runtime-logger.internal-B7qgxaF3.js";
 import { u as ssrfPolicyFromDangerouslyAllowPrivateNetwork } from "../../ssrf-policy-CHmrygRA.js";
-import "../../runtime-api-Blp7GDAb.js";
+import "../../runtime-api-GgOOWTm7.js";
 export { SsrFBlockedError, createDedupeCache, createLoggerBackedRuntime, fetchWithSsrFGuard, isBlockedHostnameOrIp, ssrfPolicyFromDangerouslyAllowPrivateNetwork };

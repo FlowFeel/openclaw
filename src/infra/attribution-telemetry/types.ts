@@ -51,11 +51,39 @@ export interface ResourceAttributionRecord {
   readonly memoryAllocMb: number;
 }
 
+export interface ConcurrencyTimeSeriesPoint {
+  readonly timestamp: number;
+  readonly activeSessions: number;
+  readonly inFlightTurns: number;
+  readonly meanQueueDwellMs: number;
+}
+
+export interface ChannelQueueDepthRecord {
+  readonly channelId: string;
+  readonly pendingMessages: number;
+  readonly ingressRatePerMin: number;
+  readonly lastEnqueuedAt: number;
+}
+
+export interface SessionPerformanceBreakdown {
+  readonly sessionKey: string;
+  readonly turnCount: number;
+  readonly meanLatencyMs: number;
+  readonly p95LatencyMs: number;
+  readonly cacheHitRatio: number;
+  readonly totalTokens: number;
+  readonly promptTokens: number;
+  readonly completionTokens: number;
+  readonly transcriptBytes?: number;
+  readonly accumulatedLogGrowth?: number;
+}
+
 export interface ConcurrencySnapshot {
   readonly activeSessions: number;
   readonly meanQueueDwellMs: number;
   readonly p95QueueDwellMs: number;
   readonly contentionDragIndex: number;
+  readonly timeSeries?: readonly ConcurrencyTimeSeriesPoint[];
 }
 
 export interface FleetCacheSummary {

@@ -43,3 +43,11 @@ export function recordSessionDiskAttribution(sessionKey: string, transcriptPath:
 export function getSessionResourceUsage(sessionKey: string): { transcriptBytes: number; accumulatedLogGrowth: number } {
   return sessionResourceLedger.get(sessionKey) ?? { transcriptBytes: 0, accumulatedLogGrowth: 0 };
 }
+
+export function getAllSessionResourceUsage(): Record<string, { transcriptBytes: number; accumulatedLogGrowth: number }> {
+  const result: Record<string, { transcriptBytes: number; accumulatedLogGrowth: number }> = {};
+  for (const [key, val] of sessionResourceLedger.entries()) {
+    result[key] = { ...val };
+  }
+  return result;
+}

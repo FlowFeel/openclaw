@@ -1,5 +1,5 @@
 import { t as defineBundledChannelEntry } from "../../channel-entry-contract-BqXCQUt5.js";
-import { t as registerTelegramMiniApp } from "../../miniapp-api-DLVmBqVy.js";
+import { t as registerTelegramMiniApp } from "../../miniapp-api-CPtdr0i4.js";
 //#region extensions/telegram/index.ts
 var telegram_default = defineBundledChannelEntry({
 	id: "telegram",

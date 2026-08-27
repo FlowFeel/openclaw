@@ -9,6 +9,8 @@ import { Type } from "typebox";
 import { type AnyAgentTool, jsonResult } from "./common.js";
 import {
   AttributionRingBuffer,
+  getAllSessionResourceUsage,
+  getChannelQueueDepths,
   queryToolIntelligence,
 } from "../../infra/attribution-telemetry/index.js";
 
@@ -20,27 +22,40 @@ export function createAttributionTools(): AnyAgentTool[] {
     {
       name: "attribution_inspect",
       label: "Attribution Inspect",
-      description: "Query cross-session time-series attribution metrics: turn latency history, queue dwell (p50/p95), concurrency contention drag index, and fleet cache hit ratio.",
+      description: "Query cross-session time-series attribution metrics: turn latency history, queue dwell (p50/p95), concurrency contention drag index, fleet cache hit ratio, per-channel queue depths, and session resource breakdown.",
       parameters: Type.Object(
         {
           sessionKey: Type.Optional(Type.String({ description: "Target session key (omitted for fleet-wide)." })),
           windowMinutes: Type.Optional(Type.Number({ description: "Sliding window horizon in minutes (default 60)." })),
-          limit: Type.Optional(Type.Number({ description: "Max turn records to return (default 20)." })),
         },
         { additionalProperties: false },
       ),
-      execute: async (_toolCallId: string, params: { sessionKey?: string; windowMinutes?: number; limit?: number }) => {
+      execute: async (_toolCallId: string, params: { sessionKey?: string; windowMinutes?: number }) => {
         const slice = globalAttributionRing.querySlice({
           sessionKey: params.sessionKey,
           windowMinutes: params.windowMinutes,
-          limit: params.limit ?? 20,
+          limit: 50,
         });
         const concurrency = globalAttributionRing.getConcurrencySnapshot();
         const cache = globalAttributionRing.getFleetCacheSummary();
+        const channelQueues = getChannelQueueDepths();
+        const sessionBreakdown = globalAttributionRing.getSessionPerformanceBreakdown(params.windowMinutes);
+        const resourceUsage = getAllSessionResourceUsage();
+
+        const enrichedBreakdown = sessionBreakdown.map((s) => {
+          const res = resourceUsage[s.sessionKey];
+          return {
+            ...s,
+            transcriptBytes: res?.transcriptBytes ?? 0,
+            accumulatedLogGrowth: res?.accumulatedLogGrowth ?? 0,
+          };
+        });
 
         return jsonResult({
           concurrency,
           cache,
+          channelQueues,
+          sessionBreakdown: enrichedBreakdown,
           totalSampled: slice.totalSampled,
           recentTurns: slice.records.map((r) => ({
             id: r.id,

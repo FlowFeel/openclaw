@@ -4,20 +4,20 @@
  */
 
 import {
-  TokenomicsConfig,
-  TurnMessage,
-  SNRReport,
-  CompactionYieldReport,
-  NoiseSource,
-  BudgetBreakdown,
-  ChannelHistoryEntry,
+  type TokenomicsConfig,
+  type TurnMessage,
+  type SNRReport,
+  type CompactionYieldReport,
+  type NoiseSource,
+  type BudgetBreakdown,
+  type ChannelHistoryEntry,
 } from "./types.js";
 import { calculateSNR } from "./snr-calculator.js";
-import { computeCompactionYield, YieldCalculationInput } from "./compaction-yield.js";
+import { computeCompactionYield, type YieldCalculationInput } from "./compaction-yield.js";
 import { identifyNoiseSources } from "./noise-source-classifier.js";
-import { partitionTokenBudget, ContextItem } from "./token-budget-partitioner.js";
+import { partitionTokenBudget, type ContextItem } from "./token-budget-partitioner.js";
 import { ChannelHistoryStore } from "./channel-history-store.js";
-import { sliceArchivedSegment, RetransmitResult } from "./retransmission-slicer.js";
+import { sliceArchivedSegment, type RetransmitResult } from "./retransmission-slicer.js";
 
 export interface TokenomicsEngine {
   calculateSNR(turns: TurnMessage[]): SNRReport;
