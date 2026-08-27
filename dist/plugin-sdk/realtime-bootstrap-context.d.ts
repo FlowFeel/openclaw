@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../types.openclaw-B-6RRL7F.js";
+import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
 
 //#region src/agents/realtime-bootstrap-context.d.ts
 /** Default ordered profile files included in realtime bootstrap context. */

@@ -1,5 +1,5 @@
-import { n as OpenClawConfig } from "../types.openclaw-B-6RRL7F.js";
-import { An as ProviderAuthResult } from "../types-CrfqAVvH.js";
+import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
+import { An as ProviderAuthResult } from "../types-DlorAczx.js";
 
 //#region src/plugin-sdk/provider-auth-result.d.ts
 /**

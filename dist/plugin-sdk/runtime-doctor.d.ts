@@ -1,8 +1,8 @@
-import { k as PluginInstallRecord, n as OpenClawConfig } from "../types.openclaw-B-6RRL7F.js";
+import { k as PluginInstallRecord, n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
 import { t as LegacyConfigRule } from "../legacy.shared-CFJyEGh7.js";
 import { n as OpenClawStateDatabaseSchemaMigration, t as OpenClawStateDatabaseOptions } from "../openclaw-state-db-contract-CmXakrzW.js";
 import { i as PluginStateSyncKeyedStore, r as PluginStateKeyedStore, t as OpenKeyedStoreOptions } from "../plugin-state-store.types-DX2gE09P.js";
-import { t as collectProviderDangerousNameMatchingScopes } from "../dangerous-name-matching-DGgTlSSF.js";
+import { t as collectProviderDangerousNameMatchingScopes } from "../dangerous-name-matching-BS8RDTIr.js";
 import { DatabaseSync } from "node:sqlite";
 
 //#region src/state/openclaw-state-db-schema-repair.d.ts

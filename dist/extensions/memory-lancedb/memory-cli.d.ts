@@ -1,4 +1,4 @@
-import { s as OpenClawPluginApi } from "../../plugin-entry-i32wLQY9.js";
+import { s as OpenClawPluginApi } from "../../plugin-entry-V3twzgF5.js";
 import { Embeddings } from "./embeddings.js";
 import { a as MemoryQueryFilter, n as MemoryDB } from "../../lancedb-store-DVv3snpG.js";
 

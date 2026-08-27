@@ -17,7 +17,7 @@ import {
   TypingModeSchema,
 } from "./zod-schema.core.js";
 
-const PromptModeSchema = z.enum(["full", "minimal", "scaffold", "none"]);
+const PromptModeSchema = z.enum(["full", "minimal", "scaffold", "none", "bare"]);
 
 const SilentReplyPolicySchema = z.union([z.literal("allow"), z.literal("disallow")]);
 
@@ -265,6 +265,7 @@ export const AgentDefaultsSchema = z
       .optional(),
     sandbox: AgentSandboxSchema,
     promptMode: PromptModeSchema.optional(),
+    sectionOverrides: z.record(z.union([z.string(), z.array(z.string()), z.null()])).optional(),
   })
   .strict()
   .optional();

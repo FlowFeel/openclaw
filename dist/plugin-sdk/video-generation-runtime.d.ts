@@ -1,9 +1,9 @@
-import { n as OpenClawConfig } from "../types.openclaw-B-6RRL7F.js";
-import { nn as GenerateVideoRuntimeResult, tn as GenerateVideoParams } from "../types-CrfqAVvH.js";
+import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
+import { nn as GenerateVideoRuntimeResult, tn as GenerateVideoParams } from "../types-DlorAczx.js";
 import { t as SubsystemLogger } from "../subsystem-RmDRaRJV.js";
-import { c as VideoGenerationProvider } from "../types-BxdX8JcN.js";
-import { n as getProviderEnvVars } from "../provider-env-vars-DMJl7-H2.js";
-import { n as listVideoGenerationProviders, t as getVideoGenerationProvider } from "../provider-registry-BbEDsMC3.js";
+import { c as VideoGenerationProvider } from "../types-D7KuwZHu.js";
+import { n as getProviderEnvVars } from "../provider-env-vars-FZEzpQ8b.js";
+import { n as listVideoGenerationProviders, t as getVideoGenerationProvider } from "../provider-registry-C8ba-GRw.js";
 
 //#region src/video-generation/runtime.d.ts
 declare const log: SubsystemLogger;

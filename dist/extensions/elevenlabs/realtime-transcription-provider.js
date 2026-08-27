@@ -1,2 +1,2 @@
-import { t as buildElevenLabsRealtimeTranscriptionProvider } from "../../realtime-transcription-provider-CLyWK3TN.js";
+import { t as buildElevenLabsRealtimeTranscriptionProvider } from "../../realtime-transcription-provider-DKUc4Gyz.js";
 export { buildElevenLabsRealtimeTranscriptionProvider };

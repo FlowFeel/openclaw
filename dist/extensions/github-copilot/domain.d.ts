@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-CXX8ljmy.js";
+import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
 //#region extensions/github-copilot/domain.d.ts
 /** Public GitHub Copilot host used when no data-residency domain is configured. */
 declare const PUBLIC_GITHUB_COPILOT_DOMAIN = "github.com";

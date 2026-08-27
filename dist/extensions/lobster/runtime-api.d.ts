@@ -1,5 +1,5 @@
-import { m as OpenClawPluginToolFactory, p as OpenClawPluginToolContext } from "../../types-DOjBC-h-.js";
-import { n as OpenClawPluginApi, t as AnyAgentTool, x as definePluginEntry } from "../../plugin-entry-BCZEsMxf.js";
+import { m as OpenClawPluginToolFactory, p as OpenClawPluginToolContext } from "../../types-BNarcMbg.js";
+import { n as OpenClawPluginApi, t as AnyAgentTool, x as definePluginEntry } from "../../plugin-entry-B5PMaQG5.js";
 //#region src/plugin-sdk/windows-spawn.d.ts
 /** Final execution strategy chosen for a Windows spawn command. */
 type WindowsSpawnResolution = "direct" | "node-entrypoint" | "exe-entrypoint" | "shell-fallback";

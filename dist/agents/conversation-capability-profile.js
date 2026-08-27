@@ -1,2 +1,2 @@
-import { t as resolveConversationCapabilityProfile } from "../conversation-capability-profile-DmJDM--X.js";
+import { t as resolveConversationCapabilityProfile } from "../conversation-capability-profile-BcUTixch.js";
 export { resolveConversationCapabilityProfile };

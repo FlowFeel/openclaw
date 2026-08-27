@@ -1,5 +1,5 @@
-import { n as OpenClawConfig } from "../types.openclaw-B-6RRL7F.js";
-import { a as EmbeddingProviderCreateOptions, c as EmbeddingProviderRuntime, i as EmbeddingProviderCallOptions, n as EmbeddingProvider, o as EmbeddingProviderCreateResult, r as EmbeddingProviderAdapter, s as EmbeddingProviderIndexIdentity, t as EmbeddingInput } from "../embedding-providers-B14t3WBj.js";
+import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
+import { a as EmbeddingProviderCreateOptions, c as EmbeddingProviderRuntime, i as EmbeddingProviderCallOptions, n as EmbeddingProvider, o as EmbeddingProviderCreateResult, r as EmbeddingProviderAdapter, s as EmbeddingProviderIndexIdentity, t as EmbeddingInput } from "../embedding-providers-2az1VUwJ.js";
 
 //#region src/plugins/embedding-provider-runtime.d.ts
 /** Lists embedding providers from registered adapters and plugin capabilities. */

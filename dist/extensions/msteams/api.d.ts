@@ -1,6 +1,6 @@
-import { t as ChannelSetupWizard } from "../../setup-wizard-types-B72aypBk.js";
-import { u as ChannelSetupAdapter } from "../../manifest-registry-C0GShb_1.js";
-import { t as msteamsPlugin } from "../../channel-DQncmuqt.js";
+import { t as ChannelSetupWizard } from "../../setup-wizard-types-BkzT-fEX.js";
+import { u as ChannelSetupAdapter } from "../../manifest-registry-DvSIzEBz.js";
+import { t as msteamsPlugin } from "../../channel-Culuj8NR.js";
 //#region extensions/msteams/src/setup-core.d.ts
 declare const msteamsSetupAdapter: ChannelSetupAdapter;
 declare function createMSTeamsSetupWizardBase(): Pick<ChannelSetupWizard, "channel" | "resolveAccountIdForConfigure" | "resolveShouldPromptAccountIds" | "status" | "credentials" | "finalize">;

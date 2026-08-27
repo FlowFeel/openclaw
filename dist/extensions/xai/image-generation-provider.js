@@ -1,2 +1,2 @@
-import { t as buildXaiImageGenerationProvider } from "../../image-generation-provider-DmGoYysR.js";
+import { t as buildXaiImageGenerationProvider } from "../../image-generation-provider-CwPXTAF-.js";
 export { buildXaiImageGenerationProvider };

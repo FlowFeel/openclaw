@@ -1,5 +1,5 @@
-import { n as OpenClawConfig } from "../../types.openclaw-_47ZKysp.js";
-import { t as PluginDoctorStateMigration } from "../../runtime-doctor-DtJ3MtfV.js";
+import { n as OpenClawConfig } from "../../types.openclaw-rejpcq0R.js";
+import { t as PluginDoctorStateMigration } from "../../runtime-doctor-CVcUyTVt.js";
 
 //#region extensions/memory-wiki/src/config-compat.d.ts
 type LegacyConfigRule = {

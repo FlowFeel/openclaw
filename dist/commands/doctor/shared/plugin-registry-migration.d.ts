@@ -1,7 +1,7 @@
-import { i as OpenClawConfig } from "../../../types.openclaw-3lPuYQv-.js";
-import { r as LoadInstalledPluginIndexParams, t as InstalledPluginIndex } from "../../../installed-plugin-index-types-COVojO1x.js";
+import { i as OpenClawConfig } from "../../../types.openclaw-DvmDDNUn.js";
+import { r as LoadInstalledPluginIndexParams, t as InstalledPluginIndex } from "../../../installed-plugin-index-types-BN1MLfSE.js";
 import { t as InstalledPluginIndexStoreOptions } from "../../../installed-plugin-index-store-path-DHr6siNg.js";
-import { t as InstalledPluginIndexStoreInspection } from "../../../installed-plugin-index-store-BhGR7iSK.js";
+import { t as InstalledPluginIndexStoreInspection } from "../../../installed-plugin-index-store-DZ89euRq.js";
 
 //#region src/commands/doctor/shared/plugin-registry-migration.d.ts
 type PluginRegistryInstallMigrationPreflightAction = "skip-existing" | "migrate";

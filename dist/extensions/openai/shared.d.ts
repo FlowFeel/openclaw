@@ -1,5 +1,5 @@
-import { $ as cloneFirstTemplateModel, P as ProviderPlugin, et as matchesExactOrPrefix } from "../../plugin-entry-D2U6D_c3.js";
-import { n as OpenClawConfig } from "../../types.openclaw-_47ZKysp.js";
+import { $ as cloneFirstTemplateModel, P as ProviderPlugin, et as matchesExactOrPrefix } from "../../plugin-entry-DZ50A-uD.js";
+import { n as OpenClawConfig } from "../../types.openclaw-rejpcq0R.js";
 //#region src/plugins/provider-catalog.d.ts
 /** Finds a provider catalog template entry by normalized provider and template id. */
 declare function findCatalogTemplate(params: {

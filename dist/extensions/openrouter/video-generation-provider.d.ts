@@ -1,4 +1,4 @@
-import { r as VideoGenerationProvider } from "../../video-generation-g0gV9UC7.js";
+import { r as VideoGenerationProvider } from "../../video-generation-BzctQhrg.js";
 import { listOpenRouterVideoModelCatalog } from "./video-model-catalog.js";
 
 //#region extensions/openrouter/video-generation-provider.d.ts

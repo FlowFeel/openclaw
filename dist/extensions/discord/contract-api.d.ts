@@ -1,4 +1,4 @@
-import { n as DiscordInteractiveHandlerRegistration, t as DiscordInteractiveHandlerContext } from "../../interactive-dispatch-Bz16BqLW.js";
+import { n as DiscordInteractiveHandlerRegistration, t as DiscordInteractiveHandlerContext } from "../../interactive-dispatch-BFZMSUj6.js";
 
 //#region extensions/discord/src/session-contract.d.ts
 declare function deriveLegacySessionChatType(sessionKey: string): "channel" | undefined;

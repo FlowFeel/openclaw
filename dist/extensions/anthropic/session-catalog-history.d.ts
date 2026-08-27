@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-B2WvMv3k.js";
+import { n as OpenClawConfig } from "../../types.openclaw-C0MxgyRv.js";
 import { t as ClaudeTranscriptItem } from "../../session-catalog-transcript-xA6TtbpC.js";
 
 //#region extensions/anthropic/session-catalog-history.d.ts

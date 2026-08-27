@@ -1,4 +1,4 @@
-import { F as SessionUpstreamActivity, I as SessionUpstreamProbe, M as SessionCatalogContinueProviderResult } from "../../types-DOjBC-h-.js";
+import { F as SessionUpstreamActivity, I as SessionUpstreamProbe, M as SessionCatalogContinueProviderResult } from "../../types-BNarcMbg.js";
 import { t as ClaudeTranscriptItem } from "../../session-catalog-transcript-xA6TtbpC.js";
 //#region extensions/anthropic/session-upstream-activity.d.ts
 declare const continueOperations: Map<string, Promise<{

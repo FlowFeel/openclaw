@@ -1,4 +1,4 @@
-import { u as ProviderThinkingProfile } from "../../plugin-entry-Ba15Paz9.js";
+import { u as ProviderThinkingProfile } from "../../plugin-entry-CnFsf3yf.js";
 
 //#region extensions/openrouter/thinking-policy.d.ts
 declare function resolveOpenRouterThinkingProfile(modelId: string): ProviderThinkingProfile | undefined;

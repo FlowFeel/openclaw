@@ -1,4 +1,4 @@
-import { i as ProviderPlugin } from "../../types-DOjBC-h-.js";
+import { i as ProviderPlugin } from "../../types-BNarcMbg.js";
 //#region extensions/minimax/provider-discovery.d.ts
 declare const minimaxProviderDiscovery: ProviderPlugin[];
 //#endregion

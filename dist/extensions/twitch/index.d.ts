@@ -1,5 +1,5 @@
-import { t as ChannelPlugin } from "../../types.public-BVT2cLE1.js";
-import { t as BundledChannelEntryContract } from "../../channel-entry-contract-BknYF3Hu.js";
+import { t as ChannelPlugin } from "../../types.public-BtNAHu6Z.js";
+import { t as BundledChannelEntryContract } from "../../channel-entry-contract-DYLp7rA0.js";
 
 //#region extensions/twitch/index.d.ts
 declare const _default: BundledChannelEntryContract<ChannelPlugin>;

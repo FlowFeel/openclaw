@@ -370,6 +370,8 @@ export type AgentDefaultsConfig = {
   sandbox?: AgentSandboxConfig;
   /** Default prompt rendering mode for agent system prompts. */
   promptMode?: PromptMode;
+  /** Section overrides map for dynamic prompt materialization or suppression. */
+  sectionOverrides?: Record<string, string | string[] | null>;
 };
 
 export type AgentCompactionMode = "default" | "safeguard";

@@ -1,22 +1,22 @@
 import { c as normalizeOptionalString } from "./string-coerce-DW4mBlAt.js";
 import { t as drainGlobalSingletonLifecycleState } from "./global-singleton-Dc_stLtU.js";
 import { t as createSubsystemLogger } from "./subsystem-Cr19cPPQ.js";
-import { r as clearActivePluginRegistry } from "./runtime-yJAYArQt.js";
-import { t as disposeRegisteredAgentHarnesses } from "./registry-BjwLx-0R.js";
+import { r as clearActivePluginRegistry } from "./runtime-CaoLFEzk.js";
+import { t as disposeRegisteredAgentHarnesses } from "./registry-BIl2aCj8.js";
 import { p as closePluginStateDatabase } from "./plugin-state-store-aPYaqCXn.js";
 import { i as listChannelPlugins } from "./registry-B1AiP2IQ.js";
 import "./plugins-1tM2ZjdA.js";
 import { o as createAgentRunRestartAbortError } from "./run-termination-7xcnysfe.js";
-import { n as disposeAllSessionMcpRuntimes } from "./agent-bundle-mcp-manager-api-BO7-Y1u4.js";
-import "./agent-bundle-mcp-tools-qs9ydpAf.js";
-import { m as triggerInternalHook, n as createInternalHookEvent } from "./internal-hooks-glvlO_hY.js";
-import { t as clearSessionSuspensionTimers } from "./session-suspension-pn3EIaA1.js";
+import { n as disposeAllSessionMcpRuntimes } from "./agent-bundle-mcp-manager-api-tYiZR0t8.js";
+import "./agent-bundle-mcp-tools-BpC6cGgX.js";
+import { m as triggerInternalHook, n as createInternalHookEvent } from "./internal-hooks-DLRkuHeB.js";
+import { t as clearSessionSuspensionTimers } from "./session-suspension-BiVYyWeL.js";
 import { n as createChatAbortMarker } from "./server-chat-state-C8AVcQU8.js";
 import { a as isChatAbortControllerEntryAbortable, c as removeChatAbortControllerEntry, r as abortTrackedChatRunById } from "./chat-abort-S5cQPsk-.js";
 import { n as abortQueuedChatTurns } from "./chat-queued-turns-DWyXqGgL.js";
 import { n as collectGatewayProcessMemoryUsageMb, o as measureGatewayRestartTrace, s as recordGatewayRestartTrace } from "./restart-trace-Cu5YQjxo.js";
 import { n as clearSessionTypingState } from "./session-typing-state-CJxhp501.js";
-import { r as drainActiveSessionsForShutdown } from "./session-reset-service-BY3TcxCJ.js";
+import { r as drainActiveSessionsForShutdown } from "./session-reset-service-bM-zQ9v2.js";
 import { cleanupSessionResources } from "@openclaw/ai/internal/runtime";
 //#region src/gateway/server-close.ts
 const shutdownLog = createSubsystemLogger("gateway/shutdown");
@@ -351,15 +351,15 @@ async function disposeRuntimeWithShutdownGrace(params) {
 	disposeTimeout.clear();
 }
 async function disposeAllBundleLspRuntimesOnDemand() {
-	const { disposeAllBundleLspRuntimes } = await import("./agent-bundle-lsp-runtime-DBaexs9b.js");
+	const { disposeAllBundleLspRuntimes } = await import("./agent-bundle-lsp-runtime-Dlr8g4dA.js");
 	await disposeAllBundleLspRuntimes();
 }
 async function drainRetainedEmbeddingProvidersOnDemand() {
-	const { drainRetainedOpenAiEmbeddingProviders } = await import("./embeddings-http-Dpqt06Nh.js");
+	const { drainRetainedOpenAiEmbeddingProviders } = await import("./embeddings-http-Dd-qnVYk.js");
 	await drainRetainedOpenAiEmbeddingProviders();
 }
 async function stopGmailWatcherOnDemand() {
-	const { stopGmailWatcher } = await import("./gmail-watcher-CxvgeP6g.js");
+	const { stopGmailWatcher } = await import("./gmail-watcher-DV9ewC44.js");
 	await stopGmailWatcher();
 }
 async function runGatewayClosePrelude(params) {
@@ -466,7 +466,7 @@ function createGatewayCloseHandler(params) {
 				for (const channelId of channelIds) await shutdownStep(`channel/${channelId}`, () => params.stopChannel(channelId), warnings);
 			});
 			await shutdownStep("code-mode-runs", async () => {
-				const { disposeAllCodeModeRuns } = await import("./code-mode-state-CA0Ydjbg.js");
+				const { disposeAllCodeModeRuns } = await import("./code-mode-state-DjOnSHTG.js");
 				return disposeAllCodeModeRuns();
 			}, warnings);
 			await shutdownStep("agent-harnesses", () => disposeRegisteredAgentHarnesses(), warnings);

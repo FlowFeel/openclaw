@@ -1,4 +1,4 @@
-import { i as OpenClawConfig } from "./types.openclaw-3lPuYQv-.js";
+import { i as OpenClawConfig } from "./types.openclaw-DvmDDNUn.js";
 //#region src/docker-healthcheck.d.ts
 type DockerHealthcheckPortDeps = {
   env: NodeJS.ProcessEnv;

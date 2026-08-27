@@ -570,7 +570,7 @@ async function tryHandleRootHelpFastPath(argv, deps = {}) {
 		if (!liveRootHelpOptions) {
 			if ((deps.outputPrecomputedRootHelpText ?? (await loadRootHelpMetadataModule()).outputPrecomputedRootHelpText)()) return true;
 		}
-		await (deps.outputRootHelp ?? (await import("./root-help-C2631ub7.js")).outputRootHelp)(liveRootHelpOptions ?? void 0);
+		await (deps.outputRootHelp ?? (await import("./root-help-WehA25C5.js")).outputRootHelp)(liveRootHelpOptions ?? void 0);
 		return true;
 	} catch (error) {
 		await handleError(error);
@@ -593,7 +593,7 @@ async function runMainOrRootHelp(argv, deps = {}) {
 	await runCliWithExitFinalization({
 		run: async () => {
 			if (isNativeHookRelayArgv(argv) && !argv.includes("--help") && !argv.includes("-h")) {
-				const { runNativeHookRelayCliFromArgv } = await import("./native-hook-relay-cli-DgxeIffD.js");
+				const { runNativeHookRelayCliFromArgv } = await import("./native-hook-relay-cli-OOKzBKYc.js");
 				const exitCode = await runNativeHookRelayCliFromArgv(argv);
 				process$1.exitCode = exitCode;
 				requestExitAfterOneShotOutput(defaultRuntime, exitCode);

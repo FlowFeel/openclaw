@@ -1,4 +1,4 @@
-import { mt as ModelCatalogEntry } from "../../types-DOjBC-h-.js";
+import { mt as ModelCatalogEntry } from "../../types-BNarcMbg.js";
 //#region extensions/anthropic/cli-catalog.d.ts
 /** Build catalog entries for the default Claude CLI allowlist. */
 declare function buildClaudeCliCatalogEntries(): ModelCatalogEntry[];

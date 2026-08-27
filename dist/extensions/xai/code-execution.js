@@ -3,13 +3,13 @@ import { a as getRuntimeConfigSnapshot } from "../../runtime-snapshot-DLOCFXOE.j
 import { _ as readStringParam } from "../../common-RkLs-2lL.js";
 import { t as jsonResult } from "../../tool-results-BCM3fdVS.js";
 import { d as postTrustedWebToolsJson } from "../../web-search-provider-common-DVYTMB4z.js";
-import "../../runtime-config-snapshot-DjkKC15G.js";
+import "../../runtime-config-snapshot-C-dkwGUA.js";
 import "../../provider-http-C8bsuM26.js";
 import "../../provider-web-search-Cw9nqgAP.js";
 import { a as XAI_DEFAULT_MODEL_ID } from "../../model-definitions-DS2_tBMV.js";
 import { n as createCodeExecutionToolDefinition, t as buildMissingCodeExecutionApiKeyPayload } from "../../code-execution-tool-shared-CeAkKo1Y.js";
-import { r as resolveXaiToolApiKeyWithAuth } from "../../tool-auth-shared-DwewuXnw.js";
-import { n as readPluginCodeExecutionConfig, r as resolveCodeExecutionEnabled, t as readCodeExecutionConfigRecord } from "../../code-execution-config-CIg5NUg2.js";
+import { r as resolveXaiToolApiKeyWithAuth } from "../../tool-auth-shared-qhFXTiNq.js";
+import { n as readPluginCodeExecutionConfig, r as resolveCodeExecutionEnabled, t as readCodeExecutionConfigRecord } from "../../code-execution-config-GEiU6ohD.js";
 import { n as resolveNormalizedXaiToolModel, r as resolvePositiveIntegerToolConfig } from "../../tool-config-shared-aky51Auo.js";
 import { i as requireXaiResponseTextAndCitations, n as buildXaiResponsesToolBody, t as XAI_RESPONSES_ENDPOINT } from "../../responses-tool-shared-CiwtsHL1.js";
 //#region extensions/xai/src/code-execution-shared.ts

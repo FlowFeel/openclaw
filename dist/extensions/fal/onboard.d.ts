@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-hJEKisz6.js";
+import { n as OpenClawConfig } from "../../types.openclaw-Becy5MdM.js";
 //#region extensions/fal/onboard.d.ts
 declare const FAL_DEFAULT_IMAGE_MODEL_REF = "fal/fal-ai/flux/dev";
 declare function applyFalConfig(cfg: OpenClawConfig): OpenClawConfig;

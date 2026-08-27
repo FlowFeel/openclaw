@@ -1,4 +1,4 @@
-import { D as ModelDefinitionConfig, n as OpenClawConfig } from "../../types.openclaw-DlZm98yj.js";
+import { D as ModelDefinitionConfig, n as OpenClawConfig } from "../../types.openclaw-lExroEnq.js";
 //#region extensions/litellm/onboard.d.ts
 declare const LITELLM_BASE_URL = "http://localhost:4000";
 declare const LITELLM_DEFAULT_MODEL_ID = "claude-opus-4-6";

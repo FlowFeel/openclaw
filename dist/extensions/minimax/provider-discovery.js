@@ -1,4 +1,4 @@
-import { n as buildMinimaxPortalProvider, r as buildMinimaxProvider } from "../../provider-catalog-Bq_qb8yV.js";
+import { n as buildMinimaxPortalProvider, r as buildMinimaxProvider } from "../../provider-catalog-CIRNzPpv.js";
 //#region extensions/minimax/provider-discovery.ts
 const minimaxProviderDiscovery = [{
 	id: "minimax",

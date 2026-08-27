@@ -1,4 +1,4 @@
-import { Fa as PluginRuntime } from "../types-CR0scl6B.js";
+import { Fa as PluginRuntime } from "../types-CaDBLrp9.js";
 
 //#region src/plugin-sdk/runtime-store.d.ts
 type PluginRuntimeStoreKeyOptions = {

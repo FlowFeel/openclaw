@@ -1,5 +1,5 @@
-import { t as OpenClawPluginDefinition } from "../../types-CHzJhI3f.js";
-import { n as OpenClawPluginConfigSchema, r as OpenClawPluginDefinition$1 } from "../../plugin-entry-Ba15Paz9.js";
+import { t as OpenClawPluginDefinition } from "../../types-BtZjyB2V.js";
+import { n as OpenClawPluginConfigSchema, r as OpenClawPluginDefinition$1 } from "../../plugin-entry-CnFsf3yf.js";
 
 //#region extensions/webhooks/index.d.ts
 declare const _default: {

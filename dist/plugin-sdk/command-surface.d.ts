@@ -1,4 +1,4 @@
-import { n as ShouldHandleTextCommandsParams, t as CommandNormalizeOptions } from "../commands-registry.types-bdqSDH2t.js";
+import { n as ShouldHandleTextCommandsParams, t as CommandNormalizeOptions } from "../commands-registry.types-Cfq_C9Cw.js";
 
 //#region src/auto-reply/commands-registry-normalize.d.ts
 /** Normalizes command text to canonical aliases, removing bot mentions when appropriate. */

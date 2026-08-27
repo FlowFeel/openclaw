@@ -1,6 +1,6 @@
-import { X as OAuthLoginCallbacks, Y as OAuthCredentials } from "../../types-CAQ6JuHx.js";
-import { a as OAuthProvider, i as OAuthCredential, o as LegacyOAuthRef } from "../../types-D26N4F8C.js";
-import { _ as ProviderAuthDoctorHintContext } from "../../plugin-entry-i32wLQY9.js";
+import { X as OAuthLoginCallbacks, Y as OAuthCredentials } from "../../types-DXevx49n.js";
+import { a as OAuthProvider, i as OAuthCredential, o as LegacyOAuthRef } from "../../types-2QLPd9ti.js";
+import { _ as ProviderAuthDoctorHintContext } from "../../plugin-entry-V3twzgF5.js";
 //#region extensions/github-copilot/oauth.d.ts
 declare function loginGithubCopilotOAuth(callbacks: OAuthLoginCallbacks): Promise<OAuthCredentials>;
 declare function refreshGithubCopilotOAuth(credential: OAuthCredential): {

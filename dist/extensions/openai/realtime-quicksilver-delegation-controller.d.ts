@@ -1,4 +1,4 @@
-import { g as PluginLogger, z as RealtimeVoiceAgentConsultRunner } from "../../plugin-entry-D2U6D_c3.js";
+import { g as PluginLogger, z as RealtimeVoiceAgentConsultRunner } from "../../plugin-entry-DZ50A-uD.js";
 import { n as OpenAIQuicksilverInboundEvent } from "../../realtime-quicksilver-wire-D5CFFb_y.js";
 import { t as OpenAIQuicksilverSocket } from "../../realtime-quicksilver-sideband-Dz6zybpI.js";
 import { RawData } from "ws";

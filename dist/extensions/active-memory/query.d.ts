@@ -1,5 +1,5 @@
-import { n as OpenClawConfig } from "../../types.openclaw-CXX8ljmy.js";
-import { ot as ResolvedActiveRecallPluginConfig, x as ActiveRecallRecentTurn } from "../../types-CDBuSTev.js";
+import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
+import { ot as ResolvedActiveRecallPluginConfig, x as ActiveRecallRecentTurn } from "../../types-C2eFlfUM.js";
 
 //#region extensions/active-memory/query.d.ts
 declare function buildQuery(params: {

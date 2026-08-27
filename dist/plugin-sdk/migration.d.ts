@@ -1,5 +1,5 @@
-import { s as MigrationConfigRuntime } from "../types-CrfqAVvH.js";
-import { a as MigrationPlan, c as MigrationSummary, i as MigrationItem, o as MigrationProviderContext, r as MigrationDetection, s as MigrationProviderPlugin } from "../plugin-entry-CSly3mqK.js";
+import { s as MigrationConfigRuntime } from "../types-DlorAczx.js";
+import { a as MigrationPlan, c as MigrationSummary, i as MigrationItem, o as MigrationProviderContext, r as MigrationDetection, s as MigrationProviderPlugin } from "../plugin-entry-Bt9dbSvm.js";
 
 //#region src/plugin-sdk/migration.d.ts
 /** Shared migration failure reason when an item lacks required paths. */

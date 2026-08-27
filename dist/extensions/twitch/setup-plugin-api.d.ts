@@ -1,4 +1,4 @@
-import { t as ChannelPlugin } from "../../types.public-BVT2cLE1.js";
+import { t as ChannelPlugin } from "../../types.public-BtNAHu6Z.js";
 import { t as ResolvedTwitchAccount } from "../../config-Dn4i9rVZ.js";
 
 //#region extensions/twitch/src/setup-surface.d.ts

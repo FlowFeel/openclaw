@@ -1,21 +1,21 @@
-import { r as OpenClawConfig } from "../types.openclaw-DqdTE9e3.js";
-import { c as RuntimeMsgContext } from "../templating-BhJuWyZk.js";
+import { r as OpenClawConfig } from "../types.openclaw-BwKjboya.js";
+import { c as RuntimeMsgContext } from "../templating-RcIMvz09.js";
 import { a as mediaKindFromMime, i as maxBytesForKind, n as MAX_IMAGE_BYTES, r as MediaKind, t as MAX_AUDIO_BYTES } from "../constants-BCpSHoXd.js";
-import { c as MediaUnderstandingCapability, d as MediaUnderstandingProvider } from "../types-DUpcSR87.js";
+import { c as MediaUnderstandingCapability, d as MediaUnderstandingProvider } from "../types-GEWvtd2r.js";
 import { n as OutboundMediaReadFile, r as buildOutboundMediaLoadOptions, t as OutboundMediaAccess } from "../load-options-63mp15In.js";
 import { n as normalizePollDurationHours, r as normalizePollInput, t as PollInput } from "../polls-sXqxREW1.js";
-import { k as OutboundSendDeps } from "../types-DZ4POeRA.js";
-import { n as ChannelOutboundAdapter } from "../outbound.types-BsP6frUw.js";
+import { k as OutboundSendDeps } from "../types-C6GVpLYk.js";
+import { n as ChannelOutboundAdapter } from "../outbound.types-BuHE57eo.js";
 import { c as saveMediaSource, i as getMediaDir, n as ensureMediaDir, r as extractOriginalFilename, s as saveMediaBuffer, t as SavedMedia } from "../store-CU-s5VWG.js";
 import { a as SavedRemoteMedia, c as saveRemoteMedia, i as MediaFetchError, l as saveResponseMedia, n as isVoiceMessageCompatibleAudio, o as fetchRemoteMedia, r as FetchLike, s as readRemoteMediaBuffer, t as isVoiceCompatibleAudio } from "../audio-DoqCH0Nc.js";
 import { a as kindFromMime, i as isGifMedia, n as extensionForMime, r as getFileExtension, t as detectMime } from "../mime-DtZxEM55.js";
 import { i as isImageProcessorUnavailableError, n as buildImageResizeSideGrid, o as resizeToJpeg, r as getImageMetadata, t as IMAGE_REDUCE_QUALITY_STEPS } from "../media-services-DbvkEzv8.js";
 import { t as ActiveMediaModel } from "../active-model-Cxn6sQSw.js";
-import { t as getAgentScopedMediaLocalRoots } from "../local-roots-exoXopSh.js";
+import { t as getAgentScopedMediaLocalRoots } from "../local-roots-fg9Zw9QO.js";
 import { n as buildAgentMediaPayload } from "../agent-media-payload-D1ekAilj.js";
 import { i as normalizeInboundPathRoots, t as isInboundPathAllowed } from "../inbound-path-policy-nRJfbQMX.js";
 import { h as readResponseWithLimit, m as readResponseTextSnippet } from "../http-body-CY5qIMYc.js";
-import { t as describeImageWithModel } from "../image-runtime-CaBVnuKZ.js";
+import { t as describeImageWithModel } from "../image-runtime-DC9_zd2r.js";
 
 //#region src/media/audio-transcode.d.ts
 /** Transcodes arbitrary audio input into mono Opus using a scoped temp workspace. */

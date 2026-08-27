@@ -4,11 +4,11 @@ import { r as theme } from "../../theme-vjDs9tao.js";
 import { t as formatDocsLink } from "../../links-ClIwBcy4.js";
 import "../../number-runtime-C6TGSEc_.js";
 import { t as formatHelpExamples } from "../../help-format-CAcwboTs.js";
-import "../../memory-core-host-runtime-cli-C6P2X6aR.js";
+import "../../memory-core-host-runtime-cli-DhHmbEES.js";
 import { p as configureMemoryCoreDreamingState } from "../../dreaming-state-CswYxS-h.js";
-import { _ as DEFAULT_PROMOTION_MIN_RECALL_COUNT, v as DEFAULT_PROMOTION_MIN_SCORE, y as DEFAULT_PROMOTION_MIN_UNIQUE_QUERIES } from "../../short-term-promotion-y5kKzrnP.js";
+import { _ as DEFAULT_PROMOTION_MIN_RECALL_COUNT, v as DEFAULT_PROMOTION_MIN_SCORE, y as DEFAULT_PROMOTION_MIN_UNIQUE_QUERIES } from "../../short-term-promotion-Bx1t2mXY.js";
 //#region extensions/memory-core/src/cli.ts
-const loadMemoryCliRuntime = createLazyRuntimeModule(() => import("../../cli.runtime-CtA5Ls1_.js"));
+const loadMemoryCliRuntime = createLazyRuntimeModule(() => import("../../cli.runtime-DIzOsrL1.js"));
 const DECIMAL_NUMBER_RE = /^[+-]?(?:\d+(?:\.\d+)?|\.\d+)$/;
 const DEFAULT_SESSION_BACKFILL_LIMIT_DAYS = 92;
 async function runMemoryStatus(opts, hostOptions) {

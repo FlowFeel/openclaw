@@ -1,5 +1,5 @@
 import { t as DeliveryContext } from "../delivery-context.types-CgrQeDKp.js";
-import { n as AgentInternalEvent, o as DetachedTaskFinalizeParams, p as TaskRecord, s as DetachedTaskLifecycleRuntime, t as AgentHarnessTaskRuntimeScope } from "../agent-harness-task-runtime-scope-DWzpFRZm.js";
+import { n as AgentInternalEvent, o as DetachedTaskFinalizeParams, p as TaskRecord, s as DetachedTaskLifecycleRuntime, t as AgentHarnessTaskRuntimeScope } from "../agent-harness-task-runtime-scope-Dwfnl6vP.js";
 //#region src/agents/subagent-announce-dispatch.d.ts
 /**
  * Subagent announcement dispatch strategy.

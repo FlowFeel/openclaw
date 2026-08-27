@@ -1,5 +1,5 @@
 import { r as AssistantMessage } from "../types-xx0UXBU1.js";
-import { dn as completeWithPreparedSimpleCompletionModel, pn as prepareSimpleCompletionModelForAgent } from "../types-CrfqAVvH.js";
+import { dn as completeWithPreparedSimpleCompletionModel, pn as prepareSimpleCompletionModelForAgent } from "../types-DlorAczx.js";
 
 //#region src/agents/embedded-agent-utils.d.ts
 /** Extract sanitized assistant text across all text content blocks. */

@@ -1,10 +1,10 @@
-import { r as OpenClawConfig } from "../types.openclaw-DqdTE9e3.js";
+import { r as OpenClawConfig } from "../types.openclaw-BwKjboya.js";
 import { n as ChannelConfigSchema } from "../types.config-C6_VK-8V.js";
-import { N as ChannelLegacyStateMigrationPlan } from "../types.adapters-Dvz6vspa.js";
+import { N as ChannelLegacyStateMigrationPlan } from "../types.adapters-lflNuFyn.js";
 import { n as AnyAgentTool$1 } from "../common-DuX6Q50t.js";
-import { At as OpenClawPluginApi$1, En as PluginCommandContext$1, Tn as OpenClawPluginCommandDefinition$1 } from "../types-CR0scl6B.js";
-import { t as ChannelPlugin } from "../types.plugin-CaaEEgNZ.js";
-import { n as ChannelOutboundAdapter } from "../outbound.types-BsP6frUw.js";
+import { At as OpenClawPluginApi$1, En as PluginCommandContext$1, Tn as OpenClawPluginCommandDefinition$1 } from "../types-CaDBLrp9.js";
+import { t as ChannelPlugin } from "../types.plugin-BGHQY4iG.js";
+import { n as ChannelOutboundAdapter } from "../outbound.types-BuHE57eo.js";
 import { createJiti } from "jiti";
 
 //#region src/plugins/plugin-module-loader-cache.d.ts

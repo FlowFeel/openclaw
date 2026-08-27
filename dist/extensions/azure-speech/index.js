@@ -1,5 +1,5 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { t as buildAzureSpeechProvider } from "../../speech-provider-MtnTLP6d.js";
+import { t as buildAzureSpeechProvider } from "../../speech-provider-BtzOYxkR.js";
 //#region extensions/azure-speech/index.ts
 /**
 * Azure Speech plugin entry. It registers the Azure text-to-speech provider for

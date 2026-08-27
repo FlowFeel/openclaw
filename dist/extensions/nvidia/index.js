@@ -1,4 +1,4 @@
-import { t as defineSingleProviderPluginEntry } from "../../provider-entry-CNsUOk8t.js";
+import { t as defineSingleProviderPluginEntry } from "../../provider-entry-Cih4EjF_.js";
 import { a as buildSelectableNvidiaProvider, i as buildSelectableLiveNvidiaProvider, n as buildLiveNvidiaProvider, o as openclaw_plugin_default } from "../../provider-catalog-j7EmkaUS.js";
 import { n as applyNvidiaConfig, t as NVIDIA_DEFAULT_MODEL_REF } from "../../onboard-DhSRtxkO.js";
 //#region extensions/nvidia/index.ts

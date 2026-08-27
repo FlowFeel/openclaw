@@ -1,4 +1,4 @@
-import { r as matrixSetupAdapter, t as matrixOnboardingAdapter } from "../../setup-surface-bgir79h6.js";
+import { r as matrixSetupAdapter, t as matrixOnboardingAdapter } from "../../setup-surface-DqhCJR99.js";
 
 //#region extensions/matrix/src/setup-contract.d.ts
 declare const singleAccountKeysToMove: ("textChunkLimit" | "streaming" | "responsePrefix" | "mediaMaxMb" | "replyToMode" | "homeserver" | "userId" | "accessToken" | "password" | "deviceName" | "avatarUrl" | "initialSyncLimit" | "deviceId" | "dangerouslyAllowNameMatching" | "allowBots" | "actions" | "dm" | "reactionNotifications" | "ackReaction" | "threadBindings" | "autoJoin" | "ackReactionScope" | "groups" | "rooms" | "encryption" | "allowlistOnly" | "threadReplies" | "startupVerification" | "startupVerificationCooldownHours" | "autoJoinAllowlist")[];

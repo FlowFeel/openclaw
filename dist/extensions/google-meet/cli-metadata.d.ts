@@ -1,5 +1,5 @@
-import { t as OpenClawPluginDefinition } from "../../types-DOjBC-h-.js";
-import { i as OpenClawPluginDefinition$1, r as OpenClawPluginConfigSchema } from "../../plugin-entry-BCZEsMxf.js";
+import { t as OpenClawPluginDefinition } from "../../types-BNarcMbg.js";
+import { i as OpenClawPluginDefinition$1, r as OpenClawPluginConfigSchema } from "../../plugin-entry-B5PMaQG5.js";
 
 //#region extensions/google-meet/cli-metadata.d.ts
 declare const _default: {

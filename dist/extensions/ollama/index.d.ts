@@ -1,5 +1,5 @@
-import { t as OpenClawPluginDefinition } from "../../types-B3KbIvCl.js";
-import { i as OpenClawPluginDefinition$1, r as OpenClawPluginConfigSchema } from "../../plugin-entry-CuznV56Y.js";
+import { t as OpenClawPluginDefinition } from "../../types-DJ09K2Ui.js";
+import { i as OpenClawPluginDefinition$1, r as OpenClawPluginConfigSchema } from "../../plugin-entry-CC26Si1X.js";
 
 //#region extensions/ollama/index.d.ts
 declare const _default: {

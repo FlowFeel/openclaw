@@ -1,6 +1,6 @@
-import { i as OpenClawConfig } from "./types.openclaw-3lPuYQv-.js";
-import { d as PluginLoadOptions } from "./loader-B15ub65Y.js";
-import { i as run_main_d_exports } from "./run-main-Dtv4oJ8E.js";
+import { i as OpenClawConfig } from "./types.openclaw-DvmDDNUn.js";
+import { d as PluginLoadOptions } from "./loader-CQWt8636.js";
+import { i as run_main_d_exports } from "./run-main-3rgOua_M.js";
 
 //#region src/cli/program/root-help.d.ts
 /** Options for rendering root help without fully registering the live CLI. */

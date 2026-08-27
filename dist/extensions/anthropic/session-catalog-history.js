@@ -1,2 +1,2 @@
-import { t as importClaudeHistory } from "../../session-catalog-history-4Z5U47mb.js";
+import { t as importClaudeHistory } from "../../session-catalog-history-BDPwddzo.js";
 export { importClaudeHistory };

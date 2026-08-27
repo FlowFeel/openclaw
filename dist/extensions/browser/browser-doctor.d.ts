@@ -1,5 +1,5 @@
-import { n as OpenClawConfig } from "../../types.openclaw-_47ZKysp.js";
-import { i as resolveBrowserExecutableForPlatform } from "../../chrome.executables-BxyUjN6g.js";
+import { n as OpenClawConfig } from "../../types.openclaw-rejpcq0R.js";
+import { i as resolveBrowserExecutableForPlatform } from "../../chrome.executables-DF_wKlQk.js";
 //#region packages/terminal-core/src/note.d.ts
 declare function note(message: unknown, title?: string): void;
 //#endregion

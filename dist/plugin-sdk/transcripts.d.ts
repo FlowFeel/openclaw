@@ -1,5 +1,5 @@
-import { Pt as resolveTranscriptsConfig, n as OpenClawConfig } from "../types.openclaw-B-6RRL7F.js";
-import { a as TranscriptSourceLocator, c as TranscriptStartRequest, d as TranscriptsStartResult, f as TranscriptsStopResult, i as TranscriptSourceKind, l as TranscriptStopRequest, n as TranscriptParticipant, o as TranscriptSourceProvider, r as TranscriptSessionDescriptor, s as TranscriptSourceStatus, t as TranscriptImportRequest, u as TranscriptUtterance } from "../provider-types-GUKla83s.js";
+import { Pt as resolveTranscriptsConfig, n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
+import { a as TranscriptSourceLocator, c as TranscriptStartRequest, d as TranscriptsStartResult, f as TranscriptsStopResult, i as TranscriptSourceKind, l as TranscriptStopRequest, n as TranscriptParticipant, o as TranscriptSourceProvider, r as TranscriptSessionDescriptor, s as TranscriptSourceStatus, t as TranscriptImportRequest, u as TranscriptUtterance } from "../provider-types-DsYmYsth.js";
 
 //#region src/transcripts/provider-registry.d.ts
 /**

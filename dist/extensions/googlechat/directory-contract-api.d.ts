@@ -1,4 +1,4 @@
-import { d as ChannelDirectoryAdapter } from "../../setup-wizard-types-C896ZHgy.js";
+import { d as ChannelDirectoryAdapter } from "../../setup-wizard-types-D5xd-hmi.js";
 //#region extensions/googlechat/directory-contract-api.d.ts
 declare const googlechatDirectoryContractPlugin: {
   id: string;

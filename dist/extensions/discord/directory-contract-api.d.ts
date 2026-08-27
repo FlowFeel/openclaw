@@ -1,6 +1,6 @@
-import { at as ChannelDirectoryEntry } from "../../setup-wizard-types-C6GPHZpk.js";
-import { t as DirectoryConfigParams } from "../../directory-runtime-ocXmTmZt.js";
-import { n as listDiscordDirectoryPeersFromConfig, t as listDiscordDirectoryGroupsFromConfig } from "../../directory-config-DYexSY_Q.js";
+import { at as ChannelDirectoryEntry } from "../../setup-wizard-types-tI_i6S_W.js";
+import { t as DirectoryConfigParams } from "../../directory-runtime-CWAGxD3v.js";
+import { n as listDiscordDirectoryPeersFromConfig, t as listDiscordDirectoryGroupsFromConfig } from "../../directory-config-CZDRxFA0.js";
 
 //#region extensions/discord/directory-contract-api.d.ts
 declare const discordDirectoryContractPlugin: {

@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-DlZm98yj.js";
+import { n as OpenClawConfig } from "../../types.openclaw-lExroEnq.js";
 //#region extensions/matrix/auth-presence.d.ts
 type MatrixAuthPresenceParams = {
   cfg: OpenClawConfig;

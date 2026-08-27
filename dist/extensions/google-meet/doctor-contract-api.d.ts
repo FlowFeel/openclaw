@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-B2WvMv3k.js";
+import { n as OpenClawConfig } from "../../types.openclaw-C0MxgyRv.js";
 //#region extensions/google-meet/src/config-compat.d.ts
 type LegacyConfigRule = {
   path: Array<string | number>;

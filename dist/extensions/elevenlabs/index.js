@@ -1,7 +1,7 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
 import { t as elevenLabsMediaUnderstandingProvider } from "../../media-understanding-provider-rBgkEyBP.js";
-import { t as buildElevenLabsRealtimeTranscriptionProvider } from "../../realtime-transcription-provider-CLyWK3TN.js";
-import { t as buildElevenLabsSpeechProvider } from "../../speech-provider-DZChsQx5.js";
+import { t as buildElevenLabsRealtimeTranscriptionProvider } from "../../realtime-transcription-provider-DKUc4Gyz.js";
+import { t as buildElevenLabsSpeechProvider } from "../../speech-provider-DbgDfdAI.js";
 //#region extensions/elevenlabs/index.ts
 var elevenlabs_default = definePluginEntry({
 	id: "elevenlabs",

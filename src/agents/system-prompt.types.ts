@@ -1,15 +1,13 @@
-// Prompt rendering modes shared across system-prompt builders and config.
-export type PromptMode = "full" | "minimal" | "scaffold" | "none";
-export type SilentReplyPromptMode = "generic" | "none";
-
-/** A named, self-contained section of the system prompt.
- *
- * Each section has a stable `id` (for testing/ordering) and `lines` (the
- * rendered text). Sections marked `cacheStable` belong to the cache-stable
- * prefix (before the cache boundary); others belong to the dynamic suffix.
+/**
+ * Re-export facade for PromptMode and PromptSection types.
+ * Goldilocks decomposition unit (< 25 LOC).
  */
-export type PromptSection = {
-  id: string;
-  lines: string[];
-  cacheStable: boolean;
-};
+
+export type {
+  PromptMode,
+  SilentReplyPromptMode,
+  SectionOverrideValue,
+  PromptSection,
+  PromptSectionDescriptor,
+  SectionOverridesMap,
+} from "./system-prompt/types.js";

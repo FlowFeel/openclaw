@@ -1,4 +1,4 @@
-import { M as OpenClawPluginDefinition$1, c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition } from "../../plugin-entry-D2U6D_c3.js";
+import { M as OpenClawPluginDefinition$1, c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition } from "../../plugin-entry-DZ50A-uD.js";
 
 //#region extensions/browser/index.d.ts
 /** Main Browser plugin entry for runtime registration. */

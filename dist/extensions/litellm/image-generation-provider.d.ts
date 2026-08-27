@@ -1,4 +1,4 @@
-import { o as ImageGenerationProvider } from "../../types-tHpToDBR.js";
+import { o as ImageGenerationProvider } from "../../types-CtW2mrQz.js";
 //#region extensions/litellm/image-generation-provider.d.ts
 declare function buildLitellmImageGenerationProvider(): ImageGenerationProvider;
 //#endregion

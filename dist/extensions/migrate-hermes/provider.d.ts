@@ -1,4 +1,4 @@
-import { a as MigrationProviderContext, o as MigrationProviderPlugin } from "../../plugin-entry-i32wLQY9.js";
+import { a as MigrationProviderContext, o as MigrationProviderPlugin } from "../../plugin-entry-V3twzgF5.js";
 
 //#region extensions/migrate-hermes/provider.d.ts
 declare function buildHermesMigrationProvider(params?: {

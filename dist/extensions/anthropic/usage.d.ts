@@ -1,5 +1,5 @@
-import { b as ProviderUsageSnapshot } from "../../types-DOjBC-h-.js";
-import { _ as ProviderResolveUsageAuthContext, m as ProviderFetchUsageSnapshotContext, v as ProviderResolvedUsageAuth } from "../../plugin-entry-BCZEsMxf.js";
+import { b as ProviderUsageSnapshot } from "../../types-BNarcMbg.js";
+import { _ as ProviderResolveUsageAuthContext, m as ProviderFetchUsageSnapshotContext, v as ProviderResolvedUsageAuth } from "../../plugin-entry-B5PMaQG5.js";
 
 //#region extensions/anthropic/usage.d.ts
 declare function resolveAnthropicUsageAuth(ctx: ProviderResolveUsageAuthContext): Promise<ProviderResolvedUsageAuth>;

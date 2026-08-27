@@ -1,2 +1,2 @@
-import { t as buildDeepgramRealtimeTranscriptionProvider } from "../../realtime-transcription-provider-Qan5uPB3.js";
+import { t as buildDeepgramRealtimeTranscriptionProvider } from "../../realtime-transcription-provider-KgxDndH_.js";
 export { buildDeepgramRealtimeTranscriptionProvider };

@@ -1,5 +1,5 @@
-import { l as ModelProviderConfig } from "../../types.openclaw-hJEKisz6.js";
-import { p as ProviderThinkingProfile, u as ProviderNormalizeResolvedModelContext } from "../../plugin-entry-CuznV56Y.js";
+import { l as ModelProviderConfig } from "../../types.openclaw-Becy5MdM.js";
+import { p as ProviderThinkingProfile, u as ProviderNormalizeResolvedModelContext } from "../../plugin-entry-CC26Si1X.js";
 
 //#region extensions/ollama/provider-policy-api.d.ts
 type OllamaProviderConfigDraft = Partial<ModelProviderConfig>;

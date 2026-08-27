@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-B2WvMv3k.js";
+import { n as OpenClawConfig } from "../../types.openclaw-C0MxgyRv.js";
 //#region extensions/anthropic/config-defaults.d.ts
 /** Normalize Anthropic provider config defaults for one provider entry. */
 declare function normalizeAnthropicProviderConfigForProvider<T extends {

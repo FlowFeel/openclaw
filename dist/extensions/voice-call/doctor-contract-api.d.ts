@@ -1,5 +1,5 @@
-import { n as OpenClawConfig } from "../../types.openclaw-CXX8ljmy.js";
-import { t as PluginDoctorStateMigration } from "../../runtime-doctor-DnmyFDWc.js";
+import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
+import { t as PluginDoctorStateMigration } from "../../runtime-doctor-C5vGzI3l.js";
 
 //#region extensions/voice-call/doctor-contract-api.d.ts
 /** Return Voice Call agents whose templated core session stores need migration. */

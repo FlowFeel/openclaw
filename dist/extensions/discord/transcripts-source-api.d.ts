@@ -1,4 +1,4 @@
-import { d as TranscriptSourceProvider } from "../../types-CHzJhI3f.js";
+import { d as TranscriptSourceProvider } from "../../types-BtZjyB2V.js";
 //#region extensions/discord/src/voice/transcripts-source.d.ts
 declare const discordVoiceTranscriptsSourceProvider: TranscriptSourceProvider;
 //#endregion

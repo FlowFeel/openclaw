@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-B2WvMv3k.js";
+import { n as OpenClawConfig } from "../../types.openclaw-C0MxgyRv.js";
 //#region extensions/llm-task/doctor-contract-api.d.ts
 declare const legacyConfigRules: ({
   path: string[];

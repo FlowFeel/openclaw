@@ -1,2 +1,2 @@
-import { t as questionGatewayRuntime } from "../question-gateway-runtime-CzxA7uvv.js";
+import { t as questionGatewayRuntime } from "../question-gateway-runtime-CmaIQ2Yw.js";
 export { questionGatewayRuntime };

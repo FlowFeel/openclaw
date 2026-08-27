@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-DlZm98yj.js";
+import { n as OpenClawConfig } from "../../types.openclaw-lExroEnq.js";
 //#region extensions/xai/doctor-contract-api.d.ts
 type LegacyConfigRule = {
   path: Array<string | number>;

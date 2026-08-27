@@ -1,2 +1,2 @@
-import { i as resolveMinimaxCatalogBaseUrl, n as buildMinimaxPortalProvider, r as buildMinimaxProvider, t as buildMinimaxModelDiscovery } from "../../provider-catalog-Bq_qb8yV.js";
+import { i as resolveMinimaxCatalogBaseUrl, n as buildMinimaxPortalProvider, r as buildMinimaxProvider, t as buildMinimaxModelDiscovery } from "../../provider-catalog-CIRNzPpv.js";
 export { buildMinimaxModelDiscovery, buildMinimaxPortalProvider, buildMinimaxProvider, resolveMinimaxCatalogBaseUrl };

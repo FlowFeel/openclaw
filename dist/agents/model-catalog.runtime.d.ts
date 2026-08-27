@@ -1,6 +1,6 @@
-import { i as OpenClawConfig } from "../types.openclaw-3lPuYQv-.js";
-import { w as loadManifestModelCatalog } from "../types-B7njuBWL2.js";
-import { c as ModelCatalogSnapshot, s as ModelCatalogEntry } from "../provider-model-types-BbGdZNB-.js";
+import { i as OpenClawConfig } from "../types.openclaw-DvmDDNUn.js";
+import { w as loadManifestModelCatalog } from "../types-Ma6iYIWk2.js";
+import { c as ModelCatalogSnapshot, s as ModelCatalogEntry } from "../provider-model-types-Csg6KI5e.js";
 
 //#region src/agents/prepared-model-catalog.d.ts
 type LoadPreparedModelCatalogParams = {

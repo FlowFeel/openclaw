@@ -1,4 +1,4 @@
-import { a as MusicGenerationModeCapabilities, c as MusicGenerationProvider, d as MusicGenerationResult, f as MusicGenerationSourceImage, i as MusicGenerationMode, l as MusicGenerationProviderCapabilities, n as MusicGenerationEditCapabilities, s as MusicGenerationOutputFormat, t as GeneratedMusicAsset, u as MusicGenerationRequest } from "../types-BhdsYWVA.js";
+import { a as MusicGenerationModeCapabilities, c as MusicGenerationProvider, d as MusicGenerationResult, f as MusicGenerationSourceImage, i as MusicGenerationMode, l as MusicGenerationProviderCapabilities, n as MusicGenerationEditCapabilities, s as MusicGenerationOutputFormat, t as GeneratedMusicAsset, u as MusicGenerationRequest } from "../types-BSFoq9XM.js";
 
 //#region src/music-generation/provider-assets.d.ts
 /**

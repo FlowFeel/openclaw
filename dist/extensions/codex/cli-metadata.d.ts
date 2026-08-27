@@ -1,5 +1,5 @@
-import { t as OpenClawPluginDefinition } from "../../types-CHzJhI3f.js";
-import { n as OpenClawPluginConfigSchema, r as OpenClawPluginDefinition$1, t as OpenClawPluginApi } from "../../plugin-entry-Ba15Paz9.js";
+import { t as OpenClawPluginDefinition } from "../../types-BtZjyB2V.js";
+import { n as OpenClawPluginConfigSchema, r as OpenClawPluginDefinition$1, t as OpenClawPluginApi } from "../../plugin-entry-CnFsf3yf.js";
 
 //#region extensions/codex/cli-metadata.d.ts
 declare function registerCodexCliMetadata(api: OpenClawPluginApi): void;

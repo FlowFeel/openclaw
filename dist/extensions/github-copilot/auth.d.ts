@@ -1,5 +1,5 @@
-import { n as OpenClawConfig } from "../../types.openclaw-CXX8ljmy.js";
-import { S as ProviderPrepareDynamicModelContext } from "../../plugin-entry-i32wLQY9.js";
+import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
+import { S as ProviderPrepareDynamicModelContext } from "../../plugin-entry-V3twzgF5.js";
 
 //#region extensions/github-copilot/auth.d.ts
 declare function resolveFirstGithubToken(params: {

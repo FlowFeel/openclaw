@@ -1,6 +1,6 @@
-import { r as MigrationItem } from "../../plugin-entry-D2U6D_c3.js";
+import { r as MigrationItem } from "../../plugin-entry-DZ50A-uD.js";
 import { ClaudeSource } from "./source.js";
-import { t as PlannedMigrationTargets } from "../../targets-DGMYhMnF.js";
+import { t as PlannedMigrationTargets } from "../../targets-B8AECa7C.js";
 
 //#region extensions/migrate-claude/memory.d.ts
 declare function buildMemoryItems(params: {

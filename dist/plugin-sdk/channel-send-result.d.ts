@@ -1,6 +1,6 @@
-import { T as ChannelPollResult } from "../types.core-VzIpsUlT.js";
-import { t as OutboundDeliveryResult } from "../deliver-types-BCAX-Sf7.js";
-import { n as ChannelOutboundAdapter } from "../outbound.types-BsP6frUw.js";
+import { T as ChannelPollResult } from "../types.core-CSYqXgCB.js";
+import { t as OutboundDeliveryResult } from "../deliver-types-CITdzQnY.js";
+import { n as ChannelOutboundAdapter } from "../outbound.types-BuHE57eo.js";
 //#region src/plugin-sdk/channel-send-result.d.ts
 /**
  * Legacy raw send result shape accepted from channel SDK adapters.

@@ -1,4 +1,4 @@
-import { n as ChannelPlugin } from "../../types.public-Cwx_p1zT.js";
+import { n as ChannelPlugin } from "../../types.public-CsbJ5efK.js";
 import { t as ResolvedRaftAccount } from "../../accounts-1EWGbFDJ.js";
 
 //#region extensions/raft/src/setup.d.ts

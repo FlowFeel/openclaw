@@ -1,7 +1,7 @@
-import { r as OpenClawConfig } from "../types.openclaw-DqdTE9e3.js";
-import { Ar as TranscriptsStopResult, At as OpenClawPluginApi, Br as RealtimeVoiceToolCallEvent, Dr as TranscriptStartRequest, Fa as PluginRuntime, Fr as RealtimeVoiceBridgeEvent, Ir as RealtimeVoiceCloseReason, Lr as RealtimeVoiceProviderConfig, Mr as RealtimeVoiceAudioFormat, Nr as RealtimeVoiceBargeInOptions, Or as TranscriptStopRequest, Pr as RealtimeVoiceBridge, Rr as RealtimeVoiceRole, Vr as RealtimeVoiceToolResultOptions, hr as RealtimeVoiceProviderPlugin, j as RuntimeLogger, jr as RealtimeVoiceAudioClearReason, kr as TranscriptsStartResult, kt as OpenClawPluginConfigSchema, ln as OpenClawPluginNodeInvokePolicy, mr as RealtimeTranscriptionProviderPlugin, zr as RealtimeVoiceTool } from "../types-CR0scl6B.js";
-import { Xt as TalkEventContext, Yt as TalkEvent, Zt as TalkEventInput } from "../diagnostic-events-C8WdGEif.js";
-import { n as callGatewayFromCli } from "../gateway-rpc-CS5gzxKW.js";
+import { r as OpenClawConfig } from "../types.openclaw-BwKjboya.js";
+import { Ar as TranscriptsStopResult, At as OpenClawPluginApi, Br as RealtimeVoiceToolCallEvent, Dr as TranscriptStartRequest, Fa as PluginRuntime, Fr as RealtimeVoiceBridgeEvent, Ir as RealtimeVoiceCloseReason, Lr as RealtimeVoiceProviderConfig, Mr as RealtimeVoiceAudioFormat, Nr as RealtimeVoiceBargeInOptions, Or as TranscriptStopRequest, Pr as RealtimeVoiceBridge, Rr as RealtimeVoiceRole, Vr as RealtimeVoiceToolResultOptions, hr as RealtimeVoiceProviderPlugin, j as RuntimeLogger, jr as RealtimeVoiceAudioClearReason, kr as TranscriptsStartResult, kt as OpenClawPluginConfigSchema, ln as OpenClawPluginNodeInvokePolicy, mr as RealtimeTranscriptionProviderPlugin, zr as RealtimeVoiceTool } from "../types-CaDBLrp9.js";
+import { Xt as TalkEventContext, Yt as TalkEvent, Zt as TalkEventInput } from "../diagnostic-events-Dk-R7Lmf.js";
+import { n as callGatewayFromCli } from "../gateway-rpc-BOhIMXZ9.js";
 import { TObject } from "typebox";
 import { Writable } from "node:stream";
 import { Command } from "commander";

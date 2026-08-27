@@ -1,6 +1,6 @@
 import { r as createPluginStateSyncKeyedStore } from "../../plugin-state-store-aPYaqCXn.js";
-import "../../runtime-doctor-DgQNxy3X.js";
-import { c as normalizeMatrixStoredCredentials, n as MATRIX_CREDENTIALS_NAMESPACE } from "../../credentials-read-ckQ-wG9W.js";
+import "../../runtime-doctor-DswhIJKY.js";
+import { c as normalizeMatrixStoredCredentials, n as MATRIX_CREDENTIALS_NAMESPACE } from "../../credentials-read-C1zRvdH3.js";
 //#region extensions/matrix/auth-presence.ts
 function hasAnyMatrixAuth(params, env = process.env) {
 	const resolvedEnv = params && typeof params === "object" && "cfg" in params ? params.env ?? env : env;

@@ -1,5 +1,5 @@
-import { _ as resolveApiKeyForProvider$1 } from "../../types-DOjBC-h-.js";
-import { n as postJsonRequest, t as fetchWithTimeoutGuarded } from "../../provider-http-64P7j3eP.js";
+import { _ as resolveApiKeyForProvider$1 } from "../../types-BNarcMbg.js";
+import { n as postJsonRequest, t as fetchWithTimeoutGuarded } from "../../provider-http-zhrAPYz3.js";
 
 //#region src/plugin-sdk/provider-auth-runtime.d.ts
 type ResolveApiKeyForProvider = typeof resolveApiKeyForProvider$1;

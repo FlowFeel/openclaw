@@ -1,4 +1,4 @@
-import { n as OpenAiEmbeddingClient } from "../../embedding-provider-Co9qL0ND.js";
+import { n as OpenAiEmbeddingClient } from "../../embedding-provider-DUZFsbJ8.js";
 
 //#region packages/memory-host-sdk/src/host/batch-runner.d.ts
 /** Execution controls for provider embedding batch submissions and polling. */

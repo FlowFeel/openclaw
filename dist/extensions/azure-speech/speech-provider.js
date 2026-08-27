@@ -1,2 +1,2 @@
-import { t as buildAzureSpeechProvider } from "../../speech-provider-MtnTLP6d.js";
+import { t as buildAzureSpeechProvider } from "../../speech-provider-BtzOYxkR.js";
 export { buildAzureSpeechProvider };

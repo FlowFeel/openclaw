@@ -1,6 +1,6 @@
-import { n as OpenClawConfig } from "../types.openclaw-B-6RRL7F.js";
+import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
 import { t as MediaKind } from "../constants-CbtCb9df.js";
-import { r as resolveClosestSize } from "../runtime-shared-Be_jeqUj.js";
+import { r as resolveClosestSize } from "../runtime-shared-B2sffNvU.js";
 
 //#region src/media/configured-max-bytes.d.ts
 type GeneratedMediaKind = Extract<MediaKind, "audio" | "image" | "video">;

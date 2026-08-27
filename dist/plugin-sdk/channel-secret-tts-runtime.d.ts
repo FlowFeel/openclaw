@@ -1,4 +1,4 @@
-import { n as SecretDefaults, t as ResolverContext } from "../runtime-shared-C8xsd-gw.js";
+import { n as SecretDefaults, t as ResolverContext } from "../runtime-shared-B9alRw5Q.js";
 
 //#region src/secrets/channel-secret-basic-runtime.d.ts
 type ChannelAccountEntry = {

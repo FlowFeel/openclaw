@@ -1,7 +1,7 @@
-import { n as OpenClawConfig } from "../types.openclaw-B-6RRL7F.js";
+import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
 import { r as AuthProfileStore } from "../types-BqfkEFeu.js";
-import { d as VideoGenerationRequest$1, m as VideoGenerationSourceAsset$1, p as VideoGenerationResult$1, t as GeneratedVideoAsset$1 } from "../types-BxdX8JcN.js";
-import { a as ProviderOperationTimeoutMs, p as postJsonRequest } from "../provider-http-DyjA7Yfs.js";
+import { d as VideoGenerationRequest$1, m as VideoGenerationSourceAsset$1, p as VideoGenerationResult$1, t as GeneratedVideoAsset$1 } from "../types-D7KuwZHu.js";
+import { a as ProviderOperationTimeoutMs, p as postJsonRequest } from "../provider-http-CeDLCDJ5.js";
 
 //#region src/video-generation/dashscope-compatible.d.ts
 declare const DEFAULT_DASHSCOPE_WAN_VIDEO_MODEL = "wan2.6-t2v";

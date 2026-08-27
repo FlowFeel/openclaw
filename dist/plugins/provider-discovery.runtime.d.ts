@@ -1,6 +1,6 @@
-import { i as OpenClawConfig } from "../types.openclaw-3lPuYQv-.js";
-import { t as ProviderPlugin } from "../types-B7njuBWL2.js";
-import { n as PluginMetadataRegistryView } from "../plugin-metadata-snapshot.types-C2GH8pkR.js";
+import { i as OpenClawConfig } from "../types.openclaw-DvmDDNUn.js";
+import { t as ProviderPlugin } from "../types-Ma6iYIWk2.js";
+import { n as PluginMetadataRegistryView } from "../plugin-metadata-snapshot.types-DvJ_QraA.js";
 
 //#region src/plugins/provider-discovery.runtime.d.ts
 declare function resolvePluginDiscoveryProvidersRuntime(params: {

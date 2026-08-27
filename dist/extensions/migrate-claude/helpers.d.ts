@@ -1,4 +1,4 @@
-import { r as MigrationItem } from "../../plugin-entry-D2U6D_c3.js";
+import { r as MigrationItem } from "../../plugin-entry-DZ50A-uD.js";
 import { n as isRecord$1 } from "../../record-coerce-B66xMJko.js";
 
 //#region extensions/migrate-claude/helpers.d.ts

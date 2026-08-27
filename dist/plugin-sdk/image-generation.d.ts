@@ -1,5 +1,5 @@
-import { n as OpenClawConfig } from "../types.openclaw-B-6RRL7F.js";
-import { _ as ImageGenerationSourceImage, a as ImageGenerationOpenAIBackground, c as ImageGenerationOutputFormat, d as ImageGenerationProviderConfiguredContext, f as ImageGenerationProviderOptions, g as ImageGenerationResult, h as ImageGenerationResolution, l as ImageGenerationProvider, m as ImageGenerationRequest, n as ImageGenerationBackground, o as ImageGenerationOpenAIModeration, p as ImageGenerationQuality, s as ImageGenerationOpenAIOptions, t as GeneratedImageAsset, u as ImageGenerationProviderCapabilities } from "../types-DjYN0p8g.js";
+import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
+import { _ as ImageGenerationSourceImage, a as ImageGenerationOpenAIBackground, c as ImageGenerationOutputFormat, d as ImageGenerationProviderConfiguredContext, f as ImageGenerationProviderOptions, g as ImageGenerationResult, h as ImageGenerationResolution, l as ImageGenerationProvider, m as ImageGenerationRequest, n as ImageGenerationBackground, o as ImageGenerationOpenAIModeration, p as ImageGenerationQuality, s as ImageGenerationOpenAIOptions, t as GeneratedImageAsset, u as ImageGenerationProviderCapabilities } from "../types-Dgl6wS7O.js";
 //#region src/image-generation/openai-compatible-image-provider.d.ts
 type ModelProviderConfig = NonNullable<NonNullable<OpenClawConfig["models"]>["providers"]>[string];
 /** OpenAI-compatible image endpoint mode. */

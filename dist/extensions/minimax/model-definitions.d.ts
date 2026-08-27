@@ -1,4 +1,4 @@
-import { S as ModelDefinitionConfig } from "../../types.openclaw-B2WvMv3k.js";
+import { S as ModelDefinitionConfig } from "../../types.openclaw-C0MxgyRv.js";
 //#region extensions/minimax/model-definitions.d.ts
 declare const DEFAULT_MINIMAX_BASE_URL = "https://api.minimax.io/v1";
 declare const MINIMAX_API_BASE_URL = "https://api.minimax.io/anthropic";

@@ -1,4 +1,4 @@
-import { n as ResolverContext, r as SecretDefaults, t as SecretTargetRegistryEntry } from "../../target-registry-types-CpcabWpN.js";
+import { n as ResolverContext, r as SecretDefaults, t as SecretTargetRegistryEntry } from "../../target-registry-types-Cvfl64tw.js";
 //#region extensions/googlechat/src/secret-contract.d.ts
 declare const secretTargetRegistryEntries: SecretTargetRegistryEntry[];
 declare function collectRuntimeConfigAssignments(params: {

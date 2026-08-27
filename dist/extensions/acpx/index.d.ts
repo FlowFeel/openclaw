@@ -1,4 +1,4 @@
-import { t as OpenClawPluginApi } from "../../plugin-entry-Ba15Paz9.js";
+import { t as OpenClawPluginApi } from "../../plugin-entry-CnFsf3yf.js";
 
 //#region extensions/acpx/index.d.ts
 declare const plugin: {

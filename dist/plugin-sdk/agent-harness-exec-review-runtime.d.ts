@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../types.openclaw-B-6RRL7F.js";
+import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
 import { n as ExecAutoReviewHost, r as ExecAutoReviewInput, t as ExecAutoReviewDecision } from "../exec-auto-review-D8kEqNZE.js";
 
 //#region src/plugin-sdk/agent-harness-exec-review-runtime.d.ts

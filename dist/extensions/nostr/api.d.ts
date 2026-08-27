@@ -1,8 +1,8 @@
-import { gt as PluginRuntime } from "../../plugin-entry-D2U6D_c3.js";
-import { n as OpenClawConfig } from "../../types.openclaw-_47ZKysp.js";
-import { t as getPluginRuntimeGatewayRequestScope } from "../../plugin-runtime-Cp_AnYDe.js";
-import { n as resolveNostrAccount, r as NostrProfile, t as ResolvedNostrAccount } from "../../types-DiyNE9yO.js";
-import { t as nostrPlugin } from "../../channel-C5CFU23W.js";
+import { gt as PluginRuntime } from "../../plugin-entry-DZ50A-uD.js";
+import { n as OpenClawConfig } from "../../types.openclaw-rejpcq0R.js";
+import { t as getPluginRuntimeGatewayRequestScope } from "../../plugin-runtime-Bg4ySMJG.js";
+import { n as resolveNostrAccount, r as NostrProfile, t as ResolvedNostrAccount } from "../../types-CtaOX66Q.js";
+import { t as nostrPlugin } from "../../channel-M-gDnOHn.js";
 import { IncomingMessage, ServerResponse } from "node:http";
 
 //#region extensions/nostr/src/nostr-profile-http.d.ts

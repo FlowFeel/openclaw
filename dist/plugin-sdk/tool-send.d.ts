@@ -1,4 +1,4 @@
-import { P as ChannelToolSend } from "../types.core-VzIpsUlT.js";
+import { P as ChannelToolSend } from "../types.core-CSYqXgCB.js";
 //#region src/plugin-sdk/tool-send.d.ts
 /** Extract the canonical send target fields from tool arguments when the action matches. */
 declare function extractToolSend(/** Raw model tool arguments supplied to a channel action. */

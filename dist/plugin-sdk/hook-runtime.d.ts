@@ -1,5 +1,5 @@
-import { r as FinalizedMsgContext } from "../templating-BhJuWyZk.js";
-import { $ as PluginHookMessageReceivedEvent, Q as PluginHookMessageContext, et as PluginHookMessageSentEvent, n as initializeGlobalHookRunner, r as resetGlobalHookRunner, tt as MessageHookMediaFact } from "../hook-runner-global-B0HTZ6t_.js";
+import { r as FinalizedMsgContext } from "../templating-RcIMvz09.js";
+import { $ as PluginHookMessageReceivedEvent, Q as PluginHookMessageContext, et as PluginHookMessageSentEvent, n as initializeGlobalHookRunner, r as resetGlobalHookRunner, tt as MessageHookMediaFact } from "../hook-runner-global-DDYjcuoU.js";
 import { t as DiagnosticTraceContext } from "../diagnostic-trace-context-c5mRZYEt.js";
 import { n as InternalHookEventType, r as InternalHookHandler, t as InternalHookEvent } from "../internal-hook-types-BwvTZGLB.js";
 

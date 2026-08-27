@@ -1,4 +1,4 @@
-import { fn as TelegramNetworkConfig, un as TelegramGroupConfig } from "../types.openclaw-3lPuYQv-.js";
+import { fn as TelegramNetworkConfig, un as TelegramGroupConfig } from "../types.openclaw-DvmDDNUn.js";
 //#region extensions/telegram/src/audit.types.d.ts
 type TelegramGroupMembershipAuditEntry = {
   chatId: string;

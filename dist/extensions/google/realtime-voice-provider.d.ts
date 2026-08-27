@@ -1,4 +1,4 @@
-import { c as RealtimeVoiceProviderPlugin } from "../../types-B3KbIvCl.js";
+import { c as RealtimeVoiceProviderPlugin } from "../../types-DJ09K2Ui.js";
 //#region extensions/google/realtime-voice-provider.d.ts
 declare function buildGoogleRealtimeVoiceProvider(): RealtimeVoiceProviderPlugin;
 //#endregion

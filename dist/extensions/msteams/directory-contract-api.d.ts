@@ -1,4 +1,4 @@
-import { u as ChannelDirectoryAdapter } from "../../setup-wizard-types-B72aypBk.js";
+import { u as ChannelDirectoryAdapter } from "../../setup-wizard-types-BkzT-fEX.js";
 //#region extensions/msteams/directory-contract-api.d.ts
 declare const msteamsDirectoryContractPlugin: {
   id: string;

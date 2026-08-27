@@ -1,2 +1,2 @@
-import { t as OpenAIQuicksilverVoiceBridge } from "../../realtime-quicksilver-bridge-C4-OU9Ox.js";
+import { t as OpenAIQuicksilverVoiceBridge } from "../../realtime-quicksilver-bridge-D7gHDvJz.js";
 export { OpenAIQuicksilverVoiceBridge };

@@ -1,4 +1,4 @@
-import { n as ResolverContext, r as SecretDefaults, t as SecretTargetRegistryEntry } from "../../target-registry-types-BqDjpDgK.js";
+import { n as ResolverContext, r as SecretDefaults, t as SecretTargetRegistryEntry } from "../../target-registry-types-D1eU9eBO.js";
 
 //#region extensions/msteams/src/secret-contract.d.ts
 declare const secretTargetRegistryEntries: SecretTargetRegistryEntry[];

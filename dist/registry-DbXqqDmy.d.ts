@@ -1,7 +1,0 @@
-import { Tt as PluginHttpRouteRegistration$1, sn as OpenClawPluginGatewayRuntimeScopeSurface } from "./types-CR0scl6B.js";
-//#region src/plugins/registry.d.ts
-type PluginHttpRouteRegistration = PluginHttpRouteRegistration$1 & {
-  gatewayRuntimeScopeSurface?: OpenClawPluginGatewayRuntimeScopeSurface;
-};
-//#endregion
-export { PluginHttpRouteRegistration as t };

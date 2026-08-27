@@ -1,2 +1,2 @@
-import { t as buildOpenRouterMusicGenerationProvider } from "../../music-generation-provider-2BYmvNtM.js";
+import { t as buildOpenRouterMusicGenerationProvider } from "../../music-generation-provider-CNGq-Fzk.js";
 export { buildOpenRouterMusicGenerationProvider };

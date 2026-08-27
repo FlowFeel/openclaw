@@ -1,5 +1,5 @@
-import { n as OpenClawConfig } from "../../types.openclaw-CXX8ljmy.js";
-import { a as MigrationProviderContext } from "../../plugin-entry-i32wLQY9.js";
+import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
+import { a as MigrationProviderContext } from "../../plugin-entry-V3twzgF5.js";
 //#region extensions/migrate-hermes/auth-config.d.ts
 type HermesAuthProfileConfig = {
   profileId: string;

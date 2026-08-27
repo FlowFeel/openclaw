@@ -1,5 +1,5 @@
-import { n as XaiRealtimeVoiceProtocol, r as RealtimeVoiceSessionConnection } from "../../realtime-voice-protocol-CnaZtiMD.js";
-import { _ as XaiRealtimeEvent } from "../../realtime-voice-config-Btdy3yU8.js";
+import { n as XaiRealtimeVoiceProtocol, r as RealtimeVoiceSessionConnection } from "../../realtime-voice-protocol-BrTs6tSr.js";
+import { _ as XaiRealtimeEvent } from "../../realtime-voice-config-DxnGmyd3.js";
 
 //#region extensions/xai/realtime-voice-events.d.ts
 declare class XaiRealtimeMalformedAudioError extends Error {}

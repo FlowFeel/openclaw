@@ -1,2 +1,2 @@
-import { t as buildOpenRouterSpeechProvider } from "../../speech-provider-fGF58A9e.js";
+import { t as buildOpenRouterSpeechProvider } from "../../speech-provider-DzJ9dDFu.js";
 export { buildOpenRouterSpeechProvider };

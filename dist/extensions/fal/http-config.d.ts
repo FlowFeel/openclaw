@@ -1,7 +1,7 @@
-import { n as OpenClawConfig } from "../../types.openclaw-hJEKisz6.js";
-import { r as AuthProfileStore } from "../../types-BxLxgLBC.js";
-import { i as ProviderRequestCapability } from "../../provider-request-config-BRGKWpTG.js";
-import { t as resolveProviderHttpRequestConfig } from "../../provider-http-QeNnsbS8.js";
+import { n as OpenClawConfig } from "../../types.openclaw-Becy5MdM.js";
+import { r as AuthProfileStore } from "../../types-CpvSFyhi.js";
+import { i as ProviderRequestCapability } from "../../provider-request-config-Cy3f8Inl.js";
+import { t as resolveProviderHttpRequestConfig } from "../../provider-http-3c8z216u.js";
 
 //#region extensions/fal/http-config.d.ts
 type FalAuthenticatedRequest = {

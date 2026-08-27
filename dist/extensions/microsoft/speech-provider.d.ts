@@ -1,4 +1,4 @@
-import { R as SpeechProviderPlugin } from "../../plugin-entry-D2U6D_c3.js";
+import { R as SpeechProviderPlugin } from "../../plugin-entry-DZ50A-uD.js";
 //#region extensions/microsoft/speech-provider.d.ts
 declare function buildMicrosoftSpeechProvider(): SpeechProviderPlugin;
 //#endregion

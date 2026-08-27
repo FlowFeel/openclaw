@@ -1,7 +1,7 @@
 import { a as listDirectoryEntriesFromSources } from "../../directory-config-helpers-DAQqtnAv.js";
 import "../../directory-runtime-DH1Nd6Dz.js";
-import { g as resolveMSTeamsCredentials } from "../../graph-users-Cu2e0M9X.js";
-import { r as normalizeMSTeamsMessagingTarget } from "../../resolve-allowlist-B9H8xdlS.js";
+import { g as resolveMSTeamsCredentials } from "../../graph-users-C9RMMj8M.js";
+import { r as normalizeMSTeamsMessagingTarget } from "../../resolve-allowlist-BOoA37IQ.js";
 const msteamsDirectoryContractPlugin = {
 	id: "msteams",
 	directory: {

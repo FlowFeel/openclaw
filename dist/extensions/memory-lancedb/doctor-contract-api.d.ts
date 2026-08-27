@@ -1,4 +1,4 @@
-import { t as PluginDoctorStateMigration } from "../../runtime-doctor-DnmyFDWc.js";
+import { t as PluginDoctorStateMigration } from "../../runtime-doctor-C5vGzI3l.js";
 
 //#region extensions/memory-lancedb/doctor-contract-api.d.ts
 declare function resolveMemoryLanceDbPluginRoot(moduleUrl: string): string;

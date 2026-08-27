@@ -1,4 +1,4 @@
-import { a as MediaUnderstandingProvider, c as VideoDescriptionResult, n as AudioTranscriptionResult, s as VideoDescriptionRequest, t as AudioTranscriptionRequest } from "../../types-3Lxbbsmf.js";
+import { a as MediaUnderstandingProvider, c as VideoDescriptionResult, n as AudioTranscriptionResult, s as VideoDescriptionRequest, t as AudioTranscriptionRequest } from "../../types-DgmwxhFU.js";
 //#region extensions/google/media-understanding-provider.d.ts
 declare function transcribeGeminiAudio(params: AudioTranscriptionRequest): Promise<AudioTranscriptionResult>;
 declare function describeGeminiVideo(params: VideoDescriptionRequest): Promise<VideoDescriptionResult>;

@@ -1,5 +1,5 @@
-import { n as ChannelSetupWizard } from "../../setup-wizard-types-B677hB7z.js";
-import { u as ChannelSetupAdapter } from "../../manifest-registry-Cbr_emsE.js";
+import { n as ChannelSetupWizard } from "../../setup-wizard-types-v6t8q2zs.js";
+import { u as ChannelSetupAdapter } from "../../manifest-registry-o_CvTWya.js";
 //#region extensions/line/src/setup-core.d.ts
 declare const lineSetupAdapter: ChannelSetupAdapter;
 //#endregion

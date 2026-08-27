@@ -1,7 +1,7 @@
 import { n as describeAccountSnapshot } from "../../account-helpers-Dal2iRvY.js";
-import { g as resolveMSTeamsCredentials } from "../../graph-users-Cu2e0M9X.js";
-import { a as msteamsSetupContract, o as msteamsConfigAdapter, s as msteamsMeta, t as msteamsSetupWizard } from "../../setup-surface-DEGHZ847.js";
-import { t as MSTeamsChannelConfigSchema } from "../../config-schema-Ct7IZgIw.js";
+import { g as resolveMSTeamsCredentials } from "../../graph-users-C9RMMj8M.js";
+import { a as msteamsSetupContract, o as msteamsConfigAdapter, s as msteamsMeta, t as msteamsSetupWizard } from "../../setup-surface-D5thAgGO.js";
+import { t as MSTeamsChannelConfigSchema } from "../../config-schema-HvWOyvtj.js";
 //#region extensions/msteams/src/channel.setup.ts
 const msteamsSetupPlugin = {
 	id: "msteams",

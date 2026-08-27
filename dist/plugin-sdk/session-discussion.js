@@ -1,2 +1,2 @@
-import { n as registerSessionDiscussionProvider } from "../session-discussion-registry-CJLme7QY.js";
+import { n as registerSessionDiscussionProvider } from "../session-discussion-registry-l6mEqmRf.js";
 export { registerSessionDiscussionProvider };

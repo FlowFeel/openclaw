@@ -1,4 +1,4 @@
-import { r as MigrationItem } from "../../plugin-entry-i32wLQY9.js";
+import { r as MigrationItem } from "../../plugin-entry-V3twzgF5.js";
 
 //#region extensions/migrate-hermes/config-mcp.d.ts
 declare function importsMcpSensitiveValues(value: Record<string, unknown>, includeSecrets: boolean): boolean;

@@ -1,8 +1,8 @@
-import { n as OpenClawConfig } from "../../types.openclaw-CXX8ljmy.js";
-import { l as fetchWithSsrFGuard } from "../../provider-request-config-GOnSMChb.js";
-import { E as definePluginEntry, s as OpenClawPluginApi } from "../../plugin-entry-i32wLQY9.js";
+import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
+import { l as fetchWithSsrFGuard } from "../../provider-request-config-od1CXgLX.js";
+import { E as definePluginEntry, s as OpenClawPluginApi } from "../../plugin-entry-V3twzgF5.js";
 import { t as ReadResponseTextPrefixOptions } from "../../http-body-6-lYGEU6.js";
-import { t as ssrfPolicyFromDangerouslyAllowPrivateNetwork } from "../../ssrf-runtime-Uje4KzmN.js";
+import { t as ssrfPolicyFromDangerouslyAllowPrivateNetwork } from "../../ssrf-runtime-uM1e48ep.js";
 //#region src/agents/provider-http-errors.d.ts
 /** Shared timeout and byte-limit options for provider response consumption. */
 type ProviderResponseReadOptions = ReadResponseTextPrefixOptions & {

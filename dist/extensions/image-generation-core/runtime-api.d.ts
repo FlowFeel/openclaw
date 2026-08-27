@@ -1,6 +1,6 @@
-import { Et as SubsystemLogger, K as GenerateImageParams, at as getImageGenerationProvider, mt as getProviderEnvVars, ot as listImageGenerationProviders, q as GenerateImageRuntimeResult } from "../../plugin-entry-D2U6D_c3.js";
-import { n as OpenClawConfig } from "../../types.openclaw-_47ZKysp.js";
-import { o as ImageGenerationProvider } from "../../types-CJCX-FF5.js";
+import { Et as SubsystemLogger, K as GenerateImageParams, at as getImageGenerationProvider, mt as getProviderEnvVars, ot as listImageGenerationProviders, q as GenerateImageRuntimeResult } from "../../plugin-entry-DZ50A-uD.js";
+import { n as OpenClawConfig } from "../../types.openclaw-rejpcq0R.js";
+import { o as ImageGenerationProvider } from "../../types-D1h-a2o8.js";
 
 //#region src/image-generation/runtime.d.ts
 declare const log: SubsystemLogger;

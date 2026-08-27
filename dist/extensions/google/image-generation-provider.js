@@ -3,17 +3,17 @@ import { b as parseStrictPositiveInteger } from "../../number-coercion-Crk_c9KW.
 import { o as isRecord } from "../../record-coerce-DHZ4bFlT.js";
 import { m as readProviderJsonResponse, r as assertOkOrThrowHttpError } from "../../provider-http-errors-Dm9G78mz.js";
 import { p as sanitizeConfiguredModelProviderRequest } from "../../provider-request-config-DZemMjbU.js";
-import { r as resolveGeneratedMediaMaxBytes } from "../../configured-max-bytes-DnjCdIxf.js";
-import { r as isProviderApiKeyConfigured } from "../../provider-auth-Cot2SGgW.js";
+import { r as resolveGeneratedMediaMaxBytes } from "../../configured-max-bytes-BMPG315W.js";
+import { r as isProviderApiKeyConfigured } from "../../provider-auth-hyoglKV8.js";
 import { c as postJsonRequest } from "../../shared-Ck9SyaVQ.js";
 import "../../number-runtime-C6TGSEc_.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
-import "../../media-generation-runtime-BAheZJml.js";
-import { a as resolveApiKeyForProvider } from "../../provider-auth-runtime-BN5AmRpe.js";
+import "../../media-generation-runtime-3J-F58jK.js";
+import { a as resolveApiKeyForProvider } from "../../provider-auth-runtime-wvoKmRNo.js";
 import "../../provider-http-C8bsuM26.js";
-import { l as resolveInlineImageJsonResponseMaxBytes, n as generatedImageAssetFromBase64 } from "../../image-generation-C0cknLPH.js";
+import { l as resolveInlineImageJsonResponseMaxBytes, n as generatedImageAssetFromBase64 } from "../../image-generation-DIfyn21l.js";
 import { n as normalizeGoogleModelId } from "../../model-id-CAmKILzd.js";
-import { t as resolveGoogleGenerativeAiHttpRequestConfig } from "../../api-0ZYQQXAi.js";
+import { t as resolveGoogleGenerativeAiHttpRequestConfig } from "../../api-CNSvCCYq.js";
 //#region extensions/google/image-generation-provider.ts
 const DEFAULT_GOOGLE_IMAGE_MODEL = "gemini-3.1-flash-image";
 const DEFAULT_IMAGE_TIMEOUT_MS = 18e4;

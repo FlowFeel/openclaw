@@ -1,15 +1,15 @@
 import { r as truncateUtf16Safe } from "../../utf16-slice-lH-m0h6-.js";
 import { o as isRecord } from "../../record-coerce-DHZ4bFlT.js";
-import { k as getPluginRuntimeGatewayRequestScope } from "../../runtime-yJAYArQt.js";
+import { k as getPluginRuntimeGatewayRequestScope } from "../../runtime-CaoLFEzk.js";
 import { t as resolveConfiguredSecretInputString } from "../../resolve-configured-secret-input-string-DxIa9XNX.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import "../../plugin-runtime-BIaL3Knz.js";
-import { t as listActiveSessionCatalogs } from "../../session-catalog-runtime-Dp5zQ0IW.js";
+import "../../plugin-runtime-WzMn37kT.js";
+import { t as listActiveSessionCatalogs } from "../../session-catalog-runtime-DBR-2wP0.js";
 import "../../secret-input-runtime-Btgz9yT4.js";
 import "../../text-utility-runtime-D52Cj1WO.js";
 import { a as createWebhookInFlightLimiter, i as beginWebhookRequestPipelineOrReject, s as readJsonWebhookBodyOrReject } from "../../webhook-request-guards-CgiiFJiC.js";
-import { a as createFixedWindowRateLimiter } from "../../webhook-ingress-CUghIwHZ.js";
+import { a as createFixedWindowRateLimiter } from "../../webhook-ingress-DJwgtBl3.js";
 import { createHash } from "node:crypto";
 //#region extensions/beam/src/types.ts
 const BEAM_HOST_ID = "gateway";

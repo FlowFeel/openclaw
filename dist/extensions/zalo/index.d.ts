@@ -1,5 +1,5 @@
-import { n as ChannelPlugin } from "../../types.public-CDX1pJx5.js";
-import { t as BundledChannelEntryContract } from "../../channel-entry-contract-DyoHEKAU.js";
+import { n as ChannelPlugin } from "../../types.public-0WXnXOFj.js";
+import { t as BundledChannelEntryContract } from "../../channel-entry-contract-CLoGV74H.js";
 
 //#region extensions/zalo/index.d.ts
 declare const _default: BundledChannelEntryContract<ChannelPlugin>;

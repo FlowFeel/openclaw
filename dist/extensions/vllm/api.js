@@ -1,4 +1,4 @@
 import { i as VLLM_PROVIDER_LABEL, n as VLLM_DEFAULT_BASE_URL, r as VLLM_MODEL_PLACEHOLDER, t as VLLM_DEFAULT_API_KEY_ENV_VAR } from "../../defaults-Cha6Xv-5.js";
-import { n as wrapVllmProviderStream, t as createVllmQwenThinkingWrapper } from "../../stream-715o69vP.js";
-import "../../api-po0EJSWR.js";
+import { n as wrapVllmProviderStream, t as createVllmQwenThinkingWrapper } from "../../stream-27ddIl2A.js";
+import "../../api-BpbZ_JQw.js";
 export { VLLM_DEFAULT_API_KEY_ENV_VAR, VLLM_DEFAULT_BASE_URL, VLLM_MODEL_PLACEHOLDER, VLLM_PROVIDER_LABEL, createVllmQwenThinkingWrapper, wrapVllmProviderStream };

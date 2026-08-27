@@ -5,27 +5,27 @@ import { n as SILENT_REPLY_TOKEN } from "../../tokens-CMI0yx54.js";
 import { _ as resolveSessionAgentIds } from "../../agent-scope-DyEposw2.js";
 import { c as normalizePluginsConfig } from "../../config-state-B6-Feb6H.js";
 import { D as resolveMemoryRemDreamingConfig } from "../../dreaming-CisvAHct.js";
-import { s as parseNonNegativeByteSize } from "../../zod-schema-9ObLtj6p.js";
+import { s as parseNonNegativeByteSize } from "../../zod-schema-CVCKQHhd.js";
 import { t as ErrorCodes } from "../../gateway-error-details-mJ5vWsi5.js";
 import { a as errorShape } from "../../error-codes-P4fBo0lR.js";
 import { _ as readStringParam, p as readPositiveIntegerParam } from "../../common-RkLs-2lL.js";
 import { t as jsonResult } from "../../tool-results-BCM3fdVS.js";
 import { n as resolveCronStyleNow } from "../../current-time-B4afeCge.js";
-import { c as resolveMemorySearchConfig, h as DEFAULT_AGENT_COMPACTION_RESERVE_TOKENS_FLOOR } from "../../config-utils-bVWMjALM.js";
-import { t as resolveMemoryBackendConfig } from "../../backend-config-Ca38C-dn.js";
+import { c as resolveMemorySearchConfig, h as DEFAULT_AGENT_COMPACTION_RESERVE_TOKENS_FLOOR } from "../../config-utils-CnwRjazX.js";
+import { t as resolveMemoryBackendConfig } from "../../backend-config-BWMwQUip.js";
 import "../../routing-BYqzCOl5.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
 import { r as resolvePluginConfigObject } from "../../plugin-config-runtime-D33X7huv.js";
-import "../../agent-runtime-COD4z7RW.js";
-import "../../gateway-runtime-BOoMLXP7.js";
+import "../../agent-runtime-D0O4D9lL.js";
+import "../../gateway-runtime-w2Zuxd4x.js";
 import "../../channel-actions-BCwQOL9z.js";
 import "../../memory-core-host-status-DSYZv50a.js";
-import "../../memory-core-host-runtime-core-DPSfTTAB.js";
-import "../../memory-core-host-runtime-files-BKN5tSVA.js";
+import "../../memory-core-host-runtime-core-CoAI8TV2.js";
+import "../../memory-core-host-runtime-files-Dh4RjbKi.js";
 import { C as writeMemoryCoreWorkspaceEntry, m as deleteMemoryCoreWorkspaceEntry, n as DREAMING_DAILY_PROVENANCE_NAMESPACE, p as configureMemoryCoreDreamingState, x as readMemoryCoreWorkspaceEntry } from "../../dreaming-state-CswYxS-h.js";
 import { t as resolveMemoryCoreNowMs } from "../../time-bSrYId6Z.js";
-import { t as registerShortTermPromotionDreaming } from "../../dreaming-OpzSqFae.js";
-import { i as normalizeSessionBackfillSelection, n as executeSessionBackfillBatch, t as executeSessionBackfill } from "../../session-backfill-BBGjjc5m.js";
+import { t as registerShortTermPromotionDreaming } from "../../dreaming-BS6s60GD.js";
+import { i as normalizeSessionBackfillSelection, n as executeSessionBackfillBatch, t as executeSessionBackfill } from "../../session-backfill-LqQzNo6i.js";
 import { createHash } from "node:crypto";
 //#region extensions/memory-core/src/flush-plan.ts
 const DEFAULT_MEMORY_FLUSH_SOFT_TOKENS = 4e3;
@@ -325,10 +325,10 @@ function registerSessionBackfillGatewayMethods(api) {
 }
 //#endregion
 //#region extensions/memory-core/index.ts
-const loadMemoryToolsModule = createLazyRuntimeModule(() => import("../../tools-wXcdhUwB.js"));
+const loadMemoryToolsModule = createLazyRuntimeModule(() => import("../../tools-Dax20JtQ.js"));
 const loadStandingIntentsModule = createLazyRuntimeModule(() => import("../../standing-intents-C9BgWg9a.js"));
-const loadStandingIntentToolModule = createLazyRuntimeModule(() => import("../../standing-intents-tool-BM5I3IXT.js"));
-const loadRuntimeProviderModule = createLazyRuntimeModule(() => import("../../runtime-provider-mO14yot6.js"));
+const loadStandingIntentToolModule = createLazyRuntimeModule(() => import("../../standing-intents-tool-BfJUKpt0.js"));
+const loadRuntimeProviderModule = createLazyRuntimeModule(() => import("../../runtime-provider-Ds8zqYYk.js"));
 function getToolConfig(options) {
 	return options.getConfig?.() ?? options.config;
 }
@@ -605,7 +605,7 @@ var memory_core_default = definePluginEntry({
 			flushPlanResolver: buildMemoryFlushPlan,
 			runtime: memoryRuntime,
 			publicArtifacts: { async listArtifacts(params) {
-				const { listMemoryCorePublicArtifacts } = await import("../../public-artifacts-LRPruSCc.js");
+				const { listMemoryCorePublicArtifacts } = await import("../../public-artifacts-zn1gQ5HN.js");
 				return await listMemoryCorePublicArtifacts(params);
 			} }
 		});
@@ -659,7 +659,7 @@ var memory_core_default = definePluginEntry({
 			acceptsArgs: true,
 			exposeSenderIsOwner: true,
 			handler: async (ctx) => {
-				const { handleDreamingCommand } = await import("../../dreaming-command-Dg2eVIDD.js");
+				const { handleDreamingCommand } = await import("../../dreaming-command-BOZ2UEGI.js");
 				return await handleDreamingCommand(api, ctx);
 			}
 		});

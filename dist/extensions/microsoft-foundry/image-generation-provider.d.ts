@@ -1,4 +1,4 @@
-import { o as ImageGenerationProvider } from "../../types-C4M6d93S.js";
+import { o as ImageGenerationProvider } from "../../types-D55VIlXQ.js";
 //#region extensions/microsoft-foundry/image-generation-provider.d.ts
 declare function buildMicrosoftFoundryImageGenerationProvider(): ImageGenerationProvider;
 //#endregion

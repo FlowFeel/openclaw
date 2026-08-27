@@ -1,2 +1,2 @@
-import { n as ResolvedConversationCapabilityProfile, r as resolveConversationCapabilityProfile, t as ConversationCapabilityProfileParams } from "../conversation-capability-profile-B3Y7QYu5.js";
+import { n as ResolvedConversationCapabilityProfile, r as resolveConversationCapabilityProfile, t as ConversationCapabilityProfileParams } from "../conversation-capability-profile-BKaiOsuk.js";
 export { ConversationCapabilityProfileParams, ResolvedConversationCapabilityProfile, resolveConversationCapabilityProfile };

@@ -1,2 +1,2 @@
-import { t as buildElevenLabsSpeechProvider } from "../../speech-provider-DZChsQx5.js";
+import { t as buildElevenLabsSpeechProvider } from "../../speech-provider-DbgDfdAI.js";
 export { buildElevenLabsSpeechProvider };

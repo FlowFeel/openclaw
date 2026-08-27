@@ -1,4 +1,4 @@
-import { g as ActiveMemorySearchDebug, mt as TranscriptReadLimits, y as ActiveMemoryTranscriptSource } from "../../types-CDBuSTev.js";
+import { g as ActiveMemorySearchDebug, mt as TranscriptReadLimits, y as ActiveMemoryTranscriptSource } from "../../types-C2eFlfUM.js";
 
 //#region extensions/active-memory/transcript.d.ts
 declare function isUnavailableMemorySearchDebug(debug?: ActiveMemorySearchDebug): boolean;

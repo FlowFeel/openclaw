@@ -1,4 +1,4 @@
-import { i as OpenClawConfig } from "../types.openclaw-3lPuYQv-.js";
+import { i as OpenClawConfig } from "../types.openclaw-DvmDDNUn.js";
 import { a as CommitmentScope, n as CommitmentExtractionBatchResult, r as CommitmentExtractionItem } from "../types-Bx64ymas.js";
 
 //#region src/commitments/runtime.d.ts
