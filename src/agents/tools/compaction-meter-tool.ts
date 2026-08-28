@@ -9,13 +9,16 @@
  */
 
 import { Type } from "typebox";
+import { loadSessionEntry } from "../../config/sessions/session-accessor.js";
 import {
   calculateContextMeter,
   calculateDualMetricFootprint,
   resolveCompactionThreshold,
   type EnvironmentContextVector,
 } from "../../infra/compaction/index.js";
+import type { PromptMode } from "../system-prompt.types.js";
 import { type AnyAgentTool, jsonResult } from "./common.js";
+import { compileSectionsForParams } from "./system-prompt-inspect-tool.js";
 
 // ── Tool Schemas (Atomic: arity <= 2) ────────────────────────────────
 
@@ -55,15 +58,60 @@ export function createCompactionMeterTools(
     label: "Context Meter",
     description: "Inspect context capacity, token budget, on-disk MB footprint, and visual fill gauge.",
     parameters: ContextMeterSchema,
-    execute: async (_toolCallId: string, params: { currentTokens?: number; currentBytes?: number }) => {
-      const tokens = params.currentTokens ?? 0;
-      const bytes = params.currentBytes ?? 0;
+    execute: async (_toolCallId: string, params: { currentTokens?: number; currentBytes?: number }, context) => {
+      let tokens = params.currentTokens;
+      let bytes = params.currentBytes;
+
+      let systemPromptTokens = 0;
+      let historyTokens = 0;
+      let toolResultTokens = 0;
+
+      if (tokens === undefined || tokens === 0) {
+        const agentId = context?.agentId ?? "main";
+        const sessionKey = context?.sessionKey ?? "main";
+        const loadedSession = loadSessionEntry({ agentId, sessionKey });
+
+        const report = loadedSession?.systemPromptReport;
+        if (report?.systemPrompt?.chars) {
+          systemPromptTokens = Math.ceil(report.systemPrompt.chars / 3.8);
+        } else {
+          // Default estimation for session prompt mode
+          const promptMode: PromptMode = (loadedSession?.promptMode as PromptMode) ?? "full";
+          const { text } = compileSectionsForParams({
+            promptMode,
+            tools: [{ name: "read", description: "", parameters: {} }],
+            skillsPrompt: "",
+            userDate: new Date().toISOString().slice(0, 10),
+            userTimezone: "UTC",
+          });
+          systemPromptTokens = Math.ceil(text.length / 3.8);
+        }
+
+        const totalSessionTokens = loadedSession?.totalTokens ?? systemPromptTokens;
+        tokens = Math.max(systemPromptTokens, totalSessionTokens);
+        historyTokens = Math.max(0, tokens - systemPromptTokens);
+        bytes = bytes ?? (loadedSession?.payloadBytes ?? Math.round(tokens * 12.5));
+      } else {
+        systemPromptTokens = Math.round(tokens * 0.25);
+        historyTokens = Math.round(tokens * 0.75);
+      }
+
       const status = calculateContextMeter(
         tokens,
         resolved.tokenTrigger,
         bytes,
         resolved.byteLimit,
       );
+
+      const freeBudgetTokens = Math.max(0, resolved.contextWindow - tokens);
+      const totalCapacity = resolved.contextWindow;
+      const sPct = Math.round((systemPromptTokens / totalCapacity) * 100);
+      const hPct = Math.round((historyTokens / totalCapacity) * 100);
+      const tPct = Math.round((toolResultTokens / totalCapacity) * 100);
+      const rPct = Math.max(0, 100 - (sPct + hPct + tPct));
+
+      const partitionMeterGauge = `[██ System (${sPct}%) | ██ History (${hPct}%) | ░░ Free (${rPct}%)]`;
+
       return jsonResult({
         currentTokens: status.currentTokens,
         thresholdTokens: status.thresholdTokens,
@@ -72,7 +120,15 @@ export function createCompactionMeterTools(
         percentage: status.percentage,
         tier: status.tier,
         visualMeter: status.visualMeter,
+        partitionMeterGauge,
         formattedLabel: status.formattedLabel,
+        partitionBreakdown: {
+          systemPromptTokens,
+          historyTokens,
+          toolResultTokens,
+          freeBudgetTokens,
+          modelContextWindow: resolved.contextWindow,
+        },
       });
     },
   };

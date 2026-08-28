@@ -2502,5 +2502,32 @@ describe("session_status tool", () => {
       /Unrecognized promptMode/,
     );
   });
+
+  it("supports live toolValueTruncationBytes knob modification and status readout", async () => {
+    resetSessionStore({
+      main: {
+        sessionId: "s1",
+        updatedAt: 10,
+      },
+    });
+
+    const tool = getSessionStatusTool();
+
+    // 1. Initial read
+    const read1 = await tool.execute("call-trunc-1", {});
+    const text1 = read1.content[0].text;
+    expect(text1).toContain("✂ Tool Truncation: 120 bytes");
+
+    // 2. Set truncation budget to 250
+    const write1 = await tool.execute("call-trunc-2", { toolValueTruncationBytes: 250 });
+    const details1 = write1.details as { toolValueTruncationBytes?: number; changedToolValueTruncationBytes?: boolean };
+    expect(details1.toolValueTruncationBytes).toBe(250);
+    expect(details1.changedToolValueTruncationBytes).toBe(true);
+
+    // 3. Disable truncation (0)
+    const write2 = await tool.execute("call-trunc-3", { toolValueTruncationBytes: 0 });
+    const text3 = write2.content[0].text;
+    expect(text3).toContain("✂ Tool Truncation: disabled");
+  });
 });
 /* oxlint-disable max-lines -- TODO: split this grandfathered oversized file. */

@@ -101,6 +101,7 @@ import { createEnvelopeTools } from "./tools/envelope-tools.js";
 import { createTokenomicsTools } from "./tools/tokenomics-tools.js";
 import { createAttributionTools } from "./tools/attribution-tools.js";
 import { createCompactionMeterTools } from "./tools/compaction-meter-tool.js";
+import { createSystemPromptInspectTool } from "./tools/system-prompt-inspect-tool.js";
 import { createHickeyMapTools } from "./tools/hickey-map-tools.js";
 import { createUpdatePlanTool } from "./tools/update-plan-tool.js";
 import { createVideoGenerateTool } from "./tools/video-generate-tool.js";
@@ -762,6 +763,7 @@ export function createOpenClawTools(
     ...createTokenomicsTools(),
     ...createAttributionTools(),
     ...createCompactionMeterTools(),
+    createSystemPromptInspectTool(),
     ...createHickeyMapTools(),
     ...collectPresentOpenClawTools([webSearchTool, webFetchTool, imageTool, pdfTool]),
     ...(options?.channelTopics

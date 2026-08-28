@@ -97,6 +97,7 @@ const SessionStatusToolSchema = Type.Object({
   sessionKey: Type.Optional(Type.String()),
   model: Type.Optional(Type.String()),
   promptMode: Type.Optional(Type.String()),
+  toolValueTruncationBytes: Type.Optional(Type.Integer({ minimum: 0 })),
   changesSince: Type.Optional(Type.Integer({ minimum: 0 })),
 });
 
@@ -151,6 +152,8 @@ const SessionStatusOutputSchema = Type.Object(
     changedModel: Type.Boolean(),
     changedPromptMode: Type.Optional(Type.Boolean()),
     promptMode: Type.Optional(Type.String()),
+    changedToolValueTruncationBytes: Type.Optional(Type.Boolean()),
+    toolValueTruncationBytes: Type.Optional(Type.Integer()),
     stateVersion: Type.Integer(),
     statusText: Type.String(),
     stateChanges: Type.Optional(
@@ -1014,6 +1017,44 @@ export function createSessionStatusTool(opts?: {
             }
           }
 
+          const truncationBytesRaw = readNonNegativeIntegerParam(params, "toolValueTruncationBytes");
+          let changedToolValueTruncationBytes = false;
+          if (typeof truncationBytesRaw === "number") {
+            const targetTruncation = truncationBytesRaw;
+            if (scopedResolved.entry.toolValueTruncationBytes !== targetTruncation) {
+              const patchResult = await patchSessionEntryWithKey(
+                {
+                  agentId,
+                  sessionKey: scopedResolved.key,
+                  storePath,
+                },
+                (entry, context) => {
+                  const persistedPatch: SessionEntry = { ...entry };
+                  persistedPatch.toolValueTruncationBytes = targetTruncation;
+                  if (
+                    !persistedPatch.sessionId.trim() &&
+                    !context.existingEntry?.sessionId?.trim()
+                  ) {
+                    persistedPatch.sessionId = randomUUID();
+                  }
+                  return persistedPatch;
+                },
+                {
+                  fallbackEntry: scopedResolved.persisted ? undefined : scopedResolved.entry,
+                  replaceEntry: true,
+                },
+              );
+              if (patchResult) {
+                scopedResolved = {
+                  entry: patchResult.entry,
+                  key: patchResult.sessionKey,
+                  persisted: true,
+                };
+                changedToolValueTruncationBytes = true;
+              }
+            }
+          }
+
           const activeModelId = opts?.activeModelId?.trim();
           const activeModelProvider = opts?.activeModelProvider?.trim();
           const isImplicitCurrentRequest = requestedKeyParam === undefined;
@@ -1122,8 +1163,21 @@ export function createSessionStatusTool(opts?: {
             ...(providerForCard ? {} : { modelAuthOverride: undefined }),
             includeTranscriptUsage: true,
           });
-          const fullStatusText =
-            taskLine && !statusText.includes(taskLine) ? `${statusText}\n${taskLine}` : statusText;
+          const effectivePromptMode =
+            scopedResolved.entry.promptMode ??
+            cfg.agents?.defaults?.promptMode ??
+            resolvePromptModeForSession(scopedResolved.key);
+          const promptModeLine = `🎭 PromptMode: ${effectivePromptMode}`;
+          const effectiveTruncationBytes = scopedResolved.entry.toolValueTruncationBytes ?? 120;
+          const truncationLine = `✂ Tool Truncation: ${effectiveTruncationBytes > 0 ? `${effectiveTruncationBytes} bytes` : "disabled"}`;
+          const fullStatusText = [
+            statusText,
+            taskLine && !statusText.includes(taskLine) ? taskLine : undefined,
+            promptModeLine,
+            truncationLine,
+          ]
+            .filter((block): block is string => Boolean(block))
+            .join("\n");
           const resultOverrideProvider = statusSessionEntry.providerOverride?.trim();
           const resultOverrideModel = statusSessionEntry.modelOverride?.trim();
           const liveSessionKeySet = new Set(
@@ -1178,6 +1232,8 @@ export function createSessionStatusTool(opts?: {
                 cfg.agents?.defaults?.promptMode ??
                 resolvePromptModeForSession(scopedResolved.key),
               ...(changedPromptMode ? { changedPromptMode: true } : {}),
+              toolValueTruncationBytes: effectiveTruncationBytes,
+              ...(changedToolValueTruncationBytes ? { changedToolValueTruncationBytes: true } : {}),
               stateVersion,
               ...(stateChanges ? { stateChanges } : {}),
               ...(modelRaw !== undefined

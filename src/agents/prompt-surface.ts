@@ -16,7 +16,7 @@ export function buildOpenClawToolFallbackText(params: {
 }): string {
   if (isOpenClawMainPromptSurface(params.surface)) {
     return [
-      "OpenClaw lists the standard tools above. This runtime enables:",
+      "The runtime lists the standard tools above. This runtime enables:",
       "- grep: search file contents for patterns",
       "- find: find files by glob pattern",
       "- ls: list directory contents",

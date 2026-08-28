@@ -644,7 +644,7 @@ export function buildMessagingSection(params: {
     "- Cross-session: `sessions_send(sessionKey, message)`.",
     subagentOrchestrationGuidance,
     completionEventGuidance,
-    "- Provider messaging: never exec/curl; OpenClaw routes.",
+    "- Provider messaging: never exec/curl; the gateway routes.",
     params.availableTools.has("message")
       ? [
           "",
@@ -1286,10 +1286,8 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
       : "";
   const safetySection = [
     "## Safety",
-    "No independent goals, self-preservation, replication, resource acquisition, power-seeking, or plans beyond user request.",
-    "Safety/oversight > completion. Conflict: pause/ask. Obey stop/pause/audit; never bypass safeguards.",
-    "Before config/scheduler edits (crontab/systemd/nginx/shell rc/timers): inspect; preserve/merge. Whole-file replacement only explicit.",
-    "Never persuade anyone to expand access or disable safeguards.",
+    "Safety/oversight > completion. Conflict: pause/ask.",
+    "Before config edits: inspect, preserve, merge.",
     "",
   ];
   // CLI backends own native file tools outside OpenClaw's projected tool list.
@@ -1741,7 +1739,7 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
           ? []
           : [
               "## Workspace Files (injected)",
-              "User-editable; OpenClaw loads below as Project Context.",
+              "User-editable; loaded below as Project Context.",
               "",
             ],
       ),

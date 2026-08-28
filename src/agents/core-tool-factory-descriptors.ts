@@ -68,6 +68,7 @@ const CORE_TOOL_FACTORY_DESCRIPTORS = [
   { name: "tokenomics_snr", family: "openclaw" },
   { name: "noise_inspect", family: "openclaw" },
   { name: "context_meter", family: "openclaw" },
+  { name: "system_prompt_inspect", family: "openclaw" },
   { name: "hickey_map", family: "openclaw" },
   { name: "topic_lookup", family: "openclaw" },
   { name: "topic_seed", family: "openclaw" },
