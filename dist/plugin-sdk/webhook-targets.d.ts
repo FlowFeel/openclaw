@@ -1,5 +1,5 @@
-import { Jn as PluginRegistry } from "../types-fxGJj6Ov.js";
-import { t as PluginHttpRouteRegistration } from "../registry-B652OOW2.js";
+import { Jn as PluginRegistry } from "../types-CtdP6tZL.js";
+import { t as PluginHttpRouteRegistration } from "../registry-DJZL7hRL.js";
 import { IncomingMessage, ServerResponse } from "node:http";
 
 //#region src/plugins/http-registry.d.ts

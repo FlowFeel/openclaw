@@ -1,5 +1,5 @@
-import { A as ProviderRuntimeModel } from "../../types-kmCR57lP.js";
-import { f as ProviderResolveDynamicModelContext } from "../../plugin-entry-Bcv4dwhw.js";
+import { A as ProviderRuntimeModel } from "../../types-t45BJFXe.js";
+import { f as ProviderResolveDynamicModelContext } from "../../plugin-entry-h8MjCePN.js";
 
 //#region extensions/google/provider-models.d.ts
 declare function isGoogleTextGenerationModelId(id: string): boolean;

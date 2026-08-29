@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
+import { n as OpenClawConfig } from "../../types.openclaw-BsftVpqJ.js";
 import { t as RuntimeEnv } from "../../runtime-COwxLt5E.js";
 //#region src/flows/health-checks.d.ts
 type HealthFindingSeverity = "info" | "warning" | "error";

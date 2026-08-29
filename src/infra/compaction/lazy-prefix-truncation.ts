@@ -1,5 +1,5 @@
 /**
- * Lazy Prefix Truncation Projection φ(v, k).
+ * Formal Head+Tail Compaction Engine Projection ψ(v, k).
  * Pure stateless string & JSON valuespace projection at store boundary.
  *
  * @dft
@@ -9,18 +9,24 @@
  */
 
 export const DEFAULT_PREFIX_BUDGET_BYTES = 120;
-export const TRUNCATION_ELLIPSIS = "…";
+export const DEFAULT_HEAD_TAIL_BUDGET_BYTES = 120;
 
 /**
- * Pure projection function φ(v, k):
- * Truncates string values to k bytes while leaving primitives/keys intact.
+ * Formal Head+Tail Projection Operator ψ(v, k):
+ * - Returns v intact if |v| <= 2k.
+ * - Slices head v[0:k] and tail v[|v|-k:|v|] with inline delta separator if |v| > 2k.
  */
-export function lazyPrefixTruncate<T>(val: T, limitBytes: number = DEFAULT_PREFIX_BUDGET_BYTES): T {
+export function psiHeadTailTruncate<T>(val: T, k: number = DEFAULT_HEAD_TAIL_BUDGET_BYTES): T {
   if (typeof val === "string") {
-    if (val.length <= limitBytes) {
+    const len = val.length;
+    if (len <= 2 * k) {
       return val;
     }
-    return (val.slice(0, limitBytes) + TRUNCATION_ELLIPSIS) as unknown as T;
+    const head = val.slice(0, k);
+    const tail = val.slice(len - k);
+    const truncatedBytes = len - 2 * k;
+    const delta = `\n... [truncated ${truncatedBytes} bytes] ...\n`;
+    return (head + delta + tail) as unknown as T;
   }
 
   if (val === null || typeof val !== "object") {
@@ -28,13 +34,17 @@ export function lazyPrefixTruncate<T>(val: T, limitBytes: number = DEFAULT_PREFI
   }
 
   if (Array.isArray(val)) {
-    return val.map((item) => lazyPrefixTruncate(item, limitBytes)) as unknown as T;
+    return val.map((item) => psiHeadTailTruncate(item, k)) as unknown as T;
   }
 
   const record = val as Record<string, unknown>;
   const projected: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(record)) {
-    projected[key] = lazyPrefixTruncate(value, limitBytes);
+    projected[key] = psiHeadTailTruncate(value, k);
   }
   return projected as T;
 }
+
+/** Alias for backwards compatibility */
+export const lazyPrefixTruncate = psiHeadTailTruncate;
+

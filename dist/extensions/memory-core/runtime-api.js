@@ -3,17 +3,17 @@ import { n as listMemoryEmbeddingProviders } from "../../memory-embedding-provid
 import { t as DEFAULT_LOCAL_MODEL } from "../../embedding-defaults-BP3wPc9o.js";
 import "../../memory-core-host-embedding-registry-CxRroACX.js";
 import { t as hasConfiguredMemorySecretInput } from "../../secret-input-C8FkUo1T.js";
-import { t as checkQmdBinaryAvailability } from "../../engine-qmd-Bl01T5LZ.js";
-import "../../memory-core-host-engine-qmd-DOja72U9.js";
+import { t as checkQmdBinaryAvailability } from "../../engine-qmd-4zM6apBy.js";
+import "../../memory-core-host-engine-qmd-DmA1VXdV.js";
 import { n as resolveMemoryFtsState, r as resolveMemoryVectorState, t as resolveMemoryCacheSummary } from "../../status-format-ExS6-yQO.js";
 import "../../memory-core-host-status-DSYZv50a.js";
 import "../../provider-env-vars-5Bj-Xf2G.js";
 import { p as configureMemoryCoreDreamingState } from "../../dreaming-state-CswYxS-h.js";
-import { i as repairShortTermPromotionArtifacts, n as auditShortTermPromotionArtifacts, p as loadShortTermPromotionDreamingStats, r as removeGroundedShortTermCandidates } from "../../short-term-promotion-Bx1t2mXY.js";
-import { t as MemoryIndexManager } from "../../manager-DNnwH2lc.js";
-import { t as createEmbeddingProvider } from "../../embeddings-DrtXBl56.js";
-import { r as getMemorySearchManager } from "../../memory-BAU6RoF-.js";
-import { n as memoryRuntime } from "../../runtime-provider-BHZtClpx.js";
+import { i as repairShortTermPromotionArtifacts, n as auditShortTermPromotionArtifacts, p as loadShortTermPromotionDreamingStats, r as removeGroundedShortTermCandidates } from "../../short-term-promotion-Cqbp2Dkv.js";
+import { t as MemoryIndexManager } from "../../manager-_vDguZUQ.js";
+import { t as createEmbeddingProvider } from "../../embeddings-DuUG7960.js";
+import { r as getMemorySearchManager } from "../../memory-C09y87Rm.js";
+import { n as memoryRuntime } from "../../runtime-provider-wFmleONV.js";
 import { n as repairDreamingArtifacts, t as auditDreamingArtifacts } from "../../dreaming-repair-D7G77EgD.js";
 //#region extensions/memory-core/src/memory/provider-adapters.ts
 function getBuiltinMemoryEmbeddingProviderAdapter(id) {

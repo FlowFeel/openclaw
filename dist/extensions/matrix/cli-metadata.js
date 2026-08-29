@@ -1,2 +1,2 @@
-import { n as registerMatrixCliMetadata, t as cli_metadata_default } from "../../cli-metadata-CJIrF7wC.js";
+import { n as registerMatrixCliMetadata, t as cli_metadata_default } from "../../cli-metadata-fKN0zFct.js";
 export { cli_metadata_default as default, registerMatrixCliMetadata };

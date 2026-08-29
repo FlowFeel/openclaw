@@ -1,4 +1,4 @@
-import { j as ModelProviderDeclarationConfig } from "../../types.openclaw-lExroEnq.js";
+import { j as ModelProviderDeclarationConfig } from "../../types.openclaw-szgVaeve.js";
 //#region extensions/litellm/provider-catalog.d.ts
 declare function buildLitellmProvider(): ModelProviderDeclarationConfig;
 //#endregion

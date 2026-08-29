@@ -1,5 +1,5 @@
-import { i as ImageDescriptionResult, y as StructuredExtractionResult } from "../types-GEWvtd2r.js";
-import { c as TranscribeAudioFileParams, i as ExtractStructuredWithModelParams, n as DescribeImageFileWithModelParams, o as RunMediaUnderstandingFileParams, r as DescribeVideoFileParams, s as RunMediaUnderstandingFileResult, t as DescribeImageFileParams } from "../runtime-types-BKSC5KuD.js";
+import { i as ImageDescriptionResult, y as StructuredExtractionResult } from "../types-b2oqVK5U.js";
+import { c as TranscribeAudioFileParams, i as ExtractStructuredWithModelParams, n as DescribeImageFileWithModelParams, o as RunMediaUnderstandingFileParams, r as DescribeVideoFileParams, s as RunMediaUnderstandingFileResult, t as DescribeImageFileParams } from "../runtime-types-Ctu6ZBQQ.js";
 
 //#region src/media-understanding/runtime.d.ts
 /** Runs media understanding for one local file or remote URL and returns the first matching output. */

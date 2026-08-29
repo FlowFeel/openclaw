@@ -1,4 +1,4 @@
-import { o as ModelDefinitionConfig } from "../../types.openclaw-DZDgdSgX.js";
+import { o as ModelDefinitionConfig } from "../../types.openclaw-BsftVpqJ.js";
 //#region extensions/together/models.d.ts
 declare const TOGETHER_BASE_URL: string;
 declare const TOGETHER_MODEL_CATALOG: ModelDefinitionConfig[];

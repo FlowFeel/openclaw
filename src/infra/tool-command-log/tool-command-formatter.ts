@@ -66,6 +66,7 @@ export function formatFlightLogLine(entry: ToolCallCommandEntry): string {
     turn: entry.turn,
     ...(entry.callId ? { id: entry.callId } : {}),
     ...(typeof entry.heapPct === "number" ? { heap: Math.round(entry.heapPct) } : {}),
+    ...(entry.rawResult !== undefined ? { result: entry.rawResult } : {}),
   };
   return JSON.stringify(payload);
 }

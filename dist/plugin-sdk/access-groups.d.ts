@@ -1,4 +1,4 @@
-import { Nt as AccessGroupConfig, n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
+import { Nt as AccessGroupConfig, n as OpenClawConfig } from "../types.openclaw-ymL1Xg7f.js";
 import { t as ChannelId } from "../channel-id.types-DjYEl-_2.js";
 //#region src/channels/allow-from.d.ts
 /**

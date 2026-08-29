@@ -26,9 +26,10 @@ describe("truncateTranscriptToolValues", () => {
     const result = truncateTranscriptToolValues(messages, 50);
     expect(result[0].role).toBe("assistant");
     const content = result[0].content as Array<{ arguments?: { command?: string } }>;
-    expect(content[0].arguments?.command).toBe(
-      "find /home/node/.openclaw/workspace -name '*.ts' v" + "…",
-    );
+    const cmd = content[0].arguments?.command ?? "";
+    expect(cmd.startsWith("find /home/node/.openclaw/workspace -name '*.ts' v")).toBe(true);
+    expect(cmd.endsWith("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")).toBe(true);
+    expect(cmd).toContain("... [truncated ");
   });
 
   it("truncates tool result message content strings", () => {
@@ -45,8 +46,9 @@ describe("truncateTranscriptToolValues", () => {
     expect(result[0].role).toBe("tool");
     expect(result[0].toolCallId).toBe("call_123");
     expect(result[0].name).toBe("exec");
-    expect((result[0].content as string).endsWith("…")).toBe(true);
-    expect((result[0].content as string).length).toBe(31); // 30 chars + ellipsis
+    const resContent = result[0].content as string;
+    expect(resContent.startsWith("Output header: success\nline da")).toBe(true);
+    expect(resContent).toContain("... [truncated ");
   });
 
   it("leaves messages without tool call payloads untouched", () => {

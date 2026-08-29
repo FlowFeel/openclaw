@@ -1,4 +1,4 @@
-import { r as MediaUnderstandingProvider } from "../../types-iPWaw_lc.js";
+import { r as MediaUnderstandingProvider } from "../../types-D7BOKTBU.js";
 //#region extensions/anthropic/media-understanding-provider.d.ts
 /** Media-understanding provider for Anthropic Claude models. */
 declare const anthropicMediaUnderstandingProvider: MediaUnderstandingProvider;

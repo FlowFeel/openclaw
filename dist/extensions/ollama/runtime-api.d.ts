@@ -1,6 +1,6 @@
-import { n as OpenClawConfig } from "../../types.openclaw-Becy5MdM.js";
+import { n as OpenClawConfig } from "../../types.openclaw-DPyC_juj.js";
 import { i as SsrFPolicy } from "../../ssrf-CR70xC7h.js";
-import { a as createConfiguredOllamaCompatStreamWrapper, c as isOllamaCompatProvider, d as resolveOllamaCompatNumCtxEnabled, f as shouldInjectOllamaCompatNumCtx, i as convertToOllamaMessages, l as parseNdjsonStream, n as buildAssistantMessage, o as createConfiguredOllamaStreamFn, p as wrapOllamaCompatNumCtx, r as buildOllamaChatRequest, s as createOllamaStreamFn, t as OLLAMA_NATIVE_BASE_URL, u as resolveOllamaBaseUrlForRun } from "../../stream-CJsVLABR.js";
+import { a as createConfiguredOllamaCompatStreamWrapper, c as isOllamaCompatProvider, d as resolveOllamaCompatNumCtxEnabled, f as shouldInjectOllamaCompatNumCtx, i as convertToOllamaMessages, l as parseNdjsonStream, n as buildAssistantMessage, o as createConfiguredOllamaStreamFn, p as wrapOllamaCompatNumCtx, r as buildOllamaChatRequest, s as createOllamaStreamFn, t as OLLAMA_NATIVE_BASE_URL, u as resolveOllamaBaseUrlForRun } from "../../stream-ClXwKfro.js";
 
 //#region extensions/ollama/src/embedding-provider.d.ts
 type OllamaEmbeddingProvider = {

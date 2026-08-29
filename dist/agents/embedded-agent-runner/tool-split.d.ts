@@ -1,10 +1,12 @@
 import { n as AgentTool } from "../../types-ifNunyTs.js";
-import { I as ToolDefinition, d as HookContext } from "../../types-B1Rbk8gg2.js";
+import { I as ToolDefinition, d as HookContext } from "../../types-Dm-9vMEO2.js";
 
 //#region src/agents/agent-tool-definition-adapter.d.ts
 type AnyAgentTool$1 = AgentTool;
 /** Convert executable agent tools into session definitions with hook handling. */
-declare function toToolDefinitions(tools: AnyAgentTool$1[], hookContext?: HookContext): ToolDefinition[];
+declare function toToolDefinitions(tools: AnyAgentTool$1[], hookContext?: HookContext, options?: {
+  filterTools?: string[];
+}): ToolDefinition[];
 //#endregion
 //#region src/agents/embedded-agent-runner/tool-split.d.ts
 type AnyAgentTool = AgentTool;

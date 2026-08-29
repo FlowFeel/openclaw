@@ -1,8 +1,8 @@
-import { i as OpenClawConfig, p as PluginInstallRecord } from "../types.openclaw-DvmDDNUn.js";
-import { n as PluginManifestRegistry } from "../manifest-registry-B-JIIM0O.js";
+import { i as OpenClawConfig, p as PluginInstallRecord } from "../types.openclaw-DfLlB8Bo.js";
+import { n as PluginManifestRegistry } from "../manifest-registry-BiX3Z1gF.js";
 import { t as AnyAgentTool } from "../common-CSwFw_Qd.js";
-import { E as PluginRegistry, h as OpenClawPluginToolContext, l as PluginLogger } from "../types-B1Rbk8gg2.js";
-import { r as PluginMetadataSnapshot, t as PluginMetadataManifestView } from "../plugin-metadata-snapshot.types-DvJ_QraA.js";
+import { E as PluginRegistry, h as OpenClawPluginToolContext, l as PluginLogger } from "../types-Dm-9vMEO2.js";
+import { r as PluginMetadataSnapshot, t as PluginMetadataManifestView } from "../plugin-metadata-snapshot.types-DyQOmt9P.js";
 //#region src/plugins/runtime/load-context.d.ts
 /** Resolved plugin runtime load context shared by runtime loader callers. */
 type PluginRuntimeLoadContext = {

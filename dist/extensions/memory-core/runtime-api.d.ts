@@ -1,9 +1,9 @@
-import { n as OpenClawConfig } from "../../types.openclaw-C0MxgyRv.js";
-import { et as MemoryPluginRuntime, h as PluginStateLeaseRunner, rt as MemorySearchManager } from "../../types-BykvrQHR.js";
-import { a as repairShortTermPromotionArtifacts, c as RepairShortTermPromotionArtifactsResult, d as ShortTermDreamingStatsEntry, i as removeGroundedShortTermCandidates, l as ShortTermAuditSummary, o as loadShortTermPromotionDreamingStats, r as auditShortTermPromotionArtifacts, u as ShortTermDreamingStats } from "../../memory-core-host-runtime-core-C0vmuJgG.js";
+import { n as OpenClawConfig } from "../../types.openclaw-B_WTBPdp.js";
+import { et as MemoryPluginRuntime, h as PluginStateLeaseRunner, rt as MemorySearchManager } from "../../types-DCnZ_KP9.js";
+import { a as repairShortTermPromotionArtifacts, c as RepairShortTermPromotionArtifactsResult, d as ShortTermDreamingStatsEntry, i as removeGroundedShortTermCandidates, l as ShortTermAuditSummary, o as loadShortTermPromotionDreamingStats, r as auditShortTermPromotionArtifacts, u as ShortTermDreamingStats } from "../../memory-core-host-runtime-core-D20B2oaY.js";
 import { n as configureMemoryCoreDreamingState } from "../../dreaming-state-BZM1K-fl.js";
 import { t as MemoryCoreAcquireLocalService } from "../../embedding-local-service-BCpPp3QB.js";
-import { i as createEmbeddingProvider, t as MemoryIndexManager } from "../../manager-DWI-rY0i.js";
+import { i as createEmbeddingProvider, t as MemoryIndexManager } from "../../manager-CqRixb6F.js";
 
 //#region packages/memory-host-sdk/src/host/embedding-defaults.d.ts
 /** Default local embedding model used when config omits an explicit model. */

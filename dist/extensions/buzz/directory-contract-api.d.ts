@@ -1,5 +1,5 @@
-import { at as ChannelDirectoryEntry } from "../../setup-wizard-types-Bj4z83z4.js";
-import { t as DirectoryConfigParams } from "../../directory-runtime-CWAGxD3v.js";
+import { at as ChannelDirectoryEntry } from "../../setup-wizard-types-BLKR4ulg.js";
+import { t as DirectoryConfigParams } from "../../directory-runtime-CbEe2l4-.js";
 
 //#region extensions/buzz/src/directory-config.d.ts
 declare function listBuzzDirectoryPeersFromConfig(_params: DirectoryConfigParams): Promise<ChannelDirectoryEntry[]>;

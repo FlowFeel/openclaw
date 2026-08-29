@@ -1,5 +1,5 @@
-import { r as OpenClawPluginApi, t as OpenClawPluginDefinition } from "../../types-BNrl3zyK.js";
-import { c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition$1 } from "../../plugin-entry-CS8C3z51.js";
+import { r as OpenClawPluginApi, t as OpenClawPluginDefinition } from "../../types-CFJXaPHi.js";
+import { c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition$1 } from "../../plugin-entry-rqx6-3xm.js";
 //#region extensions/reef/src/cli-metadata.d.ts
 declare function registerReefCliMetadata(api: OpenClawPluginApi): void;
 //#endregion

@@ -6,7 +6,7 @@ var cli_metadata_default = definePluginEntry({
 	description: "Persistent wiki compiler and Obsidian-friendly knowledge vault for OpenClaw.",
 	register(api) {
 		api.registerCli(async ({ program, config: appConfig }) => {
-			const [{ registerWikiCli }, { resolveMemoryWikiAgentConfig, resolveMemoryWikiConfig }] = await Promise.all([import("../../cli-b_CuckJq.js"), import("../../config-DpOO-Jmb.js")]);
+			const [{ registerWikiCli }, { resolveMemoryWikiAgentConfig, resolveMemoryWikiConfig }] = await Promise.all([import("../../cli-Dnpr6dAU.js"), import("../../config-DpOO-Jmb.js")]);
 			const pluginConfig = appConfig.plugins?.entries?.["memory-wiki"]?.config;
 			const config = resolveMemoryWikiConfig(pluginConfig);
 			registerWikiCli(program, {

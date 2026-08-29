@@ -21,6 +21,8 @@ import { TelegramPairingStoreReadError } from "./bot/helpers.js";
 import type { TelegramContext, TelegramGetChat } from "./bot/types.js";
 import type { TelegramMessageDispatchReplayClaim } from "./message-dispatch-dedupe.js";
 
+import { handleTopicCreatedCarePackageDrop } from "./care-package-telegram-deliverer.js";
+
 type TelegramMessageHandlerParams = Pick<
   RegisterTelegramHandlerParams,
   "bot" | "shouldSkipUpdate"
@@ -62,6 +64,7 @@ export function registerTelegramMessageHandlers(
   } = messageRuntime;
   const { authorizeInboundMessage } = authorizationRuntime;
   const { processInboundMessage } = inboundRuntime;
+  const carePackageSentKeys = new Set<string>();
   const getChat: TelegramGetChat = bot.api.getChat.bind(bot.api);
   const resolveBotUserId = (ctx: { me?: { id?: number } }): number => {
     const botUserId = ctx.me?.id ?? opts.botInfo?.id;
@@ -282,6 +285,29 @@ export function registerTelegramMessageHandlers(
     // and rely on the dedicated channel_post handler for channel-originated posts.
     if (normalizedMsg.from?.id != null && normalizedMsg.from.id === botUserId) {
       return;
+    }
+
+    if (normalizedMsg.forum_topic_created) {
+      const topicId = normalizedMsg.message_thread_id ?? normalizedMsg.message_id;
+      if (topicId) {
+        await handleTopicCreatedCarePackageDrop(
+          {
+            chatId: normalizedMsg.chat.id,
+            topicId,
+            topicTitle: normalizedMsg.forum_topic_created.name || "New Topic",
+            groupTitle: normalizedMsg.chat.title || String(normalizedMsg.chat.id),
+            ownerName: normalizedMsg.from?.username ?? normalizedMsg.from?.first_name ?? "User",
+            timestampIso: new Date(normalizedMsg.date * 1000).toISOString(),
+          },
+          { enabled: true },
+          {
+            sentKeysSet: carePackageSentKeys,
+            sendMessage: async (chatId, text, options) => {
+              await bot.api.sendMessage(chatId, text, { message_thread_id: options.threadId });
+            },
+          },
+        ).catch(() => {});
+      }
     }
     await handleInboundMessageLike({
       ctxForDedupe: ctx,

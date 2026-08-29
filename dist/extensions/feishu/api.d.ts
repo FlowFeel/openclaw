@@ -1,9 +1,9 @@
-import { s as OpenClawPluginApi } from "../../plugin-entry-DICCbWcY.js";
-import { H as WizardPrompter } from "../../setup-wizard-types-D2FWxWEi.js";
-import { t as feishuPlugin } from "../../channel-D2jlsvpg.js";
+import { s as OpenClawPluginApi } from "../../plugin-entry-d4GRo0oQ.js";
+import { H as WizardPrompter } from "../../setup-wizard-types-BZVz3uzu.js";
+import { t as feishuPlugin } from "../../channel-CheYTHSE.js";
 import { a as parseFeishuDirectConversationId, i as parseFeishuConversationId, n as buildFeishuConversationId, o as parseFeishuTargetId, r as buildFeishuModelOverrideParentCandidates, t as FeishuGroupSessionScope } from "../../conversation-id-CBFuWL3u.js";
-import { i as setFeishuNamedAccountEnabled, n as runFeishuLogin, r as feishuSetupAdapter, t as feishuSetupWizard } from "../../setup-surface-BnnYGbOH.js";
-import { n as getFeishuThreadBindingManager, r as testing, t as createFeishuThreadBindingManager } from "../../thread-bindings-D4c9JNJ9.js";
+import { i as setFeishuNamedAccountEnabled, n as runFeishuLogin, r as feishuSetupAdapter, t as feishuSetupWizard } from "../../setup-surface-Be9B-Xh3.js";
+import { n as getFeishuThreadBindingManager, r as testing, t as createFeishuThreadBindingManager } from "../../thread-bindings-eu5DKao7.js";
 //#region extensions/feishu/src/docx.d.ts
 declare function registerFeishuDocTools(api: OpenClawPluginApi): void;
 //#endregion

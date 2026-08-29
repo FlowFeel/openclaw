@@ -534,6 +534,12 @@ export type ToolsConfig = {
   };
   /** Structured update_plan checklist tool; enabled by default. Set false to opt out. */
   updatePlan?: boolean;
+  /**
+   * Prompt-space tool manifest filtering.
+   * When set, only tools matching these names are injected into system prompt JSON schemas.
+   * All tools remain callable in the runtime execution environment.
+   */
+  filterTools?: string[];
 };
 
 export type MessageToolsConfig = {

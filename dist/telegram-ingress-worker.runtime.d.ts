@@ -1,4 +1,4 @@
-import { fn as TelegramNetworkConfig } from "./types.openclaw-DvmDDNUn.js";
+import { fn as TelegramNetworkConfig } from "./types.openclaw-DfLlB8Bo.js";
 //#region extensions/telegram/src/telegram-ingress-worker.d.ts
 type TelegramIngressWorkerMessage = {
   type: "poll-start";

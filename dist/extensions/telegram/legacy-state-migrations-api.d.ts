@@ -1,5 +1,5 @@
-import { n as OpenClawConfig } from "../../types.openclaw-C0MxgyRv.js";
-import { ut as ChannelLegacyStateMigrationPlan } from "../../setup-wizard-types-CL4vpjen.js";
+import { n as OpenClawConfig } from "../../types.openclaw-B_WTBPdp.js";
+import { ut as ChannelLegacyStateMigrationPlan } from "../../setup-wizard-types-CdHl9mdg.js";
 //#region extensions/telegram/src/state-migrations.d.ts
 declare function detectTelegramLegacyStateMigrations(params: {
   cfg: OpenClawConfig;

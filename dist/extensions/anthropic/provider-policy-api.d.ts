@@ -1,5 +1,5 @@
-import { T as ModelProviderConfig, n as OpenClawConfig } from "../../types.openclaw-C0MxgyRv.js";
-import { y as ProviderThinkingProfile } from "../../types-BykvrQHR.js";
+import { T as ModelProviderConfig, n as OpenClawConfig } from "../../types.openclaw-B_WTBPdp.js";
+import { y as ProviderThinkingProfile } from "../../types-DCnZ_KP9.js";
 import { applyAnthropicConfigDefaults } from "./config-defaults.js";
 //#region extensions/anthropic/provider-policy-api.d.ts
 /** Normalize Anthropic provider config without importing runtime registration. */

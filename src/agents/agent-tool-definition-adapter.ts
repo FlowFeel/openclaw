@@ -32,10 +32,42 @@ import type { ToolDefinition } from "./sessions/index.js";
 import { normalizeToolName } from "./tool-policy.js";
 import { jsonResult, payloadTextResult, ToolInputError } from "./tools/common.js";
 import { resolveToolCallTimeoutMs } from "./tools/tool-call-timeout-policy.js";
+import { psiHeadTailTruncate } from "../infra/compaction/lazy-prefix-truncation.js";
 import {
   condenseToolParameters,
   globalToolCommandLogger,
 } from "../infra/tool-command-log/index.js";
+
+function applyDeliveryBoundaryTruncation<T>(
+  result: AgentToolResult<T>,
+  budget?: number,
+): AgentToolResult<T> {
+  const truncationBudget = budget ?? 120;
+  if (truncationBudget <= 0) {
+    return result;
+  }
+  if (!result || typeof result !== "object" || !Array.isArray(result.content)) {
+    return result;
+  }
+  const projectedContent = result.content.map((item) => {
+    if (
+      item &&
+      typeof item === "object" &&
+      "type" in item &&
+      item.type === "text" &&
+      typeof (item as Record<string, unknown>).text === "string"
+    ) {
+      const originalText = (item as Record<string, unknown>).text as string;
+      const truncatedText = psiHeadTailTruncate(originalText, truncationBudget);
+      if (truncatedText !== originalText) {
+        return { ...item, text: truncatedText };
+      }
+    }
+    return item;
+  });
+  return { ...result, content: projectedContent };
+}
+
 
 type AnyAgentTool = AgentTool;
 
@@ -335,8 +367,18 @@ export function isClientToolNameConflictError(err: unknown): err is Error {
 export function toToolDefinitions(
   tools: AnyAgentTool[],
   hookContext?: HookContext,
+  options?: { filterTools?: string[] },
 ): ToolDefinition[] {
-  return tools.map((tool) => {
+  let candidateTools = tools;
+  if (options?.filterTools && Array.isArray(options.filterTools) && options.filterTools.length > 0) {
+    const filterSet = new Set(options.filterTools.map((t) => normalizeToolName(t.trim())));
+    candidateTools = tools.filter((tool) => {
+      const rawName = tool.name || "";
+      const normName = normalizeToolName(rawName);
+      return filterSet.has(normName) || options.filterTools?.includes(rawName);
+    });
+  }
+  return candidateTools.map((tool) => {
     const name = tool.name || "tool";
     const normalizedName = normalizeToolName(name);
     const beforeHookWrapped = isToolWrappedWithBeforeToolCallHook(tool);
@@ -423,23 +465,6 @@ export function toToolDefinitions(
             const timeoutSignal = AbortSignal.timeout(perCallTimeout.timeoutMs);
             effectiveSignal = signal ? AbortSignal.any([signal, timeoutSignal]) : timeoutSignal;
           }
-          // ── Gateway Tool Flight Recorder (Epic 19) ──────────────────────
-          try {
-            const mem = typeof process !== "undefined" && process.memoryUsage ? process.memoryUsage() : undefined;
-            const heapPct = mem && mem.heapTotal > 0 ? (mem.heapUsed / mem.heapTotal) * 100 : undefined;
-            globalToolCommandLogger.record({
-              tool: name,
-              paramsSummary: condenseToolParameters(name, executeParams),
-              ts: Date.now(),
-              sessionKey: hookContext?.sessionKey ?? "unknown",
-              turn: hookContext?.turn ?? 0,
-              callId: toolCallId,
-              heapPct,
-            });
-          } catch {
-            // Non-blocking flight recorder guarantee
-          }
-
           const rawResult = await tool.execute(
             toolCallId,
             executeParams,
@@ -450,7 +475,31 @@ export function toToolDefinitions(
             toolName: normalizedName,
             result: rawResult,
           });
-          return result;
+
+          // ── Gateway Tool Flight Recorder (Epic 19 & H2 Raw Result Logging) ──
+          try {
+            const mem = typeof process !== "undefined" && process.memoryUsage ? process.memoryUsage() : undefined;
+            const heapPct = mem && mem.heapTotal > 0 ? (mem.heapUsed / mem.heapTotal) * 100 : undefined;
+            const rawResultSerialized =
+              typeof rawResult === "string" ? rawResult : JSON.stringify(rawResult ?? result);
+            globalToolCommandLogger.record({
+              tool: name,
+              paramsSummary: condenseToolParameters(name, executeParams),
+              ts: Date.now(),
+              sessionKey: hookContext?.sessionKey ?? "unknown",
+              turn: hookContext?.turn ?? 0,
+              callId: toolCallId,
+              heapPct,
+              rawResult: rawResultSerialized,
+            });
+          } catch {
+            // Non-blocking flight recorder guarantee
+          }
+
+          // ── Delivery Boundary Truncation (H1, H4, H5) ─────────────────────
+          const truncationBudget =
+            (hookContext as { toolValueTruncationBytes?: number } | undefined)?.toolValueTruncationBytes ?? 120;
+          return applyDeliveryBoundaryTruncation(result, truncationBudget);
         } catch (err) {
           if (signal?.aborted) {
             throw err;

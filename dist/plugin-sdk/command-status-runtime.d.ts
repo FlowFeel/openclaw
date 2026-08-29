@@ -1,5 +1,5 @@
-import { p as ReplyPayload } from "../types-KopZMiGd.js";
-import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
+import { p as ReplyPayload } from "../types-CRVkfhst.js";
+import { n as OpenClawConfig } from "../types.openclaw-ymL1Xg7f.js";
 
 //#region src/plugin-sdk/command-status.runtime.d.ts
 declare namespace command_status_runtime_d_exports {

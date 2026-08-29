@@ -1,2 +1,2 @@
-import { i as buildXaiProvider, n as buildLiveXaiOAuthProvider, r as buildLiveXaiProvider, t as XAI_GROK_OAUTH_BASE_URL } from "../../provider-catalog-DCyfq9o-.js";
+import { i as buildXaiProvider, n as buildLiveXaiOAuthProvider, r as buildLiveXaiProvider, t as XAI_GROK_OAUTH_BASE_URL } from "../../provider-catalog-Bx9_PEBX.js";
 export { XAI_GROK_OAUTH_BASE_URL, buildLiveXaiOAuthProvider, buildLiveXaiProvider, buildXaiProvider };

@@ -1,4 +1,4 @@
-import { f as SpeechVoiceOption } from "../../types-kmCR57lP.js";
+import { f as SpeechVoiceOption } from "../../types-t45BJFXe.js";
 //#region extensions/azure-speech/tts.d.ts
 /** Default Azure Speech neural voice. */
 declare const DEFAULT_AZURE_SPEECH_VOICE = "en-US-JennyNeural";

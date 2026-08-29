@@ -1,5 +1,5 @@
 import { n as GatewayClientName, t as GatewayClientMode } from "../client-info-CBeyXFzt.js";
-import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
+import { n as OpenClawConfig } from "../types.openclaw-ymL1Xg7f.js";
 import { t as OperatorScope } from "../operator-scopes-BS6LC2Vq.js";
 //#region src/infra/device-identity-store.d.ts
 type DeviceIdentity = {

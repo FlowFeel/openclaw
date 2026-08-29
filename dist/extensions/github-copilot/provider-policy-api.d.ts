@@ -1,4 +1,4 @@
-import { x as ProviderDefaultThinkingPolicyContext } from "../../plugin-entry-CS8C3z51.js";
+import { x as ProviderDefaultThinkingPolicyContext } from "../../plugin-entry-rqx6-3xm.js";
 //#region extensions/github-copilot/provider-policy-api.d.ts
 declare function resolveThinkingProfile(context: ProviderDefaultThinkingPolicyContext): {
   levels: ({

@@ -1,4 +1,4 @@
-import { p as OpenClawPluginService, s as OpenClawPluginApi } from "../../plugin-entry-DICCbWcY.js";
+import { p as OpenClawPluginService, s as OpenClawPluginApi } from "../../plugin-entry-d4GRo0oQ.js";
 //#region extensions/device-pair/notify.d.ts
 type PendingPairingRequest = {
   requestId: string;

@@ -1,6 +1,6 @@
-import { r as MigrationItem } from "../../plugin-entry-CS8C3z51.js";
+import { r as MigrationItem } from "../../plugin-entry-rqx6-3xm.js";
 import { HermesSource } from "./source.js";
-import { t as PlannedMigrationTargets } from "../../targets-BT2ucdLL.js";
+import { t as PlannedMigrationTargets } from "../../targets-eTFqDstj.js";
 
 //#region extensions/migrate-hermes/skills.d.ts
 declare function buildSkillItems(params: {

@@ -16,7 +16,7 @@ import { a as isChatAbortControllerEntryAbortable, c as removeChatAbortControlle
 import { n as abortQueuedChatTurns } from "./chat-queued-turns-DWyXqGgL.js";
 import { n as collectGatewayProcessMemoryUsageMb, o as measureGatewayRestartTrace, s as recordGatewayRestartTrace } from "./restart-trace-Cu5YQjxo.js";
 import { n as clearSessionTypingState } from "./session-typing-state-CJxhp501.js";
-import { r as drainActiveSessionsForShutdown } from "./session-reset-service-mCvc6G2L.js";
+import { r as drainActiveSessionsForShutdown } from "./session-reset-service-xFIfFuzu.js";
 import { cleanupSessionResources } from "@openclaw/ai/internal/runtime";
 //#region src/gateway/server-close.ts
 const shutdownLog = createSubsystemLogger("gateway/shutdown");
@@ -355,7 +355,7 @@ async function disposeAllBundleLspRuntimesOnDemand() {
 	await disposeAllBundleLspRuntimes();
 }
 async function drainRetainedEmbeddingProvidersOnDemand() {
-	const { drainRetainedOpenAiEmbeddingProviders } = await import("./embeddings-http-Dd-qnVYk.js");
+	const { drainRetainedOpenAiEmbeddingProviders } = await import("./embeddings-http-BWnFvWZA.js");
 	await drainRetainedOpenAiEmbeddingProviders();
 }
 async function stopGmailWatcherOnDemand() {
@@ -466,7 +466,7 @@ function createGatewayCloseHandler(params) {
 				for (const channelId of channelIds) await shutdownStep(`channel/${channelId}`, () => params.stopChannel(channelId), warnings);
 			});
 			await shutdownStep("code-mode-runs", async () => {
-				const { disposeAllCodeModeRuns } = await import("./code-mode-state-D2R4cbLM.js");
+				const { disposeAllCodeModeRuns } = await import("./code-mode-state-QN6k_K_X.js");
 				return disposeAllCodeModeRuns();
 			}, warnings);
 			await shutdownStep("agent-harnesses", () => disposeRegisteredAgentHarnesses(), warnings);

@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-rejpcq0R.js";
+import { n as OpenClawConfig } from "../../types.openclaw-CN87qdMl.js";
 //#region extensions/openai/default-models.d.ts
 declare const OPENAI_DEFAULT_MODEL = "openai/gpt-5.6";
 declare const OPENAI_CODEX_DEFAULT_MODEL = "openai/gpt-5.6-sol";

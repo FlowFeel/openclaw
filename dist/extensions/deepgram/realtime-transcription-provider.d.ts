@@ -1,4 +1,4 @@
-import { s as RealtimeTranscriptionProviderPlugin } from "../../types-kmCR57lP.js";
+import { s as RealtimeTranscriptionProviderPlugin } from "../../types-t45BJFXe.js";
 //#region extensions/deepgram/realtime-transcription-provider.d.ts
 declare function buildDeepgramRealtimeTranscriptionProvider(): RealtimeTranscriptionProviderPlugin;
 //#endregion

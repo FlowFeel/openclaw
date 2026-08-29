@@ -1,6 +1,6 @@
-import { yt as AcpRuntime } from "../../types.openclaw-lExroEnq.js";
+import { yt as AcpRuntime } from "../../types.openclaw-szgVaeve.js";
 import { n as PluginStateKeyedStore, t as OpenKeyedStoreOptions } from "../../plugin-state-store.types-DHbgXxYY.js";
-import { i as OpenClawPluginService, o as PluginLogger } from "../../plugin-entry-C6mhVz2t.js";
+import { i as OpenClawPluginService, o as PluginLogger } from "../../plugin-entry-COORsTlt.js";
 //#endregion
 //#region extensions/acpx/src/config-schema.d.ts
 declare const ACPX_PERMISSION_MODES: readonly ["approve-all", "approve-reads", "deny-all"];

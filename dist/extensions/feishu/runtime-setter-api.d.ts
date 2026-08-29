@@ -1,2 +1,2 @@
-import { t as setFeishuRuntime } from "../../runtime-BsSOXkm0.js";
+import { t as setFeishuRuntime } from "../../runtime-Bh8yfqQ3.js";
 export { setFeishuRuntime };

@@ -1,4 +1,4 @@
-import { d as ProviderAuthContext } from "../../plugin-entry-DoQDAyTc.js";
+import { d as ProviderAuthContext } from "../../plugin-entry-CUAoWLy3.js";
 import { AzAccount, AzDeploymentSummary, FoundryProviderApi, FoundryResourceOption, FoundrySelection } from "./shared.js";
 import { listSubscriptions } from "./cli.js";
 

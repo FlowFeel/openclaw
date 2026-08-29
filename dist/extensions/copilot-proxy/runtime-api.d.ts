@@ -1,2 +1,2 @@
-import { E as definePluginEntry, g as ProviderAuthContext, s as OpenClawPluginApi, v as ProviderAuthResult } from "../../plugin-entry-CS8C3z51.js";
+import { E as definePluginEntry, g as ProviderAuthContext, s as OpenClawPluginApi, v as ProviderAuthResult } from "../../plugin-entry-rqx6-3xm.js";
 export { type OpenClawPluginApi, type ProviderAuthContext, type ProviderAuthResult, definePluginEntry };

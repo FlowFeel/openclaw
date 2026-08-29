@@ -1,6 +1,6 @@
-import { i as OpenClawConfig } from "./types.openclaw-DvmDDNUn.js";
-import { t as PluginManifestRecord } from "./manifest-registry-B-JIIM0O.js";
-import { n as normalizePluginsConfig, t as createPluginActivationSource } from "./config-state-0S73ckRv.js";
+import { i as OpenClawConfig } from "./types.openclaw-DfLlB8Bo.js";
+import { t as PluginManifestRecord } from "./manifest-registry-BiX3Z1gF.js";
+import { n as normalizePluginsConfig, t as createPluginActivationSource } from "./config-state-DOUwb07w.js";
 
 //#region src/plugin-sdk/facade-activation-check.runtime.d.ts
 /** Minimal manifest shape needed to decide whether a bundled facade may load. */

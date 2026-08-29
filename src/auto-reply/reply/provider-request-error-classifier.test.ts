@@ -221,4 +221,14 @@ describe("provider request error classifier", () => {
   ])("does not classify unrelated status text as an internal error: %s", (message) => {
     expect(classifyProviderRequestError(new Error(message))).toBeUndefined();
   });
+
+  it("classifies transient billing-flap errors with allowTransientHttpRetry flag", () => {
+    const error = new Error("billing_flap error: account quota recovering from billing error");
+    expect(classifyProviderRequestError(error)).toEqual({
+      code: "provider_rate_limit_or_quota_error",
+      userMessage: PROVIDER_RATE_LIMIT_OR_QUOTA_ERROR_USER_MESSAGE,
+      technicalMessage: "billing_flap error: account quota recovering from billing error",
+      allowTransientHttpRetry: true,
+    });
+  });
 });

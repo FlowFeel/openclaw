@@ -1,5 +1,5 @@
-import { $ as AuthConfig, E as ModelProviderDeclarationConfig, St as SecretInput, b as ModelApi } from "../../types.openclaw-C0MxgyRv.js";
-import { k as ProviderAuthResult } from "../../types-BykvrQHR.js";
+import { $ as AuthConfig, E as ModelProviderDeclarationConfig, St as SecretInput, b as ModelApi } from "../../types.openclaw-B_WTBPdp.js";
+import { k as ProviderAuthResult } from "../../types-DCnZ_KP9.js";
 //#region extensions/microsoft-foundry/shared.d.ts
 declare const PROVIDER_ID = "microsoft-foundry";
 declare const DEFAULT_API = "openai-completions";

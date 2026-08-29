@@ -1,4 +1,4 @@
-import { ht as SessionCatalogPullRequestSummary } from "../../types-BykvrQHR.js";
+import { ht as SessionCatalogPullRequestSummary } from "../../types-DCnZ_KP9.js";
 import { t as ClaudeTranscriptItem } from "../../session-catalog-transcript-xA6TtbpC.js";
 //#region extensions/anthropic/session-catalog-types.d.ts
 type ClaudeSessionSource = "claude-cli" | "claude-desktop";

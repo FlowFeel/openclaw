@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
+import { n as OpenClawConfig } from "../../types.openclaw-BsftVpqJ.js";
 //#region extensions/github-copilot/runtime-auth.d.ts
 declare const DEFAULT_COPILOT_API_BASE_URL = "https://api.individual.githubcopilot.com";
 declare function resolveCopilotRuntimeAuth(params: {

@@ -1,4 +1,4 @@
-import { a as MigrationProviderContext, o as MigrationProviderPlugin } from "../../plugin-entry-DICCbWcY.js";
+import { a as MigrationProviderContext, o as MigrationProviderPlugin } from "../../plugin-entry-d4GRo0oQ.js";
 
 //#region extensions/migrate-claude/provider.d.ts
 declare function buildClaudeMigrationProvider(params?: {

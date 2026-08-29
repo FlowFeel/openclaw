@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
+import { n as OpenClawConfig } from "../../types.openclaw-BsftVpqJ.js";
 //#region extensions/cua-computer/doctor-contract-api.d.ts
 /** Retired CUA daemon configuration that `openclaw doctor --fix` removes. */
 declare const legacyConfigRules: {

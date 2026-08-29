@@ -1,4 +1,4 @@
-import { t as VideoGenerationProvider } from "../../video-generation-D49by2YT.js";
+import { t as VideoGenerationProvider } from "../../video-generation-66GTJ63B.js";
 
 //#region extensions/openai/video-generation-provider.d.ts
 declare function buildOpenAIVideoGenerationProvider(): VideoGenerationProvider;

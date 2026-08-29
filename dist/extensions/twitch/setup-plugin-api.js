@@ -1,2 +1,2 @@
-import { n as twitchSetupPlugin } from "../../setup-surface-BL50TP2Z.js";
+import { n as twitchSetupPlugin } from "../../setup-surface-DKQIZdt3.js";
 export { twitchSetupPlugin };

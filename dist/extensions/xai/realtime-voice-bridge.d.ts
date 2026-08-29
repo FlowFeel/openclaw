@@ -1,5 +1,5 @@
-import { _ as RealtimeVoiceToolResultOptions, m as RealtimeVoiceBridge } from "../../types-i_xbZp0W.js";
-import { r as RealtimeVoiceSessionConnection } from "../../realtime-voice-protocol-kLIfn4m4.js";
+import { _ as RealtimeVoiceToolResultOptions, m as RealtimeVoiceBridge } from "../../types-DhsBnKIv.js";
+import { r as RealtimeVoiceSessionConnection } from "../../realtime-voice-protocol-CyW1q06g.js";
 import { XaiRealtimeVoiceEvents } from "./realtime-voice-events.js";
 
 //#region extensions/xai/realtime-voice-bridge.d.ts

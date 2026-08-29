@@ -1,2 +1,2 @@
-import { t as resolveZaloRuntimeGroupPolicy } from "../../group-access-C8Gc9jq7.js";
+import { t as resolveZaloRuntimeGroupPolicy } from "../../group-access-7E7URJjZ.js";
 export { resolveZaloRuntimeGroupPolicy };

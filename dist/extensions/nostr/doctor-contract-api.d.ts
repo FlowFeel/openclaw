@@ -1,4 +1,4 @@
-import { t as PluginDoctorStateMigration } from "../../runtime-doctor-CVcUyTVt.js";
+import { t as PluginDoctorStateMigration } from "../../runtime-doctor-HeBGdhM3.js";
 
 //#region extensions/nostr/doctor-contract-api.d.ts
 declare const stateMigrations: PluginDoctorStateMigration[];

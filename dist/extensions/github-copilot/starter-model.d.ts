@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
+import { n as OpenClawConfig } from "../../types.openclaw-BsftVpqJ.js";
 //#region extensions/github-copilot/starter-model.d.ts
 declare function resolveCopilotStarterModel(params: {
   githubToken: string;

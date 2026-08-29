@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-Becy5MdM.js";
+import { n as OpenClawConfig } from "../../types.openclaw-DPyC_juj.js";
 //#region extensions/ollama/src/config-compat.d.ts
 type LegacyConfigRule = {
   path: Array<string | number>;

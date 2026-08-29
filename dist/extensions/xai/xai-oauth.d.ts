@@ -1,5 +1,5 @@
-import { i as OAuthCredential } from "../../types-DV38b3yB.js";
-import { s as ProviderAuthMethod } from "../../plugin-entry-C6mhVz2t.js";
+import { i as OAuthCredential } from "../../types-C6UPaT8B.js";
+import { s as ProviderAuthMethod } from "../../plugin-entry-COORsTlt.js";
 //#region extensions/xai/xai-oauth.d.ts
 type XaiOAuthFetchOptions = {
   fetchImpl?: typeof fetch;

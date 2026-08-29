@@ -1,6 +1,6 @@
-import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
-import { i as ChannelDoctorLegacyConfigRule } from "../../types.public-Cbcwotuf.js";
-import { t as PluginDoctorStateMigration } from "../../runtime-doctor-C5vGzI3l.js";
+import { n as OpenClawConfig } from "../../types.openclaw-BsftVpqJ.js";
+import { i as ChannelDoctorLegacyConfigRule } from "../../types.public-CFhLhhWm.js";
+import { t as PluginDoctorStateMigration } from "../../runtime-doctor-BPlcx0N8.js";
 //#region extensions/reef/doctor-contract-api.d.ts
 declare const legacyConfigRules: ChannelDoctorLegacyConfigRule[];
 declare function normalizeCompatibilityConfig({

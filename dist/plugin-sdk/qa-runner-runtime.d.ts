@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
+import { n as OpenClawConfig } from "../types.openclaw-ymL1Xg7f.js";
 import { Command } from "commander";
 
 //#region src/plugin-sdk/qa-channel-protocol.d.ts

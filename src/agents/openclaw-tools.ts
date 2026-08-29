@@ -79,6 +79,7 @@ import { createOpenClawDelegateToolsForRun } from "./tools/openclaw-delegate-too
 import { createPdfTool } from "./tools/pdf-tool.js";
 import { createScreenTool } from "./tools/screen-tool.js";
 import { createSessionStatusTool } from "./tools/session-status-tool.js";
+import { createToolResultFetchTool } from "./tools/tool-result-fetch-tool.js";
 import { createSessionsHistoryTool } from "./tools/sessions-history-tool.js";
 import { createSessionsListTool } from "./tools/sessions-list-tool.js";
 import { createSessionsSearchTool } from "./tools/sessions-search-tool.js";
@@ -582,6 +583,7 @@ export function createOpenClawTools(
       agentSessionKey: options?.agentSessionKey,
       requesterAgentIdOverride: options?.requesterAgentIdOverride,
     }),
+    createToolResultFetchTool(),
     createGetGoalTool({
       agentSessionKey: options?.agentSessionKey,
       runSessionKey: options?.runSessionKey,

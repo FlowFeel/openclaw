@@ -1,2 +1,2 @@
-import { t as registerDiscordSubagentHooks } from "../../subagent-hooks-api-DsCbOb7B.js";
+import { t as registerDiscordSubagentHooks } from "../../subagent-hooks-api-CZ_SPIdb.js";
 export { registerDiscordSubagentHooks };

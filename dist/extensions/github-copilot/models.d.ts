@@ -1,6 +1,6 @@
-import { o as ModelDefinitionConfig } from "../../types.openclaw-DZDgdSgX.js";
-import { R as ProviderRuntimeModel } from "../../types-BNrl3zyK.js";
-import { C as ProviderResolveDynamicModelContext } from "../../plugin-entry-CS8C3z51.js";
+import { o as ModelDefinitionConfig } from "../../types.openclaw-BsftVpqJ.js";
+import { R as ProviderRuntimeModel } from "../../types-CFJXaPHi.js";
+import { C as ProviderResolveDynamicModelContext } from "../../plugin-entry-rqx6-3xm.js";
 //#region extensions/github-copilot/models.d.ts
 declare const PROVIDER_ID = "github-copilot";
 declare function resolveCopilotForwardCompatModel(ctx: ProviderResolveDynamicModelContext): ProviderRuntimeModel | undefined;

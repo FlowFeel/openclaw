@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-lExroEnq.js";
+import { n as OpenClawConfig } from "../../types.openclaw-szgVaeve.js";
 //#region extensions/openrouter/onboard.d.ts
 declare const OPENROUTER_DEFAULT_MODEL_REF = "openrouter/auto";
 declare function applyOpenrouterProviderConfig(cfg: OpenClawConfig): OpenClawConfig;

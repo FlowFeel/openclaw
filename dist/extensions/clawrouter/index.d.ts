@@ -1,5 +1,5 @@
-import { t as OpenClawPluginDefinition } from "../../types-kmCR57lP.js";
-import { i as OpenClawPluginDefinition$1, r as OpenClawPluginConfigSchema } from "../../plugin-entry-Bcv4dwhw.js";
+import { t as OpenClawPluginDefinition } from "../../types-t45BJFXe.js";
+import { i as OpenClawPluginDefinition$1, r as OpenClawPluginConfigSchema } from "../../plugin-entry-h8MjCePN.js";
 
 //#region extensions/clawrouter/index.d.ts
 declare const _default: {

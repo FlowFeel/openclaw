@@ -1169,7 +1169,7 @@ export function createSessionStatusTool(opts?: {
             resolvePromptModeForSession(scopedResolved.key);
           const promptModeLine = `🎭 PromptMode: ${effectivePromptMode}`;
           const effectiveTruncationBytes = scopedResolved.entry.toolValueTruncationBytes ?? 120;
-          const truncationLine = `✂ Tool Truncation: ${effectiveTruncationBytes > 0 ? `${effectiveTruncationBytes} bytes` : "disabled"}`;
+          const truncationLine = `✂ Tool Truncation: ${effectiveTruncationBytes > 0 ? `${effectiveTruncationBytes}B head + ${effectiveTruncationBytes}B tail` : "disabled"}`;
           const fullStatusText = [
             statusText,
             taskLine && !statusText.includes(taskLine) ? taskLine : undefined,

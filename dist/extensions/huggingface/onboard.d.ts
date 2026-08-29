@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-rejpcq0R.js";
+import { n as OpenClawConfig } from "../../types.openclaw-CN87qdMl.js";
 //#region extensions/huggingface/onboard.d.ts
 declare const HUGGINGFACE_DEFAULT_MODEL_REF = "huggingface/deepseek-ai/DeepSeek-R1";
 declare const applyHuggingfaceConfig: (cfg: OpenClawConfig) => OpenClawConfig;

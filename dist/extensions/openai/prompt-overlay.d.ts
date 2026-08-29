@@ -1,4 +1,4 @@
-import { nt as resolveGpt5SystemPromptContribution, rt as ProviderSystemPromptContribution, tt as Gpt5PromptOverlayMode } from "../../plugin-entry-DICCbWcY.js";
+import { nt as resolveGpt5SystemPromptContribution, rt as ProviderSystemPromptContribution, tt as Gpt5PromptOverlayMode } from "../../plugin-entry-d4GRo0oQ.js";
 
 //#region extensions/openai/prompt-overlay.d.ts
 type OpenAIPromptOverlayMode = Gpt5PromptOverlayMode;

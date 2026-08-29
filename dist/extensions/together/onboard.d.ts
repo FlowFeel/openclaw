@@ -1,2 +1,2 @@
-import { n as applyTogetherConfig, t as TOGETHER_DEFAULT_MODEL_REF } from "../../onboard-B7Y54lXs.js";
+import { n as applyTogetherConfig, t as TOGETHER_DEFAULT_MODEL_REF } from "../../onboard-Dlb3GNhf.js";
 export { TOGETHER_DEFAULT_MODEL_REF, applyTogetherConfig };

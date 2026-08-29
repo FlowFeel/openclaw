@@ -1,9 +1,9 @@
-import { n as OpenClawConfig } from "../../types.openclaw-lExroEnq.js";
-import { d as RuntimeEnv } from "../../manifest-registry-B_Ya6t5q.js";
-import { z as PluginRuntime } from "../../types-i_xbZp0W.js";
-import { O as ChannelOutboundAdapter, T as ChannelStatusAdapter, V as OutboundDeliveryResult, b as ChannelResolveKind, et as ChannelAccountSnapshot, ft as ChannelMeta, g as ChannelGatewayContext, it as ChannelCapabilities, k as ChannelOutboundContext, lt as ChannelMessageActionAdapter, q as WizardPrompter, st as ChannelLogSink, ut as ChannelMessageActionContext, x as ChannelResolveResult } from "../../setup-wizard-types-Bj4z83z4.js";
-import { t as ChannelPlugin } from "../../types.public-C90co_3J.js";
-import { t as twitchPlugin } from "../../plugin-DAJOdoGU.js";
+import { n as OpenClawConfig } from "../../types.openclaw-szgVaeve.js";
+import { d as RuntimeEnv } from "../../manifest-registry-DCsAetxD.js";
+import { z as PluginRuntime } from "../../types-DhsBnKIv.js";
+import { O as ChannelOutboundAdapter, T as ChannelStatusAdapter, V as OutboundDeliveryResult, b as ChannelResolveKind, et as ChannelAccountSnapshot, ft as ChannelMeta, g as ChannelGatewayContext, it as ChannelCapabilities, k as ChannelOutboundContext, lt as ChannelMessageActionAdapter, q as WizardPrompter, st as ChannelLogSink, ut as ChannelMessageActionContext, x as ChannelResolveResult } from "../../setup-wizard-types-BLKR4ulg.js";
+import { t as ChannelPlugin } from "../../types.public-60lQ44UL.js";
+import { t as twitchPlugin } from "../../plugin-Cv1te-Bc.js";
 
 //#region extensions/twitch/src/runtime.d.ts
 declare const setTwitchRuntime: (next: PluginRuntime) => void, getTwitchRuntime: () => PluginRuntime;

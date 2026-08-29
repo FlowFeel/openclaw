@@ -1,5 +1,5 @@
-import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
-import { r as AuthProfileStore } from "../../types-2QLPd9ti.js";
+import { n as OpenClawConfig } from "../../types.openclaw-BsftVpqJ.js";
+import { r as AuthProfileStore } from "../../types-D_9RV_c3.js";
 //#region src/plugin-sdk/video-generation.d.ts
 /** Video asset returned by a provider after generation or transformation. */
 type GeneratedVideoAsset = {

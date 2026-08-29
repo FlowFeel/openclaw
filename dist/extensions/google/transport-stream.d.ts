@@ -1,2 +1,2 @@
-import { n as createGoogleGenerativeAiTransportStreamFn, r as createGoogleVertexTransportStreamFn, t as buildGoogleGenerativeAiParams } from "../../transport-stream-BQs5yr5B.js";
+import { n as createGoogleGenerativeAiTransportStreamFn, r as createGoogleVertexTransportStreamFn, t as buildGoogleGenerativeAiParams } from "../../transport-stream-C58xFcVg.js";
 export { buildGoogleGenerativeAiParams, createGoogleGenerativeAiTransportStreamFn, createGoogleVertexTransportStreamFn };

@@ -1,5 +1,5 @@
-import { n as OpenClawConfig } from "../../types.openclaw-Becy5MdM.js";
-import { B as LegacyConfigRule, f as ChannelDoctorConfigMutation } from "../../setup-wizard-types-CPFgdzIT.js";
+import { n as OpenClawConfig } from "../../types.openclaw-DPyC_juj.js";
+import { B as LegacyConfigRule, f as ChannelDoctorConfigMutation } from "../../setup-wizard-types-qbnj3m4f.js";
 //#region extensions/tlon/src/doctor-contract.d.ts
 declare const legacyConfigRules: LegacyConfigRule[];
 declare const normalizeCompatibilityConfig: (params: {

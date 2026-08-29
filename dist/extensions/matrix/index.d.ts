@@ -1,5 +1,5 @@
-import { t as ChannelPlugin } from "../../types.public-C90co_3J.js";
-import { r as OpenClawPluginApi, t as BundledChannelEntryContract } from "../../channel-entry-contract-BfwEggpZ.js";
+import { t as ChannelPlugin } from "../../types.public-60lQ44UL.js";
+import { r as OpenClawPluginApi, t as BundledChannelEntryContract } from "../../channel-entry-contract-DfOOnpu6.js";
 
 //#region extensions/matrix/index.d.ts
 declare function registerMatrixFullRuntime(api: OpenClawPluginApi): void;

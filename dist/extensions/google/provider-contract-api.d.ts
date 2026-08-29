@@ -1,4 +1,4 @@
-import { i as ProviderPlugin } from "../../types-kmCR57lP.js";
+import { i as ProviderPlugin } from "../../types-t45BJFXe.js";
 //#region extensions/google/provider-contract-api.d.ts
 declare function createGoogleProvider(): ProviderPlugin;
 declare function createGoogleVertexProvider(): ProviderPlugin;

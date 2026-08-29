@@ -1,5 +1,5 @@
-import { t as OpenClawPluginDefinition } from "../../types-BNrl3zyK.js";
-import { c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition$1 } from "../../plugin-entry-CS8C3z51.js";
+import { t as OpenClawPluginDefinition } from "../../types-CFJXaPHi.js";
+import { c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition$1 } from "../../plugin-entry-rqx6-3xm.js";
 //#region extensions/thread-ownership/index.d.ts
 declare const _default: {
   id: string;

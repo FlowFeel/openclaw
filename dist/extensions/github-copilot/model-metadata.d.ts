@@ -1,4 +1,4 @@
-import { o as ModelDefinitionConfig } from "../../types.openclaw-DZDgdSgX.js";
+import { o as ModelDefinitionConfig } from "../../types.openclaw-BsftVpqJ.js";
 //#region extensions/github-copilot/model-metadata.d.ts
 type CopilotRuntimeApi = "anthropic-messages" | "openai-completions" | "openai-responses";
 type CopilotReasoningCompat = {

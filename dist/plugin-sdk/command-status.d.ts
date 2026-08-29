@@ -1,4 +1,4 @@
-import { r as OpenClawConfig } from "../types.openclaw-BwKjboya.js";
+import { r as OpenClawConfig } from "../types.openclaw-C7iFpWwX.js";
 import { t as SkillCommandSpec } from "../types-Bef8ClZo2.js";
 
 //#region src/auto-reply/command-status-builders.d.ts

@@ -17,7 +17,7 @@ const CANVAS_NODE_COMMANDS = [
 	"canvas.a2ui.reset"
 ];
 function createLazyCanvasTool(params) {
-	const loadTool = createLazyRuntimeModule(() => import("../../tool-CV-Zr7cC.js").then(({ createCanvasTool }) => createCanvasTool({
+	const loadTool = createLazyRuntimeModule(() => import("../../tool-6Exjp7Z0.js").then(({ createCanvasTool }) => createCanvasTool({
 		config: params.config,
 		workspaceDir: params.workspaceDir,
 		agentSessionKey: params.agentSessionKey

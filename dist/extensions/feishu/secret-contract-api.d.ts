@@ -1,4 +1,4 @@
-import { n as ResolverContext, r as SecretDefaults, t as SecretTargetRegistryEntry } from "../../target-registry-types-EBiYDXpx.js";
+import { n as ResolverContext, r as SecretDefaults, t as SecretTargetRegistryEntry } from "../../target-registry-types-JxwYHGwX.js";
 
 //#region extensions/feishu/src/secret-contract.d.ts
 declare const secretTargetRegistryEntries: SecretTargetRegistryEntry[];

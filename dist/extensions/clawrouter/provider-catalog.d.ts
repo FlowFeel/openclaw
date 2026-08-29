@@ -1,5 +1,5 @@
-import { A as ProviderRuntimeModel } from "../../types-kmCR57lP.js";
-import { u as ModelProviderDeclarationConfig } from "../../types.openclaw-Becy5MdM.js";
+import { A as ProviderRuntimeModel } from "../../types-t45BJFXe.js";
+import { u as ModelProviderDeclarationConfig } from "../../types.openclaw-DPyC_juj.js";
 import { t as LiveModelCatalogFetchGuard } from "../../provider-catalog-live-runtime-4zY-OGQF.js";
 //#region extensions/clawrouter/provider-catalog.d.ts
 declare function normalizeClawRouterRootUrl(baseUrl: string | undefined): string;

@@ -1,4 +1,4 @@
-import { P as ProviderPlugin, v as ProviderAuthMethod } from "../../plugin-entry-DICCbWcY.js";
+import { P as ProviderPlugin, v as ProviderAuthMethod } from "../../plugin-entry-d4GRo0oQ.js";
 
 //#region extensions/openai/openai-chatgpt-provider.d.ts
 declare function buildOpenAIChatGPTAuthMethods(): ProviderAuthMethod[];

@@ -1,4 +1,4 @@
-import { a as MusicGenerationProvider } from "../../types-C0YUMlwq.js";
+import { a as MusicGenerationProvider } from "../../types-C3w6cEIg.js";
 
 //#region extensions/minimax/music-generation-provider.d.ts
 declare function buildMinimaxMusicGenerationProvider(): MusicGenerationProvider;

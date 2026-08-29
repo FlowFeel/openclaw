@@ -1,5 +1,5 @@
-import { a as MusicGenerationProvider } from "../../types-SZ7guZmE.js";
-import { t as VideoGenerationProvider } from "../../video-generation-DowYNdra.js";
+import { a as MusicGenerationProvider } from "../../types-C0aJ4MZ7.js";
+import { t as VideoGenerationProvider } from "../../video-generation-Kr25W3v-.js";
 
 //#region extensions/google/generation-provider-metadata.d.ts
 declare const DEFAULT_GOOGLE_MUSIC_MODEL = "lyria-3-clip-preview";

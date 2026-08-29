@@ -1,4 +1,4 @@
-import { t as VideoGenerationProvider } from "../../video-generation-BH_Z_TNG.js";
+import { t as VideoGenerationProvider } from "../../video-generation-C0mt1MuB.js";
 
 //#region extensions/minimax/video-generation-provider.d.ts
 declare function buildMinimaxVideoGenerationProvider(): VideoGenerationProvider;

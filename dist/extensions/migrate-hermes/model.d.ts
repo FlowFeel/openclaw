@@ -1,4 +1,4 @@
-import { a as MigrationProviderContext, r as MigrationItem } from "../../plugin-entry-CS8C3z51.js";
+import { a as MigrationProviderContext, r as MigrationItem } from "../../plugin-entry-rqx6-3xm.js";
 
 //#region extensions/migrate-hermes/model.d.ts
 declare function normalizeHermesProviderId(provider: string): string;

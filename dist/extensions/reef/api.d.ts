@@ -1,8 +1,8 @@
-import { n as OpenClawConfig } from "../../types.openclaw-DZDgdSgX.js";
-import { T as MessageReceipt, s as ChannelOutboundAdapter, w as ChannelMessageSendTextContext } from "../../types.public-Cbcwotuf.js";
-import { a as ReefInboxConnection, i as ReefFriendManager, n as createConfiguredGuard, o as ReefTransportClient, s as WebSocketLike, t as ReefMessageFlow } from "../../flow-BO-71FgF.js";
+import { n as OpenClawConfig } from "../../types.openclaw-BsftVpqJ.js";
+import { T as MessageReceipt, s as ChannelOutboundAdapter, w as ChannelMessageSendTextContext } from "../../types.public-CFhLhhWm.js";
+import { a as ReefInboxConnection, i as ReefFriendManager, n as createConfiguredGuard, o as ReefTransportClient, s as WebSocketLike, t as ReefMessageFlow } from "../../flow-vAtWPXoQ.js";
 import { a as ReefIngressMessage, c as RelayFriend, i as ReefDependencies, n as ReefAccount, o as ReefKeys, t as InboxEntry } from "../../types-DuDlwF_j.js";
-import { t as reefPlugin } from "../../channel-BKgdRU5L.js";
+import { t as reefPlugin } from "../../channel-DMHDGt9E.js";
 
 //#region extensions/reef/src/outbound.d.ts
 declare const reefOutboundAdapter: ChannelOutboundAdapter;

@@ -1,5 +1,5 @@
 import { o as isRecord } from "../../record-coerce-DHZ4bFlT.js";
-import { m as resolveStorePath } from "../../session-store-runtime-Cxa_z-lr.js";
+import { m as resolveStorePath } from "../../session-store-runtime-Bf8zt08Q.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
 import { a as defineChannelAliasMigration } from "../../runtime-doctor-DswhIJKY.js";
 import { t as archiveLegacyStateSource } from "../../doctor-state-migration-fs-CfVap4xL.js";

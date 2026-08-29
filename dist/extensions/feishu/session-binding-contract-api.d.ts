@@ -1,2 +1,2 @@
-import { r as testing, t as createFeishuThreadBindingManager } from "../../thread-bindings-D4c9JNJ9.js";
+import { r as testing, t as createFeishuThreadBindingManager } from "../../thread-bindings-eu5DKao7.js";
 export { createFeishuThreadBindingManager, testing as feishuThreadBindingTesting };

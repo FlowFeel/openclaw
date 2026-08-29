@@ -1,5 +1,5 @@
-import { t as OpenClawPluginDefinition } from "../../types-BykvrQHR.js";
-import { i as OpenClawPluginDefinition$1, r as OpenClawPluginConfigSchema } from "../../plugin-entry-DoQDAyTc.js";
+import { t as OpenClawPluginDefinition } from "../../types-DCnZ_KP9.js";
+import { i as OpenClawPluginDefinition$1, r as OpenClawPluginConfigSchema } from "../../plugin-entry-CUAoWLy3.js";
 
 //#region extensions/linux-canvas/index.d.ts
 declare const _default: {

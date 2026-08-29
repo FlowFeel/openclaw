@@ -1,4 +1,4 @@
-import { a as MigrationProviderContext, r as MigrationItem } from "../../plugin-entry-DICCbWcY.js";
+import { a as MigrationProviderContext, r as MigrationItem } from "../../plugin-entry-d4GRo0oQ.js";
 import { ClaudeSource } from "./source.js";
 
 //#region extensions/migrate-claude/config.d.ts

@@ -1,4 +1,4 @@
-import { a as ProviderRequestTransport, i as ProviderRequestCapability } from "../../provider-request-config-Cy3f8Inl.js";
+import { a as ProviderRequestTransport, i as ProviderRequestCapability } from "../../provider-request-config-C1sg_mEt.js";
 //#region extensions/google/google-api-client-header.d.ts
 declare function resolveGoogleApiClientHeaders(params?: {
   api?: string;

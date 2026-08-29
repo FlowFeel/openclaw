@@ -1,5 +1,5 @@
-import { O as OutboundMediaAccess } from "../types.core-CbTOSIcN.js";
-import { an as WebMediaResult } from "../types-fxGJj6Ov.js";
+import { O as OutboundMediaAccess } from "../types.core-Ckny0mU6.js";
+import { an as WebMediaResult } from "../types-CtdP6tZL.js";
 import { r as PluginStateKeyedStore } from "../plugin-state-store.types-DX2gE09P.js";
 //#region src/plugin-sdk/outbound-media.d.ts
 /** Media loading policy used before plugin media is handed to channel delivery. */

@@ -1,5 +1,5 @@
 import { a as parseFeishuDirectConversationId, i as parseFeishuConversationId, n as buildFeishuConversationId, o as parseFeishuTargetId } from "../../conversation-id-CBFuWL3u.js";
-import { t as collectFeishuSecurityAuditFindings } from "../../security-audit-shared--GLEmKqH.js";
+import { t as collectFeishuSecurityAuditFindings } from "../../security-audit-shared-C3eNzIs0.js";
 
 //#region extensions/feishu/src/message-action-contract.d.ts
 declare const messageActionTargetAliases: {

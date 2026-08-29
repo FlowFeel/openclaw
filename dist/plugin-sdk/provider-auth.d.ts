@@ -1,12 +1,12 @@
-import { r as OpenClawConfig } from "../types.openclaw-BwKjboya.js";
+import { r as OpenClawConfig } from "../types.openclaw-C7iFpWwX.js";
 import { l as coerceSecretRef, n as SecretInput, o as SecretRef, u as hasConfiguredSecretInput } from "../types.secrets-DQTWzAOQ.js";
-import { D as AuthProfileStore, O as OAuthCredential, T as AuthProfileCredential } from "../types-GEWvtd2r.js";
+import { D as AuthProfileStore, O as OAuthCredential, T as AuthProfileCredential } from "../types-b2oqVK5U.js";
 import { o as resolveRequiredHomeDir } from "../home-dir-4pOw9r_P.js";
-import { $ as ensureAuthProfileStore, G as listKnownProviderAuthEnvVarNames, K as omitEnvKeysCaseInsensitive, W as resolveEnvApiKey, bt as DEFAULT_OAUTH_REFRESH_MARGIN_MS, ct as updateAuthProfileStoreWithLock, da as ProviderPluginWizardSetup, dt as upsertAuthProfile, et as ensureAuthProfileStoreForLocalUpdate, ft as upsertAuthProfileWithLock, la as ProviderAuthResult, lt as suggestOAuthProfileIdForLegacyDefault, oa as ProviderAuthContext, pt as listProfilesForProvider, sa as ProviderAuthMethod, ut as removeProviderAuthProfilesWithLock, xt as hasUsableOAuthCredential } from "../types-CtE8kx2y.js";
-import { T as SecretInputMode } from "../types-Daqn4msP.js";
-import { o as OAuthCredentials } from "../model-catalog-BFibw3V_.js";
-import { p as WizardPrompter } from "../setup-wizard-types-C9Z3i9X9.js";
-import { n as readCodexCliCredentialsCached, t as readClaudeCliCredentialsCached } from "../cli-credentials-1Z366y4i.js";
+import { $ as ensureAuthProfileStore, G as listKnownProviderAuthEnvVarNames, K as omitEnvKeysCaseInsensitive, W as resolveEnvApiKey, bt as DEFAULT_OAUTH_REFRESH_MARGIN_MS, ct as updateAuthProfileStoreWithLock, da as ProviderPluginWizardSetup, dt as upsertAuthProfile, et as ensureAuthProfileStoreForLocalUpdate, ft as upsertAuthProfileWithLock, la as ProviderAuthResult, lt as suggestOAuthProfileIdForLegacyDefault, oa as ProviderAuthContext, pt as listProfilesForProvider, sa as ProviderAuthMethod, ut as removeProviderAuthProfilesWithLock, xt as hasUsableOAuthCredential } from "../types-CVuq6K6F.js";
+import { T as SecretInputMode } from "../types-DCanIKq0.js";
+import { o as OAuthCredentials } from "../model-catalog-bRc3XIBo.js";
+import { p as WizardPrompter } from "../setup-wizard-types-Bl0TvxhX.js";
+import { n as readCodexCliCredentialsCached, t as readClaudeCliCredentialsCached } from "../cli-credentials-xOw9i7yk.js";
 import { a as isNonSecretApiKeyMarker, i as isKnownEnvApiKeyMarker, n as CUSTOM_LOCAL_AUTH_MARKER, o as resolveNonEnvSecretRefApiKeyMarker, r as MINIMAX_OAUTH_MARKER, s as resolveOAuthApiKeyMarker } from "../model-auth-markers-Bu63eVv3.js";
 import { i as resolveDefaultSecretProviderAlias, n as normalizeSecretInput, t as normalizeOptionalSecretInput } from "../normalize-secret-input-B4Sw0WJG.js";
 

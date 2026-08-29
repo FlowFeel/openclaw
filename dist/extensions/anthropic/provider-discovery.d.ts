@@ -1,4 +1,4 @@
-import { i as ProviderPlugin } from "../../types-BykvrQHR.js";
+import { i as ProviderPlugin } from "../../types-DCnZ_KP9.js";
 //#region extensions/anthropic/provider-discovery.d.ts
 declare function resolveClaudeCliSyntheticAuth(): {
   apiKey: string;

@@ -1,8 +1,8 @@
-import { r as OpenClawConfig } from "../types.openclaw-BwKjboya.js";
+import { r as OpenClawConfig } from "../types.openclaw-C7iFpWwX.js";
 import { m as DmPolicy } from "../types.base-BYV-OxM1.js";
-import { u as ChannelSetupAdapter } from "../manifest-registry-VETZVwE7.js";
+import { u as ChannelSetupAdapter } from "../manifest-registry-D4clTLHV.js";
 import { t as ChannelId } from "../channel-id.types-CjcGKHk0.js";
-import { t as ChannelSetupDmPolicy } from "../setup-wizard-types-C9Z3i9X9.js";
+import { t as ChannelSetupDmPolicy } from "../setup-wizard-types-Bl0TvxhX.js";
 
 //#region src/plugin-sdk/channel-dm-policy.d.ts
 type DmPolicyAccountConfig = {

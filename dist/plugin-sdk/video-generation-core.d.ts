@@ -1,14 +1,14 @@
-import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
+import { n as OpenClawConfig } from "../types.openclaw-ymL1Xg7f.js";
 import { r as AuthProfileStore } from "../types-BqfkEFeu.js";
-import { v as VideoGenerationProviderPlugin } from "../types-fxGJj6Ov.js";
+import { v as VideoGenerationProviderPlugin } from "../types-CtdP6tZL.js";
 import { t as FallbackAttempt } from "../model-fallback.types-97WZcYrx.js";
 import { n as createSubsystemLogger } from "../subsystem-RmDRaRJV.js";
-import { a as VideoGenerationModeCapabilities, c as VideoGenerationProvider, d as VideoGenerationRequest, f as VideoGenerationResolution, h as VideoGenerationTransformCapabilities, i as VideoGenerationMode, l as VideoGenerationProviderCapabilities, m as VideoGenerationSourceAsset, n as VideoGenerationCatalogModelEntry, o as VideoGenerationModelCapabilitiesContext, p as VideoGenerationResult, r as VideoGenerationIgnoredOverride, t as GeneratedVideoAsset, u as VideoGenerationProviderConfiguredContext } from "../types-D7KuwZHu.js";
-import { n as getProviderEnvVars } from "../provider-env-vars-FZEzpQ8b.js";
+import { a as VideoGenerationModeCapabilities, c as VideoGenerationProvider, d as VideoGenerationRequest, f as VideoGenerationResolution, h as VideoGenerationTransformCapabilities, i as VideoGenerationMode, l as VideoGenerationProviderCapabilities, m as VideoGenerationSourceAsset, n as VideoGenerationCatalogModelEntry, o as VideoGenerationModelCapabilitiesContext, p as VideoGenerationResult, r as VideoGenerationIgnoredOverride, t as GeneratedVideoAsset, u as VideoGenerationProviderConfiguredContext } from "../types-D92IaxH8.js";
+import { n as getProviderEnvVars } from "../provider-env-vars-BUQJ0Cza.js";
 import { n as isFailoverError, t as describeFailoverError } from "../failover-error-C39zfedP.js";
-import { i as throwCapabilityGenerationFailure, n as resolveCapabilityModelCandidates, t as buildNoCapabilityModelConfiguredMessage } from "../runtime-shared-B2sffNvU.js";
+import { i as throwCapabilityGenerationFailure, n as resolveCapabilityModelCandidates, t as buildNoCapabilityModelConfiguredMessage } from "../runtime-shared-Bj5R1ljP.js";
 import { n as resolveAgentModelPrimaryValue, t as resolveAgentModelFallbackValues } from "../model-input-0hu-ONGj.js";
-import { n as listVideoGenerationProviders, t as getVideoGenerationProvider } from "../provider-registry-DW3WbXlY.js";
+import { n as listVideoGenerationProviders, t as getVideoGenerationProvider } from "../provider-registry-Mhgegbz6.js";
 
 //#region src/video-generation/model-ref.d.ts
 declare function parseVideoGenerationModelRef(raw: string | undefined): {

@@ -1,2 +1,2 @@
-import { a as resolveGoogleChromeExecutableForPlatform, n as parseBrowserMajorVersion, r as readBrowserVersion, t as BrowserExecutable } from "../../chrome.executables-DF_wKlQk.js";
+import { a as resolveGoogleChromeExecutableForPlatform, n as parseBrowserMajorVersion, r as readBrowserVersion, t as BrowserExecutable } from "../../chrome.executables-DqM_WyAo.js";
 export { type BrowserExecutable, parseBrowserMajorVersion, readBrowserVersion, resolveGoogleChromeExecutableForPlatform };

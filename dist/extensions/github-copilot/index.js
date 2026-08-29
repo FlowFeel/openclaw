@@ -14,7 +14,7 @@ import { t as PROVIDER_ID } from "../../models-B1rPhlE9.js";
 import { t as resolveFirstGithubToken } from "../../auth-CUyTn1BK.js";
 import { i as resolveGithubCopilotDomain, r as normalizeGithubCopilotDomain, t as PUBLIC_GITHUB_COPILOT_DOMAIN } from "../../domain-DI7ThHsj.js";
 import { t as createGithubCopilotDynamicModelHooks } from "../../dynamic-models-DnFRS-4o.js";
-import { t as githubCopilotMemoryEmbeddingProviderAdapter } from "../../embeddings-BDsonkja.js";
+import { t as githubCopilotMemoryEmbeddingProviderAdapter } from "../../embeddings-D6vmRrbf.js";
 import { a as refreshGithubCopilotOAuth, i as parseGithubCopilotApiKey, n as formatGithubCopilotApiKey, r as loginGithubCopilotOAuth, t as buildGithubCopilotAuthDoctorHint } from "../../oauth-D1y-DD4g.js";
 import { n as sanitizeGithubCopilotReplayHistory, t as buildGithubCopilotReplayPolicy } from "../../replay-policy-BiLP3lcM.js";
 import { n as wrapCopilotProviderStream } from "../../stream-BZgxUvx3.js";

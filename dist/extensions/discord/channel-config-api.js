@@ -1,2 +1,2 @@
-import { t as DiscordChannelConfigSchema } from "../../config-schema-B-CKL4ow.js";
+import { t as DiscordChannelConfigSchema } from "../../config-schema-DD0-0hDt.js";
 export { DiscordChannelConfigSchema };

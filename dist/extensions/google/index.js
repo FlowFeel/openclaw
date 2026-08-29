@@ -7,7 +7,7 @@ import { n as createRealtimeVoiceAudioQueue } from "../../realtime-voice-DHp_hgU
 import { t as buildGoogleGeminiCliBackend } from "../../cli-backend-sW66kbAj.js";
 import { n as registerGoogleGeminiCliProvider } from "../../gemini-cli-provider-Z_IN5uvm.js";
 import { c as createGoogleMusicGenerationProviderMetadata, l as createGoogleVideoGenerationProviderMetadata } from "../../generation-provider-metadata-ByiiHg6d.js";
-import { t as geminiMemoryEmbeddingProviderAdapter } from "../../memory-embedding-adapter-DaJJM94D.js";
+import { t as geminiMemoryEmbeddingProviderAdapter } from "../../memory-embedding-adapter-BmtoD9kl.js";
 import { n as registerGoogleProvider } from "../../provider-registration-B41BbK30.js";
 import { t as buildGoogleSpeechProvider } from "../../speech-provider-weM00Gv1.js";
 import { t as createGeminiWebSearchProvider } from "../../gemini-web-search-provider-BeWKZiyL.js";

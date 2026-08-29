@@ -1,4 +1,4 @@
-import { J as CliBackendPreparedExecution, Y as CliBackendToolAvailability } from "../../types-kmCR57lP.js";
+import { J as CliBackendPreparedExecution, Y as CliBackendToolAvailability } from "../../types-t45BJFXe.js";
 import { GeminiCliRestrictedAuthContext } from "./cli-backend-isolated-auth.runtime.js";
 
 //#region extensions/google/cli-backend-auth.runtime.d.ts

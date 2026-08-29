@@ -1,4 +1,4 @@
-import { d as OpenClawPluginSecurityAuditCollector, s as OpenClawPluginApi, u as OpenClawPluginNodeHostCommand } from "../../plugin-entry-DICCbWcY.js";
+import { d as OpenClawPluginSecurityAuditCollector, s as OpenClawPluginApi, u as OpenClawPluginNodeHostCommand } from "../../plugin-entry-d4GRo0oQ.js";
 
 //#region extensions/browser/plugin-registration.d.ts
 /** Browser plugin reload policy. */

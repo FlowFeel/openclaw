@@ -1,11 +1,11 @@
-import { r as OpenClawConfig } from "../types.openclaw-BwKjboya.js";
+import { r as OpenClawConfig } from "../types.openclaw-C7iFpWwX.js";
 import { t as PluginOrigin } from "../plugin-origin.types-DOQEvsWL.js";
 import { i as ReplyPayload } from "../reply-payload-DdceO6tf.js";
-import { At as OpenClawPluginApi, Dn as PluginCommandResult, En as PluginCommandContext, Et as PluginRegistry, Fa as PluginRuntime, Tn as OpenClawPluginCommandDefinition, _n as PluginInteractiveHandlerRegistration, j as RuntimeLogger, kt as OpenClawPluginConfigSchema, vn as PluginInteractiveRegistration, wn as AgentPromptSurfaceKind } from "../types-CtE8kx2y.js";
-import { a as GatewayRequestOptions, t as GatewayRequestContext } from "../types-Daqn4msP.js";
-import { t as getGlobalHookRunner } from "../hook-runner-global-CrDna2QE.js";
+import { At as OpenClawPluginApi, Dn as PluginCommandResult, En as PluginCommandContext, Et as PluginRegistry, Fa as PluginRuntime, Tn as OpenClawPluginCommandDefinition, _n as PluginInteractiveHandlerRegistration, j as RuntimeLogger, kt as OpenClawPluginConfigSchema, vn as PluginInteractiveRegistration, wn as AgentPromptSurfaceKind } from "../types-CVuq6K6F.js";
+import { a as GatewayRequestOptions, t as GatewayRequestContext } from "../types-DCanIKq0.js";
+import { t as getGlobalHookRunner } from "../hook-runner-global-CPVYHGhn.js";
 import { n as PluginConversationBindingRequestParams, r as PluginConversationBindingRequestResult, t as PluginConversationBinding } from "../conversation-binding.types-Cf59DwvU.js";
-import { t as getPluginCommandSpecs } from "../command-specs-WWLOVuZb.js";
+import { t as getPluginCommandSpecs } from "../command-specs-IqK-_ufo.js";
 import { i as requestPluginConversationBinding } from "../conversation-binding-D5p7P9kt.js";
 
 //#region src/plugins/command-registry-state.d.ts

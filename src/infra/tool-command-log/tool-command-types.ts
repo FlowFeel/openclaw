@@ -13,6 +13,7 @@ export type ToolCallCommandEntry = {
   turn: number;
   callId?: string;
   heapPct?: number;
+  rawResult?: string;
 };
 
 export type FlightRecorderConfig = {

@@ -1,6 +1,6 @@
-import { i as OpenClawConfig } from "../types.openclaw-DvmDDNUn.js";
+import { i as OpenClawConfig } from "../types.openclaw-DfLlB8Bo.js";
 import { o as ImageContent } from "../types-CwI9hEPH.js";
-import { D as MediaUnderstandingOutput, E as MediaUnderstandingDecision, O as MediaUnderstandingProvider, a as MsgContext } from "../templating-B2sNzuWB.js";
+import { D as MediaUnderstandingOutput, E as MediaUnderstandingDecision, O as MediaUnderstandingProvider, a as MsgContext } from "../templating-C382PY51.js";
 import { t as ActiveMediaModel } from "../active-model-Cxn6sQSw.js";
 
 //#region src/media-understanding/extracted-file-images.d.ts

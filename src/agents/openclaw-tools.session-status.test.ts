@@ -2516,7 +2516,7 @@ describe("session_status tool", () => {
     // 1. Initial read
     const read1 = await tool.execute("call-trunc-1", {});
     const text1 = read1.content[0].text;
-    expect(text1).toContain("✂ Tool Truncation: 120 bytes");
+    expect(text1).toContain("✂ Tool Truncation: 120B head + 120B tail");
 
     // 2. Set truncation budget to 250
     const write1 = await tool.execute("call-trunc-2", { toolValueTruncationBytes: 250 });

@@ -1,5 +1,5 @@
-import { n as ChannelSetupWizard } from "../../setup-wizard-types-D2FWxWEi.js";
-import { u as ChannelSetupAdapter } from "../../manifest-registry-o_CvTWya.js";
+import { n as ChannelSetupWizard } from "../../setup-wizard-types-BZVz3uzu.js";
+import { u as ChannelSetupAdapter } from "../../manifest-registry-Dyi4SKLg.js";
 //#region extensions/nostr/src/setup-surface.d.ts
 declare const nostrSetupAdapter: ChannelSetupAdapter<{
   name?: string;

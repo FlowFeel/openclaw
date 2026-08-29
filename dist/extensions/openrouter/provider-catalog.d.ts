@@ -1,7 +1,7 @@
-import { j as ModelProviderDeclarationConfig } from "../../types.openclaw-lExroEnq.js";
+import { j as ModelProviderDeclarationConfig } from "../../types.openclaw-szgVaeve.js";
 import { r as SsrFPolicy } from "../../ssrf-BmS65x05.js";
-import { t as LiveModelCatalogFetchGuard } from "../../provider-catalog-live-runtime-CY2HKNxf.js";
-import { r as resolveProviderHttpRequestConfig } from "../../provider-http-DA8dj3Tz.js";
+import { t as LiveModelCatalogFetchGuard } from "../../provider-catalog-live-runtime-RrWHoQDa.js";
+import { r as resolveProviderHttpRequestConfig } from "../../provider-http-CtySmeER.js";
 
 //#region extensions/openrouter/provider-catalog.d.ts
 declare const OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1";

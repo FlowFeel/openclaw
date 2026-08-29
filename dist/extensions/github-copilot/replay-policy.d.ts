@@ -1,5 +1,5 @@
-import { ft as AgentMessage } from "../../types.public-Cbcwotuf.js";
-import { w as ProviderSanitizeReplayHistoryContext } from "../../plugin-entry-CS8C3z51.js";
+import { ft as AgentMessage } from "../../types.public-CFhLhhWm.js";
+import { w as ProviderSanitizeReplayHistoryContext } from "../../plugin-entry-rqx6-3xm.js";
 
 //#region extensions/github-copilot/replay-policy.d.ts
 declare function stripCopilotAssistantThinkingMessages<T>(messages: T[]): T[];

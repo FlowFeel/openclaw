@@ -1,4 +1,4 @@
-import { r as VideoGenerationProvider } from "../../video-generation-BzctQhrg.js";
+import { r as VideoGenerationProvider } from "../../video-generation-DiHMkGt7.js";
 
 //#region extensions/xai/video-generation-provider.d.ts
 declare function buildXaiVideoGenerationProvider(): VideoGenerationProvider;

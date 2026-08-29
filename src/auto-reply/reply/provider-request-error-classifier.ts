@@ -70,6 +70,14 @@ export function classifyProviderRequestError(
       technicalMessage,
     };
   }
+  if (hasHttp402OrBillingFlapEvidence(err, technicalMessage)) {
+    return {
+      code: "provider_rate_limit_or_quota_error",
+      userMessage: PROVIDER_RATE_LIMIT_OR_QUOTA_ERROR_USER_MESSAGE,
+      technicalMessage,
+      allowTransientHttpRetry: true,
+    };
+  }
   if (
     hasHttp429Evidence(err, technicalMessage) &&
     isGenericProviderRuntimeErrorMessage(technicalMessage)
@@ -140,6 +148,16 @@ function isProviderInternalErrorMessage(message: string): boolean {
     lower.includes("provider returned an internal error") ||
     (isGenericProviderRuntimeErrorMessage(message) &&
       (lower.includes("server_error") || lower.includes("internal error")))
+  );
+}
+
+function hasHttp402OrBillingFlapEvidence(err: unknown, message: string): boolean {
+  const lower = normalizeLowercaseStringOrEmpty(message);
+  return (
+    readHttpStatus(err, 402) ||
+    lower.includes("billing_flap") ||
+    lower.includes("billing error") ||
+    (lower.includes("quota") && lower.includes("degraded"))
   );
 }
 

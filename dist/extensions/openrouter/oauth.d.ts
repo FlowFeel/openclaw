@@ -1,4 +1,4 @@
-import { s as ProviderAuthMethod } from "../../plugin-entry-C6mhVz2t.js";
+import { s as ProviderAuthMethod } from "../../plugin-entry-COORsTlt.js";
 
 //#region extensions/openrouter/oauth.d.ts
 type OpenRouterOAuthCallbackResult = {

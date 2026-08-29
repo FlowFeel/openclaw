@@ -1,4 +1,4 @@
-import { Z as MemoryEmbeddingProviderAdapter } from "../../types-BNrl3zyK.js";
+import { Z as MemoryEmbeddingProviderAdapter } from "../../types-CFJXaPHi.js";
 //#region extensions/lmstudio/memory-embedding-adapter.d.ts
 declare const lmstudioMemoryEmbeddingProviderAdapter: MemoryEmbeddingProviderAdapter;
 //#endregion

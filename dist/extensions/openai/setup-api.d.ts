@@ -1,4 +1,4 @@
-import { M as OpenClawPluginDefinition$1, P as ProviderPlugin, c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition } from "../../plugin-entry-DICCbWcY.js";
+import { M as OpenClawPluginDefinition$1, P as ProviderPlugin, c as OpenClawPluginConfigSchema, l as OpenClawPluginDefinition } from "../../plugin-entry-d4GRo0oQ.js";
 
 //#region extensions/openai/setup-api.d.ts
 declare function buildOpenAISetupProvider(): ProviderPlugin;

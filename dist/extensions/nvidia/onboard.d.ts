@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-lExroEnq.js";
+import { n as OpenClawConfig } from "../../types.openclaw-szgVaeve.js";
 //#region extensions/nvidia/onboard.d.ts
 declare const NVIDIA_DEFAULT_MODEL_REF = "nvidia/nemotron-3-ultra-550b-a55b";
 declare const applyNvidiaConfig: (cfg: OpenClawConfig) => OpenClawConfig, applyNvidiaProviderConfig: (cfg: OpenClawConfig) => OpenClawConfig;

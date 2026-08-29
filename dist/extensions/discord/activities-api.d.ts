@@ -1,4 +1,4 @@
-import { r as OpenClawPluginApi } from "../../types-i_xbZp0W.js";
+import { r as OpenClawPluginApi } from "../../types-DhsBnKIv.js";
 //#region extensions/discord/activities-api.d.ts
 declare function registerDiscordActivities(api: OpenClawPluginApi): void;
 //#endregion

@@ -1,2 +1,2 @@
-import { i as shouldComputeCommandAuthorized, n as hasInlineCommandTokens, r as isControlCommandMessage, t as hasControlCommand } from "../command-detection-BXFqc7Uf.js";
+import { i as shouldComputeCommandAuthorized, n as hasInlineCommandTokens, r as isControlCommandMessage, t as hasControlCommand } from "../command-detection-B0hWNlnt.js";
 export { hasControlCommand, hasInlineCommandTokens, isControlCommandMessage, shouldComputeCommandAuthorized };

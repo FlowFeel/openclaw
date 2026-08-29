@@ -1,2 +1,2 @@
-import { t as registerFeishuSubagentHooks } from "../../subagent-hooks-api-BM8Li6JI.js";
+import { t as registerFeishuSubagentHooks } from "../../subagent-hooks-api-FuqhCGKf.js";
 export { registerFeishuSubagentHooks };

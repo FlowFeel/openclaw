@@ -1,4 +1,4 @@
-import { u as SpeechProviderPlugin } from "../../types-i_xbZp0W.js";
+import { u as SpeechProviderPlugin } from "../../types-DhsBnKIv.js";
 //#region extensions/xai/speech-provider.d.ts
 declare function buildXaiSpeechProvider(): SpeechProviderPlugin;
 //#endregion

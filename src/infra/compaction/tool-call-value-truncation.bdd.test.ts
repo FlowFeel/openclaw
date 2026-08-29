@@ -3,19 +3,20 @@ import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { ToolCommandLogger } from "../tool-command-log/tool-command-logger.js";
-import { lazyPrefixTruncate } from "./lazy-prefix-truncation.js";
+import { psiHeadTailTruncate } from "./lazy-prefix-truncation.js";
 import {
   truncateTranscriptToolValues,
   type TranscriptMessage,
 } from "./transcript-value-truncator.js";
 
 /**
- * Feature: Tool Call Transcript Value Truncation & Redundant Channel Preservation
+ * Feature: Tool Call Transcript Value Truncation & Cold Channel Retrieval (ψ(v, k))
  *
  * As an Agent Platform Context Optimization Subsystem
- * I want to apply store-boundary lazy prefix projection φ(v, k) to historical tool call values
- * So that the context window footprint is reduced by >= 70% while preserving structural keyspace K
- * and writing 100% full payloads to the flight recorder cold storage channel.
+ * I want to apply store-boundary Head+Tail projection ψ(v, k) to historical tool call values
+ * So that the context window footprint is reduced by >= 70% while preserving structural keyspace K,
+ * stack trace diagnostic edges (head error + tail stack root), and writing 100% full result payloads
+ * to the cold flight recorder channel.
  */
 describe("BDD Contract: Tool Call Transcript Value Truncation (Epic 23)", () => {
   it("Contract F1: Structural keyspace K carries 0 entropy diff and remains 100% intact", () => {
@@ -41,22 +42,28 @@ describe("BDD Contract: Tool Call Transcript Value Truncation (Epic 23)", () => 
     expect(Object.keys(truncated.arguments!)).toEqual(Object.keys(rawCall.arguments!));
   });
 
-  it("Contract F2: Truncated value strings maintain prefix budget k and drop trailing chaff", () => {
-    const longCommand = "find /home/node/.openclaw/workspace -type f -name '*.ts' " + "chaff_".repeat(30);
-    const projected = lazyPrefixTruncate(longCommand, 60);
+  it("Contract F2: Truncated value strings maintain head and tail slices and drop carrier chaff", () => {
+    const errorHead = "Error: Unhandled exception in handler module main.ts:42\n";
+    const carrierBody = "  at innerFrame (frame.ts:" + "0".repeat(300) + ")\n";
+    const stackTail = "  at process.processTicksAndRejections (node:internal/process/task_queues:95:5)";
+    const fullTrace = errorHead + carrierBody + stackTail;
 
-    expect(projected.startsWith("find /home/node/.openclaw/workspace -type f -name '*.ts'")).toBe(true);
-    expect(projected.endsWith("…")).toBe(true);
-    expect(projected.length).toBe(61); // 60 chars + 1 ellipsis
+    const projected = psiHeadTailTruncate(fullTrace, 60);
+
+    expect(projected).toContain("Error: Unhandled exception in handler module main.ts:42");
+    expect(projected).toContain("sTicksAndRejections (node:internal/process/task_queues:95:5)");
+    expect(projected).toContain("... [truncated ");
   });
 
-  it("Contract F3: Full command payloads survive in ToolCommandLogger flight recorder", () => {
+  it("Contract F3: Full command & result payloads survive in ToolCommandLogger flight recorder", () => {
     const tmpDir = path.join("/tmp", "test-flight-log-" + Date.now());
     const logFilePath = path.join(tmpDir, "tool-call-commands.jsonl");
 
     const logger = new ToolCommandLogger({ logFilePath, enabled: true });
 
     const fullCommand = "find /home/node/.openclaw/workspace -type f -name '*.ts' -exec grep -H 'export' {} +";
+    const rawResultPayload = "STDOUT: " + "a".repeat(1000) + "\nExit code: 0";
+
     logger.record({
       tool: "exec",
       paramsSummary: fullCommand,
@@ -64,17 +71,17 @@ describe("BDD Contract: Tool Call Transcript Value Truncation (Epic 23)", () => 
       sessionKey: "session-epic23",
       turn: 1,
       callId: "call_spec_001",
+      rawResult: rawResultPayload,
     });
 
-    // Transcript receives φ(v, 60) projection
-    const transcriptValue = lazyPrefixTruncate(fullCommand, 60);
-    expect(transcriptValue).toContain("…");
-    expect(transcriptValue.length).toBeLessThan(fullCommand.length);
+    // Transcript receives ψ(v, 60) projection
+    const transcriptValue = psiHeadTailTruncate(rawResultPayload, 60);
+    expect(transcriptValue).toContain("... [truncated ");
 
-    // Flight log retains 100% full payload
-    const recent = logger.readRecent(1);
-    expect(recent.length).toBe(1);
-    expect(recent[0].paramsSummary).toBe(fullCommand);
+    // Flight log retains 100% full result payload and is fetchable by callId
+    const recordByCallId = logger.readByCallId("call_spec_001");
+    expect(recordByCallId).not.toBeNull();
+    expect(recordByCallId?.rawResult).toBe(rawResultPayload);
 
     // Clean up temp log
     if (fs.existsSync(tmpDir)) {
@@ -99,3 +106,4 @@ describe("BDD Contract: Tool Call Transcript Value Truncation (Epic 23)", () => 
     expect(reductionPercent).toBeGreaterThanOrEqual(70);
   });
 });
+

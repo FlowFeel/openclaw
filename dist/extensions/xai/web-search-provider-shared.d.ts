@@ -1,4 +1,4 @@
-import { O as WebSearchProviderPlugin } from "../../types-i_xbZp0W.js";
+import { O as WebSearchProviderPlugin } from "../../types-DhsBnKIv.js";
 //#region extensions/xai/web-search-provider-shared.d.ts
 declare function buildXaiWebSearchProviderBase(): Omit<WebSearchProviderPlugin, "createTool" | "runSetup">;
 //#endregion

@@ -1,7 +1,7 @@
-import { r as OpenClawConfig } from "../types.openclaw-BwKjboya.js";
-import { D as ChannelSecurityDmPolicy } from "../types.core-D0Io7PdJ.js";
-import { A as ConfigWriteAuthorizationResultLike, M as ConfigWriteTargetLike, j as ConfigWriteScopeLike, s as ChannelConfigAdapter } from "../types.adapters-DUUZw4P7.js";
-import { t as buildAccountScopedDmSecurityPolicy } from "../helpers-CcVYhuUN.js";
+import { r as OpenClawConfig } from "../types.openclaw-C7iFpWwX.js";
+import { D as ChannelSecurityDmPolicy } from "../types.core-B0bzaGdW.js";
+import { A as ConfigWriteAuthorizationResultLike, M as ConfigWriteTargetLike, j as ConfigWriteScopeLike, s as ChannelConfigAdapter } from "../types.adapters-DoKzQmkQ.js";
+import { t as buildAccountScopedDmSecurityPolicy } from "../helpers-Bg226DMT.js";
 
 //#region src/channels/plugins/dm-access.d.ts
 /**

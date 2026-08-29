@@ -1,6 +1,6 @@
-import { n as OpenClawConfig } from "../../types.openclaw-lExroEnq.js";
-import { f as ChannelDoctorConfigMutation, p as ChannelDoctorLegacyConfigRule } from "../../setup-wizard-types-Bj4z83z4.js";
-import { t as PluginDoctorStateMigration } from "../../runtime-doctor-M8C1YjRv.js";
+import { n as OpenClawConfig } from "../../types.openclaw-szgVaeve.js";
+import { f as ChannelDoctorConfigMutation, p as ChannelDoctorLegacyConfigRule } from "../../setup-wizard-types-BLKR4ulg.js";
+import { t as PluginDoctorStateMigration } from "../../runtime-doctor-LUjvM2kG.js";
 //#region extensions/matrix/src/doctor-contract.d.ts
 declare const legacyConfigRules: ChannelDoctorLegacyConfigRule[];
 declare function normalizeCompatibilityConfig({

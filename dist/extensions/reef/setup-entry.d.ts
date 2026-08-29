@@ -1,5 +1,5 @@
-import { t as ChannelPlugin } from "../../types.public-Cbcwotuf.js";
-import { n as BundledChannelSetupEntryContract } from "../../channel-entry-contract-KfStDOiL.js";
+import { t as ChannelPlugin } from "../../types.public-CFhLhhWm.js";
+import { n as BundledChannelSetupEntryContract } from "../../channel-entry-contract-DccripzJ.js";
 
 //#region extensions/reef/setup-entry.d.ts
 declare const _default: BundledChannelSetupEntryContract<ChannelPlugin>;

@@ -1,4 +1,4 @@
-import { n as OpenClawPluginApi } from "../../plugin-entry-Bcv4dwhw.js";
+import { n as OpenClawPluginApi } from "../../plugin-entry-h8MjCePN.js";
 //#region packages/workboard-contract/src/index.d.ts
 declare const WORKBOARD_STATUSES: readonly ["triage", "backlog", "todo", "scheduled", "ready", "running", "review", "blocked", "done"];
 declare const WORKBOARD_PRIORITIES: readonly ["low", "normal", "high", "urgent"];

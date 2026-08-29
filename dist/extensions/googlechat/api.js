@@ -1,3 +1,3 @@
 import { a as googlechatSetupAdapter, i as googlechatSetupWizard } from "../../channel-base-BkBvg6eY.js";
-import { t as googlechatPlugin } from "../../channel-Bgrw802O.js";
+import { t as googlechatPlugin } from "../../channel-CPpqUaoi.js";
 export { googlechatPlugin, googlechatSetupAdapter, googlechatSetupWizard };

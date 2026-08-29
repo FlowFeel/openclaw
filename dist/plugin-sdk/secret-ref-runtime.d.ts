@@ -1,7 +1,7 @@
-import { r as OpenClawConfig } from "../types.openclaw-BwKjboya.js";
+import { r as OpenClawConfig } from "../types.openclaw-C7iFpWwX.js";
 import { a as SecretProviderConfig, l as coerceSecretRef, n as SecretInput, o as SecretRef, t as PluginIntegrationSecretProviderConfig } from "../types.secrets-DQTWzAOQ.js";
-import { n as PluginManifestRegistry } from "../manifest-registry-VETZVwE7.js";
-import { a as createResolverContext, d as SecretRefResolveCache, r as applyResolvedAssignments } from "../runtime-shared-BKJl1VA4.js";
+import { n as PluginManifestRegistry } from "../manifest-registry-D4clTLHV.js";
+import { a as createResolverContext, d as SecretRefResolveCache, r as applyResolvedAssignments } from "../runtime-shared-nCsGG-8F.js";
 
 //#region src/secrets/plan.d.ts
 /** Registry target id accepted by a secrets apply plan. */

@@ -1,4 +1,4 @@
-import { O as WebSearchProviderPlugin } from "../../types-i_xbZp0W.js";
+import { O as WebSearchProviderPlugin } from "../../types-DhsBnKIv.js";
 //#region extensions/codex/web-search-contract-api.d.ts
 declare function createCodexWebSearchProvider(): WebSearchProviderPlugin;
 //#endregion

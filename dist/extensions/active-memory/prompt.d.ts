@@ -1,4 +1,4 @@
-import { ot as ResolvedActiveRecallPluginConfig } from "../../types-C-rq0q5B.js";
+import { ot as ResolvedActiveRecallPluginConfig } from "../../types-MN9FJk_h.js";
 
 //#region extensions/active-memory/prompt.d.ts
 declare function buildRecallPrompt(params: {

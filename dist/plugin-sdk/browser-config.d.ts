@@ -1,4 +1,4 @@
-import { Z as BrowserConfig, n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
+import { Z as BrowserConfig, n as OpenClawConfig } from "../types.openclaw-ymL1Xg7f.js";
 import { r as SsrFPolicy } from "../ssrf-Crs8FTVH.js";
 
 //#region node_modules/@openclaw/fs-safe/dist/trash.d.ts

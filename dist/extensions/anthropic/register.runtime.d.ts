@@ -1,5 +1,5 @@
-import { i as ProviderPlugin } from "../../types-BykvrQHR.js";
-import { n as OpenClawPluginApi } from "../../plugin-entry-DoQDAyTc.js";
+import { i as ProviderPlugin } from "../../types-DCnZ_KP9.js";
+import { n as OpenClawPluginApi } from "../../plugin-entry-CUAoWLy3.js";
 //#region extensions/anthropic/register.runtime.d.ts
 /** Build the full Anthropic provider descriptor used by runtime registration. */
 declare function buildAnthropicProvider(): ProviderPlugin;

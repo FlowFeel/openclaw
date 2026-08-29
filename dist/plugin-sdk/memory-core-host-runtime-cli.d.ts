@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../types.openclaw-B4JlK2kd.js";
+import { n as OpenClawConfig } from "../types.openclaw-ymL1Xg7f.js";
 import { n as defaultRuntime } from "../runtime-CxgPx-f8.js";
 import { m as shortenHomePath, p as shortenHomeInString } from "../utils-Boywqx_R.js";
 import { i as withManager, n as formatHelpExamples, t as theme } from "../theme-DEeEiwE7.js";

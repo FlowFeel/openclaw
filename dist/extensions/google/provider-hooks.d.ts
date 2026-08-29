@@ -1,7 +1,7 @@
-import { D as ProviderReplayPolicyContext, E as ProviderReplayPolicy, O as ProviderSanitizeReplayHistoryContext, T as ProviderReasoningOutputModeContext, v as ProviderThinkingProfile, w as ProviderReasoningOutputMode } from "../../types-kmCR57lP.js";
-import { y as StreamFn } from "../../types.openclaw-Becy5MdM.js";
-import { Bt as AgentMessage } from "../../setup-wizard-types-CPFgdzIT.js";
-import { c as ProviderDefaultThinkingPolicyContext, d as ProviderNormalizeToolSchemasContext, h as ProviderWrapStreamFnContext, l as ProviderFailoverErrorContext, m as ProviderToolSchemaDiagnostic, t as AnyAgentTool } from "../../plugin-entry-Bcv4dwhw.js";
+import { D as ProviderReplayPolicyContext, E as ProviderReplayPolicy, O as ProviderSanitizeReplayHistoryContext, T as ProviderReasoningOutputModeContext, v as ProviderThinkingProfile, w as ProviderReasoningOutputMode } from "../../types-t45BJFXe.js";
+import { y as StreamFn } from "../../types.openclaw-DPyC_juj.js";
+import { Bt as AgentMessage } from "../../setup-wizard-types-qbnj3m4f.js";
+import { c as ProviderDefaultThinkingPolicyContext, d as ProviderNormalizeToolSchemasContext, h as ProviderWrapStreamFnContext, l as ProviderFailoverErrorContext, m as ProviderToolSchemaDiagnostic, t as AnyAgentTool } from "../../plugin-entry-h8MjCePN.js";
 //#region extensions/google/provider-hooks.d.ts
 declare function wrapGoogleThinkingStream(ctx: ProviderWrapStreamFnContext): StreamFn;
 declare const GOOGLE_GEMINI_PROVIDER_HOOKS: {

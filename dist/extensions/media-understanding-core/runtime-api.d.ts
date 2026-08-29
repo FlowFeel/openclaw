@@ -1,3 +1,3 @@
-import { a as RunMediaUnderstandingFileParams, o as RunMediaUnderstandingFileResult } from "../../runtime-types-BNII_U_1.js";
-import { a as transcribeAudioFile, i as runMediaUnderstandingFile, n as describeImageFileWithModel, r as describeVideoFile, t as describeImageFile } from "../../media-understanding-runtime-Bzs-9Ujw.js";
+import { a as RunMediaUnderstandingFileParams, o as RunMediaUnderstandingFileResult } from "../../runtime-types-C9GwZ45T.js";
+import { a as transcribeAudioFile, i as runMediaUnderstandingFile, n as describeImageFileWithModel, r as describeVideoFile, t as describeImageFile } from "../../media-understanding-runtime-BxFHyd7S.js";
 export { type RunMediaUnderstandingFileParams, type RunMediaUnderstandingFileResult, describeImageFile, describeImageFileWithModel, describeVideoFile, runMediaUnderstandingFile, transcribeAudioFile };

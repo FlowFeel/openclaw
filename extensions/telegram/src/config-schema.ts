@@ -165,6 +165,14 @@ const validateTelegramCustomCommands = (
   }
 };
 
+const TelegramCarePackageSchema = z
+  .object({
+    enabled: z.boolean().optional(),
+    template: z.string().optional(),
+    renderAtTopicCreate: z.boolean().optional(),
+  })
+  .strict();
+
 const TelegramAccountSchemaBase = z
   .object({
     ...buildCommonChannelAccountShape({
@@ -180,6 +188,7 @@ const TelegramAccountSchemaBase = z
     tokenFile: z.string().optional(),
     groups: z.record(z.string(), TelegramGroupSchema.optional()).optional(),
     direct: z.record(z.string(), TelegramDirectSchema.optional()).optional(),
+    carePackage: TelegramCarePackageSchema.optional(),
     richMessages: z.boolean().optional(),
     network: z
       .object({

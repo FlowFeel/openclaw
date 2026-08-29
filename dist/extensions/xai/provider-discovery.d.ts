@@ -1,4 +1,4 @@
-import { i as ProviderPlugin } from "../../types-i_xbZp0W.js";
+import { i as ProviderPlugin } from "../../types-DhsBnKIv.js";
 //#region extensions/xai/provider-discovery.d.ts
 declare const xaiProviderDiscovery: ProviderPlugin;
 //#endregion

@@ -1,4 +1,4 @@
-import { l as SpeechProviderPlugin } from "../../types-kmCR57lP.js";
+import { l as SpeechProviderPlugin } from "../../types-t45BJFXe.js";
 //#region extensions/google/speech-provider.d.ts
 declare function buildGoogleSpeechProvider(): SpeechProviderPlugin;
 //#endregion

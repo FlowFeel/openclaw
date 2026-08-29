@@ -1,5 +1,5 @@
-import { n as ChannelPlugin } from "../../types.public-DldgAsrd.js";
-import { t as BundledChannelEntryContract } from "../../channel-entry-contract-4SDh0Zed.js";
+import { n as ChannelPlugin } from "../../types.public-CzDPG1QF.js";
+import { t as BundledChannelEntryContract } from "../../channel-entry-contract-Vc_uJYX7.js";
 
 //#region extensions/googlechat/index.d.ts
 declare const _default: BundledChannelEntryContract<ChannelPlugin>;

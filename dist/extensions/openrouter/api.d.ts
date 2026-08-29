@@ -1,5 +1,5 @@
 import { buildOpenRouterImageGenerationProvider } from "./image-generation-provider.js";
-import { t as buildOpenRouterMusicGenerationProvider } from "../../music-generation-provider-CIJp5psz.js";
+import { t as buildOpenRouterMusicGenerationProvider } from "../../music-generation-provider-D2bgiuFC.js";
 import { buildOpenrouterProvider, isOpenRouterProxyReasoningUnsupportedModel } from "./provider-catalog.js";
 import { buildOpenRouterSpeechProvider } from "./speech-provider.js";
 import { OPENROUTER_DEFAULT_MODEL_REF, applyOpenrouterConfig, applyOpenrouterProviderConfig } from "./onboard.js";

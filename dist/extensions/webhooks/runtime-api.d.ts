@@ -1,4 +1,4 @@
-import { n as OpenClawConfig } from "../../types.openclaw-lExroEnq.js";
+import { n as OpenClawConfig } from "../../types.openclaw-szgVaeve.js";
 import { IncomingMessage, ServerResponse } from "node:http";
 
 //#region src/gateway/net.d.ts
