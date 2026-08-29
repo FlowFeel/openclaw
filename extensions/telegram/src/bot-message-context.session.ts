@@ -617,6 +617,7 @@ export async function buildTelegramInboundContextPayload(params: {
       id: String(chatId),
       label: conversationLabel,
       threadId: threadSpec.id != null ? String(threadSpec.id) : undefined,
+      ...(topicName ? { topicName, topic_name: topicName } : {}),
     },
     route: {
       agentId: route.agentId,
@@ -695,6 +696,10 @@ export async function buildTelegramInboundContextPayload(params: {
     contextVisibility: contextVisibilityMode,
     extra: {
       BotUsername: primaryCtx.me?.username ?? undefined,
+      ...(topicName ? { TopicName: topicName, topic_name: topicName } : {}),
+      ...(msg.forum_topic_created?.from?.username || msg.from?.username
+        ? { topic_creator: msg.forum_topic_created?.from?.username ?? msg.from?.username }
+        : {}),
       AmbientTranscriptWatermarkKey: ambientTranscriptWatermarkKey,
       AmbientTranscriptBody: options?.ambientTranscriptBody,
       AmbientTranscriptMessageId: ambientTranscriptWatermarkKey

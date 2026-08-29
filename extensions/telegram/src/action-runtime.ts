@@ -1,3 +1,4 @@
+import { handleTopicCreatedCarePackageDrop } from "./care-package-telegram-deliverer.js";
 // Telegram plugin module implements action runtime behavior.
 import type { AgentToolResult } from "openclaw/plugin-sdk/agent-core";
 import { readBooleanParam } from "openclaw/plugin-sdk/boolean-param";
@@ -902,6 +903,28 @@ export async function handleTelegramAction(
           ...(iconCustomEmojiId ? { iconCustomEmojiId } : {}),
         },
         resolveActionTopicNameCacheScope(cfg, accountId),
+      ).catch(() => {});
+      await handleTopicCreatedCarePackageDrop(
+        {
+          chatId: result.chatId,
+          topicId: result.topicId,
+          topicTitle: name,
+          groupTitle: String(result.chatId),
+          ownerName: "Bot",
+          timestampIso: new Date().toISOString(),
+        },
+        { enabled: true },
+        {
+          sendMessage: async (chatId, text, options) => {
+            await telegramActionRuntime.sendTelegramMessage({
+              cfg,
+              token,
+              chatId,
+              text,
+              messageThreadId: options.threadId,
+            });
+          },
+        },
       ).catch(() => {});
     }
     return jsonResult({

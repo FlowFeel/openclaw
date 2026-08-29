@@ -30,7 +30,7 @@ export function resolveTelegramSendThreadSpec(params: {
   chatType?: "direct" | "group" | "unknown";
 }): TelegramThreadSpec | undefined {
   const messageThreadId =
-    params.messageThreadId != null ? params.messageThreadId : params.targetMessageThreadId;
+    params.targetMessageThreadId != null ? params.targetMessageThreadId : params.messageThreadId;
   if (messageThreadId == null) {
     return undefined;
   }

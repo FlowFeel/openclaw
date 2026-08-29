@@ -26,8 +26,10 @@ export interface CarePackageDeliveryOptions {
   readonly renderAtTopicCreate?: boolean;
 }
 
+export const GLOBAL_CARE_PACKAGE_SENT_KEYS = new Set<string>();
+
 export interface CarePackageDeliveryDeps {
-  readonly sentKeysSet: Set<string>;
+  readonly sentKeysSet?: Set<string>;
   readonly sendMessage: (chatId: string | number, text: string, options: { threadId: number }) => Promise<void>;
   readonly workspaceRoot?: string;
 }
@@ -40,8 +42,9 @@ export async function handleTopicCreatedCarePackageDrop(
   options: CarePackageDeliveryOptions,
   deps: CarePackageDeliveryDeps,
 ): Promise<boolean> {
+  const sentKeysSet = deps.sentKeysSet ?? GLOBAL_CARE_PACKAGE_SENT_KEYS;
   const isEnabled = options.enabled === true && options.renderAtTopicCreate !== false;
-  if (!shouldDeliverCarePackage(deps.sentKeysSet, input.chatId, input.topicId, isEnabled)) {
+  if (!shouldDeliverCarePackage(sentKeysSet, input.chatId, input.topicId, isEnabled)) {
     return false;
   }
 
@@ -65,7 +68,7 @@ export async function handleTopicCreatedCarePackageDrop(
   );
 
   const idempotencyKey = buildTopicCarePackageKey(input.chatId, input.topicId);
-  deps.sentKeysSet.add(idempotencyKey);
+  sentKeysSet.add(idempotencyKey);
 
   await deps.sendMessage(input.chatId, renderedCard, { threadId: topicIdNum });
   return true;
