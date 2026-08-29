@@ -1,2 +1,2 @@
-import { t as runGeminiEmbeddingBatches } from "../../embedding-batch-D-9unu4x.js";
+import { t as runGeminiEmbeddingBatches } from "../../embedding-batch-Tx2DvTn4.js";
 export { runGeminiEmbeddingBatches };

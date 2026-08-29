@@ -1,4 +1,4 @@
-import "../../realtime-voice-DHp_hgUN.js";
+import "../../realtime-voice-DVlHPWXu.js";
 import { s as resamplePcm } from "../../audio-energy-o8vC-5VK.js";
 import { n as appendOpenAIQuicksilverPendingAudio } from "../../realtime-quicksilver-audio-buffer-sn_D_P2I.js";
 import { randomInt } from "node:crypto";

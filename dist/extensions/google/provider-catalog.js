@@ -1,2 +1,2 @@
-import { n as buildGoogleStaticCatalogProvider, r as buildGoogleVertexStaticCatalogProvider, t as buildGoogleLiveCatalogProvider } from "../../provider-catalog-8nTRMbhh.js";
+import { n as buildGoogleStaticCatalogProvider, r as buildGoogleVertexStaticCatalogProvider, t as buildGoogleLiveCatalogProvider } from "../../provider-catalog-DJmHVE1h.js";
 export { buildGoogleLiveCatalogProvider, buildGoogleStaticCatalogProvider, buildGoogleVertexStaticCatalogProvider };

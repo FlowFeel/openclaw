@@ -3,23 +3,23 @@ import { c as resolveUserPath } from "../../home-dir-Cs7bTrwJ.js";
 import { r as formatErrorMessage } from "../../errors-D-7D3ZtF.js";
 import { n as normalizeAgentId } from "../../agent-id-DDgUze4y.js";
 import { t as openNodeSqliteDatabase } from "../../node-sqlite-BJTPe7U8.js";
-import { T as resolveMemoryDreamingWorkspaces } from "../../dreaming-CisvAHct.js";
+import { T as resolveMemoryDreamingWorkspaces } from "../../dreaming-MmKCkIIa.js";
 import { a as reclaimDefinitelyStaleFileLock } from "../../file-lock-CndaTTeS.js";
 import { B as MEMORY_INDEX_CHUNKS_TABLE, F as ensureMemoryIndexSchema, I as MEMORY_EMBEDDING_CACHE_TABLE, L as MEMORY_INDEX_META_TABLE, U as MEMORY_INDEX_SOURCES_TABLE, V as MEMORY_INDEX_FTS_TABLE, it as resolveOpenClawAgentSqlitePath, x as ensureOpenClawAgentDatabaseSchema, z as MEMORY_INDEX_VECTOR_TABLE } from "../../openclaw-agent-db--PLC25lY.js";
 import { t as loadSqliteVecExtension } from "../../sqlite-vec-U_Koo0d5.js";
 import "../../error-runtime-Nqb-RQG4.js";
 import "../../routing-BYqzCOl5.js";
-import "../../runtime-doctor-DswhIJKY.js";
+import "../../runtime-doctor-Lr7qFUoa.js";
 import { n as legacyStateFileExists, t as archiveLegacyStateSource } from "../../doctor-state-migration-fs-CfVap4xL.js";
 import "../../sqlite-runtime-kT0Fczvb.js";
-import "../../memory-core-host-engine-foundation-DdwF7G9f.js";
-import "../../memory-core-host-engine-storage-BRNaQvfi.js";
-import "../../memory-core-host-status-DSYZv50a.js";
+import "../../memory-core-host-engine-foundation-5JFNgiLQ.js";
+import "../../memory-core-host-engine-storage-D5p5CTcL.js";
+import "../../memory-core-host-status-BeKkPEJl.js";
 import { n as normalizeMemoryHostEventRecordForStorage } from "../../event-store-CiR7zjXU.js";
 import { i as resolveMemoryHostEventLogPath } from "../../memory-host-events-FjUSRv2H.js";
 import { C as writeMemoryCoreWorkspaceEntry, S as writeMemoryCoreWorkspaceEntries, a as DREAMING_SESSION_INGESTION_SEEN_NAMESPACE, b as readMemoryCoreWorkspaceEntries, d as SHORT_TERM_RECALL_NAMESPACE, i as DREAMING_SESSION_INGESTION_FILES_NAMESPACE, l as SHORT_TERM_META_NAMESPACE, p as configureMemoryCoreDreamingState, t as DREAMING_DAILY_INGESTION_NAMESPACE, u as SHORT_TERM_PHASE_SIGNAL_NAMESPACE } from "../../dreaming-state-CswYxS-h.js";
 import { i as normalizeSessionIngestionState, n as normalizeDailyIngestionState } from "../../dreaming-ingestion-state-BNS21l_z.js";
-import { C as normalizeShortTermRecallStore, S as normalizeShortTermPhaseSignalStore, b as SHORT_TERM_PHASE_SIGNAL_RELATIVE_PATH, x as SHORT_TERM_STORE_RELATIVE_PATH } from "../../short-term-promotion-Cqbp2Dkv.js";
+import { C as normalizeShortTermRecallStore, S as normalizeShortTermPhaseSignalStore, b as SHORT_TERM_PHASE_SIGNAL_RELATIVE_PATH, x as SHORT_TERM_STORE_RELATIVE_PATH } from "../../short-term-promotion-DUqa2NDK.js";
 import crypto, { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
@@ -1552,8 +1552,8 @@ async function inspectConfiguredProvider(params) {
 	const [{ resolveAgentConfig }, foundation, embeddings, providerState] = await Promise.all([
 		import("../../plugin-sdk/agent-runtime.js"),
 		import("../../plugin-sdk/memory-core-host-engine-foundation.js"),
-		import("../../embeddings-BRfdmdQO.js"),
-		import("../../manager-provider-state-DuOQa1zH.js")
+		import("../../embeddings-BO5lN41X.js"),
+		import("../../manager-provider-state-DocsWdA1.js")
 	]);
 	let settings;
 	try {

@@ -1,5 +1,5 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { t as buildHermesMigrationProvider } from "../../provider-BYxRYXDu.js";
+import { t as buildHermesMigrationProvider } from "../../provider-Ddfa4INn.js";
 //#region extensions/migrate-hermes/index.ts
 var migrate_hermes_default = definePluginEntry({
 	id: "migrate-hermes",

@@ -1,2 +1,2 @@
-import { t as GOOGLE_GEMINI_PROVIDER_HOOKS } from "../../provider-hooks-BHakhvCW.js";
+import { t as GOOGLE_GEMINI_PROVIDER_HOOKS } from "../../provider-hooks-Lq8PXGM9.js";
 export { GOOGLE_GEMINI_PROVIDER_HOOKS };

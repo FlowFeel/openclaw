@@ -1,2 +1,2 @@
-import { t as resolveGoogleApiClientHeaders } from "../../google-api-client-header-CWR2XiU0.js";
+import { t as resolveGoogleApiClientHeaders } from "../../google-api-client-header-yrhSlV0F.js";
 export { resolveGoogleApiClientHeaders };

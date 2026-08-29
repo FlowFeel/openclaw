@@ -7,11 +7,11 @@ import "../../secret-input-Dsfz4fVL.js";
 import "../../setup-tools-D58ofQ4v.js";
 import { o as isPrivateNetworkOptInEnabled } from "../../ssrf-policy-CHmrygRA.js";
 import { n as redactCdpUrl } from "../../browser-config-DrIx0YNN.js";
-import { a as resolveProfile, r as resolveBrowserConfig } from "../../config-DZuFYwh7.js";
-import { n as resolveBrowserControlAuth } from "../../control-auth-Crhh05Oi.js";
+import { a as resolveProfile, r as resolveBrowserConfig } from "../../config-BoAkGDXA.js";
+import { n as resolveBrowserControlAuth } from "../../control-auth-B4-t-jLF.js";
 import { t as hasNonEmptyString } from "../../record-shared-BCecxvOL.js";
-import { i as createBrowserTool, r as handleBrowserGatewayRequest, t as createBrowserPluginService } from "../../plugin-service-BNIWYkQv.js";
-import { g as ensureBrowserProxyUploadCleanup, t as runBrowserProxyCommand } from "../../core-api-B_oXC3XV.js";
+import { i as createBrowserTool, r as handleBrowserGatewayRequest, t as createBrowserPluginService } from "../../plugin-service-B_Q3nRGq.js";
+import { g as ensureBrowserProxyUploadCleanup, t as runBrowserProxyCommand } from "../../core-api-Dd4dXkCe.js";
 //#region extensions/browser/src/security-audit.ts
 const BLOCKED_HOSTNAMES = /* @__PURE__ */ new Set([
 	"localhost",

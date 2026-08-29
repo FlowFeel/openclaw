@@ -1,2 +1,2 @@
-import { t as buildXaiVideoGenerationProvider } from "../../video-generation-provider-DTAqEwXe.js";
+import { t as buildXaiVideoGenerationProvider } from "../../video-generation-provider-DaEp2Ryn.js";
 export { buildXaiVideoGenerationProvider };

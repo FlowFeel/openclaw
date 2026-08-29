@@ -3,7 +3,7 @@ import { t as FILE_TRANSFER_NODE_INVOKE_COMMANDS } from "../../node-invoke-polic
 import { a as DIR_LIST_TOOL_DESCRIPTOR, c as FILE_FETCH_TOOL_DESCRIPTOR, d as FILE_WRITE_TOOL_DESCRIPTOR, r as DIR_FETCH_TOOL_DESCRIPTOR } from "../../descriptors-sTTpzkis.js";
 //#region extensions/file-transfer/src/shared/lazy-node-invoke-policy.ts
 const loadFileTransferNodeInvokePolicy = async () => {
-	const { createFileTransferNodeInvokePolicy } = await import("../../node-invoke-policy-BqKAuREq.js");
+	const { createFileTransferNodeInvokePolicy } = await import("../../node-invoke-policy-Ds-hpqdm.js");
 	return createFileTransferNodeInvokePolicy();
 };
 function createLazyFileTransferNodeInvokePolicy(loadPolicy = loadFileTransferNodeInvokePolicy) {
@@ -94,19 +94,19 @@ var file_transfer_default = definePluginEntry({
 	register(api) {
 		api.registerNodeInvokePolicy(createLazyFileTransferNodeInvokePolicy());
 		api.registerTool(createLazyTool(FILE_FETCH_TOOL_DESCRIPTOR, async () => {
-			const { createFileFetchTool } = await import("../../file-fetch-tool-D3xA8U3R.js");
+			const { createFileFetchTool } = await import("../../file-fetch-tool-Dmlty4j0.js");
 			return createFileFetchTool();
 		}));
 		api.registerTool(createLazyTool(DIR_LIST_TOOL_DESCRIPTOR, async () => {
-			const { createDirListTool } = await import("../../dir-list-tool-eTEWca2c.js");
+			const { createDirListTool } = await import("../../dir-list-tool-DHrjYqG1.js");
 			return createDirListTool();
 		}));
 		api.registerTool(createLazyTool(DIR_FETCH_TOOL_DESCRIPTOR, async () => {
-			const { createDirFetchTool } = await import("../../dir-fetch-tool-BSOT7Kqc.js");
+			const { createDirFetchTool } = await import("../../dir-fetch-tool-C7_wuXVK.js");
 			return createDirFetchTool();
 		}));
 		api.registerTool(createLazyTool(FILE_WRITE_TOOL_DESCRIPTOR, async () => {
-			const { createFileWriteTool } = await import("../../file-write-tool-Cir3GITD.js");
+			const { createFileWriteTool } = await import("../../file-write-tool-BKtOFrot.js");
 			return createFileWriteTool();
 		}));
 	}

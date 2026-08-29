@@ -1,4 +1,4 @@
 import { n as listChatCommands } from "../commands-registry-list-DXrd7jpp.js";
-import { c as parseCommandArgs, d as serializeCommandArgs, i as formatCommandArgMenuTitle, l as resolveCommandArgChoices, n as buildCommandTextFromArgs, o as listNativeCommandSpecs, r as findCommandByNativeName, s as listNativeCommandSpecsForConfig, u as resolveCommandArgMenu } from "../commands-registry-YquGQdy3.js";
-import "../native-command-registry-DySMqXiM.js";
+import { c as parseCommandArgs, d as serializeCommandArgs, i as formatCommandArgMenuTitle, l as resolveCommandArgChoices, n as buildCommandTextFromArgs, o as listNativeCommandSpecs, r as findCommandByNativeName, s as listNativeCommandSpecsForConfig, u as resolveCommandArgMenu } from "../commands-registry-DV1wMljh.js";
+import "../native-command-registry-D089Gtwj.js";
 export { buildCommandTextFromArgs, findCommandByNativeName, formatCommandArgMenuTitle, listChatCommands, listNativeCommandSpecs, listNativeCommandSpecsForConfig, parseCommandArgs, resolveCommandArgChoices, resolveCommandArgMenu, serializeCommandArgs };

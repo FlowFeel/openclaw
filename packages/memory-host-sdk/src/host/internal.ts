@@ -117,8 +117,7 @@ export function isMemoryPath(relPath: string): boolean {
   }
   if (
     normalized === MEMORY_HOST_ROOT_FILENAME ||
-    normalized === "USER.md" ||
-    normalized.toLowerCase() === "dreams.md"
+    normalized === "USER.md"
   ) {
     return true;
   }

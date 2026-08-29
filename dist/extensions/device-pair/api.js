@@ -7,6 +7,6 @@ import { t as runPluginCommandWithTimeout } from "../../run-command-teTDncOO.js"
 import { i as issueDeviceBootstrapToken, s as revokeDeviceBootstrapToken, t as clearDeviceBootstrapTokens, v as PAIRING_SETUP_BOOTSTRAP_PROFILE } from "../../device-bootstrap-D36P889E.js";
 import { d as listDevicePairing, r as approveDevicePairing } from "../../device-pairing-pwb3Oe75.js";
 import { n as renderQrPngDataUrl, r as writeQrPngTempFile, t as renderQrPngBase64 } from "../../qr-image-IYPK6Q8D.js";
-import { t as resolveAdvertisedLanHost } from "../../gateway-runtime-w2Zuxd4x.js";
-import "../../api-DA8-8d83.js";
+import { t as resolveAdvertisedLanHost } from "../../gateway-runtime-CTPMrBVl.js";
+import "../../api-D9RkHzcF.js";
 export { PAIRING_SETUP_BOOTSTRAP_PROFILE, approveDevicePairing, clearDeviceBootstrapTokens, definePluginEntry, issueDeviceBootstrapToken, listDevicePairing, renderQrPngBase64, renderQrPngDataUrl, resolveAdvertisedLanHost, resolveGatewayBindUrl, resolveGatewayPort, resolvePreferredOpenClawTmpDir, resolveTailnetHostWithRunner, resolveTailscaleServeGatewayUrlsWithRunner, revokeDeviceBootstrapToken, runPluginCommandWithTimeout, writeQrPngTempFile };

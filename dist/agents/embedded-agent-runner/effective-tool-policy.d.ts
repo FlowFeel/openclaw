@@ -1,6 +1,6 @@
 import { i as OpenClawConfig } from "../../types.openclaw-DfLlB8Bo.js";
 import { t as AnyAgentTool } from "../../common-CSwFw_Qd.js";
-import { r as PluginMetadataSnapshot } from "../../plugin-metadata-snapshot.types-DyQOmt9P.js";
+import { r as PluginMetadataSnapshot } from "../../plugin-metadata-snapshot.types--sILz5c8.js";
 import { i as ToolPolicyLike, n as ResolvedConversationCapabilityProfile } from "../../conversation-capability-profile-CtG5E6h0.js";
 
 //#region src/agents/tool-policy-pipeline.d.ts

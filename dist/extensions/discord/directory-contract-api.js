@@ -1,4 +1,4 @@
-import { n as listDiscordDirectoryPeersFromConfig, t as listDiscordDirectoryGroupsFromConfig } from "../../directory-config-C33pJEIP.js";
+import { n as listDiscordDirectoryPeersFromConfig, t as listDiscordDirectoryGroupsFromConfig } from "../../directory-config-x_4toFGr.js";
 //#region extensions/discord/directory-contract-api.ts
 const discordDirectoryContractPlugin = {
 	id: "discord",

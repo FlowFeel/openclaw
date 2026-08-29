@@ -1,2 +1,2 @@
-import { t as createPluginRuntime } from "../../runtime-B0tVJJfG.js";
+import { t as createPluginRuntime } from "../../runtime-BFGYYhyp.js";
 export { createPluginRuntime };

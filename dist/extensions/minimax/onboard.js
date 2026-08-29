@@ -1,2 +1,2 @@
-import { i as applyMinimaxApiProviderConfigCn, n as applyMinimaxApiConfigCn, r as applyMinimaxApiProviderConfig, t as applyMinimaxApiConfig } from "../../onboard-D7rlsRnL.js";
+import { i as applyMinimaxApiProviderConfigCn, n as applyMinimaxApiConfigCn, r as applyMinimaxApiProviderConfig, t as applyMinimaxApiConfig } from "../../onboard-B0vBlHZT.js";
 export { applyMinimaxApiConfig, applyMinimaxApiConfigCn, applyMinimaxApiProviderConfig, applyMinimaxApiProviderConfigCn };

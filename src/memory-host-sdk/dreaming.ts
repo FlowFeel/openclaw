@@ -19,7 +19,7 @@ import {
 } from "../agents/agent-scope.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 
-const DEFAULT_MEMORY_DREAMING_ENABLED = true;
+const DEFAULT_MEMORY_DREAMING_ENABLED = false;
 const DEFAULT_MEMORY_DREAMING_TIMEZONE = undefined;
 const DEFAULT_MEMORY_DREAMING_VERBOSE_LOGGING = false;
 const DEFAULT_MEMORY_DREAMING_STORAGE_MODE = "separate";

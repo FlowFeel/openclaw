@@ -1,3 +1,3 @@
 import { n as normalizeXaiModelId } from "../../model-id-h7ReinSn.js";
-import { n as XAI_TOOL_SCHEMA_PROFILE, r as applyXaiModelCompat, t as HTML_ENTITY_TOOL_CALL_ARGUMENTS_ENCODING } from "../../model-compat-CTwIxh9m.js";
+import { n as XAI_TOOL_SCHEMA_PROFILE, r as applyXaiModelCompat, t as HTML_ENTITY_TOOL_CALL_ARGUMENTS_ENCODING } from "../../model-compat-LULFU25b.js";
 export { HTML_ENTITY_TOOL_CALL_ARGUMENTS_ENCODING, XAI_TOOL_SCHEMA_PROFILE, applyXaiModelCompat, normalizeXaiModelId as normalizeNativeXaiModelId };

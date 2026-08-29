@@ -1,4 +1,4 @@
-import { u as asObjectRecord } from "../../runtime-doctor-DswhIJKY.js";
+import { u as asObjectRecord } from "../../runtime-doctor-Lr7qFUoa.js";
 import { l as isLegacyXaiBuiltinModel } from "../../model-definitions-DS2_tBMV.js";
 //#region extensions/xai/doctor-contract-api.ts
 const RETIRED_REASONING_MODELS = /* @__PURE__ */ new Set([

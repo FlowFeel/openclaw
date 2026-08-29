@@ -1,2 +1,2 @@
-import { t as buildMinimaxSpeechProvider } from "../../speech-provider-B35R3LyX.js";
+import { t as buildMinimaxSpeechProvider } from "../../speech-provider-Bzi1GTRs.js";
 export { buildMinimaxSpeechProvider };

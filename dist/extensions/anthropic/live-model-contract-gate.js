@@ -1,2 +1,2 @@
-import { t as acceptsAnthropicLiveModelContract } from "../../live-model-contract-gate-Dkeb5rIn.js";
+import { t as acceptsAnthropicLiveModelContract } from "../../live-model-contract-gate-Djdc91xT.js";
 export { acceptsAnthropicLiveModelContract };

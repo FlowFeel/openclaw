@@ -157,7 +157,7 @@ describe("memory dreaming host helpers", () => {
       cfg,
     });
 
-    expect(resolved.enabled).toBe(true);
+    expect(resolved.enabled).toBe(false);
     expect(resolved.frequency).toBe("0 3 * * *");
     expect(resolved.timezone).toBe("America/Los_Angeles");
     expect(resolved.phases.deep.cron).toBe("0 3 * * *");

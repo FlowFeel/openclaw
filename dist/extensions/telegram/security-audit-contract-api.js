@@ -1,2 +1,2 @@
-import { t as collectTelegramSecurityAuditFindings } from "../../security-audit-D-eHXWB1.js";
+import { t as collectTelegramSecurityAuditFindings } from "../../security-audit-DhWms5v2.js";
 export { collectTelegramSecurityAuditFindings };

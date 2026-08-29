@@ -4,28 +4,28 @@ import { n as normalizeAgentId } from "../../agent-id-DDgUze4y.js";
 import { n as SILENT_REPLY_TOKEN } from "../../tokens-CMI0yx54.js";
 import { _ as resolveSessionAgentIds } from "../../agent-scope-DyEposw2.js";
 import { c as normalizePluginsConfig } from "../../config-state-B6-Feb6H.js";
-import { D as resolveMemoryRemDreamingConfig } from "../../dreaming-CisvAHct.js";
+import { D as resolveMemoryRemDreamingConfig } from "../../dreaming-MmKCkIIa.js";
 import { s as parseNonNegativeByteSize } from "../../zod-schema-CVCKQHhd.js";
 import { t as ErrorCodes } from "../../gateway-error-details-mJ5vWsi5.js";
 import { a as errorShape } from "../../error-codes-P4fBo0lR.js";
 import { _ as readStringParam, p as readPositiveIntegerParam } from "../../common-RkLs-2lL.js";
 import { t as jsonResult } from "../../tool-results-BCM3fdVS.js";
 import { n as resolveCronStyleNow } from "../../current-time-B4afeCge.js";
-import { c as resolveMemorySearchConfig, h as DEFAULT_AGENT_COMPACTION_RESERVE_TOKENS_FLOOR } from "../../config-utils-D8hivrGw.js";
-import { t as resolveMemoryBackendConfig } from "../../backend-config-DlCaOhB7.js";
+import { c as resolveMemorySearchConfig, h as DEFAULT_AGENT_COMPACTION_RESERVE_TOKENS_FLOOR } from "../../config-utils-WNd1bjcc.js";
+import { t as resolveMemoryBackendConfig } from "../../backend-config-CjeQx_ev.js";
 import "../../routing-BYqzCOl5.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
 import { r as resolvePluginConfigObject } from "../../plugin-config-runtime-D33X7huv.js";
-import "../../agent-runtime-D_YhRSYu.js";
-import "../../gateway-runtime-w2Zuxd4x.js";
+import "../../agent-runtime-DsKwq-hA.js";
+import "../../gateway-runtime-CTPMrBVl.js";
 import "../../channel-actions-BCwQOL9z.js";
-import "../../memory-core-host-status-DSYZv50a.js";
-import "../../memory-core-host-runtime-core-BAKZ9y9_.js";
-import "../../memory-core-host-runtime-files-BKltPExI.js";
+import "../../memory-core-host-status-BeKkPEJl.js";
+import "../../memory-core-host-runtime-core-Carf2XIj.js";
+import "../../memory-core-host-runtime-files-DbjjPcW1.js";
 import { C as writeMemoryCoreWorkspaceEntry, m as deleteMemoryCoreWorkspaceEntry, n as DREAMING_DAILY_PROVENANCE_NAMESPACE, p as configureMemoryCoreDreamingState, x as readMemoryCoreWorkspaceEntry } from "../../dreaming-state-CswYxS-h.js";
 import { t as resolveMemoryCoreNowMs } from "../../time-bSrYId6Z.js";
-import { t as registerShortTermPromotionDreaming } from "../../dreaming-CECy_jOs.js";
-import { i as normalizeSessionBackfillSelection, n as executeSessionBackfillBatch, t as executeSessionBackfill } from "../../session-backfill-JgvBSErs.js";
+import { t as registerShortTermPromotionDreaming } from "../../dreaming-ZyBwIpEE.js";
+import { i as normalizeSessionBackfillSelection, n as executeSessionBackfillBatch, t as executeSessionBackfill } from "../../session-backfill-WVY6Jjua.js";
 import { createHash } from "node:crypto";
 //#region extensions/memory-core/src/flush-plan.ts
 const DEFAULT_MEMORY_FLUSH_SOFT_TOKENS = 4e3;
@@ -325,10 +325,10 @@ function registerSessionBackfillGatewayMethods(api) {
 }
 //#endregion
 //#region extensions/memory-core/index.ts
-const loadMemoryToolsModule = createLazyRuntimeModule(() => import("../../tools-DLSaQj86.js"));
+const loadMemoryToolsModule = createLazyRuntimeModule(() => import("../../tools-C0yRQxIt.js"));
 const loadStandingIntentsModule = createLazyRuntimeModule(() => import("../../standing-intents-C9BgWg9a.js"));
-const loadStandingIntentToolModule = createLazyRuntimeModule(() => import("../../standing-intents-tool-DYyA64Y9.js"));
-const loadRuntimeProviderModule = createLazyRuntimeModule(() => import("../../runtime-provider-Djc-grT0.js"));
+const loadStandingIntentToolModule = createLazyRuntimeModule(() => import("../../standing-intents-tool-BAxRYY8I.js"));
+const loadRuntimeProviderModule = createLazyRuntimeModule(() => import("../../runtime-provider-Bb5j7ylW.js"));
 function getToolConfig(options) {
 	return options.getConfig?.() ?? options.config;
 }
@@ -605,7 +605,7 @@ var memory_core_default = definePluginEntry({
 			flushPlanResolver: buildMemoryFlushPlan,
 			runtime: memoryRuntime,
 			publicArtifacts: { async listArtifacts(params) {
-				const { listMemoryCorePublicArtifacts } = await import("../../public-artifacts-zn1gQ5HN.js");
+				const { listMemoryCorePublicArtifacts } = await import("../../public-artifacts-BdBRcSbJ.js");
 				return await listMemoryCorePublicArtifacts(params);
 			} }
 		});
@@ -659,7 +659,7 @@ var memory_core_default = definePluginEntry({
 			acceptsArgs: true,
 			exposeSenderIsOwner: true,
 			handler: async (ctx) => {
-				const { handleDreamingCommand } = await import("../../dreaming-command-BIyQdQN4.js");
+				const { handleDreamingCommand } = await import("../../dreaming-command-COGQtGTY.js");
 				return await handleDreamingCommand(api, ctx);
 			}
 		});

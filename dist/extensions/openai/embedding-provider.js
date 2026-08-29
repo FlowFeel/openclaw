@@ -1,2 +1,2 @@
-import { n as createOpenAiEmbeddingProvider, t as DEFAULT_OPENAI_EMBEDDING_MODEL } from "../../embedding-provider-Da6bfAPD.js";
+import { n as createOpenAiEmbeddingProvider, t as DEFAULT_OPENAI_EMBEDDING_MODEL } from "../../embedding-provider-CnYZDg_m.js";
 export { DEFAULT_OPENAI_EMBEDDING_MODEL, createOpenAiEmbeddingProvider };

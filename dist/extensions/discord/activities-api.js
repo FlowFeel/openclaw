@@ -1,2 +1,2 @@
-import { t as registerDiscordActivities } from "../../activities-api-9b6utqTW.js";
+import { t as registerDiscordActivities } from "../../activities-api-CYudelHD.js";
 export { registerDiscordActivities };

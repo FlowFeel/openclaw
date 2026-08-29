@@ -407,7 +407,7 @@ describe("short-term dreaming config", () => {
       cfg,
     });
     expect(resolved).toEqual({
-      enabled: true,
+      enabled: false,
       cron: constants.DEFAULT_DREAMING_CRON_EXPR,
       timezone: "America/Los_Angeles",
       limit: constants.DEFAULT_DREAMING_LIMIT,
@@ -1521,8 +1521,7 @@ describe("gateway startup reconciliation", () => {
       await vi.advanceTimersByTimeAsync(constants.STARTUP_CRON_RETRY_DELAY_MS);
 
       expect(runtimeCurrentConfig).toHaveBeenCalled();
-      expect(harness.addCalls).toHaveLength(1);
-      expect(harness.addCalls[0]?.schedule.expr).toBe(constants.DEFAULT_DREAMING_CRON_EXPR);
+      expect(harness.addCalls).toHaveLength(0);
       expectLogNotContains(logger.warn, "cron service unavailable");
     } finally {
       vi.useRealTimers();
@@ -1642,7 +1641,7 @@ describe("gateway startup reconciliation", () => {
       expect(runtimeCurrentConfig).toHaveBeenCalled();
       expect(result).toEqual({
         handled: true,
-        reason: "memory-core: short-term dreaming processed",
+        reason: "memory-core: short-term dreaming disabled",
       });
     } finally {
       clearInternalHooks();

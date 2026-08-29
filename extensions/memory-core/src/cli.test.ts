@@ -987,8 +987,8 @@ describe("memory cli", () => {
       await runMemoryCli(["status"]);
 
       expectLogged(log, "Recall store: 1 entries");
-      // Dreaming is on by default, so status prints the phase-config detail line.
-      expectLogged(log, "Dreaming: light=");
+      // Dreaming is off by default, so status prints Dreaming: off.
+      expectLogged(log, "Dreaming: off");
       expect(close).toHaveBeenCalled();
     });
   });

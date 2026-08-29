@@ -1,3 +1,3 @@
-import { n as setSynologyRuntime, t as synologyChatPlugin } from "../../channel-DmAu_YxW.js";
+import { n as setSynologyRuntime, t as synologyChatPlugin } from "../../channel-Dk-s2xpa.js";
 import { t as collectSynologyChatSecurityAuditFindings } from "../../security-audit-DIsaxIaB.js";
 export { collectSynologyChatSecurityAuditFindings, setSynologyRuntime, synologyChatPlugin };

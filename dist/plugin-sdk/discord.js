@@ -1,5 +1,5 @@
 import { n as normalizeAccountId, t as DEFAULT_ACCOUNT_ID } from "../account-id-CIVg1QNG.js";
-import { r as getRuntimeConfig } from "../io-COC3UpPX.js";
+import { r as getRuntimeConfig } from "../io-C_mRWnfm.js";
 import { s as getChatChannelMeta } from "../registry-Ddw5GtUg.js";
 import { a as buildChannelConfigSchema } from "../config-schema-CPBvH4gM.js";
 import { a as getRuntimeConfigSnapshot } from "../runtime-snapshot-DLOCFXOE.js";
@@ -7,7 +7,7 @@ import { r as loadBundledPluginPublicSurfaceModuleSync, t as createLazyFacadeObj
 import { c as resolveConfiguredFromCredentialStatuses, i as projectCredentialSnapshotFields } from "../account-snapshot-fields-k76OsPQB.js";
 import { r as emptyPluginConfigSchema } from "../config-schema-Cjz2ed1U.js";
 import { o as migrateBaseNameToDefaultAccount, t as applyAccountNameToChannelSection } from "../setup-helpers-Clze7-j-.js";
-import "../runtime-config-snapshot-C-dkwGUA.js";
+import "../runtime-config-snapshot-BlMa1Mxm.js";
 import { t as PAIRING_APPROVED_MESSAGE } from "../pairing-message-DNhqI-OE.js";
 import "../channel-plugin-common-BA7IQQ_g.js";
 import { o as buildTokenChannelStatusSummary, r as buildComputedAccountStatusSnapshot } from "../status-helpers-CSowaqvB.js";

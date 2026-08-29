@@ -1,5 +1,5 @@
 import { t as mergeTelegramAccountConfig } from "../../account-config-DE09jCa-.js";
-import "../../accounts-BTIiP_CS.js";
+import "../../accounts-CEjxoeII.js";
 import { t as parseTelegramTopicConversation } from "../../topic-conversation-B6kdtLDb.js";
 import { n as singleAccountKeysToMove } from "../../setup-contract-CDcIs5O0.js";
 import { c as buildTelegramModelsProviderChannelData, t as buildCommandsPaginationKeyboard } from "../../command-ui-DPYaECea.js";

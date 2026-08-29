@@ -1,27 +1,27 @@
 import { i as resolveOpenProviderRuntimeGroupPolicy } from "../../runtime-group-policy-Jz0Hco1h.js";
 import "../../runtime-group-policy-BRGT6eE6.js";
-import { a as mergeDiscordAccountConfig, f as resolveDiscordMaxLinesPerMessage, i as listEnabledDiscordAccounts, l as resolveDiscordAccountConfig, o as resolveDefaultDiscordAccountId, r as listDiscordAccountIds, s as resolveDiscordAccount, t as createDiscordActionGate } from "../../accounts-C1lleooT.js";
-import { a as DISCORD_MODAL_CUSTOM_ID_KEY, c as buildDiscordModalCustomId, d as parseDiscordComponentCustomId, f as parseDiscordComponentCustomIdForInteraction, i as DISCORD_COMPONENT_CUSTOM_ID_KEY, m as parseDiscordModalCustomIdForInteraction, p as parseDiscordModalCustomId, s as buildDiscordComponentCustomId, t as buildDiscordInteractiveComponents } from "../../shared-interactive-BbTX7tQM.js";
-import { a as buildDiscordComponentMessageFlags, c as resolveDiscordComponentAttachmentName, i as buildDiscordComponentMessage, n as DiscordFormModal, o as DISCORD_COMPONENT_ATTACHMENT_PREFIX, r as createDiscordFormModal, s as readDiscordComponentSpec, t as formatDiscordComponentEventText } from "../../components-BeNVBX2C.js";
+import { a as mergeDiscordAccountConfig, f as resolveDiscordMaxLinesPerMessage, i as listEnabledDiscordAccounts, l as resolveDiscordAccountConfig, o as resolveDefaultDiscordAccountId, r as listDiscordAccountIds, s as resolveDiscordAccount, t as createDiscordActionGate } from "../../accounts-CH9MGfW0.js";
+import { a as DISCORD_MODAL_CUSTOM_ID_KEY, c as buildDiscordModalCustomId, d as parseDiscordComponentCustomId, f as parseDiscordComponentCustomIdForInteraction, i as DISCORD_COMPONENT_CUSTOM_ID_KEY, m as parseDiscordModalCustomIdForInteraction, p as parseDiscordModalCustomId, s as buildDiscordComponentCustomId, t as buildDiscordInteractiveComponents } from "../../shared-interactive-Bc8kznpG.js";
+import { a as buildDiscordComponentMessageFlags, c as resolveDiscordComponentAttachmentName, i as buildDiscordComponentMessage, n as DiscordFormModal, o as DISCORD_COMPONENT_ATTACHMENT_PREFIX, r as createDiscordFormModal, s as readDiscordComponentSpec, t as formatDiscordComponentEventText } from "../../components-3TWwPDyq.js";
 import { i as requestDiscord, n as DiscordApiError, r as fetchDiscord } from "../../api-DSeM-BBS.js";
 import { n as resolveDiscordChannelId, t as parseDiscordTarget } from "../../target-parsing-BqdWGKw5.js";
 import { i as normalizeDiscordOutboundTarget, n as looksLikeDiscordTargetId, r as normalizeDiscordMessagingTarget } from "../../normalize-DqOl0p8d.js";
-import { n as resolveDiscordTarget, r as parseDiscordSendTarget } from "../../target-resolver-CiRbr3py.js";
-import { t as inspectDiscordAccount } from "../../account-inspect-xL4USeC0.js";
+import { n as resolveDiscordTarget, r as parseDiscordSendTarget } from "../../target-resolver-nJba-BeZ.js";
+import { t as inspectDiscordAccount } from "../../account-inspect-DkDy8pjl.js";
 import { i as DISCORD_DEFAULT_LISTENER_TIMEOUT_MS, n as DISCORD_ATTACHMENT_TOTAL_TIMEOUT_MS, r as DISCORD_DEFAULT_INBOUND_WORKER_TIMEOUT_MS, t as DISCORD_ATTACHMENT_IDLE_TIMEOUT_MS } from "../../timeouts-DB8J_ZTL.js";
-import "../../targets-BFs95unl.js";
-import { i as shouldSuppressLocalDiscordExecApprovalPrompt, n as isDiscordExecApprovalApprover, r as isDiscordExecApprovalClientEnabled, t as getDiscordExecApprovalApprovers } from "../../exec-approvals-gw4xUjyQ.js";
-import { i as resolveDiscordGroupToolPolicy, n as collectDiscordStatusIssues, r as resolveDiscordGroupRequireMention, t as discordPlugin } from "../../channel-e6N2Vq-q.js";
+import "../../targets-BU5GQJ5I.js";
+import { i as shouldSuppressLocalDiscordExecApprovalPrompt, n as isDiscordExecApprovalApprover, r as isDiscordExecApprovalClientEnabled, t as getDiscordExecApprovalApprovers } from "../../exec-approvals-4Enj03WN.js";
+import { i as resolveDiscordGroupToolPolicy, n as collectDiscordStatusIssues, r as resolveDiscordGroupRequireMention, t as discordPlugin } from "../../channel-2i4NLoxX.js";
 import { t as normalizeExplicitDiscordSessionKey } from "../../session-key-normalization-DaZcuKQN.js";
-import { t as discordSetupPlugin } from "../../channel.setup-Cskuvmbg.js";
-import { n as handleDiscordSubagentEnded, r as handleDiscordSubagentSpawning, t as handleDiscordSubagentDeliveryTarget } from "../../subagent-hooks-k0uhFACh.js";
-import { t as tryHandleDiscordMessageActionGuildAdmin } from "../../handle-action.guild-admin-CVt8jqft.js";
-import { n as listDiscordDirectoryPeersFromConfig, t as listDiscordDirectoryGroupsFromConfig } from "../../directory-config-C33pJEIP.js";
+import { t as discordSetupPlugin } from "../../channel.setup-C_tL0eHU.js";
+import { n as handleDiscordSubagentEnded, r as handleDiscordSubagentSpawning, t as handleDiscordSubagentDeliveryTarget } from "../../subagent-hooks-CVBoLn1T.js";
+import { t as tryHandleDiscordMessageActionGuildAdmin } from "../../handle-action.guild-admin-BcIKKKk8.js";
+import { n as listDiscordDirectoryPeersFromConfig, t as listDiscordDirectoryGroupsFromConfig } from "../../directory-config-x_4toFGr.js";
 import { t as fetchPluralKitMessageInfo } from "../../pluralkit-ByxvAtzv.js";
-import { i as probeDiscord, n as fetchDiscordApplicationSummary, o as resolveDiscordPrivilegedIntentsFromFlags, r as parseApplicationIdFromToken, t as fetchDiscordApplicationId } from "../../probe-0JUBjh3E.js";
-import { t as collectDiscordSecurityAuditFindings } from "../../security-audit-CK3cMEex.js";
+import { i as probeDiscord, n as fetchDiscordApplicationSummary, o as resolveDiscordPrivilegedIntentsFromFlags, r as parseApplicationIdFromToken, t as fetchDiscordApplicationId } from "../../probe-C1W71ymn.js";
+import { t as collectDiscordSecurityAuditFindings } from "../../security-audit-Zpz7VnMf.js";
 //#region extensions/discord/api.ts
-const handleDiscordMessageAction = async (...args) => (await import("../../channel-actions.runtime-Date89NJ.js")).handleDiscordMessageAction(...args);
+const handleDiscordMessageAction = async (...args) => (await import("../../channel-actions.runtime-57SKylyt.js")).handleDiscordMessageAction(...args);
 /**
 * @deprecated Shipped `@openclaw/discord/api` compatibility only. Use native
 * `AbortSignal.any` after filtering optional signals. Removal with the next

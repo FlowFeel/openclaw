@@ -1,2 +1,2 @@
-import { t as createOpenAINativeWebSearchWrapper } from "../../native-web-search-2lugdfPW.js";
+import { t as createOpenAINativeWebSearchWrapper } from "../../native-web-search-kSn07Q2n.js";
 export { createOpenAINativeWebSearchWrapper };

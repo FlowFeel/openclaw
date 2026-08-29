@@ -9,12 +9,12 @@ import "../../runtime-env-Cah9m5gV.js";
 import "../../number-runtime-C6TGSEc_.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
 import "../../secret-input-Dsfz4fVL.js";
-import "../../media-runtime-mTDWgTbh.js";
-import { H as REALTIME_VOICE_AUDIO_FORMAT_PCM16_24KHZ, V as REALTIME_VOICE_AUDIO_FORMAT_G711_ULAW_8KHZ, m as REALTIME_VOICE_AGENT_CONSULT_TOOL_NAME } from "../../realtime-session-harness-CTcwFnw4.js";
-import { n as createRealtimeVoiceAudioQueue } from "../../realtime-voice-DHp_hgUN.js";
+import "../../media-runtime-CUlmu2wD.js";
+import { H as REALTIME_VOICE_AUDIO_FORMAT_PCM16_24KHZ, V as REALTIME_VOICE_AUDIO_FORMAT_G711_ULAW_8KHZ, m as REALTIME_VOICE_AGENT_CONSULT_TOOL_NAME } from "../../realtime-session-harness-yTvHei-J.js";
+import { n as createRealtimeVoiceAudioQueue } from "../../realtime-voice-DVlHPWXu.js";
 import { a as mulawToPcm, i as convertPcmToMulaw8k, s as resamplePcm } from "../../audio-energy-o8vC-5VK.js";
-import "../../thinking-CmFPaKbX.js";
-import { t as createGoogleGenAI } from "../../google-genai-runtime-Nu0Wc-5n.js";
+import "../../thinking-Di8cFxGM.js";
+import { t as createGoogleGenAI } from "../../google-genai-runtime-Rn-W677I.js";
 import { randomUUID } from "node:crypto";
 import { ActivityHandling, Behavior, EndSensitivity, FunctionResponseScheduling, Modality, StartSensitivity, TurnCoverage } from "@google/genai";
 //#region extensions/google/realtime-voice-provider.ts

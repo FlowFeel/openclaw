@@ -1,2 +1,2 @@
-import { t as XaiRealtimeVoiceBridge } from "../../realtime-voice-bridge-BPCO5t5_.js";
+import { t as XaiRealtimeVoiceBridge } from "../../realtime-voice-bridge-Bbx8-xeJ.js";
 export { XaiRealtimeVoiceBridge };
