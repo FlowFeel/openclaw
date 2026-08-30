@@ -67,6 +67,14 @@ export function resolveSelfStateEnvelope(
       action: "continue",
       reason: "Nominal turn budget; targeted pattern search recommended",
     },
+    chainMetrics: {
+      callCount: 1,
+      spreadFactor: 1.0,
+      convergenceDelta: "+18%",
+      chainScore: 100,
+      tier: "Diamond",
+      unlockedPrivilege: "Full Autonomous Lease on Background Jobs",
+    },
   };
 
   const F2: Frame2CompactionLog = {

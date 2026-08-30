@@ -37,6 +37,14 @@ export interface Frame1Headroom {
   readonly toolCallBudget?: ToolCallBudgetSnapshot;
   readonly capacities?: Frame1Capacities;
   readonly recommended?: Frame1Recommended;
+  readonly chainMetrics?: {
+    readonly callCount: number;
+    readonly spreadFactor: number;
+    readonly convergenceDelta: string;
+    readonly chainScore: number;
+    readonly tier: "Bronze" | "Silver" | "Gold" | "Diamond";
+    readonly unlockedPrivilege: string;
+  };
 }
 
 export interface CompactionEventRecord {
