@@ -39,7 +39,7 @@ async function runLegacyCliEntry(argv = process.argv, deps, options) {
 	await runCli(argv, options);
 }
 const isMain = isMainModule({ currentFile: fileURLToPath(import.meta.url) });
-if (!isMain) ({applyTemplate, createDefaultDeps, deriveSessionKey, describePortOwner, ensureBinary, ensurePortAvailable, getReplyFromConfig, handlePortError, loadConfig, loadSessionStore, monitorWebChannel, normalizeE164, PortInUseError, promptYesNo, resolveSessionKey, resolveStorePath, runCommandWithTimeout, runExec, saveSessionStore, waitForever} = await import("./library-0zi2az1b.js"));
+if (!isMain) ({applyTemplate, createDefaultDeps, deriveSessionKey, describePortOwner, ensureBinary, ensurePortAvailable, getReplyFromConfig, handlePortError, loadConfig, loadSessionStore, monitorWebChannel, normalizeE164, PortInUseError, promptYesNo, resolveSessionKey, resolveStorePath, runCommandWithTimeout, runExec, saveSessionStore, waitForever} = await import("./library-o-Y0fIMo.js"));
 if (isMain) {
 	const { restoreRuntimeTerminalState } = await import("./runtime-BpncsYKr.js");
 	installUnhandledRejectionHandler();

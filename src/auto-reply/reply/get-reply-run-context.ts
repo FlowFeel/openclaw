@@ -194,9 +194,13 @@ export async function prepareReplyRunContext(params: RunPreparedReplyParams) {
     fullAccessAvailable: fullAccessState.available,
     fullAccessBlockedReason: fullAccessState.blockedReason,
   });
-  const scoreboardBanner = formatScoreboardBanner(calculateChainMetrics([]));
+  const timeoutSeconds = (cfg as { agents?: { defaults?: { timeoutSeconds?: number } } })?.agents?.defaults?.timeoutSeconds ?? 300;
+  const initialMetrics = calculateChainMetrics([], { timeoutSeconds });
+  const scoreboardBanner = formatScoreboardBanner(initialMetrics);
+  const turnGovernorGuidance = `Turn Budget: Converge within <= ${initialMetrics.callLimit} tool calls. If reaching turn ceiling, synthesize findings and reply immediately.`;
   const extraSystemPromptParts = [
     scoreboardBanner,
+    turnGovernorGuidance,
     inboundMetaPrompt,
     directChatContext,
     groupChatContext,
@@ -206,6 +210,7 @@ export async function prepareReplyRunContext(params: RunPreparedReplyParams) {
   ].filter(Boolean);
   const extraSystemPromptStatic = [
     scoreboardBanner,
+    turnGovernorGuidance,
     directChatContext,
     groupChatContext,
     groupIntro,

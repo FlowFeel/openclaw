@@ -4,7 +4,7 @@ import { r as formatErrorMessage } from "../../errors-D-7D3ZtF.js";
 import "../../error-runtime-Nqb-RQG4.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
 //#region extensions/matrix/src/plugin-entry.runtime.ts
-const loadMatrixVerificationRuntime = createLazyRuntimeModule(() => import("../../verification-Cj2jrM9Z.js"));
+const loadMatrixVerificationRuntime = createLazyRuntimeModule(() => import("../../verification-q2LjygaW.js"));
 function sendError(respond, err) {
 	respond(false, { error: formatErrorMessage(err) });
 }

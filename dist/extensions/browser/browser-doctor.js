@@ -6,12 +6,12 @@ import { t as formatCliCommand } from "../../command-format-C5kg4XY_.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
 import { t as note } from "../../note-uiKX_qfX.js";
 import { v as DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME } from "../../constants-BoWgRtg0.js";
-import { r as resolveBrowserConfig } from "../../config-BUlzuvOP.js";
+import { r as resolveBrowserConfig } from "../../config-CPQThR3s.js";
 import { i as resolveGoogleChromeExecutableForPlatform, n as readBrowserVersion, r as resolveBrowserExecutableForPlatform, t as parseBrowserMajorVersion } from "../../chrome.executables-B2udiA_j.js";
-import { t as movePathToTrash } from "../../trash-DTytz0DE.js";
+import { t as movePathToTrash } from "../../trash-CO1OaCay.js";
 import "../../record-shared-BCecxvOL.js";
-import { n as listSystemProfiles } from "../../system-profiles-BZyat1iP.js";
-import "../../sdk-setup-tools-nJGoO2eq.js";
+import { n as listSystemProfiles } from "../../system-profiles-CWKQgmGH.js";
+import "../../sdk-setup-tools-DPn0WOXG.js";
 import fs from "node:fs";
 import path from "node:path";
 //#region extensions/browser/src/doctor-browser.ts

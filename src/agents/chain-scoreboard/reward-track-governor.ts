@@ -10,6 +10,7 @@ export interface TierPrivilegeDetails {
   readonly badge: string;
   readonly unlockedPrivilege: string;
   readonly minScore: number;
+  readonly callLimit: number;
 }
 
 export const REWARD_TIER_MATRIX: Record<RewardTier, TierPrivilegeDetails> = Object.freeze({
@@ -18,24 +19,28 @@ export const REWARD_TIER_MATRIX: Record<RewardTier, TierPrivilegeDetails> = Obje
     badge: "💎",
     unlockedPrivilege: "Autonomous multi-turn background execution without intermediate turn checks",
     minScore: 99,
+    callLimit: 12,
   }),
   Gold: Object.freeze({
     tier: "Gold" as const,
     badge: "🟢",
     unlockedPrivilege: "Extended autonomous leash on background subagents (runTimeoutSeconds raised)",
     minScore: 95,
+    callLimit: 8,
   }),
   Silver: Object.freeze({
     tier: "Silver" as const,
     badge: "⚪",
     unlockedPrivilege: "Priority tool execution; relaxed validation overhead",
     minScore: 85,
+    callLimit: 5,
   }),
   Bronze: Object.freeze({
     tier: "Bronze" as const,
     badge: "🟡",
     unlockedPrivilege: "Standard nominal baseline; standard tool timeouts",
     minScore: 0,
+    callLimit: 3,
   }),
 });
 

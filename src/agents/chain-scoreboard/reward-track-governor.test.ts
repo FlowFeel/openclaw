@@ -7,20 +7,24 @@ describe("reward-track-governor (Tier 1 Pure Invariants)", () => {
     expect(diamond.tier).toBe("Diamond");
     expect(diamond.badge).toBe("💎");
     expect(diamond.unlockedPrivilege).toContain("Autonomous multi-turn");
+    expect(diamond.callLimit).toBe(12);
 
     const gold = classifyRewardTier(96);
     expect(gold.tier).toBe("Gold");
     expect(gold.badge).toBe("🟢");
     expect(gold.unlockedPrivilege).toContain("Extended autonomous leash");
+    expect(gold.callLimit).toBe(8);
 
     const silver = classifyRewardTier(90);
     expect(silver.tier).toBe("Silver");
     expect(silver.badge).toBe("⚪");
     expect(silver.unlockedPrivilege).toContain("Priority tool execution");
+    expect(silver.callLimit).toBe(5);
 
     const bronze = classifyRewardTier(75);
     expect(bronze.tier).toBe("Bronze");
     expect(bronze.badge).toBe("🟡");
     expect(bronze.unlockedPrivilege).toContain("Standard nominal baseline");
+    expect(bronze.callLimit).toBe(3);
   });
 });

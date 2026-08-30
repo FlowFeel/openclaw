@@ -99,6 +99,7 @@ import { createTerminalTool } from "./tools/terminal-tool.js";
 import { createTranscriptsTool } from "./tools/transcripts-tool.js";
 import { createTtsTool } from "./tools/tts-tool.js";
 import { createEnvelopeTools } from "./tools/envelope-tools.js";
+import { createActivityInspectTool } from "./tools/activity-inspect-tool.js";
 import { createTokenomicsTools } from "./tools/tokenomics-tools.js";
 import { createAttributionTools } from "./tools/attribution-tools.js";
 import { createCompactionMeterTools } from "./tools/compaction-meter-tool.js";
@@ -761,6 +762,7 @@ export function createOpenClawTools(
     createAgentSignalTool({
       sessionId: options?.agentSessionKey,
     }),
+    createActivityInspectTool(),
     ...createEnvelopeTools(),
     ...createTokenomicsTools(),
     ...createAttributionTools(),

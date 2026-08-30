@@ -1,2 +1,2 @@
-import { t as MSTeamsChannelConfigSchema } from "../../config-schema-C2kql5_c.js";
+import { t as MSTeamsChannelConfigSchema } from "../../config-schema-BR5h3g-v.js";
 export { MSTeamsChannelConfigSchema };

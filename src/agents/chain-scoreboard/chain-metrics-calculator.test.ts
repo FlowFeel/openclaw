@@ -7,6 +7,9 @@ describe("chain-metrics-calculator (Tier 1 Pure Invariants)", () => {
       { toolName: "exec", target: "grep -rn 'foo' src/" },
     ]);
     expect(metrics.callCount).toBe(1);
+    expect(metrics.callLimit).toBe(12);
+    expect(metrics.remainingCalls).toBe(11);
+    expect(metrics.isCapReached).toBe(false);
     expect(metrics.spreadFactor).toBe(1.0);
     expect(metrics.chainScore).toBe(100);
     expect(metrics.convergenceDelta).toBe("+18%");
@@ -18,6 +21,9 @@ describe("chain-metrics-calculator (Tier 1 Pure Invariants)", () => {
       { toolName: "read", target: "src/a.ts" },
     ]);
     expect(metrics2.callCount).toBe(2);
+    expect(metrics2.callLimit).toBe(5); // Silver (score 92 >= 85)
+    expect(metrics2.remainingCalls).toBe(3);
+    expect(metrics2.isCapReached).toBe(false);
     expect(metrics2.chainScore).toBe(92);
     expect(metrics2.convergenceDelta).toBe("+12%");
 
@@ -27,6 +33,9 @@ describe("chain-metrics-calculator (Tier 1 Pure Invariants)", () => {
       { toolName: "read", target: "src/b.ts" },
     ]);
     expect(metrics3.callCount).toBe(3);
+    expect(metrics3.callLimit).toBe(3); // Bronze (score 84 < 85)
+    expect(metrics3.remainingCalls).toBe(0);
+    expect(metrics3.isCapReached).toBe(true);
     expect(metrics3.chainScore).toBe(84);
     expect(metrics3.convergenceDelta).toBe("+6%");
   });
@@ -41,9 +50,16 @@ describe("chain-metrics-calculator (Tier 1 Pure Invariants)", () => {
       { toolName: "read", target: "src/c.ts" },
       { toolName: "exec", target: "cat README.md" },
     ];
-    const metrics = calculateChainMetrics(wanderingCalls);
+    const metrics = calculateChainMetrics(wanderingCalls, {
+      timeoutSeconds: 300,
+      turnStartMs: 1000,
+      nowMs: 61000,
+    });
     expect(metrics.callCount).toBe(7);
+    expect(metrics.callLimit).toBe(3);
+    expect(metrics.isCapReached).toBe(true);
     expect(metrics.chainScore).toBeLessThan(70); // DoD AC-2 verified!
     expect(metrics.convergenceDelta).toBe("-32%");
+    expect(metrics.runwayRemainingSeconds).toBe(240); // 300s - 60s
   });
 });

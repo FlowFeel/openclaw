@@ -1,3 +1,3 @@
 import { a as resolveDefaultBuzzAccountId, n as listBuzzAccountIds, r as resolveBuzzAccount } from "../../types-CJFyWMAi.js";
-import { n as getBuzzRuntime, r as setBuzzRuntime, t as buzzPlugin } from "../../channel-B8QFI1J9.js";
+import { n as getBuzzRuntime, r as setBuzzRuntime, t as buzzPlugin } from "../../channel-CNmInmwa.js";
 export { buzzPlugin, getBuzzRuntime, listBuzzAccountIds, resolveBuzzAccount, resolveDefaultBuzzAccountId, setBuzzRuntime };

@@ -9,10 +9,14 @@ import type { Frame1Headroom } from "../../infra/self-state-envelope/types.js";
 
 export interface ChainMetricsSnapshot {
   readonly callCount: number;
+  readonly callLimit: number;
+  readonly remainingCalls: number;
+  readonly isCapReached: boolean;
   readonly spreadFactor: number;
   readonly convergenceDelta: string;
   readonly chainScore: number;
   readonly tier: RewardTier;
+  readonly runwayRemainingSeconds?: number;
 }
 
 /**
@@ -22,10 +26,14 @@ export function formatChainMetricsSnapshot(metrics: ComputedChainMetrics): Chain
   const tierInfo = classifyRewardTier(metrics.chainScore);
   return Object.freeze({
     callCount: metrics.callCount,
+    callLimit: metrics.callLimit,
+    remainingCalls: metrics.remainingCalls,
+    isCapReached: metrics.isCapReached,
     spreadFactor: metrics.spreadFactor,
     convergenceDelta: metrics.convergenceDelta,
     chainScore: metrics.chainScore,
     tier: tierInfo.tier,
+    ...(metrics.runwayRemainingSeconds !== undefined ? { runwayRemainingSeconds: metrics.runwayRemainingSeconds } : {}),
   });
 }
 

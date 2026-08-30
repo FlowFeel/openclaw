@@ -12,7 +12,11 @@ import { classifyRewardTier } from "./reward-track-governor.js";
  */
 export function formatScoreboardBanner(metrics: ComputedChainMetrics): string {
   const tierInfo = classifyRewardTier(metrics.chainScore);
-  return `📊 CHAIN: Calls: ${metrics.callCount} | Spread: ${metrics.spreadFactor.toFixed(1)} | Score: ${metrics.chainScore} ${tierInfo.badge} ${tierInfo.tier.toUpperCase()} (${metrics.convergenceDelta} ↑)`;
+  const runwaySuffix =
+    metrics.runwayRemainingSeconds !== undefined
+      ? `${metrics.runwayRemainingSeconds}s left`
+      : `${metrics.convergenceDelta} ↑`;
+  return `📊 CHAIN: Calls: ${metrics.callCount}/${metrics.callLimit} | Spread: ${metrics.spreadFactor.toFixed(1)} | Score: ${metrics.chainScore} ${tierInfo.badge} ${tierInfo.tier.toUpperCase()} (${runwaySuffix})`;
 }
 
 /**

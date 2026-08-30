@@ -15,6 +15,9 @@ describe("f1-scoreboard-adapter (Tier 1 & Tier 2 Story 1)", () => {
     const snapshot = formatChainMetricsSnapshot(rawMetrics);
 
     expect(snapshot.callCount).toBe(2);
+    expect(snapshot.callLimit).toBe(5);
+    expect(snapshot.remainingCalls).toBe(3);
+    expect(snapshot.isCapReached).toBe(false);
     expect(snapshot.spreadFactor).toBe(1.0);
     expect(snapshot.chainScore).toBe(92);
     expect(snapshot.tier).toBe("Silver");
@@ -37,6 +40,9 @@ describe("f1-scoreboard-adapter (Tier 1 & Tier 2 Story 1)", () => {
     expect(decoratedF1.usedTokens).toBe(1000);
     expect(decoratedF1.chainMetrics).toEqual({
       callCount: 1,
+      callLimit: 12,
+      remainingCalls: 11,
+      isCapReached: false,
       spreadFactor: 1.0,
       convergenceDelta: "+18%",
       chainScore: 100,
