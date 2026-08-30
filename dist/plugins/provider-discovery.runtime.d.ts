@@ -1,5 +1,5 @@
 import { i as OpenClawConfig } from "../types.openclaw-DfLlB8Bo.js";
-import { t as ProviderPlugin } from "../types-njvIxeh92.js";
+import { t as ProviderPlugin } from "../types-w_qIN0HD2.js";
 import { n as PluginMetadataRegistryView } from "../plugin-metadata-snapshot.types-DyQOmt9P.js";
 
 //#region src/plugins/provider-discovery.runtime.d.ts
