@@ -12,6 +12,8 @@
   - Injected micro-scoreboard banner (`<= 25 tokens`): `📊 CHAIN: Calls: 2 | Spread: 1.0 | Score: 96 🟢 GOLD (+15% ↑)`.
   - Exposed live `F1.chainMetrics` for mid-flight introspection (`peek("F1.chainMetrics")`).
   - Autonomy reward tiers: Bronze ($<85$), Silver ($85\text{--}94$), Gold ($95\text{--}98$), and Diamond ($99\text{--}100$).
+- **Search Index Container Path Resolution**:
+  - Added robust multi-candidate fallback in `search_index_inspect` (`/home/node/.openclaw/workspace/meta/search.db` $\to$ `workspace/meta/search.db` $\to$ `meta/search.db`).
 
 # OpenClaw Fork (Inferno Labs) — CHANGELOG
 
