@@ -1,4 +1,4 @@
-import { A as PluginRuntime, k as CreatePluginRuntimeOptions } from "../../types-w_qIN0HD2.js";
+import { A as PluginRuntime, k as CreatePluginRuntimeOptions } from "../../types-phPVWco92.js";
 
 //#region src/plugins/runtime/index.d.ts
 declare function createPluginRuntime(_options?: CreatePluginRuntimeOptions): PluginRuntime;
