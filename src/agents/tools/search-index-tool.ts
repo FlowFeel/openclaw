@@ -5,6 +5,7 @@
  * of the semantic knowledge base index (search.db).
  */
 
+import fs from "node:fs";
 import path from "node:path";
 import { Type } from "typebox";
 import {
@@ -45,6 +46,14 @@ export function createSearchIndexTool(options: CreateSearchIndexToolOptions = {}
     }
     if (options.workspaceDir) {
       return path.join(options.workspaceDir, "meta", "search.db");
+    }
+    const standardContainerWorkspace = "/home/node/.openclaw/workspace/meta/search.db";
+    if (fs.existsSync(standardContainerWorkspace)) {
+      return standardContainerWorkspace;
+    }
+    const relativeWorkspace = path.join(process.cwd(), "workspace", "meta", "search.db");
+    if (fs.existsSync(relativeWorkspace)) {
+      return relativeWorkspace;
     }
     return path.join(process.cwd(), "meta", "search.db");
   };
