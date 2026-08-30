@@ -200,11 +200,11 @@ async function tryRunGatewayRunFastPath(argv, startupTrace) {
 	if (!isGatewayRunFastPathArgv(argv)) return false;
 	const [{ Command }, { addGatewayRunCommand }, { VERSION }, { emitCliBanner }, { resolveCliStartupPolicy }, { ensureCliExecutionBootstrap }, { defaultRuntime }] = await startupTrace.measure("gateway-run-imports", () => Promise.all([
 		import("commander"),
-		import("../run-command-DY3SUVmt.js"),
+		import("../run-command-BsFnLVEj.js"),
 		import("../version-BmsGkjsI.js"),
 		import("../banner-Dy888sCu.js"),
 		import("../command-startup-policy-BPYmoqep.js"),
-		import("../command-execution-startup-DqsLEUHs.js"),
+		import("../command-execution-startup-Co6He03x.js"),
 		import("../runtime-BpncsYKr.js")
 	]));
 	const commandPath = resolveGatewayCatalogCommandPath(argv) ?? ["gateway"];
@@ -285,7 +285,7 @@ async function closeCliMcpLoopbackServer() {
 	try {
 		const { getActiveMcpLoopbackRuntime } = await import("../mcp-http.loopback-runtime-BuVgLGSa.js");
 		if (!getActiveMcpLoopbackRuntime()) return;
-		const { closeMcpLoopbackServer } = await import("../mcp-http-BJDYUXy3.js");
+		const { closeMcpLoopbackServer } = await import("../mcp-http-DivdMp4o.js");
 		await closeMcpLoopbackServer();
 	} catch {}
 }
@@ -914,7 +914,7 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 		}
 		if (await tryOutputPrecomputedCommandHelp(normalizedArgv)) return;
 		if (shouldUseSetupOnboardConfigureHelpFastPath(normalizedArgv)) {
-			const { tryOutputSetupOnboardConfigureHelp } = await import("../setup-onboard-configure-help-fast-path-DAfvy4u3.js");
+			const { tryOutputSetupOnboardConfigureHelp } = await import("../setup-onboard-configure-help-fast-path-BmUsXbEO.js");
 			if (await tryOutputSetupOnboardConfigureHelp(normalizedArgv)) return;
 		}
 		await installConsoleCapture();
@@ -939,7 +939,7 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 					process$1.exitCode = 1;
 					return;
 				}
-				const { runRemoteGatewayInferenceOnboarding } = await import("../onboard-remote-gateway-B612x6dn.js");
+				const { runRemoteGatewayInferenceOnboarding } = await import("../onboard-remote-gateway-D2EcsE35.js");
 				await runRemoteGatewayInferenceOnboarding(bareRootLaunchTarget.target);
 				return;
 			}
@@ -949,7 +949,7 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 					process$1.exitCode = 1;
 					return;
 				}
-				const { setupWizardCommand } = await import("../onboard-CN0MDxwW.js");
+				const { setupWizardCommand } = await import("../onboard-DV7hnYOz.js");
 				await setupWizardCommand(bareRootLaunchTarget.classic ? { classic: true } : {});
 				return;
 			}
@@ -979,7 +979,7 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 		if (!bootstrapProxyBeforeFastPath && await tryRunGatewayRunFastPath(normalizedArgv, startupTrace)) return;
 		if (!isHelpOrVersionInvocation) await bootstrapCliProxyCaptureAndDispatcher(startupTrace, { ensureDispatcher: shouldUseCliEnvProxy });
 		if (bootstrapProxyBeforeFastPath && await tryRunGatewayRunFastPath(normalizedArgv, startupTrace)) return;
-		const { tryRouteCli } = await startupTrace.measure("route-import", () => import("../route-DzwJP6XT.js"));
+		const { tryRouteCli } = await startupTrace.measure("route-import", () => import("../route-B5ucp2FR.js"));
 		if (await startupTrace.measure("route", () => options.builtInMachineOutput ? tryRouteCli(normalizedArgv, { machineOutput: true }) : tryRouteCli(normalizedArgv), { timeline: false })) return;
 		let parseArgv = normalizeGeneratedHelpCommandArgv(normalizedArgv);
 		const suppressStartupProgress = hasJsonOutputFlag(parseArgv);
@@ -998,7 +998,7 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 		};
 		try {
 			const [{ buildProgram }, { formatUncaughtError }, { formatCliFailureLines }, { runFatalErrorHooks }, { installUnhandledRejectionHandler, isBenignUncaughtExceptionError, isUncaughtExceptionHandled }, { restoreRuntimeTerminalState }] = await startupTrace.measure("core-imports", () => Promise.all([
-				import("../program-wnsDyk70.js"),
+				import("../program-Boz89dCJ.js"),
 				import("../infra/errors.js"),
 				import("../failure-output-QpQ0Ugu4.js"),
 				import("../fatal-error-hooks-BiXaGF_Q.js"),
@@ -1031,10 +1031,10 @@ async function runCliWithPreparedOutputMode(originalArgv, options) {
 				const { getProgramContext } = await import("../program-context-C5CVUqfZ.js");
 				const ctx = getProgramContext(program);
 				if (ctx) {
-					const { registerCoreCliByName } = await import("../command-registry-DtYIYNHm.js");
+					const { registerCoreCliByName } = await import("../command-registry-BFxuGVha.js");
 					await registerCoreCliByName(program, ctx, primary, parseArgv);
 				}
-				const { registerSubCliByName } = await import("../register.subclis-Bgw5cUFm.js");
+				const { registerSubCliByName } = await import("../register.subclis-DUjieoWR.js");
 				await registerSubCliByName(program, primary, parseArgv);
 			});
 			const hasBuiltinPrimary = primary !== null && program.commands.some((command) => command.name() === primary || command.aliases().includes(primary));

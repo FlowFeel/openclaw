@@ -3,6 +3,7 @@
  * Goldilocks decomposition unit (< 100 LOC).
  */
 
+import type { ChainMetricsSnapshot } from "../../agents/chain-scoreboard/f1-scoreboard-adapter.js";
 import type { TranscriptPerSourceBreakdown } from "../../agents/tools/session-status/transcript-usage.js";
 
 export interface Frame1Position {
@@ -13,6 +14,7 @@ export interface Frame1Position {
   readonly snrScore: number;
   readonly isForeclosureImminent: boolean;
   readonly breakdown: TranscriptPerSourceBreakdown;
+  readonly chainMetrics: ChainMetricsSnapshot;
 }
 
 export interface PlatformReleaseFrame {

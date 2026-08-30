@@ -4,7 +4,7 @@ import { t as defineBundledChannelEntry } from "../../channel-entry-contract-BqX
 function createLineCardCommandLoader(api) {
 	return createLazyRuntimeModule(async () => {
 		let registered = null;
-		const { registerLineCardCommand } = await import("../../card-command-BbyRgABv.js");
+		const { registerLineCardCommand } = await import("../../card-command-DwLrr8Zh.js");
 		registerLineCardCommand({
 			...api,
 			registerCommand(command) {

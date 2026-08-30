@@ -3,11 +3,13 @@
  * Goldilocks decomposition unit (< 150 LOC).
  * 
  * Axiom:
- * Taps active transcript accounting directly, bridging live 95k tokens
+ * Taps active transcript accounting directly, bridging live tokens
  * and 4-way per-source breakdown to peek("F1") and live sensors.
  */
 
 import { calculateTranscriptPerSourceBreakdown, type TranscriptPerSourceBreakdown } from "../../agents/tools/session-status/transcript-usage.js";
+import { calculateChainMetrics, type RawChainSample } from "../../agents/chain-scoreboard/chain-metrics-calculator.js";
+import { formatChainMetricsSnapshot } from "../../agents/chain-scoreboard/f1-scoreboard-adapter.js";
 import { calculateSNR } from "../tokenomics/snr-calculator.js";
 import type { TurnMessage } from "../tokenomics/types.js";
 import type { Frame1Position, LiveTelemetrySnapshot } from "./types.js";
@@ -19,11 +21,11 @@ const FORECLOSURE_THRESHOLD_RATIO = 0.85;
 let activeTranscriptPath: string | null = null;
 let activeTurnsCache: TurnMessage[] = [];
 let activeModelLimitTokens: number = DEFAULT_MODEL_LIMIT;
-let activeReleaseVersion = "1.0.0";
+let activeReleaseVersion = "2026.8.5-phosphene";
 let activeChangelog: string[] = [
-  "Added live telemetry bus tap (F1 live tokens + per-source breakdown)",
-  "Zero-arg live sensor mode for tokenomics_snr and noise_inspect",
-  "Proactive ambient foreclosure warning header (>85% threshold)",
+  "Added live chain precision telemetry (peek F1.chainMetrics)",
+  "Injected micro-scoreboard turn banner into system prompt envelope",
+  "Autonomy reward track tiers: Bronze (<85) to Diamond (99-100)",
 ];
 
 export function registerActiveSessionTap(params: {
@@ -77,6 +79,27 @@ export async function resolveLivePositionFrame(): Promise<Frame1Position> {
 
   const snrReport = calculateSNR(activeTurnsCache);
 
+  // Extract raw tool call samples from cached session turns
+  const samples: RawChainSample[] = [];
+  for (const turn of activeTurnsCache) {
+    if (turn.role === "assistant" && turn.tool_calls) {
+      for (const call of turn.tool_calls) {
+        samples.push({
+          toolName: call.function?.name ?? "unknown",
+          target: typeof call.function?.arguments === "string" ? call.function.arguments.slice(0, 80) : undefined,
+        });
+      }
+    } else if (turn.role === "tool") {
+      samples.push({
+        toolName: turn.name ?? "tool",
+        isError: (turn.content ?? "").toLowerCase().includes("error") || (turn.content ?? "").toLowerCase().includes("failed"),
+      });
+    }
+  }
+
+  const computedMetrics = calculateChainMetrics(samples);
+  const chainMetrics = formatChainMetricsSnapshot(computedMetrics);
+
   return {
     usedTokens,
     limitTokens,
@@ -85,6 +108,7 @@ export async function resolveLivePositionFrame(): Promise<Frame1Position> {
     snrScore: snrReport.snrPercent,
     isForeclosureImminent,
     breakdown,
+    chainMetrics,
   };
 }
 

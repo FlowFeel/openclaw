@@ -1,3 +1,4 @@
+import { calculateChainMetrics, formatScoreboardBanner } from "../../agents/chain-scoreboard/index.js";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { resolveAgentConfig } from "../../agents/agent-scope.js";
 import { resolveEmbeddedFullAccessState } from "../../agents/embedded-agent-runner/sandbox-info.js";
@@ -193,7 +194,9 @@ export async function prepareReplyRunContext(params: RunPreparedReplyParams) {
     fullAccessAvailable: fullAccessState.available,
     fullAccessBlockedReason: fullAccessState.blockedReason,
   });
+  const scoreboardBanner = formatScoreboardBanner(calculateChainMetrics([]));
   const extraSystemPromptParts = [
+    scoreboardBanner,
     inboundMetaPrompt,
     directChatContext,
     groupChatContext,
@@ -202,6 +205,7 @@ export async function prepareReplyRunContext(params: RunPreparedReplyParams) {
     execOverridePromptHint,
   ].filter(Boolean);
   const extraSystemPromptStatic = [
+    scoreboardBanner,
     directChatContext,
     groupChatContext,
     groupIntro,
