@@ -7,12 +7,36 @@
 
 import type { TurnMessage } from "../tokenomics/types.js";
 
+export interface ToolCallBudgetSnapshot {
+  readonly maxTurnsPerPrompt: number;
+  readonly turnsRemaining: number;
+  readonly reconLimit: number;
+  readonly reconStatus: "active" | "exhausted" | "exceeded";
+  readonly turnsUsed: number;
+}
+
+export interface Frame1Capacities {
+  readonly maxTurnsPerPrompt: number;
+  readonly defaultReconBudget: number;
+  readonly maxFileIngestBytes: number;
+  readonly stickyCwd: boolean;
+  readonly specialRegisters: boolean;
+}
+
+export interface Frame1Recommended {
+  readonly action: "continue" | "synthesize" | "grep_search";
+  readonly reason: string;
+}
+
 export interface Frame1Headroom {
   readonly usedTokens: number;
   readonly limitTokens: number;
   readonly remainingTokens: number;
   readonly capacityPercentage: number;
   readonly snrPercentage: number;
+  readonly toolCallBudget?: ToolCallBudgetSnapshot;
+  readonly capacities?: Frame1Capacities;
+  readonly recommended?: Frame1Recommended;
 }
 
 export interface CompactionEventRecord {

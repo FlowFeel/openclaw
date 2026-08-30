@@ -49,6 +49,24 @@ export function resolveSelfStateEnvelope(
     remainingTokens,
     capacityPercentage,
     snrPercentage: snrReport.snrPercent,
+    toolCallBudget: {
+      maxTurnsPerPrompt: 3,
+      turnsRemaining: 3,
+      reconLimit: 2,
+      reconStatus: "active",
+      turnsUsed: 0,
+    },
+    capacities: {
+      maxTurnsPerPrompt: 3,
+      defaultReconBudget: 2,
+      maxFileIngestBytes: 16384,
+      stickyCwd: true,
+      specialRegisters: true,
+    },
+    recommended: {
+      action: "continue",
+      reason: "Nominal turn budget; targeted pattern search recommended",
+    },
   };
 
   const F2: Frame2CompactionLog = {

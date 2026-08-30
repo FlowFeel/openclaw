@@ -2,7 +2,7 @@ import { i as OpenClawConfig } from "../types.openclaw-DfLlB8Bo.js";
 import { u as SessionToolOverrides } from "../types-1fRODKFe.js";
 import { n as PluginManifestRegistry } from "../manifest-registry-BiX3Z1gF.js";
 import { a as SessionMcpRuntime, i as SessionMcpRequesterScope, o as SessionMcpRuntimeManager, r as McpToolCatalog } from "../agent-bundle-mcp-types--uaAwfAt.js";
-import { O as McpServerConnectionResolved } from "../types-phPVWco92.js";
+import { O as McpServerConnectionResolved } from "../types-j5g8iGcl2.js";
 import { ClientCapabilities } from "@modelcontextprotocol/sdk/types.js";
 import { jsonSchemaValidator } from "@modelcontextprotocol/sdk/validation/types.js";
 
