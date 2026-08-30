@@ -1,3 +1,18 @@
+# Changelog
+
+## 2026.8.5-phosphene (2026-08-30)
+
+### Features & Architecture
+- **Sovereign Phosphene Fork Authority**: Codified private sovereign status for `FlowFeel/openclaw`. All source references and contributions reside exclusively within Phosphene ecosystem.
+- **Multi-Layer Runtime Timeout Matrix**:
+  - `compaction.timeoutSeconds: 600` (Dedicated background isolate ceiling).
+  - `agents.defaults.timeoutSeconds: 180` (Interactive turn ceiling).
+  - `tools.exec.timeoutSeconds: 60` (Subshell child process ceiling).
+- **Gamified Agent Telemetry & Convergence Reward Track (`CAP-77081-06`)**:
+  - Injected micro-scoreboard banner (`<= 25 tokens`): `📊 CHAIN: Calls: 2 | Spread: 1.0 | Score: 96 🟢 GOLD (+15% ↑)`.
+  - Exposed live `F1.chainMetrics` for mid-flight introspection (`peek("F1.chainMetrics")`).
+  - Autonomy reward tiers: Bronze ($<85$), Silver ($85\text{--}94$), Gold ($95\text{--}98$), and Diamond ($99\text{--}100$).
+
 # OpenClaw Fork (Inferno Labs) — CHANGELOG
 
 All notable changes to the Inferno OpenClaw core fork (`v2026.8.1-inferno`) authored by **Ed Phillips `<ed@cronos.net>` (phosphene) for inferno labs**.
