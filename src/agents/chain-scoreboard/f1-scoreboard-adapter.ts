@@ -13,11 +13,10 @@ export interface ChainMetricsSnapshot {
   readonly convergenceDelta: string;
   readonly chainScore: number;
   readonly tier: RewardTier;
-  readonly unlockedPrivilege: string;
 }
 
 /**
- * Purely constructs the structured ChainMetricsSnapshot.
+ * Purely constructs the standardized ChainMetricsSnapshot.
  */
 export function formatChainMetricsSnapshot(metrics: ComputedChainMetrics): ChainMetricsSnapshot {
   const tierInfo = classifyRewardTier(metrics.chainScore);
@@ -27,7 +26,6 @@ export function formatChainMetricsSnapshot(metrics: ComputedChainMetrics): Chain
     convergenceDelta: metrics.convergenceDelta,
     chainScore: metrics.chainScore,
     tier: tierInfo.tier,
-    unlockedPrivilege: tierInfo.unlockedPrivilege,
   });
 }
 

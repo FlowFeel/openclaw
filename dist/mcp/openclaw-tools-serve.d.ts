@@ -1,5 +1,5 @@
 import { t as AnyAgentTool } from "../common-CSwFw_Qd.js";
-import { wt as SystemAgentOperation } from "../types-0AMJpPwL2.js";
+import { wt as SystemAgentOperation } from "../types-kNo2fbdI2.js";
 //#region src/agents/tools/system-agent-tool.d.ts
 type SystemAgentToolOptions = {
   /** Where setup side effects run; the gateway surface never manages its own daemon. */surface: "cli" | "gateway";

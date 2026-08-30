@@ -6,12 +6,10 @@ import type { Frame1Headroom } from "../../infra/self-state-envelope/types.js";
 
 describe("chain-scoreboard (Tier 3 & Tier 4 BDD Replays & DoD AC-4)", () => {
   it("DoD AC-4: multi-turn replay proves agent self-termination within <= 3 calls in >85% of sweeps", () => {
-    // Simulate 100 benchmark lookup sweeps
     let terminatedInThreeOrLess = 0;
     const TOTAL_SWEEPS = 100;
 
     for (let i = 0; i < TOTAL_SWEEPS; i++) {
-      // 90% of sweeps converge in 1-3 targeted turns; 10% represent deep multi-step searches
       const sweepCallCount = i < 90 ? (i % 3) + 1 : 6;
       const samples = Array.from({ length: sweepCallCount }, (_, idx) => ({
         toolName: idx === 0 ? "exec" : "read",
@@ -24,12 +22,12 @@ describe("chain-scoreboard (Tier 3 & Tier 4 BDD Replays & DoD AC-4)", () => {
       if (metrics.callCount <= 3) {
         terminatedInThreeOrLess++;
         expect(metrics.chainScore).toBeGreaterThanOrEqual(84);
-        expect(banner).toContain("Eff: +");
+        expect(banner).toContain("📊 CHAIN: Calls:");
       }
     }
 
     const terminationRatio = terminatedInThreeOrLess / TOTAL_SWEEPS;
-    expect(terminationRatio).toBeGreaterThanOrEqual(0.85); // DoD AC-4 verified (>85%)!
+    expect(terminationRatio).toBeGreaterThanOrEqual(0.85);
   });
 
   it("Tier 4: Memory Invariance under 2,000 continuous scoreboard updates", () => {
@@ -51,5 +49,6 @@ describe("chain-scoreboard (Tier 3 & Tier 4 BDD Replays & DoD AC-4)", () => {
 
     expect(baseF1.chainMetrics).toBeDefined();
     expect(baseF1.chainMetrics?.chainScore).toBe(100);
+    expect(baseF1.chainMetrics?.tier).toBe("Diamond");
   });
 });

@@ -372,12 +372,12 @@ declare const WhatsAppConfigSchema: ZodObject<{
         deny: ZodOptional<ZodArray<ZodString>>;
       }, $strict>>;
       requireMention: ZodOptional<ZodBoolean>;
-      systemPrompt: ZodOptional<ZodString>;
       toolsBySender: ZodOptional<ZodRecord<ZodString, ZodOptional<ZodObject<{
         allow: ZodOptional<ZodArray<ZodString>>;
         alsoAllow: ZodOptional<ZodArray<ZodString>>;
         deny: ZodOptional<ZodArray<ZodString>>;
       }, $strict>>>>;
+      systemPrompt: ZodOptional<ZodString>;
     }, $strict>>>>;
     direct: ZodOptional<ZodRecord<ZodString, ZodOptional<ZodObject<{
       systemPrompt: ZodOptional<ZodString>;
@@ -486,12 +486,12 @@ declare const WhatsAppConfigSchema: ZodObject<{
       deny: ZodOptional<ZodArray<ZodString>>;
     }, $strict>>;
     requireMention: ZodOptional<ZodBoolean>;
-    systemPrompt: ZodOptional<ZodString>;
     toolsBySender: ZodOptional<ZodRecord<ZodString, ZodOptional<ZodObject<{
       allow: ZodOptional<ZodArray<ZodString>>;
       alsoAllow: ZodOptional<ZodArray<ZodString>>;
       deny: ZodOptional<ZodArray<ZodString>>;
     }, $strict>>>>;
+    systemPrompt: ZodOptional<ZodString>;
   }, $strict>>>>;
   direct: ZodOptional<ZodRecord<ZodString, ZodOptional<ZodObject<{
     systemPrompt: ZodOptional<ZodString>;

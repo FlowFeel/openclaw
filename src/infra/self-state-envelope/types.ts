@@ -43,7 +43,6 @@ export interface Frame1Headroom {
     readonly convergenceDelta: string;
     readonly chainScore: number;
     readonly tier: "Bronze" | "Silver" | "Gold" | "Diamond";
-    readonly unlockedPrivilege: string;
   };
 }
 

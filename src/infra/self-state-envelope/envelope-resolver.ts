@@ -73,7 +73,6 @@ export function resolveSelfStateEnvelope(
       convergenceDelta: "+18%",
       chainScore: 100,
       tier: "Diamond",
-      unlockedPrivilege: "Full Autonomous Lease on Background Jobs",
     },
   };
 

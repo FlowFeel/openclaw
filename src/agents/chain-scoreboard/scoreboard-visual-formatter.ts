@@ -1,18 +1,18 @@
 /**
- * Pure ASCII Dashboard Formatter for Shannon-Weaver Gamified Agent Telemetry.
- * Strict Shannon-Weaver compliance: Consumes <= 35 prompt tokens per banner.
+ * Pure Micro-Scoreboard Dashboard Formatter for Shannon-Weaver Gamified Agent Telemetry.
+ * Strict Shannon-Weaver compliance: Consumes <= 25 prompt tokens per banner.
  */
 
 import type { ComputedChainMetrics } from "./chain-metrics-calculator.js";
 import { classifyRewardTier } from "./reward-track-governor.js";
 
 /**
- * Purely formats the lightweight visual scoreboard line for model context injection.
- * Total character count is bounded to < 140 chars (<= 35 tokens).
+ * Formats the ultra-compact micro-scoreboard banner for prompt turn injection.
+ * Format: 📊 CHAIN: Calls: {callCount} | Spread: {spread} | Score: {score} {badge} {TIER} ({delta} ↑)
  */
 export function formatScoreboardBanner(metrics: ComputedChainMetrics): string {
   const tierInfo = classifyRewardTier(metrics.chainScore);
-  return `📊 SCORE: ${metrics.chainScore} ${tierInfo.badge} (${tierInfo.tier}) | Calls: ${metrics.callCount} | Eff: ${metrics.convergenceDelta} ↑ | Unlocks: ${tierInfo.unlockedPrivilege}`;
+  return `📊 CHAIN: Calls: ${metrics.callCount} | Spread: ${metrics.spreadFactor.toFixed(1)} | Score: ${metrics.chainScore} ${tierInfo.badge} ${tierInfo.tier.toUpperCase()} (${metrics.convergenceDelta} ↑)`;
 }
 
 /**
