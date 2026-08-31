@@ -1,6 +1,6 @@
 import { k as RuntimeEnv } from "../manifest-registry-BiX3Z1gF.js";
-import { E as SystemAgentVerifiedInferenceBinding } from "../setup-inference-C4NCGcSL.js";
-import { n as SystemAgentOverview, r as loadSystemAgentOverview, t as SystemAgentCommandDeps } from "../operations-D4DiT1dh.js";
+import { E as SystemAgentVerifiedInferenceBinding } from "../setup-inference-DFBAIrMB.js";
+import { n as SystemAgentOverview, r as loadSystemAgentOverview, t as SystemAgentCommandDeps } from "../operations-Bx_AXezZ.js";
 
 //#region src/system-agent/assistant-prompts.d.ts
 /** One prior conversation turn supplied to the assistant. */

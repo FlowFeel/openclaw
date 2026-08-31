@@ -49,7 +49,7 @@ import { t as stripInternalRuntimeScaffolding } from "../protocol-scaffolding-DC
 import { n as hasSystemMark, r as prefixSystemMessage, t as SYSTEM_MARK } from "../system-message-Dltw0_t9.js";
 import { n as resolveHeartbeatIntervalMs, r as resolveHeartbeatSummaryForAgent, t as isHeartbeatEnabledForAgent } from "../heartbeat-summary-S-VZc34p.js";
 import { n as resolveOutboundSendDep, t as resolveLegacyOutboundSendDepKeys } from "../send-deps-DjbvQHZ4.js";
-import { n as resolveAgentOutboundIdentity, t as normalizeOutboundIdentity } from "../identity-COl7_2Em.js";
+import { n as resolveAgentOutboundIdentity, t as normalizeOutboundIdentity } from "../identity-B2b8Ha2C.js";
 import { a as resolveIndicatorType, i as resetHeartbeatEventsForTest, n as getLastHeartbeatEvent, r as onHeartbeatEvent, t as emitHeartbeatEvent } from "../heartbeat-events-CIgEHiJM.js";
 import { t as resolveHeartbeatVisibility } from "../heartbeat-visibility-UVwDVBL7.js";
 import { i as normalizeScpRemotePath, n as isSafeScpRemotePath, r as normalizeScpRemoteHost, t as isSafeScpRemoteHost } from "../scp-host-BtrM4IVE.js";

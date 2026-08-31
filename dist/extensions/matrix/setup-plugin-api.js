@@ -1,2 +1,2 @@
-import { n as matrixSetupPlugin } from "../../channel.setup-ByPQ6kQd.js";
+import { n as matrixSetupPlugin } from "../../channel.setup-BdFLNwI6.js";
 export { matrixSetupPlugin };

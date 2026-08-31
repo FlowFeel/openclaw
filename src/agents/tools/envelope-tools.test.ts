@@ -26,20 +26,23 @@ describe("Degree 1: SelfStateEnvelope Certified Tools", () => {
         },
       ],
       [
-        ["turn_10", "Original detailed prompt instructions from Ed Phillips regarding platform deployment"],
+        [
+          "turn_10",
+          "Original detailed prompt instructions from Ed Phillips regarding platform deployment",
+        ],
       ],
     );
   });
 
-  it("peek returns targeted field with minimal payload (< 40 tokens)", () => {
-    const res = peek("F1.headroom");
+  it("peek returns targeted field with minimal payload (< 40 tokens)", async () => {
+    const res = await peek("F1.headroom");
     expect(res.path).toBe("F1.headroom");
     expect(res.result).toBeDefined();
 
-    const f3 = peek("F3.route");
+    const f3 = await peek("F3.route");
     expect(f3.result).toBe("fits");
 
-    const f2Last = peek("F2.lastEvent") as any;
+    const f2Last = (await peek("F2.lastEvent")) as any;
     expect(f2Last.result.eventId).toBe("cmp_1");
   });
 
@@ -56,12 +59,12 @@ describe("Degree 1: SelfStateEnvelope Certified Tools", () => {
     expect(res.error).toContain("not found");
   });
 
-  it("bandwidth_negotiate sets forward routing intent", () => {
+  it("bandwidth_negotiate sets forward routing intent", async () => {
     const res = bandwidth_negotiate("truncate_tool_results", "High noise turn upcoming");
     expect(res.ok).toBe(true);
     expect(res.requestedRoute).toBe("truncate_tool_results");
 
-    const f3 = peek("F3.requestedRoute");
+    const f3 = await peek("F3.requestedRoute");
     expect(f3.result).toBe("truncate_tool_results");
   });
 });

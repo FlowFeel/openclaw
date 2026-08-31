@@ -1,6 +1,6 @@
 import { n as listChatCommands, r as listChatCommandsForConfig, t as isCommandEnabled } from "../commands-registry-list-DXrd7jpp.js";
 import { i as resolveTextCommand, n as maybeResolveTextAlias, r as normalizeCommandBody, t as getCommandDetection } from "../commands-registry-normalize-CdLMZZiE.js";
-import { a as shouldComputeCommandAuthorized, n as hasInlineCommandTokens, r as isControlCommandMessage, t as hasControlCommand } from "../command-detection-DRA9_HMj.js";
+import { a as shouldComputeCommandAuthorized, n as hasInlineCommandTokens, r as isControlCommandMessage, t as hasControlCommand } from "../command-detection-CQRfMa_o.js";
 import { a as parseAccessGroupAllowFromEntry, t as ACCESS_GROUP_ALLOW_FROM_PREFIX } from "../allow-from-o-cfFFcK.js";
 import { r as resolveDmGroupAccessWithLists } from "../dm-policy-shared-B0DvumLR.js";
 import { i as resolveStoredModelOverride } from "../stored-model-override-aLKjYIZS.js";
@@ -14,7 +14,7 @@ import "../channel-access-compat-_yLjhtIU.js";
 import { n as resolveAccessGroupAllowFromMatches, r as resolveAccessGroupAllowFromState, t as expandAllowFromWithAccessGroups } from "../access-groups-QbJVwfug.js";
 import { n as resolveInboundDirectDmAccessWithRuntime, t as createPreCryptoDirectDmAuthorizer } from "../direct-dm-access-DYR4SKlo.js";
 import { t as resolveNativeCommandSessionTargets } from "../native-command-session-targets-8iIUPPYo.js";
-import { i as resolveModelsCommandReply, n as formatModelsAvailableHeader, t as buildModelsProviderData } from "../commands-models-CTmFvBq8.js";
+import { i as resolveModelsCommandReply, n as formatModelsAvailableHeader, t as buildModelsProviderData } from "../commands-models-DxXvYxKp.js";
 //#region src/plugin-sdk/telegram-command-ui.ts
 /**
 * Telegram command UI helpers exposed for plugin command pagination.

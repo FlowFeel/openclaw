@@ -13,18 +13,18 @@ import { n as normalizeXaiResolvedModel, r as resolveXaiForwardCompatModel, t as
 import { n as resolveXaiTransport } from "../../api-RrWJVzbb2.js";
 import { n as createCodeExecutionToolDefinition, t as buildMissingCodeExecutionApiKeyPayload } from "../../code-execution-tool-shared-CeAkKo1Y.js";
 import { t as resolveThinkingProfile } from "../../provider-policy-api-DksqB9jO.js";
-import { t as buildXaiRealtimeTranscriptionProvider } from "../../realtime-transcription-provider-Dfy6khK3.js";
-import { t as buildXaiRealtimeVoiceProvider } from "../../realtime-voice-provider-BWGTfU0k.js";
-import { t as buildXaiSpeechProvider } from "../../speech-provider-C1S2FT9S.js";
+import { t as buildXaiRealtimeTranscriptionProvider } from "../../realtime-transcription-provider-wHj5EaKs.js";
+import { t as buildXaiRealtimeVoiceProvider } from "../../realtime-voice-provider-DgH0NfsD.js";
+import { t as buildXaiSpeechProvider } from "../../speech-provider-C_Miw8-T.js";
 import { n as resolveFallbackXaiAuth, t as isXaiToolEnabled } from "../../tool-auth-shared-C88rQFio.js";
 import { n as readPluginCodeExecutionConfig, r as resolveCodeExecutionEnabled } from "../../code-execution-config-Coj_WU6I.js";
 import { t as resolveEffectiveXSearchConfig } from "../../x-search-config-_AHlY_PG.js";
 import { t as wrapXaiProviderStream } from "../../stream-CgjpqRgF.js";
 import { t as buildXaiMediaUnderstandingProvider } from "../../stt-CF9p7abu.js";
 import { t as buildXaiVideoGenerationProvider } from "../../video-generation-provider-DaEp2Ryn.js";
-import { t as createXaiWebSearchProvider } from "../../web-search-TJiZZQMO.js";
+import { t as createXaiWebSearchProvider } from "../../web-search-OD3UkwdY.js";
 import { n as buildMissingXSearchApiKeyPayload, r as createXSearchToolDefinition } from "../../x-search-tool-shared-nlZ40kdg.js";
-import { n as createXaiOAuthAuthMethod, r as refreshXaiOAuthCredential, t as createXaiDeviceCodeAuthMethod } from "../../xai-oauth-DG0WXeqR.js";
+import { n as createXaiOAuthAuthMethod, r as refreshXaiOAuthCredential, t as createXaiDeviceCodeAuthMethod } from "../../xai-oauth-BbkiYtg3.js";
 //#region extensions/xai/index.ts
 const PROVIDER_ID = "xai";
 const XAI_CREDIT_OR_SPENDING_LIMIT_RE = /\b(?:used all available credits|run out of credits|monthly spending limit|purchase more credits|raise your spending limit|need a Grok subscription)\b/i;

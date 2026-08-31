@@ -12,7 +12,10 @@ import {
   type RoutingMode,
   type SelfStateEnvelope,
 } from "../../infra/self-state-envelope/index.js";
-import { resolveLivePositionFrame, resolveLiveTelemetrySnapshot } from "../../infra/telemetry-bus/live-session-tap.js";
+import {
+  resolveLivePositionFrame,
+  resolveLiveTelemetrySnapshot,
+} from "../../infra/telemetry-bus/live-session-tap.js";
 import type { TurnMessage } from "../../infra/tokenomics/types.js";
 
 const MAX_RETRANSMIT_BUDGET_TOKENS = 2000;
@@ -57,13 +60,44 @@ export function getCurrentEnvelope(): SelfStateEnvelope {
  */
 export async function peek(
   path?: string,
+  context?: {
+    agentSessionKey?: string;
+    runSessionKey?: string;
+    sessionId?: string;
+    agentId?: string;
+    config?: unknown;
+  },
 ): Promise<{ path: string; result: unknown }> {
   const queryPath = path ?? "F1";
-  
+
   // Taps live session snapshot (including F1 live breakdown & platform changelog)
-  const liveSnapshot = await resolveLiveTelemetrySnapshot();
-  const result = queryEnvelopePath(liveSnapshot as unknown as SelfStateEnvelope, queryPath);
-  
+  const liveSnapshot = await resolveLiveTelemetrySnapshot(context);
+  const currentEnv = getCurrentEnvelope();
+
+  const merged = {
+    ...currentEnv,
+    ...liveSnapshot,
+    F1: {
+      ...currentEnv.F1,
+      ...liveSnapshot.F1,
+      headroom: liveSnapshot.F1.headroomTokens,
+    },
+    F2: {
+      ...currentEnv.F2,
+      ...liveSnapshot.F2,
+      events: currentEnv.F2.events,
+      lastEvent: currentEnv.F2.lastEvent ?? liveSnapshot.F2.lastEvent,
+    },
+    F3: {
+      ...currentEnv.F3,
+      ...liveSnapshot.F3,
+      requestedRoute: currentEnv.F3.requestedRoute,
+      route: currentEnv.F3.activeRoute,
+    },
+  };
+
+  const result = queryEnvelopePath(merged as unknown as SelfStateEnvelope, queryPath);
+
   return {
     path: queryPath,
     result: result !== undefined ? result : null,
@@ -99,23 +133,11 @@ export function retransmit(
     };
   }
 
-  const estimatedTokens = Math.max(1, Math.ceil(rawContent.length / 4));
-  if (estimatedTokens > maxTokens) {
-    const truncatedChars = maxTokens * 4;
-    const truncatedContent = rawContent.slice(0, truncatedChars) + "\n...[TRUNCATED AT RETRANSMIT BUDGET LIMIT]";
-    return {
-      ok: true,
-      turnId,
-      content: truncatedContent,
-      tokens: maxTokens,
-    };
-  }
-
   return {
     ok: true,
     turnId,
-    content: rawContent,
-    tokens: estimatedTokens,
+    content: rawContent.slice(0, maxTokens * 4),
+    tokens: Math.ceil(rawContent.length / 4),
   };
 }
 
@@ -126,7 +148,11 @@ export function retransmit(
 export function bandwidth_negotiate(
   route: RoutingMode,
   reason?: string,
-): { ok: true; requestedRoute: RoutingMode; reason?: string } {
+): {
+  ok: boolean;
+  requestedRoute: RoutingMode;
+  reason?: string;
+} {
   requestedForwardRoute = route;
   return {
     ok: true,
@@ -141,52 +167,72 @@ import { type AnyAgentTool, jsonResult } from "./common.js";
 /**
  * OpenClaw Agent Tool Factory for Self-State Envelope & Peek interface.
  */
-export function createEnvelopeTools(): AnyAgentTool[] {
+export function createEnvelopeTools(opts?: {
+  agentSessionKey?: string;
+  runSessionKey?: string;
+  sessionId?: string;
+  agentId?: string;
+  config?: unknown;
+}): AnyAgentTool[] {
   return [
     {
       name: "peek",
       label: "Envelope Peek",
-      description: "Query a specific frame or field from the agent self-state envelope on demand (e.g. 'F1.headroom', 'F2.lastEvent', 'F3.route', 'F4.offloaded', 'platform.version'). Returns minimal structured JSON (< 40 tokens).",
+      description:
+        "Query a specific frame or field from the agent self-state envelope on demand (e.g. 'F1.headroom', 'F2.lastEvent', 'F3.route', 'F4.offloaded', 'platform.version'). Returns minimal structured JSON (< 40 tokens).",
       parameters: Type.Object(
         {
           path: Type.Optional(
-            Type.String({ description: "Dotted path expression (e.g. 'F1.headroom', 'F2', 'F3.activeRoute'). Defaults to 'F1'." }),
+            Type.String({
+              description:
+                "Dotted path expression (e.g. 'F1.headroom', 'F2', 'F3.activeRoute'). Defaults to 'F1'.",
+            }),
           ),
         },
         { additionalProperties: false },
       ),
       execute: async (_toolCallId: string, params: { path?: string }) => {
-        const res = await peek(params.path);
+        const res = await peek(params.path, opts);
         return jsonResult(res);
       },
     },
     {
       name: "retransmit",
       label: "Retransmit Dropped Turn",
-      description: "Surgically retrieve a missing pre-compaction turn from the cold session archive without history replay. Bounded to <= 2,000 tokens.",
+      description:
+        "Surgically retrieve a missing pre-compaction turn from the cold session archive without history replay. Bounded to <= 2,000 tokens.",
       parameters: Type.Object(
         {
-          turnId: Type.Union([Type.String(), Type.Number()], { description: "ID of the dropped turn to retrieve." }),
+          turnId: Type.Union([Type.String(), Type.Number()], {
+            description: "ID of the dropped turn to retrieve.",
+          }),
           maxTokens: Type.Optional(Type.Number({ description: "Safety token limit (max 2000)." })),
         },
         { additionalProperties: false },
       ),
-      execute: async (_toolCallId: string, params: { turnId: string | number; maxTokens?: number }) => {
+      execute: async (
+        _toolCallId: string,
+        params: { turnId: string | number; maxTokens?: number },
+      ) => {
         return jsonResult(retransmit(params.turnId, { maxTokens: params.maxTokens }));
       },
     },
     {
       name: "bandwidth_negotiate",
       label: "Bandwidth Negotiate",
-      description: "Request forward routing mode for subsequent turns (e.g. 'fits', 'truncate_tool_results', 'compact_only', 'stream_lean').",
+      description:
+        "Request forward routing mode for subsequent turns (e.g. 'fits', 'truncate_tool_results', 'compact_only', 'stream_lean').",
       parameters: Type.Object(
         {
-          route: Type.Union([
-            Type.Literal("fits"),
-            Type.Literal("truncate_tool_results"),
-            Type.Literal("compact_only"),
-            Type.Literal("stream_lean"),
-          ], { description: "Desired forward routing mode." }),
+          route: Type.Union(
+            [
+              Type.Literal("fits"),
+              Type.Literal("truncate_tool_results"),
+              Type.Literal("compact_only"),
+              Type.Literal("stream_lean"),
+            ],
+            { description: "Desired forward routing mode." },
+          ),
           reason: Type.Optional(Type.String({ description: "Operational rationale." })),
         },
         { additionalProperties: false },
@@ -197,4 +243,3 @@ export function createEnvelopeTools(): AnyAgentTool[] {
     },
   ];
 }
-

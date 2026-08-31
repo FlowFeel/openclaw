@@ -16,7 +16,7 @@ import { t as resolveMemoryBackendConfig } from "../../backend-config-CjeQx_ev.j
 import "../../routing-BYqzCOl5.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
 import { r as resolvePluginConfigObject } from "../../plugin-config-runtime-D33X7huv.js";
-import "../../agent-runtime-DsKwq-hA.js";
+import "../../agent-runtime-Ba_G98qe.js";
 import "../../gateway-runtime-CTPMrBVl.js";
 import "../../channel-actions-BCwQOL9z.js";
 import "../../memory-core-host-status-BeKkPEJl.js";
@@ -325,10 +325,10 @@ function registerSessionBackfillGatewayMethods(api) {
 }
 //#endregion
 //#region extensions/memory-core/index.ts
-const loadMemoryToolsModule = createLazyRuntimeModule(() => import("../../tools-C0yRQxIt.js"));
+const loadMemoryToolsModule = createLazyRuntimeModule(() => import("../../tools-C3gchqwU.js"));
 const loadStandingIntentsModule = createLazyRuntimeModule(() => import("../../standing-intents-C9BgWg9a.js"));
 const loadStandingIntentToolModule = createLazyRuntimeModule(() => import("../../standing-intents-tool-BAxRYY8I.js"));
-const loadRuntimeProviderModule = createLazyRuntimeModule(() => import("../../runtime-provider-Bb5j7ylW.js"));
+const loadRuntimeProviderModule = createLazyRuntimeModule(() => import("../../runtime-provider-ZjaSzxv2.js"));
 function getToolConfig(options) {
 	return options.getConfig?.() ?? options.config;
 }

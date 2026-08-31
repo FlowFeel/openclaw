@@ -10,13 +10,13 @@ import { o as createAgentRunRestartAbortError } from "./run-termination-7xcnysfe
 import { n as disposeAllSessionMcpRuntimes } from "./agent-bundle-mcp-manager-api-Dhw3B2An.js";
 import "./agent-bundle-mcp-tools-zRs4ekW2.js";
 import { m as triggerInternalHook, n as createInternalHookEvent } from "./internal-hooks-TKQvpTQu.js";
-import { t as clearSessionSuspensionTimers } from "./session-suspension-DArbiNKI.js";
+import { t as clearSessionSuspensionTimers } from "./session-suspension-BYbEyLud.js";
 import { n as createChatAbortMarker } from "./server-chat-state-C8AVcQU8.js";
 import { a as isChatAbortControllerEntryAbortable, c as removeChatAbortControllerEntry, r as abortTrackedChatRunById } from "./chat-abort-S5cQPsk-.js";
 import { n as abortQueuedChatTurns } from "./chat-queued-turns-DWyXqGgL.js";
 import { n as collectGatewayProcessMemoryUsageMb, o as measureGatewayRestartTrace, s as recordGatewayRestartTrace } from "./restart-trace-Cu5YQjxo.js";
 import { n as clearSessionTypingState } from "./session-typing-state-CJxhp501.js";
-import { r as drainActiveSessionsForShutdown } from "./session-reset-service-BCroPeu8.js";
+import { r as drainActiveSessionsForShutdown } from "./session-reset-service-CdCwNOsu.js";
 import { cleanupSessionResources } from "@openclaw/ai/internal/runtime";
 //#region src/gateway/server-close.ts
 const shutdownLog = createSubsystemLogger("gateway/shutdown");
@@ -466,7 +466,7 @@ function createGatewayCloseHandler(params) {
 				for (const channelId of channelIds) await shutdownStep(`channel/${channelId}`, () => params.stopChannel(channelId), warnings);
 			});
 			await shutdownStep("code-mode-runs", async () => {
-				const { disposeAllCodeModeRuns } = await import("./code-mode-state-Dfce7qic.js");
+				const { disposeAllCodeModeRuns } = await import("./code-mode-state-VgE_Ym28.js");
 				return disposeAllCodeModeRuns();
 			}, warnings);
 			await shutdownStep("agent-harnesses", () => disposeRegisteredAgentHarnesses(), warnings);

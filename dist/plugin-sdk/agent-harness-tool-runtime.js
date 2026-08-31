@@ -1,9 +1,9 @@
 import { n as CODE_MODE_WAIT_TOOL_NAME, t as CODE_MODE_EXEC_TOOL_NAME } from "../code-mode-control-tools-B1t6Lt9X.js";
 import { a as resolveLocalModelLeanPreserveToolNames, o as messageToolOwnsVisibleReply, r as filterLocalModelLeanTools } from "../tool-runtime-config-BS2msW8y.js";
 import { t as resolveConversationCapabilityProfile } from "../conversation-capability-profile-BVd3lfVK.js";
-import { E as TOOL_SEARCH_CODE_MODE_TOOL_NAME, O as TOOL_SEARCH_RAW_TOOL_NAME, T as TOOL_DESCRIBE_RAW_TOOL_NAME, _ as clearToolSearchCatalog, b as createToolSearchCatalogRef, w as TOOL_CALL_RAW_TOOL_NAME } from "../swarm-code-mode-QiHrmZvU.js";
+import { E as TOOL_SEARCH_CODE_MODE_TOOL_NAME, O as TOOL_SEARCH_RAW_TOOL_NAME, T as TOOL_DESCRIBE_RAW_TOOL_NAME, _ as clearToolSearchCatalog, b as createToolSearchCatalogRef, w as TOOL_CALL_RAW_TOOL_NAME } from "../swarm-code-mode-QP5jRX6m.js";
 import { n as filterRuntimeCompatibleTools } from "../tool-schema-projection-ZrMdwk4s.js";
-import { i as createCodeModeTools, n as resolveAgentToolSurfacePlan, t as applyAgentToolSurfaceCatalog } from "../tool-surface-plan-Z8WrT827.js";
+import { i as createCodeModeTools, n as resolveAgentToolSurfacePlan, t as applyAgentToolSurfaceCatalog } from "../tool-surface-plan-CnyRXu4E.js";
 //#region src/agents/harness/tool-surface-bridge.ts
 const TOOL_SEARCH_CONTROL_ALLOWLIST_NAMES = [
 	TOOL_SEARCH_CODE_MODE_TOOL_NAME,

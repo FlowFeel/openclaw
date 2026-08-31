@@ -1,3 +1,3 @@
-import { t as twitchPlugin } from "../../plugin-COoW1bOD.js";
+import { t as twitchPlugin } from "../../plugin-CjH5cKDm.js";
 import { n as setTwitchRuntime } from "../../runtime-SvsAyoAA.js";
 export { setTwitchRuntime, twitchPlugin };

@@ -1,6 +1,6 @@
 import { d as normalizeTrimmedStringList } from "../../string-normalization-CRyoFBPt.js";
 import { t as createSubsystemLogger } from "../../subsystem-Cr19cPPQ.js";
-import { m as filterBootstrapFilesForSession, v as loadExtraBootstrapFilesWithDiagnostics } from "../../workspace-CelKqYGr.js";
+import { m as filterBootstrapFilesForSession, v as loadExtraBootstrapFilesWithDiagnostics } from "../../workspace-CxmPixs8.js";
 import { a as isAgentBootstrapEvent } from "../../internal-hooks-TKQvpTQu.js";
 import { i as resolveHookConfig } from "../../config-CaQnSSBm.js";
 //#region src/hooks/bundled/bootstrap-extra-files/handler.ts

@@ -48,10 +48,12 @@ import type { SandboxFsBridge } from "./sandbox/fs-bridge.js";
 import type { SpawnedToolContext } from "./spawned-context.js";
 import type { ToolFsPolicy } from "./tool-fs-policy.js";
 import { resolveToolLoopDetectionConfig } from "./tool-loop-detection-config.js";
+import { createAgentSignalTool } from "./tools/agent-signal-tool.js";
 import { createAgentsListTool } from "./tools/agents-list-tool.js";
 import { createAskUserTool } from "./tools/ask-user-tool.js";
-import { createListTopicsTool } from "./tools/list-topics-tool.js";
+import { createAttributionTools } from "./tools/attribution-tools.js";
 import type { AnyAgentTool } from "./tools/common.js";
+import { createCompactionMeterTools } from "./tools/compaction-meter-tool.js";
 import { createComputerTool } from "./tools/computer-tool.js";
 import {
   createConversationsListTool,
@@ -61,6 +63,7 @@ import {
 import { createCronTool, type CronCreatorToolAllowlistEntry } from "./tools/cron-tool.js";
 import { createDashboardTool } from "./tools/dashboard-tool.js";
 import { createEmbeddedCallGateway } from "./tools/embedded-gateway-stub.js";
+import { createEnvelopeTools } from "./tools/envelope-tools.js";
 import { createGatewayToolCallerWrapper } from "./tools/gateway-caller-context.js";
 import { createGatewayTool } from "./tools/gateway-tool.js";
 import {
@@ -69,8 +72,11 @@ import {
   createUpdateGoalTool,
 } from "./tools/goal-tools.js";
 import { createHeartbeatResponseTool } from "./tools/heartbeat-response-tool.js";
+import { createHickeyMapTools } from "./tools/hickey-map-tools.js";
 import { createImageGenerateTool } from "./tools/image-generate-tool.js";
 import { createImageTool } from "./tools/image-tool.js";
+import { createListTopicsTool } from "./tools/list-topics-tool.js";
+import { createMemoryAuditTool } from "./tools/memory-audit-tool.js";
 import { createMessageTool } from "./tools/message-tool.js";
 import { createMobileUiTool } from "./tools/mobile-ui-tool.js";
 import { createMusicGenerateTool } from "./tools/music-generate-tool.js";
@@ -78,8 +84,8 @@ import { createNodesTool } from "./tools/nodes-tool.js";
 import { createOpenClawDelegateToolsForRun } from "./tools/openclaw-delegate-tool.js";
 import { createPdfTool } from "./tools/pdf-tool.js";
 import { createScreenTool } from "./tools/screen-tool.js";
+import { createSearchIndexTool } from "./tools/search-index-tool.js";
 import { createSessionStatusTool } from "./tools/session-status-tool.js";
-import { createToolResultFetchTool } from "./tools/tool-result-fetch-tool.js";
 import { createSessionsHistoryTool } from "./tools/sessions-history-tool.js";
 import { createSessionsListTool } from "./tools/sessions-list-tool.js";
 import { createSessionsSearchTool } from "./tools/sessions-search-tool.js";
@@ -88,22 +94,16 @@ import { createSessionsSpawnTool } from "./tools/sessions-spawn-tool.js";
 import { createSessionsTool } from "./tools/sessions-tool.js";
 import { createSessionsYieldTool } from "./tools/sessions-yield-tool.js";
 import { createConfiguredSkillWorkshopTool } from "./tools/skill-workshop-tool-factory.js";
-import { createAgentSignalTool } from "./tools/agent-signal-tool.js";
-import { createMemoryAuditTool } from "./tools/memory-audit-tool.js";
-import { createSearchIndexTool } from "./tools/search-index-tool.js";
 import { createSubagentsTool } from "./tools/subagents-tool.js";
 import { createSystemCapabilitiesTool } from "./tools/system-capabilities-tool.js";
 import { createSystemProbeTool } from "./tools/system-probe-tool.js";
+import { createSystemPromptInspectTool } from "./tools/system-prompt-inspect-tool.js";
 import { createTaskSuggestionTools } from "./tools/task-suggestion-tools.js";
 import { createTerminalTool } from "./tools/terminal-tool.js";
+import { createTokenomicsTools } from "./tools/tokenomics-tools.js";
+import { createToolResultFetchTool } from "./tools/tool-result-fetch-tool.js";
 import { createTranscriptsTool } from "./tools/transcripts-tool.js";
 import { createTtsTool } from "./tools/tts-tool.js";
-import { createEnvelopeTools } from "./tools/envelope-tools.js";
-import { createTokenomicsTools } from "./tools/tokenomics-tools.js";
-import { createAttributionTools } from "./tools/attribution-tools.js";
-import { createCompactionMeterTools } from "./tools/compaction-meter-tool.js";
-import { createSystemPromptInspectTool } from "./tools/system-prompt-inspect-tool.js";
-import { createHickeyMapTools } from "./tools/hickey-map-tools.js";
 import { createUpdatePlanTool } from "./tools/update-plan-tool.js";
 import { createVideoGenerateTool } from "./tools/video-generate-tool.js";
 import { createWebFetchTool, createWebSearchTool } from "./tools/web-tools.js";
@@ -761,7 +761,13 @@ export function createOpenClawTools(
     createAgentSignalTool({
       sessionId: options?.agentSessionKey,
     }),
-    ...createEnvelopeTools(),
+    ...createEnvelopeTools({
+      agentSessionKey: options?.agentSessionKey,
+      runSessionKey: options?.runSessionKey,
+      sessionId: options?.sessionId,
+      agentId: sessionAgentId,
+      config: resolvedConfig,
+    }),
     ...createTokenomicsTools(),
     ...createAttributionTools(),
     ...createCompactionMeterTools(),
