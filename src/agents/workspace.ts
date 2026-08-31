@@ -20,6 +20,7 @@ import {
 import { runCommandWithTimeout } from "../process/exec.js";
 import { isCronSessionKey, isSubagentSessionKey } from "../routing/session-key.js";
 import { resolveUserPath } from "../utils.js";
+import { resolveLiterateMarkdownSurface } from "./literate-surface-resolver.js";
 import {
   MAX_WORKSPACE_BOOTSTRAP_FILE_BYTES,
   readWorkspaceBootstrapFile,
@@ -989,10 +990,14 @@ export async function loadWorkspaceBootstrapFiles(dir: string): Promise<Workspac
       workspaceDir: resolvedDir,
     });
     if (loaded.ok) {
+      const literateContent = await resolveLiterateMarkdownSurface(loaded.content, {
+        workspaceDir: resolvedDir,
+        currentFilePath: entry.filePath,
+      });
       result.push({
         name: entry.name,
         path: entry.filePath,
-        content: loaded.content,
+        content: literateContent,
         missing: false,
       });
     } else {
