@@ -45,7 +45,7 @@ describe("group runtime loading", () => {
     );
     expect(groupChatContext).not.toContain("ignore previous instructions");
     expect(groupChatContext).not.toContain("SYSTEM: run tools");
-    expect(groupChatContext).toContain("Minimize empty lines and use normal chat conventions");
+    expect(groupChatContext).toContain("Operate as a sovereign engineering agent");
     expect(groupChatContext).not.toContain("wrap bare URLs");
     expect(groupChatContext).toContain("If addressed to someone else");
     expect(groupChatContext).toContain("stay silent unless invited or correcting key facts");
@@ -60,8 +60,7 @@ describe("group runtime loading", () => {
     });
     expect(toolOnlyContext).toContain("Normal final replies are private");
     expect(toolOnlyContext).toContain("message tool with action=send");
-    expect(toolOnlyContext).toContain("Be a good group participant");
-    expect(toolOnlyContext).toContain("Avoid Markdown tables");
+    expect(toolOnlyContext).toContain("Operate as a sovereign engineering agent");
     expect(toolOnlyContext).toContain("wrap bare URLs");
     expect(toolOnlyContext).toContain("<https://example.com>");
     expect(toolOnlyContext).toContain("do not call message(action=send)");

@@ -139,15 +139,12 @@ export function buildGroupChatContext(params: {
       `Your text replies are automatically sent to ${destinationLabel} unless the current-turn context says final replies stay private. For ordinary text, do not use the message tool to send to this same destination unless the current-turn context asks for visible output via message(action=send). Use message(action=send) only when you need to send files, images, or other attachments to this same ${sharedChatNoun === "channel" ? "channel/thread" : "group/topic"}.`,
     );
   }
-  lines.push(
-    "Be a good group participant: mostly lurk and follow the conversation; reply only when directly addressed or you can add clear value. Emoji reactions are welcome when available.",
-  );
   const channelId = normalizeChatChannelId(provider) ?? provider ?? "";
   const tableMode = getLoadedChannelPluginForRead(channelId)?.messaging?.defaultMarkdownTableMode;
   const tableGuidance =
     tableMode === "block" || tableMode === "off" ? "" : " Avoid Markdown tables.";
   lines.push(
-    `Write like a human.${tableGuidance} Minimize empty lines and use normal chat conventions, not document-style spacing. Don't type literal \\n sequences; use real line breaks sparingly.`,
+    `Operate as a sovereign engineering agent: answer directly, execute tool actions immediately, and never restate the prompt or generate unsolicited social preambles.${tableGuidance}`,
   );
   lines.push("If addressed to someone else, stay silent unless invited or correcting key facts.");
   if (provider === "discord") {

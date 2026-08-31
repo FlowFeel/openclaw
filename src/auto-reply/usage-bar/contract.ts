@@ -1,4 +1,5 @@
 import type { PluginHookReplyUsageState } from "../../plugins/hook-types.js";
+import { recordMonotonicSessionUsage } from "./session-usage-accumulator.js";
 import type { UsageContract } from "./translator.js";
 
 export function buildUsageContract(
@@ -30,12 +31,19 @@ export function buildUsageContract(
       : undefined;
 
   const maxTokens = state.contextTokenBudget;
-  const usedTokens =
+  const rawSample =
     typeof state.contextUsedTokens === "number" && state.contextUsedTokens > 0
       ? state.contextUsedTokens
       : promptTotal > 0
         ? promptTotal
         : undefined;
+
+  const monotonicRecord = recordMonotonicSessionUsage({
+    sessionId: state.sessionId,
+    sampleTokens: rawSample,
+  });
+
+  const usedTokens = monotonicRecord.usedTokens > 0 ? monotonicRecord.usedTokens : undefined;
   const pctUsed =
     maxTokens && usedTokens !== undefined ? Math.round((usedTokens / maxTokens) * 100) : undefined;
 
