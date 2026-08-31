@@ -1,0 +1,14 @@
+# .antigravityignore — Submodule Indexing Suppression
+node_modules/
+**/node_modules/
+pnpm-lock.yaml
+package-lock.json
+dist/
+**/dist/
+build/
+coverage/
+.vitest-cache/
+*.log
+*.tmp
+*.bak
+.DS_Store
