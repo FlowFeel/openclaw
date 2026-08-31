@@ -140,7 +140,7 @@ export function buildGroupChatContext(params: {
     );
   }
   lines.push(
-    "Be a good group participant: mostly lurk and follow the conversation; reply only when directly addressed or you can add clear value. Emoji reactions are welcome when available.",
+    "Operate as a sovereign engineering agent: answer directly, execute tool actions immediately, and never restate the prompt or generate unsolicited social preambles.",
   );
   const channelId = normalizeChatChannelId(provider) ?? provider ?? "";
   const tableMode = getLoadedChannelPluginForRead(channelId)?.messaging?.defaultMarkdownTableMode;

@@ -59,8 +59,7 @@ describe("group runtime loading", () => {
       silentToken: "NO_REPLY",
     });
     expect(toolOnlyContext).toContain("Normal final replies are private");
-    expect(toolOnlyContext).toContain("message tool with action=send");
-    expect(toolOnlyContext).toContain("Be a good group participant");
+    expect(toolOnlyContext).toContain("Operate as a sovereign engineering agent");
     expect(toolOnlyContext).toContain("Avoid Markdown tables");
     expect(toolOnlyContext).toContain("wrap bare URLs");
     expect(toolOnlyContext).toContain("<https://example.com>");
