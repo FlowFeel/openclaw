@@ -227,6 +227,8 @@ export function createOpenClawTools(
      * subagents inherit the real workspace path instead of the sandbox copy.
      */
     spawnWorkspaceDir?: string;
+    /** If true, include heavy diagnostics (tokenomics_snr, noise_inspect, attribution_inspect). */
+    isDiagnosticMode?: boolean;
     /** Current runtime directory used as the default project for follow-up suggestions. */
     cwd?: string;
     /** Callback invoked when sessions_yield tool is called. */
@@ -764,9 +766,9 @@ export function createOpenClawTools(
     }),
     createActivityInspectTool(),
     ...createEnvelopeTools(),
-    ...createTokenomicsTools(),
-    ...createAttributionTools(),
-    ...createCompactionMeterTools(),
+    ...(options?.isDiagnosticMode ? createTokenomicsTools() : []),
+    ...(options?.isDiagnosticMode ? createAttributionTools() : []),
+    ...(options?.isDiagnosticMode ? createCompactionMeterTools() : []),
     createSystemPromptInspectTool(),
     ...createHickeyMapTools(),
     ...collectPresentOpenClawTools([webSearchTool, webFetchTool, imageTool, pdfTool]),
