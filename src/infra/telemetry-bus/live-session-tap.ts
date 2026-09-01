@@ -7,6 +7,7 @@
  * and 4-way per-source breakdown to peek("F1") and live sensors.
  */
 
+import { getSessionLoopPenalties } from "../../agents/tools/loop-guard/command-loop-breaker.js";
 import {
   calculateTranscriptPerSourceBreakdown,
   type TranscriptPerSourceBreakdown,
@@ -15,7 +16,7 @@ import { getMonotonicSessionUsage } from "../../auto-reply/usage-bar/session-usa
 import { readRecentSessionUsageFromTranscript } from "../../gateway/session-transcript-readers.js";
 import { calculateSNR } from "../tokenomics/snr-calculator.js";
 import type { TurnMessage } from "../tokenomics/types.js";
-import type { Frame1Position, LiveTelemetrySnapshot } from "./types.js";
+import type { Frame1Position, InFlightChainMetrics, LiveTelemetrySnapshot } from "./types.js";
 
 const DEFAULT_MODEL_LIMIT = 128000;
 const FORECLOSURE_THRESHOLD_RATIO = 0.85;
@@ -28,6 +29,108 @@ export interface LiveSessionContext {
   config?: unknown;
 }
 
+interface InFlightTurnState {
+  callsCount: number;
+  callsLimit: number;
+  tier: "Diamond" | "Gold" | "Silver" | "Bronze";
+  score: number;
+  spread: number;
+  turnStartTimeMs: number;
+  timeoutMs: number;
+}
+
+const activeInFlightTurns = new Map<string, InFlightTurnState>();
+
+export function startInFlightTurn(params: {
+  sessionId?: string;
+  tier?: "Diamond" | "Gold" | "Silver" | "Bronze";
+  score?: number;
+  spread?: number;
+  timeoutSeconds?: number;
+}): void {
+  const sessionId = params.sessionId?.trim() || "default";
+  const score = params.score ?? 100;
+  const spread = params.spread ?? 1.0;
+  let tier: "Diamond" | "Gold" | "Silver" | "Bronze" = params.tier ?? "Gold";
+  let callsLimit = 8;
+
+  if (score >= 99) {
+    tier = "Diamond";
+    callsLimit = 12;
+  } else if (score >= 95) {
+    tier = "Gold";
+    callsLimit = 8;
+  } else if (score >= 85) {
+    tier = "Silver";
+    callsLimit = 5;
+  } else {
+    tier = "Bronze";
+    callsLimit = 3;
+  }
+
+  activeInFlightTurns.set(sessionId, {
+    callsCount: 0,
+    callsLimit,
+    tier,
+    score,
+    spread,
+    turnStartTimeMs: Date.now(),
+    timeoutMs: (params.timeoutSeconds ?? 300) * 1000,
+  });
+}
+
+export function recordInFlightToolCall(sessionId?: string): {
+  callsUsed: number;
+  callsLimit: number;
+  budgetExhausted: boolean;
+} {
+  const key = sessionId?.trim() || "default";
+  let state = activeInFlightTurns.get(key);
+  if (!state) {
+    startInFlightTurn({ sessionId: key });
+    state = activeInFlightTurns.get(key)!;
+  }
+  state.callsCount += 1;
+  const budgetExhausted = state.callsCount >= state.callsLimit;
+  return {
+    callsUsed: state.callsCount,
+    callsLimit: state.callsLimit,
+    budgetExhausted,
+  };
+}
+
+export function getInFlightChainMetrics(sessionId?: string): InFlightChainMetrics {
+  const key = sessionId?.trim() || "default";
+  const state = activeInFlightTurns.get(key);
+  const loopPenalty = getSessionLoopPenalties(key);
+
+  const callsUsed = state?.callsCount ?? 0;
+  const callsLimit = state?.callsLimit ?? 8;
+  const rawScore = state?.score ?? 100;
+  const adjustedScore = Math.max(0, rawScore - loopPenalty);
+  const spread = state?.spread ?? 1.0;
+  const tier = state?.tier ?? "Gold";
+
+  const elapsedSec = state ? Math.floor((Date.now() - state.turnStartTimeMs) / 1000) : 0;
+  const totalTimeoutSec = state ? Math.floor(state.timeoutMs / 1000) : 300;
+  const runwaySecondsLeft = Math.max(0, totalTimeoutSec - elapsedSec);
+
+  return {
+    callsUsed,
+    callsLimit,
+    spread,
+    score: adjustedScore,
+    tier,
+    runwaySecondsLeft,
+    inFlightBudgetExhausted: callsUsed >= callsLimit,
+  };
+}
+
+export function clearInFlightTurn(sessionId?: string): void {
+  if (!sessionId) return;
+  activeInFlightTurns.delete(sessionId.trim());
+}
+
 // Active in-process session tap state
 let activeTranscriptPath: string | null = null;
 let activeTurnsCache: TurnMessage[] = [];
@@ -36,8 +139,9 @@ let activeReleaseVersion = "2026.08.31-phosphene (73126114)";
 let activeChangelog: string[] = [
   "Monotonic Usage Gauge Engine (CAP-GAUGE-01)",
   "Literate Markdown Surface Resolver (CAP-LIT-01)",
+  "In-Flight Intra-Turn Scoreboard & Chain Telemetry (CAP-SCORE-01)",
+  "Command Loop Breaker & Repeat Penalty (CAP-EXEC-03)",
   "Sovereign Prompt Directives & Group Chat Lurk Purge",
-  "Live Telemetry Bus Tap (F1 live tokens + per-source breakdown)",
   "Fast-Path differential deployment runtime",
 ];
 
@@ -137,6 +241,9 @@ export async function resolveLivePositionFrame(
   const isForeclosureImminent = usedTokens / limitTokens >= FORECLOSURE_THRESHOLD_RATIO;
 
   const snrReport = calculateSNR(activeTurnsCache);
+  const effectiveSessionId =
+    context?.sessionId ?? context?.runSessionKey ?? context?.agentSessionKey;
+  const chainMetrics = getInFlightChainMetrics(effectiveSessionId);
 
   return {
     usedTokens,
@@ -146,6 +253,7 @@ export async function resolveLivePositionFrame(
     snrScore: snrReport.snrPercent,
     isForeclosureImminent,
     breakdown,
+    chainMetrics,
   };
 }
 

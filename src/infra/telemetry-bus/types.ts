@@ -5,6 +5,16 @@
 
 import type { TranscriptPerSourceBreakdown } from "../../agents/tools/session-status/transcript-usage.js";
 
+export interface InFlightChainMetrics {
+  readonly callsUsed: number;
+  readonly callsLimit: number;
+  readonly spread: number;
+  readonly score: number;
+  readonly tier: "Diamond" | "Gold" | "Silver" | "Bronze";
+  readonly runwaySecondsLeft: number;
+  readonly inFlightBudgetExhausted: boolean;
+}
+
 export interface Frame1Position {
   readonly usedTokens: number;
   readonly limitTokens: number;
@@ -13,6 +23,7 @@ export interface Frame1Position {
   readonly snrScore: number;
   readonly isForeclosureImminent: boolean;
   readonly breakdown: TranscriptPerSourceBreakdown;
+  readonly chainMetrics?: InFlightChainMetrics;
 }
 
 export interface PlatformReleaseFrame {

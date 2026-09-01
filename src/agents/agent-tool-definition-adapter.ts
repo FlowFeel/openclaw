@@ -4,6 +4,12 @@
  * logging for failed tool calls.
  */
 import { createHash } from "node:crypto";
+import { psiHeadTailTruncate } from "../infra/compaction/lazy-prefix-truncation.js";
+import { recordInFlightToolCall } from "../infra/telemetry-bus/live-session-tap.js";
+import {
+  condenseToolParameters,
+  globalToolCommandLogger,
+} from "../infra/tool-command-log/index.js";
 import { logDebug, logError } from "../logger.js";
 import { redactToolDetail } from "../logging/redact.js";
 import { isPlainObject } from "../utils.js";
@@ -31,12 +37,8 @@ import type { AgentTool, AgentToolResult, AgentToolUpdateCallback } from "./runt
 import type { ToolDefinition } from "./sessions/index.js";
 import { normalizeToolName } from "./tool-policy.js";
 import { jsonResult, payloadTextResult, ToolInputError } from "./tools/common.js";
+import { recordAndCheckCommandLoop } from "./tools/loop-guard/command-loop-breaker.js";
 import { resolveToolCallTimeoutMs } from "./tools/tool-call-timeout-policy.js";
-import { psiHeadTailTruncate } from "../infra/compaction/lazy-prefix-truncation.js";
-import {
-  condenseToolParameters,
-  globalToolCommandLogger,
-} from "../infra/tool-command-log/index.js";
 
 function applyDeliveryBoundaryTruncation<T>(
   result: AgentToolResult<T>,
@@ -49,6 +51,10 @@ function applyDeliveryBoundaryTruncation<T>(
   if (!result || typeof result !== "object" || !Array.isArray(result.content)) {
     return result;
   }
+  let wasTruncated = false;
+  let maxTotalBytes = 0;
+  let returnedBytes = 0;
+
   const projectedContent = result.content.map((item) => {
     if (
       item &&
@@ -60,14 +66,32 @@ function applyDeliveryBoundaryTruncation<T>(
       const originalText = (item as Record<string, unknown>).text as string;
       const truncatedText = psiHeadTailTruncate(originalText, truncationBudget);
       if (truncatedText !== originalText) {
+        wasTruncated = true;
+        maxTotalBytes = Math.max(maxTotalBytes, originalText.length);
+        returnedBytes += truncationBudget * 2;
         return { ...item, text: truncatedText };
       }
     }
     return item;
   });
+
+  if (wasTruncated) {
+    const existingDetails =
+      result.details && typeof result.details === "object" ? result.details : {};
+    return {
+      ...result,
+      content: projectedContent,
+      details: {
+        ...existingDetails,
+        truncated: true,
+        totalBytes: maxTotalBytes,
+        returnedBytes,
+      } as T,
+    };
+  }
+
   return { ...result, content: projectedContent };
 }
-
 
 type AnyAgentTool = AgentTool;
 
@@ -370,7 +394,11 @@ export function toToolDefinitions(
   options?: { filterTools?: string[] },
 ): ToolDefinition[] {
   let candidateTools = tools;
-  if (options?.filterTools && Array.isArray(options.filterTools) && options.filterTools.length > 0) {
+  if (
+    options?.filterTools &&
+    Array.isArray(options.filterTools) &&
+    options.filterTools.length > 0
+  ) {
     const filterSet = new Set(options.filterTools.map((t) => normalizeToolName(t.trim())));
     candidateTools = tools.filter((tool) => {
       const rawName = tool.name || "";
@@ -465,6 +493,24 @@ export function toToolDefinitions(
             const timeoutSignal = AbortSignal.timeout(perCallTimeout.timeoutMs);
             effectiveSignal = signal ? AbortSignal.any([signal, timeoutSignal]) : timeoutSignal;
           }
+
+          // ── In-Flight Telemetry & Command Loop Breaker (CAP-EXEC-03, CAP-SCORE-01) ──
+          const sessionIdentifier = hookContext?.sessionKey ?? hookContext?.sessionId;
+          const cmdRaw =
+            typeof executeParams === "object" && executeParams !== null
+              ? ((executeParams as Record<string, unknown>).command ??
+                (executeParams as Record<string, unknown>).cmd ??
+                (executeParams as Record<string, unknown>).path ??
+                (executeParams as Record<string, unknown>).query)
+              : undefined;
+          const loopReport = recordAndCheckCommandLoop({
+            sessionId: sessionIdentifier,
+            toolName: name,
+            commandRaw: typeof cmdRaw === "string" ? cmdRaw : undefined,
+            turnIndex: hookContext?.turn,
+          });
+          const inFlight = recordInFlightToolCall(sessionIdentifier);
+
           const rawResult = await tool.execute(
             toolCallId,
             executeParams,
@@ -476,10 +522,27 @@ export function toToolDefinitions(
             result: rawResult,
           });
 
+          if (loopReport.isLoop && Array.isArray(result.content)) {
+            result.content.push({
+              type: "text",
+              text: `\n⚠️ Loop Warning: Identical command repeated in current turn (${loopReport.consecutiveCount}x, penalty: -${loopReport.penalty}pts). ${loopReport.hint}`,
+            });
+          }
+          if (inFlight.budgetExhausted && Array.isArray(result.content)) {
+            result.content.push({
+              type: "text",
+              text: `\n🛑 In-Flight Turn Budget Exhausted: Tier call limit reached (${inFlight.callsUsed}/${inFlight.callsLimit}). Synthesize findings immediately.`,
+            });
+          }
+
           // ── Gateway Tool Flight Recorder (Epic 19 & H2 Raw Result Logging) ──
           try {
-            const mem = typeof process !== "undefined" && process.memoryUsage ? process.memoryUsage() : undefined;
-            const heapPct = mem && mem.heapTotal > 0 ? (mem.heapUsed / mem.heapTotal) * 100 : undefined;
+            const mem =
+              typeof process !== "undefined" && process.memoryUsage
+                ? process.memoryUsage()
+                : undefined;
+            const heapPct =
+              mem && mem.heapTotal > 0 ? (mem.heapUsed / mem.heapTotal) * 100 : undefined;
             const rawResultSerialized =
               typeof rawResult === "string" ? rawResult : JSON.stringify(rawResult ?? result);
             globalToolCommandLogger.record({
@@ -498,7 +561,8 @@ export function toToolDefinitions(
 
           // ── Delivery Boundary Truncation (H1, H4, H5) ─────────────────────
           const truncationBudget =
-            (hookContext as { toolValueTruncationBytes?: number } | undefined)?.toolValueTruncationBytes ?? 120;
+            (hookContext as { toolValueTruncationBytes?: number } | undefined)
+              ?.toolValueTruncationBytes ?? 120;
           return applyDeliveryBoundaryTruncation(result, truncationBudget);
         } catch (err) {
           if (signal?.aborted) {
