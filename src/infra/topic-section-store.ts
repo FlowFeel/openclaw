@@ -100,6 +100,42 @@ export class TopicSectionStore {
   }
 
   /**
+   * Resolves a section coordinate (":N", 1-based H2 ordinal) to a section
+   * name using the canonical surface AST of the workspace sidecar. Returns
+   * null when the sidecar is absent or the ordinal is out of range.
+   */
+  resolveSectionNameByCoordinate(
+    topicKey: string,
+    sectionCoordinate: string,
+    workspaceDir?: string,
+  ): string | null {
+    if (!sectionCoordinate.startsWith(":")) {
+      return null;
+    }
+    const ordinal = Number(sectionCoordinate.slice(1));
+    if (!Number.isInteger(ordinal) || ordinal < 1) {
+      return null;
+    }
+    // The sidecar preserves canonical document order; the SQLite
+    // re-assembly is alphabetical and must not define coordinates.
+    if (workspaceDir === undefined) {
+      return null;
+    }
+    const filePath = path.join(workspaceDir, "meta", "surfaces", `${topicKey}.md`);
+    if (!fs.existsSync(filePath)) {
+      return null;
+    }
+    let rawMd: string;
+    try {
+      rawMd = fs.readFileSync(filePath, "utf-8");
+    } catch {
+      return null;
+    }
+    const sectionNames = [...parseMarkdownSurface(rawMd).sections.keys()];
+    return sectionNames[ordinal - 1] ?? null;
+  }
+
+  /**
    * Re-assembles full Markdown document from relational SQLite `topic_sections` table.
    */
   exportFullMarkdownSurface(topicKey: string): string | null {
