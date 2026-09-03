@@ -43,6 +43,8 @@ import {
   buildFullBootstrapPromptLines,
   buildLimitedBootstrapPromptLines,
 } from "./bootstrap-prompt.js";
+import { compileCanonicalContextSection } from "./canonical-context-compiler.js";
+import { filterContextFilesForPrompt, type ContextFilterOptions } from "./context-filter-policy.js";
 import type { EmbeddedContextFile } from "./embedded-agent-helpers.js";
 import type {
   EmbeddedFullAccessBlockedReason,
@@ -60,10 +62,6 @@ import {
   buildSkillWorkshopPromptSection,
   SKILL_WORKSHOP_TOOL_NAME,
 } from "./skill-workshop-prompt.js";
-import {
-  filterContextFilesForPrompt,
-  type ContextFilterOptions,
-} from "./context-filter-policy.js";
 import type {
   ProviderSystemPromptContribution,
   ProviderSystemPromptSectionId,
@@ -1224,9 +1222,10 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
   const isScaffold = promptMode === "scaffold";
   const isBare = promptMode === "bare";
   const ownerDisplay = params.ownerDisplay === "hash" ? "hash" : "raw";
-  const ownerLine = isMinimal || isBare
-    ? undefined
-    : buildOwnerIdentityLine(params.ownerNumbers ?? [], ownerDisplay, params.ownerDisplaySecret);
+  const ownerLine =
+    isMinimal || isBare
+      ? undefined
+      : buildOwnerIdentityLine(params.ownerNumbers ?? [], ownerDisplay, params.ownerDisplaySecret);
   const reasoningHint = params.reasoningTagHint
     ? [
         "Internal reasoning ONLY inside <think>...</think>.",
@@ -1346,7 +1345,9 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
   // per-session: tool list, runtime state, sandbox state, skills manifest,
   // temporal context, and the cache boundary.
   if (isScaffold) {
-    const filterOptions: ContextFilterOptions = params.contextFilterPolicy ?? { mode: "dynamic_only" };
+    const filterOptions: ContextFilterOptions = params.contextFilterPolicy ?? {
+      mode: "dynamic_only",
+    };
     const scaffoldContextFiles = prepareContextFilesForPrompt(
       filterContextFilesForPrompt(
         filterProjectScopedCuratedContextFiles({
@@ -1384,6 +1385,20 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
       "",
       SYSTEM_PROMPT_CACHE_BOUNDARY,
     ];
+    const canonicalCompileOptions = filterOptions.canonicalCompile;
+    const canonicalCompileResult = canonicalCompileOptions
+      ? compileCanonicalContextSection({
+          contextFiles: params.contextFiles,
+          cPrompt: canonicalCompileOptions.cPrompt,
+        })
+      : null;
+    const scaffoldContextLines = canonicalCompileResult
+      ? canonicalCompileResult.lines
+      : buildProjectContextSection({
+          files: scaffoldContextFiles.ordered,
+          heading: "# Project Context",
+          dynamic: false,
+        });
     const scaffoldDynamicLines = [
       ...buildTemporalContextSection({
         userDate,
@@ -1395,11 +1410,7 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
       ...(modelIdentityLine ? [modelIdentityLine] : []),
       `Reasoning=${reasoningLevel}; hidden unless on/stream.`,
       "",
-      ...buildProjectContextSection({
-        files: scaffoldContextFiles.ordered,
-        heading: "# Project Context",
-        dynamic: false,
-      }),
+      ...scaffoldContextLines,
     ];
 
     lastResolvedPromptSections = [
@@ -1751,9 +1762,7 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
         "assistant-output-directives",
         params.sectionOverrides,
         () =>
-          isBare
-            ? []
-            : buildAssistantOutputDirectivesSection({ isMinimal, sourceMessageToolOnly }),
+          isBare ? [] : buildAssistantOutputDirectivesSection({ isMinimal, sourceMessageToolOnly }),
       ),
     },
   ];
@@ -1895,9 +1904,7 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
       id: "collapsible-details",
       cacheStable: false,
       lines: resolveInjectedSectionLines("collapsible-details", params.sectionOverrides, () =>
-        isBare
-          ? []
-          : buildCollapsibleDetailsSection({ isMinimal, collapsibleDetailsSupported }),
+        isBare ? [] : buildCollapsibleDetailsSection({ isMinimal, collapsibleDetailsSupported }),
       ),
     },
     {
@@ -1963,12 +1970,7 @@ export function buildAgentSystemPrompt(params: BuildAgentSystemPromptParams) {
     cacheStable: false,
     lines: [
       "## Runtime",
-      buildRuntimeLine(
-        runtimeInfo,
-        runtimeChannel,
-        runtimeCapabilities,
-        params.defaultThinkLevel,
-      ),
+      buildRuntimeLine(runtimeInfo, runtimeChannel, runtimeCapabilities, params.defaultThinkLevel),
       ...(modelIdentityLine ? [modelIdentityLine] : []),
       `Reasoning=${reasoningLevel}; hidden unless on/stream.`,
       "",

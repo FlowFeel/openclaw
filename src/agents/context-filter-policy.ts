@@ -4,8 +4,13 @@
  * Zero inline regular expressions.
  */
 
+import {
+  contextFileBasename as getContextFileBasename,
+  isStaticPersonaBasename,
+} from "./context-file-basenames.js";
 import type { EmbeddedContextFile } from "./embedded-agent-helpers.js";
-import { getContextFileBasename } from "./system-prompt.js";
+
+export { isStaticPersonaBasename };
 
 export type ContextFilterMode = "all" | "slim_persona" | "dynamic_only";
 
@@ -13,23 +18,21 @@ export type ContextFilterOptions = {
   mode?: ContextFilterMode;
   excludeBasenames?: string[];
   includeBasenames?: string[];
+  /** Opt-in: assemble the context section via the canonical compiler. */
+  canonicalCompile?: { cPrompt: number };
 };
-
-const STATIC_PERSONA_BASENAMES = new Set<string>([
-  "soul.md",
-  "agents.md",
-  "identity.md",
-  "tools.md",
-  "bootstrap.md",
-]);
 
 export function filterContextFilesForPrompt(
   files: EmbeddedContextFile[] = [],
   options: ContextFilterOptions = {},
 ): EmbeddedContextFile[] {
   const mode = options.mode ?? "all";
-  const customExclude = new Set((options.excludeBasenames ?? []).map((b) => b.toLowerCase().trim()));
-  const customInclude = new Set((options.includeBasenames ?? []).map((b) => b.toLowerCase().trim()));
+  const customExclude = new Set(
+    (options.excludeBasenames ?? []).map((b) => b.toLowerCase().trim()),
+  );
+  const customInclude = new Set(
+    (options.includeBasenames ?? []).map((b) => b.toLowerCase().trim()),
+  );
 
   if (mode === "all" && customExclude.size === 0 && customInclude.size === 0) {
     return files;
@@ -48,7 +51,7 @@ export function filterContextFilesForPrompt(
     }
 
     if (mode === "dynamic_only") {
-      if (STATIC_PERSONA_BASENAMES.has(basename)) {
+      if (isStaticPersonaBasename(basename)) {
         continue;
       }
       result.push(file);
@@ -63,7 +66,7 @@ export function filterContextFilesForPrompt(
           path: file.path,
           content: "AGENTS.md: Core operational guidelines.",
         });
-      } else if (STATIC_PERSONA_BASENAMES.has(basename)) {
+      } else if (isStaticPersonaBasename(basename)) {
         continue;
       } else {
         result.push(file);

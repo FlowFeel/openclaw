@@ -4646,7 +4646,7 @@ packages:
     engines: {node: '>=20.0.0'}
 
   '@phosphene/prism-ast@file:../../vendor/prism-ast/phosphene-prism-ast-0.1.0.tgz':
-    resolution: {integrity: sha512-xzFfVJqEZbHeSDj8SuAprB64EPXL5IYqrBfu+oq2b2SPX2lT+8nB3s2wmBVdWVeatVWM3jhH4StRiOQOq6QNxg==, tarball: file:../../vendor/prism-ast/phosphene-prism-ast-0.1.0.tgz}
+    resolution: {integrity: sha512-yrQ5gm+rmMiQXKS0wxP229I4q1Q+tXrVgxEGAMxzgqCgKHtDGuAfm/4sn4lLRV3GnGKKiEOyzrMwC8LF/nU7rg==, tarball: file:../../vendor/prism-ast/phosphene-prism-ast-0.1.0.tgz}
     version: 0.1.0
 
   '@pierre/diffs@1.2.12':
