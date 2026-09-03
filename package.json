@@ -2007,7 +2007,8 @@
     "web-tree-sitter": "0.26.11",
     "ws": "8.21.1",
     "yaml": "2.9.0",
-    "zod": "4.4.3"
+    "zod": "4.4.3",
+    "@phosphene/prism-ast": "file:../../vendor/prism-ast/phosphene-prism-ast-0.1.0.tgz"
   },
   "devDependencies": {
     "@a2ui/lit": "0.10.2",
