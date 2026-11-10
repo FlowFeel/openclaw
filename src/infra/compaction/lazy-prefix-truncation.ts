@@ -25,7 +25,12 @@ export function psiHeadTailTruncate<T>(val: T, k: number = DEFAULT_HEAD_TAIL_BUD
     const head = val.slice(0, k);
     const tail = val.slice(len - k);
     const truncatedBytes = len - 2 * k;
-    const delta = `\n... [truncated ${truncatedBytes} bytes] ...\n`;
+    const omittedMiddle = val.slice(k, len - k);
+    const omittedLines = (omittedMiddle.match(/\n/g) || []).length;
+    const delta =
+      omittedLines > 0
+        ? `\n... [truncated: ${truncatedBytes} bytes / ${omittedLines} lines omitted; resume with offset=${k}] ...\n`
+        : `\n... [truncated ${truncatedBytes} bytes] ...\n`;
     return (head + delta + tail) as unknown as T;
   }
 

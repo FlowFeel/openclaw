@@ -9,6 +9,9 @@ import {
   validateTurnInvariants,
   isUnrecoverableEnvironmentError,
   repairOrphanToolCalls,
+  inferToolSideEffectStatus,
+  formatMissingToolResultText,
+  makeMissingToolResult,
 } from "./session-transcript-repair.js";
 import { castAgentMessage, castAgentMessages } from "./test-helpers/agent-message-fixtures.js";
 
@@ -1695,6 +1698,77 @@ describe("repairOrphanToolCalls", () => {
     ]);
     const added = repairOrphanToolCalls(input);
     expect(added).toHaveLength(0);
+  });
+});
+
+describe("Tier 1 Pure DFT: Side-Effect Discrimination & Diagnostic Annotations", () => {
+  it("purely classifies read and inspection tools as unapplied", () => {
+    expect(inferToolSideEffectStatus("read_file")).toBe("unapplied");
+    expect(inferToolSideEffectStatus("read")).toBe("unapplied");
+    expect(inferToolSideEffectStatus("grep")).toBe("unapplied");
+    expect(inferToolSideEffectStatus("find_files")).toBe("unapplied");
+    expect(inferToolSideEffectStatus("list_directory")).toBe("unapplied");
+    expect(inferToolSideEffectStatus("search_code")).toBe("unapplied");
+    expect(inferToolSideEffectStatus("get_state")).toBe("unapplied");
+  });
+
+  it("purely classifies state-mutating and arbitrary execution tools as unknown", () => {
+    expect(inferToolSideEffectStatus("edit_file")).toBe("unknown");
+    expect(inferToolSideEffectStatus("write_file")).toBe("unknown");
+    expect(inferToolSideEffectStatus("run_command")).toBe("unknown");
+    expect(inferToolSideEffectStatus("bash")).toBe("unknown");
+    expect(inferToolSideEffectStatus("delete_file")).toBe("unknown");
+    expect(inferToolSideEffectStatus("unknown_tool")).toBe("unknown");
+    expect(inferToolSideEffectStatus(undefined)).toBe("unknown");
+  });
+
+  it("formats synthetic error messages with deterministic side-effect advisories", () => {
+    const readText = formatMissingToolResultText({
+      sideEffectStatus: "unapplied",
+    });
+    expect(readText).toContain("Side-effect status: UNAPPLIED (read-only invocation)");
+
+    const mutatingText = formatMissingToolResultText({
+      sideEffectStatus: "unknown",
+    });
+    expect(mutatingText).toContain("Side-effect status: UNKNOWN (verify target before retrying)");
+  });
+
+  it("attaches sideEffectStatus metadata to synthetic missing results", () => {
+    const readResult = makeMissingToolResult({
+      toolCallId: "call_read_01",
+      toolName: "read_file",
+    });
+    expect((readResult.details as Record<string, unknown>).sideEffectStatus).toBe("unapplied");
+    expect(readResult.isError).toBe(true);
+
+    const editResult = makeMissingToolResult({
+      toolCallId: "call_edit_02",
+      toolName: "edit_file",
+      annotateTextWithSideEffect: true,
+    });
+    expect((editResult.details as Record<string, unknown>).sideEffectStatus).toBe("unknown");
+    expect(editResult.content[0].text).toContain("Side-effect status: UNKNOWN");
+  });
+
+  it("propagates annotateSideEffectStatus through repairToolUseResultPairing", () => {
+    const input = castAgentMessages([
+      {
+        role: "assistant",
+        content: [
+          { type: "toolUse", id: "call_mutate", name: "edit_file", input: { Path: "foo.ts" } },
+        ],
+      },
+    ]);
+
+    const repaired = repairToolUseResultPairing(input, {
+      annotateSideEffectStatus: true,
+    });
+
+    const added = repaired.added;
+    expect(added).toHaveLength(1);
+    expect((added[0].details as Record<string, unknown>).sideEffectStatus).toBe("unknown");
+    expect(added[0].content[0].text).toContain("Side-effect status: UNKNOWN");
   });
 });
 /* oxlint-disable max-lines -- TODO: split this grandfathered oversized file. */

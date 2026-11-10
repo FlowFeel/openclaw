@@ -507,6 +507,7 @@ export function toToolDefinitions(
             sessionId: sessionIdentifier,
             toolName: name,
             commandRaw: typeof cmdRaw === "string" ? cmdRaw : undefined,
+            args: executeParams,
             turnIndex: hookContext?.turn,
           });
           const inFlight = recordInFlightToolCall(sessionIdentifier);
@@ -528,7 +529,7 @@ export function toToolDefinitions(
               text: `\n⚠️ Loop Warning: Identical command repeated in current turn (${loopReport.consecutiveCount}x, penalty: -${loopReport.penalty}pts). ${loopReport.hint}`,
             });
           }
-          if (inFlight.budgetExhausted && Array.isArray(result.content)) {
+          if (inFlight.shouldEmitWarning && Array.isArray(result.content)) {
             result.content.push({
               type: "text",
               text: `\n🛑 In-Flight Turn Budget Exhausted: Tier call limit reached (${inFlight.callsUsed}/${inFlight.callsLimit}). Synthesize findings immediately.`,

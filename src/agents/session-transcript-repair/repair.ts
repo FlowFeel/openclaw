@@ -96,6 +96,7 @@ export function repairToolUseResultPairing(
           toolCallId: occurrence.id,
           toolName: occurrence.name,
           text: options?.missingToolResultText,
+          annotateTextWithSideEffect: options?.annotateSideEffectStatus,
         });
         occurrence.result = missing;
         added.push(missing);
