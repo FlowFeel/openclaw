@@ -42,6 +42,29 @@ export function normalizeCommand(raw: string): string {
     .replace(/(^|\s)\.\//g, "$1"); // Normalize ./path to path
 }
 
+export function canonicalizeArguments(args: unknown): string {
+  if (args === null || args === undefined) {
+    return "";
+  }
+  if (typeof args !== "object") {
+    return normalizeCommand(String(args));
+  }
+  if (Array.isArray(args)) {
+    return "[" + args.map(canonicalizeArguments).join(",") + "]";
+  }
+  const obj = args as Record<string, unknown>;
+  const keys = Object.keys(obj)
+    .filter((k) => k !== "timestamp" && k !== "_ts" && k !== "clientRequestId" && k !== "toolCallId")
+    .sort();
+  const entries: string[] = [];
+  for (const k of keys) {
+    const val = obj[k];
+    if (val === undefined) continue;
+    entries.push(`${k}:${typeof val === "string" ? normalizeCommand(val) : canonicalizeArguments(val)}`);
+  }
+  return "{" + entries.join(",") + "}";
+}
+
 /**
  * Checks an incoming tool command against the active turn history.
  */
@@ -49,10 +72,16 @@ export function recordAndCheckCommandLoop(params: {
   sessionId?: string;
   toolName: string;
   commandRaw?: string;
+  args?: unknown;
   turnIndex?: number;
 }): LoopGuardResult {
   const sessionId = params.sessionId?.trim() || "default";
-  const norm = normalizeCommand(params.commandRaw || "");
+  let norm = "";
+  if (params.args !== undefined && params.args !== null) {
+    norm = canonicalizeArguments(params.args);
+  } else {
+    norm = normalizeCommand(params.commandRaw || "");
+  }
   const currentTurn = params.turnIndex ?? 0;
 
   let state = sessionStates.get(sessionId);

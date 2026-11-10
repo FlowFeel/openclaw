@@ -37,6 +37,7 @@ interface InFlightTurnState {
   spread: number;
   turnStartTimeMs: number;
   timeoutMs: number;
+  hasEmittedExhaustionWarning?: boolean;
 }
 
 const activeInFlightTurns = new Map<string, InFlightTurnState>();
@@ -76,6 +77,7 @@ export function startInFlightTurn(params: {
     spread,
     turnStartTimeMs: Date.now(),
     timeoutMs: (params.timeoutSeconds ?? 300) * 1000,
+    hasEmittedExhaustionWarning: false,
   });
 }
 
@@ -83,6 +85,7 @@ export function recordInFlightToolCall(sessionId?: string): {
   callsUsed: number;
   callsLimit: number;
   budgetExhausted: boolean;
+  shouldEmitWarning: boolean;
 } {
   const key = sessionId?.trim() || "default";
   let state = activeInFlightTurns.get(key);
@@ -92,10 +95,15 @@ export function recordInFlightToolCall(sessionId?: string): {
   }
   state.callsCount += 1;
   const budgetExhausted = state.callsCount >= state.callsLimit;
+  const shouldEmitWarning = budgetExhausted && !state.hasEmittedExhaustionWarning;
+  if (shouldEmitWarning) {
+    state.hasEmittedExhaustionWarning = true;
+  }
   return {
-    callsUsed: state.callsCount,
+    callsUsed: Math.min(state.callsCount, state.callsLimit),
     callsLimit: state.callsLimit,
     budgetExhausted,
+    shouldEmitWarning,
   };
 }
 

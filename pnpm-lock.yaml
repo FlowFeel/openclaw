@@ -94,6 +94,9 @@ importers:
       '@openclaw/proxyline':
         specifier: 0.3.4
         version: 0.3.4(undici@8.9.0)
+      '@phosphene/prism-ast':
+        specifier: file:../../vendor/prism-ast/phosphene-prism-ast-0.1.0.tgz
+        version: file:../../vendor/prism-ast/phosphene-prism-ast-0.1.0.tgz
       '@silvia-odwyer/photon-node':
         specifier: 0.3.4
         version: 0.3.4
@@ -4641,6 +4644,10 @@ packages:
   '@peculiar/x509@1.14.3':
     resolution: {integrity: sha512-C2Xj8FZ0uHWeCXXqX5B4/gVFQmtSkiuOolzAgutjTfseNOHT3pUjljDZsTSxXFGgio54bCzVFqmEOUrIVk8RDA==}
     engines: {node: '>=20.0.0'}
+
+  '@phosphene/prism-ast@file:../../vendor/prism-ast/phosphene-prism-ast-0.1.0.tgz':
+    resolution: {integrity: sha512-yrQ5gm+rmMiQXKS0wxP229I4q1Q+tXrVgxEGAMxzgqCgKHtDGuAfm/4sn4lLRV3GnGKKiEOyzrMwC8LF/nU7rg==, tarball: file:../../vendor/prism-ast/phosphene-prism-ast-0.1.0.tgz}
+    version: 0.1.0
 
   '@pierre/diffs@1.2.12':
     resolution: {integrity: sha512-pY/gmgWL03WnagqCyCnBi3QtRXUv4hCIY6FYqd5b1ZGaoI6a4Bsji8j+yRl2RfzPh/8Hf19rCl1GE80G6a1cLQ==}
@@ -11897,6 +11904,8 @@ snapshots:
       reflect-metadata: 0.2.2
       tslib: 2.8.1
       tsyringe: 4.10.0
+
+  '@phosphene/prism-ast@file:../../vendor/prism-ast/phosphene-prism-ast-0.1.0.tgz': {}
 
   '@pierre/diffs@1.2.12(@shikijs/themes@4.3.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:

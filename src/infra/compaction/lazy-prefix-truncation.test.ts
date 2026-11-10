@@ -54,5 +54,11 @@ describe("psiHeadTailTruncate ψ(v, k)", () => {
     expect(result).toContain("t".repeat(120));
     expect(result).toContain("... [truncated 160 bytes] ...");
   });
+
+  it("emits line-oriented resumption marker for multi-line text reads", () => {
+    const lines = Array.from({ length: 20 }, (_, i) => `line_${i + 1}: ${"x".repeat(30)}`).join("\n");
+    const result = psiHeadTailTruncate(lines, 40);
+    expect(result).toMatch(/\.\.\. \[truncated: \d+ bytes \/ \d+ lines omitted; resume with offset=40\] \.\.\./);
+  });
 });
 

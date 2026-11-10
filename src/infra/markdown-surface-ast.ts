@@ -1,18 +1,20 @@
 /**
  * Phosphene MD StructRAG — High-level Surface AST Facade.
- * Pure DFT module composing frontmatter parser and lexer AST modules.
- * Zero inline regular expressions.
+ * Backed by @phosphene/prism-ast (axiomatic ingest/emitters, L3-isomorphism
+ * verified): canonical node kinds replace the marked token walk. Section
+ * grouping semantics preserved: title = H1, sections = H2 groups, H3+
+ * remain in section bodies. Zero inline regular expressions.
  */
 
-import {
-  parseFrontmatter,
-  serializeFrontmatter,
-} from "./markdown-frontmatter-parser.js";
-import {
-  groupTokensBySections,
-  tokenizeMarkdownContent,
-  type MarkdownSectionMap,
-} from "./markdown-lexer-ast.js";
+import { createAstNode } from "@phosphene/prism-ast/core/factory/create-ast-node.js";
+import type { AstNode } from "@phosphene/prism-ast/core/types/ast-node.js";
+import { mintNodeId } from "@phosphene/prism-ast/core/types/brands.js";
+import { NodeKindIndex, isHeading } from "@phosphene/prism-ast/core/types/node-kind.js";
+import { emitMarkdown } from "@phosphene/prism-ast/md/emitters/emit-markdown.js";
+import { ingestMarkdown } from "@phosphene/prism-ast/md/parsers/ingest-markdown.js";
+import { parseFrontmatter, serializeFrontmatter } from "./markdown-frontmatter-parser.js";
+
+export type MarkdownSectionMap = Map<string, string>;
 
 export type MarkdownSurfaceAST = {
   frontmatter: Record<string, string | number | boolean>;
@@ -20,11 +22,51 @@ export type MarkdownSurfaceAST = {
   sections: MarkdownSectionMap;
 };
 
+const DEFAULT_TITLE = "Topic Surface";
+const DEFAULT_SECTION = "General";
+
+function emitBlocks(nodes: readonly AstNode[]): string {
+  const program = createAstNode(mintNodeId(0), NodeKindIndex.Program, null, null, 0, nodes);
+  return emitMarkdown(program).trim();
+}
+
+function groupBySections(content: string): { title: string; sections: MarkdownSectionMap } {
+  const doc = ingestMarkdown(content);
+  const sections: MarkdownSectionMap = new Map();
+  let title = DEFAULT_TITLE;
+  let currentSection = DEFAULT_SECTION;
+  let currentNodes: AstNode[] = [];
+
+  const flush = () => {
+    if (currentNodes.length > 0) {
+      const sectionText = emitBlocks(currentNodes);
+      if (sectionText) sections.set(currentSection, sectionText);
+      currentNodes = [];
+    }
+  };
+
+  for (const node of doc.children) {
+    if (isHeading(node)) {
+      if (node.flags === 1) {
+        title = (node.value ?? DEFAULT_TITLE).trim();
+      } else if (node.flags === 2) {
+        flush();
+        currentSection = (node.value ?? DEFAULT_SECTION).trim();
+      } else {
+        currentNodes.push(node);
+      }
+    } else {
+      currentNodes.push(node);
+    }
+  }
+  flush();
+
+  return { title, sections };
+}
+
 export function parseMarkdownSurface(rawMd: string): MarkdownSurfaceAST {
   const { frontmatter, content } = parseFrontmatter(rawMd);
-  const tokens = tokenizeMarkdownContent(content);
-  const { title, sections } = groupTokensBySections(tokens);
-
+  const { title, sections } = groupBySections(content);
   return { frontmatter, title, sections };
 }
 
