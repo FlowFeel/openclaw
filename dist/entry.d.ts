@@ -1,5 +1,5 @@
 import { i as OpenClawConfig } from "./types.openclaw-DfLlB8Bo.js";
-import { d as PluginLoadOptions } from "./loader-CBzIK5r9.js";
+import { d as PluginLoadOptions } from "./loader-Dp1GFz0i.js";
 import { i as run_main_d_exports } from "./run-main-DEhUR9Ph.js";
 
 //#region src/cli/program/root-help.d.ts

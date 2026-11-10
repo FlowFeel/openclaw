@@ -1,6 +1,6 @@
 //#region src/plugin-sdk/agent-harness-exec-review-runtime.ts
 async function reviewExecRequestWithConfiguredModel(params) {
-	const { createModelExecAutoReviewer } = await import("../exec-auto-reviewer-BhYpqSSK.js");
+	const { createModelExecAutoReviewer } = await import("../exec-auto-reviewer-BO_p4rlO.js");
 	return createModelExecAutoReviewer({
 		cfg: params.cfg,
 		agentId: params.agentId,

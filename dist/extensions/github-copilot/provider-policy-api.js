@@ -1,4 +1,4 @@
-import { n as resolveCopilotExtendedThinkingLevels } from "../../model-metadata-ClSLYTJk.js";
+import { n as resolveCopilotExtendedThinkingLevels } from "../../model-metadata-khlFl9AG.js";
 //#region extensions/github-copilot/provider-policy-api.ts
 function resolveThinkingProfile(context) {
 	if (context.provider.trim().toLowerCase() !== "github-copilot") return null;

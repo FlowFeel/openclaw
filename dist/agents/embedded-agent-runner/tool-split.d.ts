@@ -1,5 +1,5 @@
 import { n as AgentTool } from "../../types-ifNunyTs.js";
-import { I as ToolDefinition, d as HookContext } from "../../types-BIdQWkrh2.js";
+import { I as ToolDefinition, d as HookContext } from "../../types-Bs4SE2i92.js";
 
 //#region src/agents/agent-tool-definition-adapter.d.ts
 type AnyAgentTool$1 = AgentTool;

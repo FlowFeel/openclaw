@@ -1,2 +1,2 @@
-import { t as buildMicrosoftFoundryProvider } from "../../provider-Cj_rXMs7.js";
+import { t as buildMicrosoftFoundryProvider } from "../../provider-DCCKomno.js";
 export { buildMicrosoftFoundryProvider };

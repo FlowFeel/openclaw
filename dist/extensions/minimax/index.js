@@ -1,9 +1,9 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { n as buildMinimaxPortalImageGenerationProvider, t as buildMinimaxImageGenerationProvider } from "../../image-generation-provider-BJIJgbqX.js";
-import { n as minimaxPortalMediaUnderstandingProvider, t as minimaxMediaUnderstandingProvider } from "../../media-understanding-provider-BNBgUk2g.js";
+import { n as buildMinimaxPortalImageGenerationProvider, t as buildMinimaxImageGenerationProvider } from "../../image-generation-provider-DZBsGUVU.js";
+import { n as minimaxPortalMediaUnderstandingProvider, t as minimaxMediaUnderstandingProvider } from "../../media-understanding-provider-drT87Qh9.js";
 import { n as buildMinimaxPortalMusicGenerationProvider, t as buildMinimaxMusicGenerationProvider } from "../../music-generation-provider-c_CLJDL0.js";
-import { t as registerMinimaxProviders } from "../../provider-registration-CEUA0tt6.js";
-import { t as buildMinimaxSpeechProvider } from "../../speech-provider-Bzi1GTRs.js";
+import { t as registerMinimaxProviders } from "../../provider-registration-D81lbQkW.js";
+import { t as buildMinimaxSpeechProvider } from "../../speech-provider-DWtBBhYH.js";
 import { t as createMiniMaxWebSearchProvider } from "../../minimax-web-search-provider-DQ_PtpK8.js";
 import { n as buildMinimaxVideoGenerationProvider, t as buildMinimaxPortalVideoGenerationProvider } from "../../video-generation-provider-sG3Ay8uy.js";
 //#region extensions/minimax/index.ts

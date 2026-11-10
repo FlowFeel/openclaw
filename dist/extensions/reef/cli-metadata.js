@@ -1,2 +1,2 @@
-import { n as registerReefCliMetadata, t as cli_metadata_default } from "../../cli-metadata-Cl6Hr0Z6.js";
+import { n as registerReefCliMetadata, t as cli_metadata_default } from "../../cli-metadata-Dow-IQT3.js";
 export { cli_metadata_default as default, registerReefCliMetadata };

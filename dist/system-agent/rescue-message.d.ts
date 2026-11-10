@@ -1,6 +1,6 @@
 import { i as OpenClawConfig } from "../types.openclaw-DfLlB8Bo.js";
-import { N as CommandContext } from "../types-BIdQWkrh2.js";
-import { t as SystemAgentCommandDeps } from "../operations-Bx_AXezZ.js";
+import { N as CommandContext } from "../types-Bs4SE2i92.js";
+import { t as SystemAgentCommandDeps } from "../operations-CuTu64ql.js";
 
 //#region src/system-agent/rescue-message.d.ts
 /** Input required to process one possible `/openclaw` rescue message. */

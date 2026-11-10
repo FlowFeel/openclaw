@@ -11,21 +11,21 @@ import { a as errorShape } from "../../error-codes-P4fBo0lR.js";
 import { _ as readStringParam, p as readPositiveIntegerParam } from "../../common-RkLs-2lL.js";
 import { t as jsonResult } from "../../tool-results-BCM3fdVS.js";
 import { n as resolveCronStyleNow } from "../../current-time-B4afeCge.js";
-import { c as resolveMemorySearchConfig, h as DEFAULT_AGENT_COMPACTION_RESERVE_TOKENS_FLOOR } from "../../config-utils-WNd1bjcc.js";
-import { t as resolveMemoryBackendConfig } from "../../backend-config-CjeQx_ev.js";
+import { c as resolveMemorySearchConfig, h as DEFAULT_AGENT_COMPACTION_RESERVE_TOKENS_FLOOR } from "../../config-utils-BDF8zSsV.js";
+import { t as resolveMemoryBackendConfig } from "../../backend-config-CVMrstDV.js";
 import "../../routing-BYqzCOl5.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
 import { r as resolvePluginConfigObject } from "../../plugin-config-runtime-D33X7huv.js";
-import "../../agent-runtime-Ba_G98qe.js";
+import "../../agent-runtime-BX7GDPe1.js";
 import "../../gateway-runtime-CTPMrBVl.js";
 import "../../channel-actions-BCwQOL9z.js";
 import "../../memory-core-host-status-BeKkPEJl.js";
-import "../../memory-core-host-runtime-core-Carf2XIj.js";
-import "../../memory-core-host-runtime-files-DbjjPcW1.js";
+import "../../memory-core-host-runtime-core-BDRuVIFl.js";
+import "../../memory-core-host-runtime-files-l7xRqH73.js";
 import { C as writeMemoryCoreWorkspaceEntry, m as deleteMemoryCoreWorkspaceEntry, n as DREAMING_DAILY_PROVENANCE_NAMESPACE, p as configureMemoryCoreDreamingState, x as readMemoryCoreWorkspaceEntry } from "../../dreaming-state-CswYxS-h.js";
 import { t as resolveMemoryCoreNowMs } from "../../time-bSrYId6Z.js";
-import { t as registerShortTermPromotionDreaming } from "../../dreaming-ZyBwIpEE.js";
-import { i as normalizeSessionBackfillSelection, n as executeSessionBackfillBatch, t as executeSessionBackfill } from "../../session-backfill-WVY6Jjua.js";
+import { t as registerShortTermPromotionDreaming } from "../../dreaming-BdYGCQ_V.js";
+import { i as normalizeSessionBackfillSelection, n as executeSessionBackfillBatch, t as executeSessionBackfill } from "../../session-backfill-DjVVxbQg.js";
 import { createHash } from "node:crypto";
 //#region extensions/memory-core/src/flush-plan.ts
 const DEFAULT_MEMORY_FLUSH_SOFT_TOKENS = 4e3;
@@ -325,10 +325,10 @@ function registerSessionBackfillGatewayMethods(api) {
 }
 //#endregion
 //#region extensions/memory-core/index.ts
-const loadMemoryToolsModule = createLazyRuntimeModule(() => import("../../tools-C3gchqwU.js"));
+const loadMemoryToolsModule = createLazyRuntimeModule(() => import("../../tools-yxeQhms8.js"));
 const loadStandingIntentsModule = createLazyRuntimeModule(() => import("../../standing-intents-C9BgWg9a.js"));
-const loadStandingIntentToolModule = createLazyRuntimeModule(() => import("../../standing-intents-tool-BAxRYY8I.js"));
-const loadRuntimeProviderModule = createLazyRuntimeModule(() => import("../../runtime-provider-ZjaSzxv2.js"));
+const loadStandingIntentToolModule = createLazyRuntimeModule(() => import("../../standing-intents-tool-DS92aDIR.js"));
+const loadRuntimeProviderModule = createLazyRuntimeModule(() => import("../../runtime-provider-BfahGXJn.js"));
 function getToolConfig(options) {
 	return options.getConfig?.() ?? options.config;
 }
@@ -659,7 +659,7 @@ var memory_core_default = definePluginEntry({
 			acceptsArgs: true,
 			exposeSenderIsOwner: true,
 			handler: async (ctx) => {
-				const { handleDreamingCommand } = await import("../../dreaming-command-COGQtGTY.js");
+				const { handleDreamingCommand } = await import("../../dreaming-command-C25oApvV.js");
 				return await handleDreamingCommand(api, ctx);
 			}
 		});

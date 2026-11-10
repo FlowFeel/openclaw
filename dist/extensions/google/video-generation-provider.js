@@ -8,16 +8,16 @@ import { g as waitProviderOperationPollInterval, h as resolveProviderOperationTi
 import "../../response-limit-runtime-geq0cpf2.js";
 import "../../string-coerce-runtime-CLK2YdzD.js";
 import "../../ssrf-runtime-B8V5-MiN.js";
-import "../../media-runtime-CUlmu2wD.js";
+import "../../media-runtime-DfBXadcv.js";
 import "../../media-generation-runtime-Di95jlcQ.js";
 import { a as resolveApiKeyForProvider } from "../../provider-auth-runtime-YBZCkGJe.js";
 import "../../provider-http-C8bsuM26.js";
-import { n as resolveGoogleGenerativeAiApiOrigin } from "../../provider-policy-BF9DJD6g.js";
+import { n as resolveGoogleGenerativeAiApiOrigin } from "../../provider-policy-DMqHivtW.js";
 import { a as GOOGLE_VIDEO_ALLOWED_DURATION_SECONDS, l as createGoogleVideoGenerationProviderMetadata, o as GOOGLE_VIDEO_MAX_DURATION_SECONDS, s as GOOGLE_VIDEO_MIN_DURATION_SECONDS } from "../../generation-provider-metadata-D6zMV3LI.js";
 import { t as parseGeminiAuth } from "../../gemini-auth-D3XoqBhR.js";
-import { t as resolveGoogleApiClientHeaders } from "../../google-api-client-header-yrhSlV0F.js";
-import "../../api-Jk3YVUl1.js";
-import { t as createGoogleGenAI } from "../../google-genai-runtime-Rn-W677I.js";
+import { t as resolveGoogleApiClientHeaders } from "../../google-api-client-header-C_x6-93W.js";
+import "../../api-BvivkXY6.js";
+import { t as createGoogleGenAI } from "../../google-genai-runtime-w_jCBp2-.js";
 //#region extensions/google/video-generation-provider.ts
 const DEFAULT_TIMEOUT_MS = 18e4;
 const POLL_INTERVAL_MS = 1e4;

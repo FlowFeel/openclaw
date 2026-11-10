@@ -1,12 +1,12 @@
 import { i as assertOkOrThrowProviderError, m as readProviderJsonResponse } from "../../provider-http-errors-Dm9G78mz.js";
 import { c as postJsonRequest } from "../../shared-Ck9SyaVQ.js";
-import { r as describeImagesWithModel, t as describeImageWithModel } from "../../image-runtime-DE3Nbnx4.js";
-import "../../media-understanding-DekIfE8g.js";
+import { r as describeImagesWithModel, t as describeImageWithModel } from "../../image-runtime-JM4P1zXx.js";
+import "../../media-understanding-BhLJRoR6.js";
 import "../../provider-http-C8bsuM26.js";
 import { n as normalizeGoogleModelId } from "../../model-id-CAmKILzd.js";
-import { s as DEFAULT_GOOGLE_API_BASE_URL } from "../../provider-policy-BF9DJD6g.js";
-import { t as resolveGoogleGenerativeAiHttpRequestConfig } from "../../api-Jk3YVUl1.js";
-import "../../runtime-api-Cd7_xjrr.js";
+import { s as DEFAULT_GOOGLE_API_BASE_URL } from "../../provider-policy-DMqHivtW.js";
+import { t as resolveGoogleGenerativeAiHttpRequestConfig } from "../../api-BvivkXY6.js";
+import "../../runtime-api-DoCvwM7R.js";
 //#region extensions/google/media-understanding-provider.ts
 const DEFAULT_GOOGLE_AUDIO_MODEL = "gemini-3-flash-preview";
 const DEFAULT_GOOGLE_VIDEO_MODEL = "gemini-3-flash-preview";

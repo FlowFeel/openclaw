@@ -1,2 +1,2 @@
-import { t as telegramSetupPlugin } from "../../channel.setup-C52R3Csh.js";
+import { t as telegramSetupPlugin } from "../../channel.setup-Cfp5vLZj.js";
 export { telegramSetupPlugin };

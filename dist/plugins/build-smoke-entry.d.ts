@@ -1,6 +1,6 @@
 import { i as OpenClawConfig } from "../types.openclaw-DfLlB8Bo.js";
-import { i as PluginCommandResult, n as OpenClawPluginCommandDefinition, r as PluginCommandContext } from "../types-BIdQWkrh2.js";
-import { n as loadPluginRegistryHandle, r as loadOpenClawPlugins } from "../loader-CBzIK5r9.js";
+import { i as PluginCommandResult, n as OpenClawPluginCommandDefinition, r as PluginCommandContext } from "../types-Bs4SE2i92.js";
+import { n as loadPluginRegistryHandle, r as loadOpenClawPlugins } from "../loader-Dp1GFz0i.js";
 
 //#region src/plugins/command-registry-state.d.ts
 type RegisteredPluginCommand = OpenClawPluginCommandDefinition & {

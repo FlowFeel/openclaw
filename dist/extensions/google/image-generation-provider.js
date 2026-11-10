@@ -13,7 +13,7 @@ import { a as resolveApiKeyForProvider } from "../../provider-auth-runtime-YBZCk
 import "../../provider-http-C8bsuM26.js";
 import { l as resolveInlineImageJsonResponseMaxBytes, n as generatedImageAssetFromBase64 } from "../../image-generation-CUYCo1yd.js";
 import { n as normalizeGoogleModelId } from "../../model-id-CAmKILzd.js";
-import { t as resolveGoogleGenerativeAiHttpRequestConfig } from "../../api-Jk3YVUl1.js";
+import { t as resolveGoogleGenerativeAiHttpRequestConfig } from "../../api-BvivkXY6.js";
 //#region extensions/google/image-generation-provider.ts
 const DEFAULT_GOOGLE_IMAGE_MODEL = "gemini-3.1-flash-image";
 const DEFAULT_IMAGE_TIMEOUT_MS = 18e4;

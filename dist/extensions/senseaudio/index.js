@@ -1,5 +1,5 @@
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
-import { t as senseaudioMediaUnderstandingProvider } from "../../media-understanding-provider-B488YwSm.js";
+import { t as senseaudioMediaUnderstandingProvider } from "../../media-understanding-provider--Ol3wKWf.js";
 //#region extensions/senseaudio/index.ts
 var senseaudio_default = definePluginEntry({
 	id: "senseaudio",

@@ -8,16 +8,16 @@ import { t as applyAuthProfileConfig } from "../../provider-auth-helpers-22WCeYU
 import "../../provider-auth--Q7el4dU.js";
 import { t as definePluginEntry } from "../../plugin-entry-DjIG8BVe.js";
 import { r as resolvePluginConfigObject } from "../../plugin-config-runtime-D33X7huv.js";
-import { n as resolveCopilotExtendedThinkingLevels, t as DEFAULT_COPILOT_MODEL } from "../../model-metadata-ClSLYTJk.js";
+import { n as resolveCopilotExtendedThinkingLevels, t as DEFAULT_COPILOT_MODEL } from "../../model-metadata-khlFl9AG.js";
 import { n as buildCopilotRuntimeHeaders } from "../../runtime-identity-Df1i-pJ-.js";
-import { t as PROVIDER_ID } from "../../models-DxxOFp53.js";
-import { t as resolveFirstGithubToken } from "../../auth-DKPuyM3_.js";
+import { t as PROVIDER_ID } from "../../models-QEq44ll2.js";
+import { t as resolveFirstGithubToken } from "../../auth-B1Z3edff.js";
 import { i as resolveGithubCopilotDomain, r as normalizeGithubCopilotDomain, t as PUBLIC_GITHUB_COPILOT_DOMAIN } from "../../domain-DI7ThHsj.js";
-import { t as createGithubCopilotDynamicModelHooks } from "../../dynamic-models-CElgHPsU.js";
-import { t as githubCopilotMemoryEmbeddingProviderAdapter } from "../../embeddings-DcxYnGyu.js";
+import { t as createGithubCopilotDynamicModelHooks } from "../../dynamic-models-v7B2BYnW.js";
+import { t as githubCopilotMemoryEmbeddingProviderAdapter } from "../../embeddings-YH8_5hvR.js";
 import { a as refreshGithubCopilotOAuth, i as parseGithubCopilotApiKey, n as formatGithubCopilotApiKey, r as loginGithubCopilotOAuth, t as buildGithubCopilotAuthDoctorHint } from "../../oauth-C1dWL3Jd.js";
 import { n as sanitizeGithubCopilotReplayHistory, t as buildGithubCopilotReplayPolicy } from "../../replay-policy-BiLP3lcM.js";
-import { n as wrapCopilotProviderStream } from "../../stream-CS6XFPZo.js";
+import { n as wrapCopilotProviderStream } from "../../stream-CckG1_Gj.js";
 //#region extensions/github-copilot/index.ts
 const COPILOT_ENV_VARS = [
 	"COPILOT_GITHUB_TOKEN",
