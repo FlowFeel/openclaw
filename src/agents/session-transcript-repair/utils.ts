@@ -175,11 +175,56 @@ export const DEFAULT_MISSING_TOOL_RESULT_TEXT =
   "[openclaw] missing tool result in session history; inserted synthetic error result for transcript repair.";
 export const SYNTHETIC_MISSING_TOOL_RESULT_DETAIL_KEY = "openclawSyntheticMissingToolResult";
 
+export type ToolSideEffectStatus = "applied" | "unapplied" | "unknown";
+
+export function inferToolSideEffectStatus(toolName?: string): ToolSideEffectStatus {
+  if (!toolName) {
+    return "unknown";
+  }
+  const normalized = toolName.toLowerCase().replace(/[-_]/g, "");
+  if (
+    normalized.startsWith("read") ||
+    normalized.startsWith("get") ||
+    normalized.startsWith("list") ||
+    normalized.startsWith("search") ||
+    normalized.startsWith("find") ||
+    normalized.startsWith("grep") ||
+    normalized === "glob"
+  ) {
+    return "unapplied";
+  }
+  return "unknown";
+}
+
+export function formatMissingToolResultText(params: {
+  text?: string;
+  sideEffectStatus?: ToolSideEffectStatus;
+}): string {
+  const base = params.text ?? DEFAULT_MISSING_TOOL_RESULT_TEXT;
+  if (!params.sideEffectStatus) {
+    return base;
+  }
+  if (params.sideEffectStatus === "unknown") {
+    return `${base} Side-effect status: UNKNOWN (verify target before retrying).`;
+  }
+  if (params.sideEffectStatus === "unapplied") {
+    return `${base} Side-effect status: UNAPPLIED (read-only invocation).`;
+  }
+  return `${base} Side-effect status: APPLIED.`;
+}
+
 export function makeMissingToolResult(params: {
   toolCallId: string;
   toolName?: string;
   text?: string;
+  sideEffectStatus?: ToolSideEffectStatus;
+  annotateTextWithSideEffect?: boolean;
 }): Extract<AgentMessage, { role: "toolResult" }> {
+  const sideEffectStatus = params.sideEffectStatus ?? inferToolSideEffectStatus(params.toolName);
+  const text = params.annotateTextWithSideEffect
+    ? formatMissingToolResultText({ text: params.text, sideEffectStatus })
+    : (params.text ?? DEFAULT_MISSING_TOOL_RESULT_TEXT);
+
   return {
     role: "toolResult",
     toolCallId: params.toolCallId,
@@ -187,10 +232,13 @@ export function makeMissingToolResult(params: {
     content: [
       {
         type: "text",
-        text: params.text ?? DEFAULT_MISSING_TOOL_RESULT_TEXT,
+        text,
       },
     ],
-    details: { [SYNTHETIC_MISSING_TOOL_RESULT_DETAIL_KEY]: true },
+    details: {
+      [SYNTHETIC_MISSING_TOOL_RESULT_DETAIL_KEY]: true,
+      sideEffectStatus,
+    },
     isError: true,
     timestamp: Date.now(),
   } as Extract<AgentMessage, { role: "toolResult" }>;
@@ -280,6 +328,7 @@ export type ErroredAssistantResultPolicy = "preserve" | "drop";
 export type ToolUseResultPairingOptions = {
   erroredAssistantResultPolicy?: ErroredAssistantResultPolicy;
   missingToolResultText?: string;
+  annotateSideEffectStatus?: boolean;
 };
 
 export type ToolUseRepairReport = {

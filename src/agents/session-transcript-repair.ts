@@ -22,6 +22,9 @@ export {
 export {
   stripToolResultDetails,
   makeMissingToolResult,
+  inferToolSideEffectStatus,
+  formatMissingToolResultText,
+  type ToolSideEffectStatus,
   type ToolCallInputRepairOptions,
   type ToolCallInputRepairReport,
   type ToolUseResultPairingOptions,
